@@ -1,0 +1,1227 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/ecto/associations/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/associations/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/associations/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/ecto/associations/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>關聯關係 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/ecto/associations/&title=關聯關係&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/ecto/associations/&via=elixirschool&text=ElixirSchool: 關聯關係&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/ecto/associations/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/ecto/associations/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 關聯關係" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/ecto/associations/&title=ElixirSchool: 關聯關係&description=Check out '關聯關係' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 關聯關係&body=Check out '關聯關係' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/ecto/associations/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  關聯關係
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    翻譯內文為最新版本。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>在本章節中，將學習如何使用 Ecto 來定義和處理結構描述(schema)之間的關聯關係。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="設定">設定</h2>
+
+<p>將從上一課的 <code class="highlighter-rouge">Friends</code> 應用程式開始。 可以參考 <a href="../basics">這裡</a> 的設定來快速復習。</p>
+
+<h2 id="關聯關係的種類">關聯關係的種類</h2>
+
+<p>可以在結構描述之間定義三種類型的關聯關係。接著將看看它們是什麼以及如何實現每種類型的關係。</p>
+
+<h3 id="屬於一對多-belongs-tohas-many">屬於/一對多 (Belongs To/Has Many)</h3>
+
+<p>將在範例應用程式的域(domain)模型中加入一些新實體，以便可以為喜愛的電影編制目錄。會從兩個結構描述開始：<code class="highlighter-rouge">Movie</code> 和 <code class="highlighter-rouge">Character</code>。將實現這兩種結構描述之間的 “屬於/一對多” 關係：一部電影有很多角色，而一個角色屬於一部電影。</p>
+
+<h4 id="一對多-migration">一對多 Migration</h4>
+
+<p>現在替 <code class="highlighter-rouge">Movie</code> 產生成一個 migration：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_movies
+</span></code></pre></div></div>
+
+<p>打開新產生的 migration 檔案並定義 <code class="highlighter-rouge">change</code> 函數以建立帶有一些屬性的 <code class="highlighter-rouge">movies</code> 表格：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/repo/migrations/*_create_movies.exs</span>
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateMovies</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:string</span>
+      <span class="n">add</span> <span class="ss">:tagline</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="一對多-schema">一對多 Schema</h4>
+
+<p>現在將加入一個結構描述，指定電影及其角色之間的 “一對多” 關係。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/example/movie.ex</span>
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"movies"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:tagline</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">has_many</span> <span class="ss">:characters</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">has_many/3</code> 巨集不會向資料庫本身加入任何內容。它的作用是使用關聯結構描述上的外鍵 <code class="highlighter-rouge">characters</code> 來使一部電影的相關角色可用。這將允許呼用 <code class="highlighter-rouge">movie.characters</code>。</p>
+
+<h4 id="屬於-migration">屬於 Migration</h4>
+
+<p>現在準備建立 <code class="highlighter-rouge">Character</code> 的 migration 和結構描述。一個角色屬於一部電影，因此將定義具體指定此關係的 migration 和結構描述。</p>
+
+<p>首先，產生 migration：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_characters
+</span></code></pre></div></div>
+
+<p>要聲明一個角色屬於一個電影，需要 <code class="highlighter-rouge">characters</code> 表格中有一個 <code class="highlighter-rouge">movie_id</code> 欄。我們希望此欄函數用作外鍵。可以使用以下這行再 <code class="highlighter-rouge">create table/1</code> 函數中完成此操作：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">add</span> <span class="ss">:movie_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+</code></pre></div></div>
+<p>所以我們的 migration 應該如下所示：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/migrations/*_create_characters.exs</span>
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateCharacters</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:characters</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+      <span class="n">add</span> <span class="ss">:movie_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="屬於-schema">屬於 Schema</h4>
+
+<p>我們的結構描述同樣需要定義角色與其電影之間的 “屬於” 關係。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/example/character.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"characters"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">belongs_to</span> <span class="ss">:movie</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>現在仔細看看 <code class="highlighter-rouge">belongs_to/3</code> 巨集做了些什麼。除了將外鍵 <code class="highlighter-rouge">movie_id</code> 加入到結構描述之外，它還使我們能夠 <em>通過</em> <code class="highlighter-rouge">characters</code> 存取關聯的 <code class="highlighter-rouge">movies</code> 結構描述。當查詢角色時，它使用外鍵讓角色的關聯電影可用。這將允許我們呼用 <code class="highlighter-rouge">character.movie</code>。</p>
+
+<p>現在準備好執行 migrations：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.migrate
+</span></code></pre></div></div>
+
+<h3 id="屬於一對一-belongs-tohas-one">屬於/一對一 (Belongs To/Has One)</h3>
+
+<p>比方說一部電影有一個發行商，例如 Netflix 是原創電影 “Bright” 的發行商。</p>
+
+<p>現在將使用 “屬於” 關係定義 <code class="highlighter-rouge">Distributor</code> migration 和結構描述。首先，來產生 migration：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_distributors
+</span></code></pre></div></div>
+
+<p>現在應該將 <code class="highlighter-rouge">movie_id</code> 的外鍵加入到剛產生的 <code class="highlighter-rouge">distributors</code> 表格 migration 中，並加入唯一索引以強制一部電影只有一個發行商：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/repo/migrations/*_create_distributors.exs</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateDistributors</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:distributors</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+      <span class="n">add</span> <span class="ss">:movie_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+    <span class="k">end</span>
+    
+    <span class="n">create</span> <span class="n">unique_index</span><span class="p">(</span><span class="ss">:distributors</span><span class="p">,</span> <span class="p">[</span><span class="ss">:movie_id</span><span class="p">])</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Distributor</code> 結構描述應該使用 <code class="highlighter-rouge">belongs_to/3</code> 巨集來允許我們呼用 <code class="highlighter-rouge">distributor.movie</code> 並使用這個外鍵查找發行商關聯的電影。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/example/distributor.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"distributors"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">belongs_to</span> <span class="ss">:movie</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>接下來，將為 <code class="highlighter-rouge">Movie</code> 結構描述加入 “一對一” 關係：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/example/movie.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"movies"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:tagline</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">has_many</span> <span class="ss">:characters</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span>
+    <span class="n">has_one</span> <span class="ss">:distributor</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span> <span class="c1"># I'm new!</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">has_one/3</code> 巨集函數就像 <code class="highlighter-rouge">has_many/3</code> 巨集一樣。它使用關聯的結構描述外鍵來查找並公開(expose)電影的發行商。這將允許呼用 <code class="highlighter-rouge">movie.distributor</code>。</p>
+
+<p>現在已準備好執行 migrations：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.migrate
+</span></code></pre></div></div>
+
+<h3 id="多對多-many-to-many">多對多 (Many To Many)</h3>
+
+<p>假定一部電影有很多演員，一個演員可以屬於不止一部電影。現在將構建一個參考 movies <em>和</em> actors 這 <em>兩者</em> 的連接(join)表格來實現這種關係。</p>
+
+<p>首先，現在產生 <code class="highlighter-rouge">Actors</code> migration：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_actors
+</span></code></pre></div></div>
+
+<p>接著定義這個 migration：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/migrations/*_create_actors.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">Actors</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:actors</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>現在產生所需的連接表格 migration：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_movies_actors
+</span></code></pre></div></div>
+
+<p>現在將定義 migration，使表格具有兩個外鍵。接著還將加入一個唯一的索引來強制 actors 和 movies 的唯一配對：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/migrations/*_create_movies_actors.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateMoviesActors</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:movies_actors</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:movie_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+      <span class="n">add</span> <span class="ss">:actor_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:actors</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">create</span> <span class="n">unique_index</span><span class="p">(</span><span class="ss">:movies_actors</span><span class="p">,</span> <span class="p">[</span><span class="ss">:movie_id</span><span class="p">,</span> <span class="ss">:actor_id</span><span class="p">])</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>接下來，將 <code class="highlighter-rouge">many_to_many</code> 巨集加入到 <code class="highlighter-rouge">Movie</code> 結構描述中：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/example/movie.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"movies"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:tagline</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">has_many</span> <span class="ss">:characters</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span>
+    <span class="n">has_one</span> <span class="ss">:distributor</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span>
+    <span class="n">many_to_many</span> <span class="ss">:actors</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">,</span> <span class="ss">join_through:</span> <span class="s2">"movies_actors"</span> <span class="c1"># I'm new!</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>最後，使用相同的 <code class="highlighter-rouge">many_to_many</code> 巨集定義 <code class="highlighter-rouge">Actor</code> 結構描述。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/example/actor.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"actors"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">many_to_many</span> <span class="ss">:movies</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">,</span> <span class="ss">join_through:</span> <span class="s2">"movies_actors"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>現在已經準備好執行 migrations：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.migrate
+</span></code></pre></div></div>
+
+<h2 id="儲存關聯資料">儲存關聯資料</h2>
+
+<p>儲存記錄及其關聯資料的方式取決於記錄之間關係的性質。現在從 “屬於/一對多” 的關係開始吧。</p>
+
+<h3 id="屬於-belongs-to">屬於 (Belongs To)</h3>
+
+<h4 id="經由-ectobuild_assoc3-儲存">經由 <code class="highlighter-rouge">Ecto.build_assoc/3</code> 儲存</h4>
+
+<p>對於 “屬於” 關係，可以利用 Ecto 的 <code class="highlighter-rouge">build_assoc/3</code> 函數。</p>
+
+<p><a href="https://hexdocs.pm/ecto/Ecto.html#build_assoc/3"><code class="highlighter-rouge">build_assoc/3</code></a> 接收三個參數：</p>
+
+<ul>
+  <li>想要儲存記錄的結構體。</li>
+  <li>關聯關係的名稱。</li>
+  <li>指定給要儲存關聯記錄的任何屬性。</li>
+</ul>
+
+<p>現在來儲存一部電影和一個相關角色。首先，建立一個電影記錄：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">alias</span> <span class="no">Friends</span><span class="o">.</span><span class="p">{</span><span class="no">Movie</span><span class="p">,</span> <span class="no">Character</span><span class="p">,</span> <span class="no">Repo</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="p">%</span><span class="no">Movie</span><span class="p">{</span><span class="ss">title:</span> <span class="s2">"Ready Player One"</span><span class="p">,</span> <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">}</span>
+
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:built</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:actors</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert!</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>現在將建立關聯角色並將其插入資料庫：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">character</span> <span class="o">=</span> <span class="no">Ecto</span><span class="o">.</span><span class="n">build_assoc</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="ss">:characters</span><span class="p">,</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Wade Watts"</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Character</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:built</span><span class="p">,</span> <span class="s2">"characters"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">movie:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movie</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Wade Watts"</span>
+<span class="p">}</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">insert!</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Character</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"characters"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">movie:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movie</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Wade Watts"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>請注意，由於 <code class="highlighter-rouge">Movie</code> 結構描述的 <code class="highlighter-rouge">has_many/3</code> 巨集指定了一個電影有很多 <code class="highlighter-rouge">:characters</code>，那作為第二個參數傳遞給 <code class="highlighter-rouge">build_assoc/3</code> 的關聯名稱就是： <code class="highlighter-rouge">:characters</code>。可以看到已經建立了一個角色，其 <code class="highlighter-rouge">movie_id</code> 被正確設定為關聯電影的 ID。</p>
+
+<p>為了使用 <code class="highlighter-rouge">build_assoc/3</code> 來儲存電影的關聯發行商，我們採用相同的方法將電影和發行商關係的 <em>名稱</em> 作為第二個參數傳遞給 <code class="highlighter-rouge">build_assoc/3</code>：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">distributor</span> <span class="o">=</span> <span class="no">Ecto</span><span class="o">.</span><span class="n">build_assoc</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="ss">:distributor</span><span class="p">,</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Netflix"</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:built</span><span class="p">,</span> <span class="s2">"distributors"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">movie:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movie</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Netflix"</span>
+<span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert!</span><span class="p">(</span><span class="n">distributor</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"distributors"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">movie:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movie</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Netflix"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="多對多-many-to-many-1">多對多 (Many to Many)</h3>
+
+<h4 id="經由-ectochangesetput_assoc4-儲存">經由 <code class="highlighter-rouge">Ecto.Changeset.put_assoc/4</code> 儲存</h4>
+
+<p><code class="highlighter-rouge">build_assoc/3</code> 方法對多對多關係不起作用。這是因為 movie 和 actor 表格都沒有包含外鍵。作為替代，需要利用 Ecto 變更集 和 <code class="highlighter-rouge">put_assoc/4</code> 函數。</p>
+
+<p>假設已經有了上面建立的 movie 記錄，那麼現在來建立一個 actor 記錄：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">alias</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> <span class="p">%</span><span class="no">Actor</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:built</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+<span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert!</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>現在已準備好經由連接表格將電影與演員關聯起來。</p>
+
+<p>首先，請注意，為了使用變更集，需要確保 <code class="highlighter-rouge">movie</code> 結構預先載入了關聯資料。很快將詳細介紹預載資料。但目前，讓我們了解可以像這樣預載關聯就夠了：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">preload</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="p">[</span><span class="ss">:distributor</span><span class="p">,</span> <span class="ss">:characters</span><span class="p">,</span> <span class="ss">:actors</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">[],</span>
+  <span class="ss">characters:</span> <span class="p">[],</span>
+  <span class="ss">distributor:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>接下來，將為電影記錄建立一個變更集：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie_changeset</span> <span class="o">=</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">change</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span> <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+ <span class="ss">valid?:</span> <span class="no">true</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>現在將把變更集作為第一個參數傳遞給 <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#put_assoc/4"><code class="highlighter-rouge">Ecto.Changeset.put_assoc/4</code></a>：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie_actors_changeset</span> <span class="o">=</span> <span class="n">movie_changeset</span> <span class="o">|&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">put_assoc</span><span class="p">(</span><span class="ss">:actors</span><span class="p">,</span> <span class="p">[</span><span class="n">actor</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span>
+    <span class="ss">actors:</span> <span class="p">[</span>
+      <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="ss">:update</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span>
+       <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="ss">valid?:</span> <span class="no">true</span><span class="o">&gt;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>這提供了一個表示以下更改的 <em>新</em> 變更集：將此演員列表中的演員加入到指定的電影記錄中。</p>
+
+<p>最後，將使用最新的變更集更新指定的電影和演員記錄：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">update!</span><span class="p">(</span><span class="n">movie_actors_changeset</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">[</span>
+    <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="s2">"Bob"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="ss">characters:</span> <span class="p">[],</span>
+  <span class="ss">distributor:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>可以看到，這給了我們一個有新的 actor 正確關聯的電影記錄，並已經在 <code class="highlighter-rouge">movie.actors</code> 中預載。</p>
+
+<p>可以使用相同的方法來建立與指定電影相關聯的全新演員。不必將 <em>已儲存</em> 的 actor 結構體傳遞給<code class="highlighter-rouge">put_assoc/4</code>，只要傳入一個描述想建立新 actor 的 actor 結構體：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">changeset</span> <span class="o">=</span> <span class="n">movie_changeset</span> <span class="o">|&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">put_assoc</span><span class="p">(</span><span class="ss">:actors</span><span class="p">,</span> <span class="p">[%{</span><span class="ss">name:</span> <span class="s2">"Gary"</span><span class="p">}])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span>
+    <span class="ss">actors:</span> <span class="p">[</span>
+      <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+        <span class="ss">action:</span> <span class="ss">:insert</span><span class="p">,</span>
+        <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Gary"</span><span class="p">},</span>
+        <span class="ss">errors:</span> <span class="p">[],</span>
+        <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+        <span class="ss">valid?:</span> <span class="no">true</span>
+      <span class="o">&gt;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+<span class="n">iex</span><span class="o">&gt;</span>  <span class="no">Repo</span><span class="o">.</span><span class="n">update!</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">[</span>
+    <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">id:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="s2">"Gary"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="ss">characters:</span> <span class="p">[],</span>
+  <span class="ss">distributor:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>可以看到建立了一個 ID 為 “2” 的新 actor 和所賦予它的屬性。</p>
+
+<p>在下一章節中，將學習如何查詢關聯記錄。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/ecto/associations.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/ecto/changesets/" title="變更集 (Changesets)">← 變更集 (Changesets)</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/ecto/querying/" title="查詢">查詢 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/ecto/associations/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/associations/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/ecto/associations/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/ecto/associations/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/associations/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/associations/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/associations/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">3. 關聯關係</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

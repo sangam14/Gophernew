@@ -1,0 +1,962 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="The premier destination for learning and mastering Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/en/lessons/libraries/distillery/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="en">
+  <meta property="og:description" content="The premier destination for learning and mastering Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/distillery/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/distillery/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/en/lessons/libraries/distillery/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Distillery (Basics) &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/en/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/en/lessons/libraries/distillery/&title=Distillery (Basics)&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/en/lessons/libraries/distillery/&via=elixirschool&text=ElixirSchool: Distillery (Basics)&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/en/lessons/libraries/distillery/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/en/lessons/libraries/distillery/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Distillery (Basics)" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/en/lessons/libraries/distillery/&title=ElixirSchool: Distillery (Basics)&description=Check out 'Distillery (Basics)' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Distillery (Basics)&body=Check out 'Distillery (Basics)' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/en/lessons/libraries/distillery/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+      <h1>Distillery (Basics)</h1>
+    
+  </header>
+  <div class="content">
+    <p>Distillery is a release manager written in pure Elixir. It allows you to generate releases that can be deployed elsewhere with little to no configuration.</p>
+
+<h2>Table of Contents</h2>
+<div id="toc"></div>
+
+<h2 id="what-is-a-release">What is a release?</h2>
+
+<p>A release is a package containing your compiled Erlang/Elixir code (i.e <a href="https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)">BEAM</a> <a href="https://en.wikipedia.org/wiki/Bytecode">bytecode</a>). It also provides any scripts necessary for launching your application.</p>
+
+<blockquote>
+  <p>When you have written one or more applications, you might want to create a complete system with these applications and a subset of the Erlang/OTP applications. This is called a release. - <a href="http://erlang.org/doc/design_principles/release_structure.html">Erlang documentation</a></p>
+</blockquote>
+
+<blockquote>
+  <p>Releases enable simplified deployment: they are self-contained, and provide everything needed to boot the release; they are easily administered via the provided shell script to open up a remote console, start/stop/restart the release, start in the background, send remote commands, and more. In addition, they are archivable artifacts, meaning you can restore an old release from its tarball at any point in the future (barring incompatibilities with the underlying OS or system libraries). The use of releases is also a prerequisite of performing hot upgrades and downgrades, one of the most powerful features of the Erlang VM. - <a href="https://hexdocs.pm/distillery/introduction/understanding_releases.html">Distillery Documentation</a></p>
+</blockquote>
+
+<p>A release will contain the folowing:</p>
+<ul>
+  <li>a /bin folder
+    <ul>
+      <li>This contains a script that is the starting point to running your entire application.</li>
+    </ul>
+  </li>
+  <li>a /lib folder
+    <ul>
+      <li>This contains the compiled bytecode of the application along with any dependencies.</li>
+    </ul>
+  </li>
+  <li>a /releases folder
+    <ul>
+      <li>This contains metadata about the release as well as hooks and custom commands.</li>
+    </ul>
+  </li>
+  <li>a /erts-VERSION
+    <ul>
+      <li>This contains the Erlang runtime which will allow a machine to run your application without having Erlang or Elixir installed.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="getting-startedinstallation">Getting started/installation</h3>
+
+<p>To add Distillery to your project, add it as a dependency to your <code class="highlighter-rouge">mix.exs</code> file. <em>Note</em> - if you are working on an umbrella app this should be in the mix.exs in the root of your project</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:distillery</span><span class="p">,</span> <span class="s2">"~&gt; 2.0"</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then in your terminal call:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix deps.get
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix compile
+</code></pre></div></div>
+
+<h3 id="building-your-release">Building your release</h3>
+
+<p>In your terminal, run</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix release.init
+</code></pre></div></div>
+
+<p>This command generates a <code class="highlighter-rouge">rel</code> directory with some configuration files in it.</p>
+
+<p>To generate a release in your terminal run <code class="highlighter-rouge">mix release</code></p>
+
+<p>Once the release is built you should see some instructions in your terminal</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==&gt; Assembling release..
+==&gt; Building release book_app:0.1.0 using environment dev
+==&gt; You have set dev_mode to true, skipping archival phase
+Release successfully built!
+To start the release you have built, you can use one of the following tasks:
+
+    # start a shell, like 'iex -S mix'
+    &gt; _build/dev/rel/book_app/bin/book_app console
+
+    # start in the foreground, like 'mix run --no-halt'
+    &gt; _build/dev/rel/book_app/bin/book_app foreground
+
+    # start in the background, must be stopped with the 'stop' command
+    &gt; _build/dev/rel/book_app/bin/book_app start
+
+If you started a release elsewhere, and wish to connect to it:
+
+    # connects a local shell to the running node
+    &gt; _build/dev/rel/book_app/bin/book_app remote_console
+
+    # connects directly to the running node's console
+    &gt; _build/dev/rel/book_app/bin/book_app attach
+
+For a complete listing of commands and their use:
+
+    &gt; _build/dev/rel/book_app/bin/book_app help
+</code></pre></div></div>
+
+<p>To run your application type the following in your terminal ` _build/dev/rel/MYAPP/bin/MYAPP foreground`
+In your case replace MYAPP with your project name. Now we’re running the release build of our application!</p>
+
+<h2 id="using-distillery-with-phoenix">Using Distillery with Phoenix</h2>
+
+<p>If you are using distillery with Phoenix there are a few extra steps you need to follow before this will work.</p>
+
+<p>First, we need to edit our <code class="highlighter-rouge">config/prod.exs</code> file.</p>
+
+<p>Change the following line from this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:book_app</span><span class="p">,</span> <span class="no">BookAppWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">load_from_system_env:</span> <span class="no">true</span><span class="p">,</span>
+  <span class="ss">url:</span> <span class="p">[</span><span class="ss">host:</span> <span class="s2">"example.com"</span><span class="p">,</span> <span class="ss">port:</span> <span class="mi">80</span><span class="p">],</span>
+  <span class="ss">cache_static_manifest:</span> <span class="s2">"priv/static/cache_manifest.json"</span>
+</code></pre></div></div>
+<p>to this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:book_app</span><span class="p">,</span> <span class="no">BookAppWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">http:</span> <span class="p">[</span><span class="ss">port:</span> <span class="p">{</span><span class="ss">:system</span><span class="p">,</span> <span class="s2">"PORT"</span><span class="p">}],</span>
+  <span class="ss">url:</span> <span class="p">[</span><span class="ss">host:</span> <span class="s2">"localhost"</span><span class="p">,</span> <span class="ss">port:</span> <span class="p">{</span><span class="ss">:system</span><span class="p">,</span> <span class="s2">"PORT"</span><span class="p">}],</span>
+  <span class="ss">cache_static_manifest:</span> <span class="s2">"priv/static/cache_manifest.json"</span><span class="p">,</span>
+  <span class="ss">server:</span> <span class="no">true</span><span class="p">,</span>
+  <span class="ss">root:</span> <span class="s2">"."</span><span class="p">,</span>
+  <span class="ss">version:</span> <span class="no">Application</span><span class="o">.</span><span class="n">spec</span><span class="p">(</span><span class="ss">:book_app</span><span class="p">,</span> <span class="ss">:vsn</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We’ve done a few things here:</p>
+<ul>
+  <li><code class="highlighter-rouge">server</code> - boots up the Cowboy application http endpoint on application start</li>
+  <li><code class="highlighter-rouge">root</code> - sets up the application root which is where static files are served</li>
+  <li><code class="highlighter-rouge">version</code> - busts the application cache when the application version is hot upgraded.</li>
+  <li><code class="highlighter-rouge">port</code> - changing the port to be set by an ENV variable allows us to pass in the port number when starting up the application. When we start up the app, we can supply the port by running <code class="highlighter-rouge">PORT=4001 _build/prod/rel/book_app/bin/book_app foreground</code></li>
+</ul>
+
+<p>If you executed the above command, you might have noticed that your application crashed because it is unable to connect to the database since no database currently exists. This can be rectified by running an Ecto <code class="highlighter-rouge">mix</code> command. In your terminal, type the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MIX_ENV=prod mix ecto.create
+</code></pre></div></div>
+
+<p>This command will create your database for you. Try re-running the application and it should start up successfully. However, you will notice that your migrations to your database have not run. Usually in development we run those migrations manually by calling <code class="highlighter-rouge">mix ecto.migrate</code>. For the release, we will have to configure it so that it can run the migrations on its own.</p>
+
+<h2 id="running-migrations-in-production">Running Migrations in Production</h2>
+
+<p>Distillery provides us with the ability to execute code at different points in a release’s lifecycle. These points are known as <a href="https://hexdocs.pm/distillery/1.5.2/boot-hooks.html">boot-hooks</a>. The hooks provided by Distillery include</p>
+
+<ul>
+  <li>pre_start</li>
+  <li>post_start</li>
+  <li>pre/post_configure</li>
+  <li>pre/post_stop</li>
+  <li>pre/post_upgrade</li>
+</ul>
+
+<p>For our purposes, we’re going to be using the <code class="highlighter-rouge">post_start</code> hook to run our apps migrations in production. Let’s first go and create a new release task called <code class="highlighter-rouge">migrate</code>. A release task is a module function that we can call on from the terminal that contains code that is separate from the inner workings of our application. It is useful for tasks that the application itself will typically not need to run.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">BookAppWeb</span><span class="o">.</span><span class="no">ReleaseTasks</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">migrate</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">=</span> <span class="no">Application</span><span class="o">.</span><span class="n">ensure_all_started</span><span class="p">(</span><span class="ss">:book_app</span><span class="p">)</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="no">Application</span><span class="o">.</span><span class="n">app_dir</span><span class="p">(</span><span class="ss">:book_app</span><span class="p">,</span> <span class="s2">"priv/repo/migrations"</span><span class="p">)</span>
+
+    <span class="no">Ecto</span><span class="o">.</span><span class="no">Migrator</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="no">BookApp</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="ss">:up</span><span class="p">,</span> <span class="ss">all:</span> <span class="no">true</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>Note</em> It is good practice to ensure that your applications have all started up properly before running these migrations. The <a href="https://hexdocs.pm/ecto/2.2.8/Ecto.Migrator.html">Ecto.Migrator</a> allows us to run our migrations with the connected database.</p>
+
+<p>Next, create a new file - <code class="highlighter-rouge">rel/hooks/post_start/migrate.sh</code> and add the following code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "Running migrations"
+
+bin/book_app rpc "Elixir.BookApp.ReleaseTasks.migrate"
+
+</code></pre></div></div>
+
+<p>In order for this code to run properly, we are using Erlang’s <code class="highlighter-rouge">rpc</code> module which allows us Remote Produce Call service. Basically, this allows us to call a function on a remote node and get the answer. When running in production it is likely that our application will be running in several different nodes</p>
+
+<p>Finally, in our <code class="highlighter-rouge">rel/config.exs</code> file we’re going to add the hook to our prod configuration.</p>
+
+<p>Let’s replace</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">environment</span> <span class="ss">:prod</span> <span class="k">do</span>
+  <span class="n">set</span> <span class="ss">include_erts:</span> <span class="no">true</span>
+  <span class="n">set</span> <span class="ss">include_src:</span> <span class="no">false</span>
+  <span class="n">set</span> <span class="ss">cookie:</span> <span class="ss">:"TkJuF,3nc4)OWPBpPxPDb6mz$&gt;)&gt;a&gt;/v/,l2}W*sUFaz&lt;)bG,v*3pPESE,`XOk{,"</span>
+  <span class="n">set</span> <span class="ss">vm_args:</span> <span class="s2">"rel/vm.args"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>with</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">environment</span> <span class="ss">:prod</span> <span class="k">do</span>
+  <span class="n">set</span> <span class="ss">include_erts:</span> <span class="no">true</span>
+  <span class="n">set</span> <span class="ss">include_src:</span> <span class="no">false</span>
+  <span class="n">set</span> <span class="ss">cookie:</span> <span class="ss">:"TkJuF,3nc4)OWPBpPxPDb6mz$&gt;)&gt;a&gt;/v/,l2}W*sUFaz&lt;)bG,v*3pPESE,`XOk{,"</span>
+  <span class="n">set</span> <span class="ss">vm_args:</span> <span class="s2">"rel/vm.args"</span>
+  <span class="n">set</span> <span class="ss">post_start_hooks:</span> <span class="s2">"rel/hooks/post_start"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>Note</em> - This hook only exists in the production release of this application. If we used the default development release it would not run.</p>
+
+<h2 id="custom-commands">Custom Commands</h2>
+
+<p>When working with a release, you may not have access to <code class="highlighter-rouge">mix</code> commands as <code class="highlighter-rouge">mix</code> may not be installed to the machine the release is deployed to. We can solve this by creating custom commands.</p>
+
+<blockquote>
+  <p>Custom commands are extensions to the boot script, and are used in the same way you use foreground or remote_console, in other words, they have the appearance of being part of the boot script. Like hooks, they have access to the boot scripts helper functions and environment - <a href="https://hexdocs.pm/distillery/1.5.2/custom-commands.html">Distillery Docs</a></p>
+</blockquote>
+
+<p>Commands are similar to release tasks in that they are both method functions but are different from them in that they are executed through the terminal as opposed to being run by the release script.</p>
+
+<p>Now that we can run our migrations, we may want to be able to seed our database with information through running a command. First, add a new method to our release tasks. In <code class="highlighter-rouge">BookAppWeb.ReleaseTasks</code>, add the following:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">seed</span> <span class="k">do</span>
+  <span class="n">seed_path</span> <span class="o">=</span> <span class="no">Application</span><span class="o">.</span><span class="n">app_dir</span><span class="p">(</span><span class="ss">:book_app_web</span><span class="p">,</span> <span class="s2">"priv/repo/seeds.exs"</span><span class="p">)</span>
+  <span class="no">Code</span><span class="o">.</span><span class="n">eval_file</span><span class="p">(</span><span class="n">seed_path</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Next, create a new file <code class="highlighter-rouge">rel/commands/seed.sh</code> and add the following code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+
+release_ctl <span class="nb">eval</span> <span class="s2">"BookAppWeb.ReleaseTasks.seed/0"</span>
+</code></pre></div></div>
+
+<p><em>Note</em> - <code class="highlighter-rouge">release_ctl()</code> is a shell script provided by Distillery that allows us to execute commands locally or in a clean node. If you need to run this against a running node you can run <code class="highlighter-rouge">release_remote_ctl()</code></p>
+
+<p>See more about shell_scripts from Distillery <a href="https://hexdocs.pm/distillery/extensibility/shell_scripts.html">here</a></p>
+
+<p>Finally, add the following to your <code class="highlighter-rouge">rel/config.exs</code> file</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">release</span> <span class="ss">:book_app</span> <span class="k">do</span>
+  <span class="o">...</span>
+  <span class="n">set</span> <span class="ss">commands:</span> <span class="p">[</span>
+    <span class="ss">seed:</span> <span class="s2">"rel/commands/seed.sh"</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>Be sure, to recreate the release by running <code class="highlighter-rouge">MIX_ENV=prod mix release</code>. Once this is complete, you can now run in your terminal <code class="highlighter-rouge">PORT=4001 _build/prod/rel/book_app/bin/book_app seed</code>.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/en/lessons/libraries/distillery.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/libraries/bypass/" title="Bypass">← Bypass</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/libraries/stream-data/" title="StreamData">StreamData →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong title="English">en</strong>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/libraries/distillery/" title="Spanish / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/libraries/distillery/" title="Japanese / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/libraries/distillery/" title="Portuguese">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/distillery/" title="Chinese">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/distillery/" title="Traditional Chinese">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/en/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. Distillery (Basics)</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

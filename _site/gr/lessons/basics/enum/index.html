@@ -1,0 +1,1184 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="gr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/gr/lessons/basics/enum/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="gr">
+  <meta property="og:description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/enum/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ta" href="/ta/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/enum/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/gr/lessons/basics/enum/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Enum &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/gr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/gr/lessons/basics/enum/&title=Enum&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/gr/lessons/basics/enum/&via=elixirschool&text=ElixirSchool: Enum&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/gr/lessons/basics/enum/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/gr/lessons/basics/enum/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Enum" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/gr/lessons/basics/enum/&title=ElixirSchool: Enum&description=Check out 'Enum' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Enum&body=Check out 'Enum' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/gr/lessons/basics/enum/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Enum
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Αυτή η μετάφραση είναι πλήρως ενημερωμένη.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Μια συλλογή αλγορίθμων για την απαρίθμηση συλλογών.</p>
+
+<h2>Πίνακας περιεχομένων</h2>
+<div id="toc"></div>
+
+<h2 id="enum">Enum</h2>
+
+<p>Η ενότητα <code class="highlighter-rouge">Enum</code> περιλαμβάνει πάνω από εβδομήντα συναρτήσεις για την εργασία με τις συλλογές.
+Όλες οι συλλογές που μάθαμε στο προηγούμενο μάθημα, με την εξαίρεση των τούπλων, είναι απαριθμήσιμες.</p>
+
+<p>Αυτό το μάθημα θα καλύψει μόνο ένα μέρος των διαθέσιμων συναρτήσεων, αλλά μπορούμε να τις ελέγξουμε μόνοι μας.
+Ας κάνουμε ένα μικρό πείραμα στο IEx.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">__info__</span><span class="p">(</span><span class="ss">:functions</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="k">fn</span><span class="p">({</span><span class="n">function</span><span class="p">,</span> <span class="n">arity</span><span class="p">})</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>   <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">function</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">arity</span><span class="si">}</span><span class="s2">"</span>
+<span class="o">...&gt;</span> <span class="k">end</span><span class="p">)</span>
+<span class="n">all?</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">all?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">any?</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">any?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">at</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">at</span><span class="o">/</span><span class="mi">3</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>Με την παραπάνω έξοδο, είναι ξεκάθαρο ότι έχουμε ένα πολύ μεγάλο ποσό λειτουργιών, και για έναν καλό λόγο.
+Η απαρίθμηση βρίσκεται στον πυρήνα του συναρτησιακού προγραμματισμού, και η αξιοποίηση του μαζί με άλλα στοιχεία της Elixir, μπορεί να δώσει απίστευτη δύναμη σε έναν προγραμματιστή.</p>
+
+<p>Για να δείτε τις συναρτήσεις στο σύνολό τους επισκεφθείτε τα επίσημα έγγραφα του <a href="https://hexdocs.pm/elixir/Enum.html"><code class="highlighter-rouge">Enum</code></a>.
+Για τεμπέλικη απαρίθμηση (lazy enumeration) χρησιμοποιήστε την ενότητα <a href="https://hexdocs.pm/elixir/Stream.html"><code class="highlighter-rouge">Stream</code></a>.</p>
+
+<h3 id="all">all?</h3>
+
+<p>Όταν χρησιμοποιούμε την <code class="highlighter-rouge">all?/2</code>, και το μεγαλύτερο μέρος της <code class="highlighter-rouge">Enum</code>, παρέχουμε μια συνάρτηση την οποία εφαρμόζουμε σε όλα τα στοιχεία της συλλογής.
+Στην περίπτωση της <code class="highlighter-rouge">all?/2</code>, ολόκληρη η συλλογή πρέπει να επιστρέφει <code class="highlighter-rouge">true</code>, αλλιώς θα επιστρέψει <code class="highlighter-rouge">false</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">false</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<h3 id="any">any?</h3>
+
+<p>Αντίθετα με την προηγούμενη, η <code class="highlighter-rouge">any?/2</code> θα επιστρέψει <code class="highlighter-rouge">true</code> αν τουλάχιστον ένα στοιχείο αξιολογηθεί σαν <code class="highlighter-rouge">true</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">any?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<h3 id="chunk_every">chunk_every</h3>
+
+<p>Αν χρειαστεί να σπάσουμε την συλλογή σε μικρότερα μέρη, η <code class="highlighter-rouge">chunk_every/2</code> είναι μάλλον η συνάρτηση που ψάχνουμε:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_every</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p>Yπάρχουν μερικές επιλογές για την <code class="highlighter-rouge">chunk_every/4</code> αλλά δεν θα τις αναλύσουμε, για να μάθετε περισσότερα επισκεφθείτε την <a href="https://hexdocs.pm/elixir/Enum.html#chunk_every/4"><code class="highlighter-rouge">chunk_every/4</code></a> στα επίσημα κείμενα.</p>
+
+<h3 id="chunk_by">chunk_by</h3>
+
+<p>Αν χρειάστει να ομαδοποιήσουμε την συλλογή μας βασιζόμενοι σε κάτι πέραν του μεγέθους, μπορούμε να χρησιμοποιήσουμε τη συνάρτηση <code class="highlighter-rouge">chunk_by/2</code>.
+Δέχεται μια συλλογή και μια συνάρτηση, και όταν αλλάζει η επιστροφή της συνάρτησης, ξεκινάει μια νέα ομάδα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_by</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">,</span> <span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[[</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"three"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">]]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_by</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">,</span> <span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">,</span> <span class="s2">"six"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[[</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"three"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"six"</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<h3 id="map_every">map_every</h3>
+
+<p>Μερικές φορές η ομαδοποίηση μιας συλλογής δεν είναι αρκετή για αυτό που πρέπει να κάνουμε.
+Αν αυτό ισχύει, η <code class="highlighter-rouge">map_every/3</code> μπορεί να είναι πολύ χρήσιμη για να έχετε πρόσβαση σε κάθε <code class="highlighter-rouge">νιοστό</code> στοιχείο, εφαρμόζοντας πάντα τη συνάρτηση στο πρώτο στοιχείο:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Εφαρμόστε συνάρτηση σε κάθε τρίτο στοιχείο</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map_every</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="k">fn</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1000</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1001</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1004</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1007</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="each">each</h3>
+
+<p>Μπορεί να είναι απαραίτητο να περάσετε όλη τη συλλογή χωρίς να παραχθεί νέα τιμή. Σε αυτή την περίπτωση χρησιμοποιούμε την <code class="highlighter-rouge">each/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="n">one</span>
+<span class="n">two</span>
+<span class="n">three</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p><strong>Σημείωση</strong>: Η συνάρτηση <code class="highlighter-rouge">each/2</code> επιστρέφει το άτομο <code class="highlighter-rouge">:ok</code>.</p>
+
+<h3 id="map">map</h3>
+
+<p>Για να εφαρμόσουμε την συνάρτησή μας σε κάθε αντικείμενο και να φτιάξουμε μια νέα συλλογή πρέπει να απευθυνθούμε στην συνάρτηση <code class="highlighter-rouge">map/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="min">min</h3>
+
+<p>Η <code class="highlighter-rouge">min/1</code> βρίσκει τη μικρότερη τιμή σε μια συλλογή:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>Η <code class="highlighter-rouge">min/2</code> κάνει το ίδιο, αλλά σε περίπτωση που η απαρίθμηση είναι κενή, μας επιτρέπει να ορίσουμε μια συνάρτηση για να παράξουμε την μικρότερη τιμή:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">min</span><span class="p">([],</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="ss">:foo</span> <span class="k">end</span><span class="p">)</span>
+<span class="ss">:foo</span>
+</code></pre></div></div>
+
+<h3 id="max">max</h3>
+
+<p>Η <code class="highlighter-rouge">max/1</code> επιστρέφει τη μεγαλύτερη τιμή στη συλλογή:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="mi">5</span>
+</code></pre></div></div>
+
+<p>Η <code class="highlighter-rouge">max/2</code> είναι για την <code class="highlighter-rouge">max/1</code> ότι η <code class="highlighter-rouge">min/2</code> για την <code class="highlighter-rouge">min/1</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">max</span><span class="p">([],</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="ss">:bar</span> <span class="k">end</span><span class="p">)</span>
+<span class="ss">:bar</span>
+</code></pre></div></div>
+
+<h3 id="filter">filter</h3>
+
+<p>Η συνάρτηση <code class="highlighter-rouge">filter/2</code> μας βοηθάει στο να φιλτράρουμε την συλλογή μας ώστε να περιλαμβάνει μόνο τα στοιχεία που είναι αληθή κατά τη χρήση της παρεχόμενης συνάρτησης:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">filter</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">rem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="reduce">reduce</h3>
+
+<p>Με την <code class="highlighter-rouge">reduce/3</code> μπορούμε να μαζέψουμε την συλλογή μας σε μία τιμή.
+Για να το κάνουμε αυτό, παρέχουμε έναν προεραιτικό συσσωρευτή (το <code class="highlighter-rouge">10</code> σε αυτό το παράδειγμα) ο οποίος περνάει στη συνάρτηση. Αν δεν παρέχουμε συσσωρευτή, χρησιμοποιείται το πρώτο στοιχείο:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">10</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="mi">16</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="mi">6</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span><span class="s2">"b"</span><span class="p">,</span><span class="s2">"c"</span><span class="p">],</span> <span class="s2">"1"</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">acc</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">x</span> <span class="o">&lt;&gt;</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="s2">"cba1"</span>
+</code></pre></div></div>
+
+<h3 id="sort">sort</h3>
+
+<p>Η ταξινόμηση των συλλογών μας γίνεται εύκολη όχι με μία, αλλά με δύο συναρτήσεις ταξινόμησης.</p>
+
+<p>Η <code class="highlighter-rouge">sort/1</code> χρησιμοποιεί την <a href="http://erlang.org/doc/reference_manual/expressions.html#term-comparisons">ταξινόμηση όρων</a> της Erlang για να καθορίσει την σειρά ταξινόμησης:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([</span><span class="ss">:foo</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="no">Enum</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="no">Enum</span><span class="p">,</span> <span class="ss">:foo</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Όμως η <code class="highlighter-rouge">sort/2</code> μας επιτρέπει να παρέχουμε μια δική μας συνάρτηση ταξινόμησης:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># με τη συνάρτησή μας</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([%{</span><span class="ss">:val</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">:val</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">[</span><span class="ss">:val</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">[</span><span class="ss">:val</span><span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[%{</span><span class="ss">val:</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">val:</span> <span class="mi">1</span><span class="p">}]</span>
+
+<span class="c1"># χωρίς</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([%{</span><span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}])</span>
+<span class="p">[%{</span><span class="ss">count:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">count:</span> <span class="mi">4</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<h3 id="uniq">uniq</h3>
+
+<p>Μπορούμε να χρησιμοποιήσουμε την <code class="highlighter-rouge">uniq/1</code> για να αφαιρέσουμε διπλότυπα από τις συλλογές μας:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">uniq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="uniq_by">uniq_by</h3>
+
+<p>Η συνάρτηση <code class="highlighter-rouge">uniq_by/2</code> επίσης αφαιρεί τα διπλότυπα από τις απαριθμήσιμες συλλογές μας, αλλά επίσης μας επιτρέπει να παρέχουμε μια συνάρτηση για να κάνουμε τη σύγκριση της μοναδικότητας.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">uniq_by</span><span class="p">([%{</span><span class="ss">x:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">x:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">x:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">3</span><span class="p">}],</span> <span class="k">fn</span> <span class="n">coord</span> <span class="o">-&gt;</span> <span class="n">coord</span><span class="o">.</span><span class="n">y</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[%{</span><span class="ss">x:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">x:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">3</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>### Enum χρησιμοποιώντας το χειριστή Capture (&amp;)</p>
+
+<p>Αρκετές συναρτήσεις μέσα στην ενότητα Enum της Elixir δέχονται ανώνυμες συναρτήσεις σαν ένα όρισμα για να δουλέψουν με κάθε στοιχείο της επανάληψης που έχει περαστεί.</p>
+
+<p>Αυτές οι ανώνυμες συναρτήσεις συνήθως γράφονται σε συντομογραφία χρησιμοποιώντας τον χειριστή Capture (&amp;).</p>
+
+<p>Εδώ υπάρχουν κάποια παραδείγματα που δείχνουν πώς ο χειριστής Capture μπορεί να υλοποιηθεί μέσα στην ενότητα Enum.
+ Κάθε εκδοχή είναι λειτουργικά ίση.</p>
+
+<p>#### Χρησιμοποιώντας τον χειριστή Capture με ανώνυμες συναρτήσεις</p>
+
+<p>Εδώ έχουμε ένα τυπικό παράδειγμα από τη στάνταρ σύνταξη όταν περνάμε μια ανώνυμη συνάρτηση στην <code class="highlighter-rouge">Enum.map/2</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="k">fn</span> <span class="n">number</span> <span class="o">-&gt;</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">3</span> <span class="k">end</span><span class="p">)</span>
+ <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Εδώ υλοποιούμε τον χειριστή capture (&amp;), συλαμβάνοντας κάθε στοιχείο της λίστας αριθμών ([1,2,3]) και ορίζοντας κάθε στοιχείο στη μεταβλητή &amp;1 καθώς περνιέται στη δοσμένη συνάρτηση.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">))</span>
+ <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Αυτό μπορεί περαιτέρω να καθαριστεί ορίζοντας την προηγουμένως ανώνυμη συνάρτηση που χρησιμοποιεί τον χειριστή Capture σε μία μεταβλητή και να τη καλλέσει από την <code class="highlighter-rouge">Enum.map/2</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">iex</span><span class="o">&gt;</span> <span class="n">plus_three</span> <span class="o">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+ <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">plus_three</span><span class="p">)</span>
+ <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>#### Χρησιμοποιώντας τον χειριστή Capture με μία ονομασμένη συνάρτηση</p>
+
+<p>Πρώτα δημιουργούμε την ονομασμένη συνάρτηση και στη συνέχεια την καλούμε από την ανώνυμη συνάρτηση που ορίζεται στην <code class="highlighter-rouge">Enum.map/2</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">defmodule</span> <span class="no">Adding</span> <span class="k">do</span>
+   <span class="k">def</span> <span class="n">plus_three</span><span class="p">(</span><span class="n">number</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">3</span>
+ <span class="k">end</span>
+
+ <span class="n">iex</span><span class="o">&gt;</span>  <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="k">fn</span> <span class="n">number</span> <span class="o">-&gt;</span> <span class="no">Adding</span><span class="o">.</span><span class="n">plus_three</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+ <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Στη συνέχεια μπορούμε να την καθαρίσουμε χρησιμοποιώντας τον χειριστή Capture.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="no">Adding</span><span class="o">.</span><span class="n">plus_three</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">))</span> 
+ <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Για να έχουμε πιο περιληπτικό συντακτικό, μπορούμε κατευθείαν να γράψουμε την ονομασμένη συνάρτηση χωρίς να συλλάβουμε σαφώς τη μεταβλητή.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="no">Adding</span><span class="o">.</span><span class="n">plus_three</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span> 
+ <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/gr/lessons/basics/enum.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/basics/collections/" title="Συλλογές">← Συλλογές</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/basics/pattern-matching/" title="Αντιπαραβολές Προτύπων">Αντιπαραβολές Προτύπων →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/enum/" >bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/enum/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/enum/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/enum/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/enum/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/enum/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <strong >gr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/enum/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/enum/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/enum/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/enum/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/enum/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/enum/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/enum/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/enum/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/enum/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/enum/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/ta/lessons/basics/enum/" >ta</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/enum/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/enum/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/enum/" >uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/enum/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/enum/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/enum/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Μαθήματα προγραμματισμού της γλώσσας Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/gr/" class="">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active">Βασικά</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/basics/">1. Βασικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/collections/">2. Συλλογές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">3. Enum</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pattern-matching/">4. Αντιπαραβολές Προτύπων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/control-structures/">5. Δομές Ελέγχου</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/functions/">6. Συναρτήσεις</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pipe-operator/">7. Τελεστής Σωλήνα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/modules/">8. Ενότητες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/sigils/">10. Σφραγίδες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/documentation/">11. Τεκμηρίωση</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/testing/">12. Δοκιμές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/comprehensions/">13. Ανάγνωση Λιστών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/strings/">14. Αλφαριθμητικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/date-time/">15. Ημερομηνία και Ώρα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix-tasks/">16. Ειδικές Εργασίες Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/iex-helpers/">17. Βοηθοί IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Προχωρημένα</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/erlang/">1. Διαλειτουργικότητα με την Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/error-handling/">2. Διαχείριση Σφαλμάτων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/escripts/">3. Εκτελέσιμα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/concurrency/">4. Συγχρονισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-concurrency/">5. Συγχρονισμός OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-supervisors/">6. Επιτηρητές OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/metaprogramming/">8. Μεταπρογραμματισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/umbrella-projects/">9. Projects Ομπρέλας</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/typespec/">10. Προδιαγραφές και τύποι</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/behaviours/">11. Συμπεριφορές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/protocols/">13. Πρωτόκολλα</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/changesets/">2. Σετ Αλλαγών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/associations/">3. Συσχετισμοί</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ιδιαιτερότητες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/eex/">2. Ένθετη Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βιβλιοθήκες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/guardian/">1. Guardian (Βασικά)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class="">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/gr/report/" class="">Αναφορά Μετάφρασης</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class="">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

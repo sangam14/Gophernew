@@ -1,0 +1,819 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="id">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Pelajaran mengenai bahasa pemrograman Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/id/lessons/specifics/mnesia/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="id">
+  <meta property="og:description" content="Pelajaran mengenai bahasa pemrograman Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/mnesia/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/mnesia/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/id/lessons/specifics/mnesia/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Mnesia &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/id/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/id/lessons/specifics/mnesia/&title=Mnesia&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/id/lessons/specifics/mnesia/&via=elixirschool&text=ElixirSchool: Mnesia&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/id/lessons/specifics/mnesia/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/id/lessons/specifics/mnesia/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Mnesia" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/id/lessons/specifics/mnesia/&title=ElixirSchool: Mnesia&description=Check out 'Mnesia' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Mnesia&body=Check out 'Mnesia' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/id/lessons/specifics/mnesia/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-major"></span>
+  Mnesia
+</h1>
+<div class="version-info version-info-major">
+  <span>
+    
+      Some contents of this translation may be outdated.<br/>
+    
+
+    Several major changes were applied to the original lesson since the last update.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Mnesia adalah sebuah sistem manajemen database terdistribusi real-time yang kuat.</p>
+
+<h2>Daftar Isi</h2>
+<div id="toc"></div>
+
+<h2 id="sekilas">Sekilas</h2>
+
+<p>Mnesia adalah sebuah Sistem Manajemen Database (DBSM) yang disertakan bersama Erlang Runtime System yang tentu saja bisa kita gunakan dengan Elixir. <em>Model data hibrid antara relasional  dan object</em> Mnesia adalah apa yang membuatnya cocok untuk membuat aplikasi terdistribusi pada skala apapun.</p>
+
+<h2 id="kapan-digunakan">Kapan Digunakan</h2>
+
+<p>Kapan kita menggunakan sebuah teknologi seringkali jadi masalah yang membingungkan.  Jika anda bisa menjawab ‘ya’ pada satu saja pertanyaan berikut, maka ini adalah indikasi bagus untuk menggunakan Mnesia sebagai ganti ETS atau DETS.</p>
+
+<ul>
+  <li>Apakah aku perlu membalikkan (roll back) transaksi?</li>
+  <li>Apakah aku perlu sebuah sintaks yang mudah digunakan untuk membaca dan menulis data?</li>
+  <li>Apakah aku perlu menyimpan data lintas node, dan tidak hanya satu node?</li>
+  <li>Apakah aku perlu bisa memilih di mana informasi disimpan (RAM atau disk)?</li>
+</ul>
+
+<h2 id="schema">Schema</h2>
+
+<p>Karena Mnesia adalah bagian dari Erlang core, bukannya Elixir, kita harus mengaksesnya dengan sintaks colon (Lihat Pelajaran: <a href="../../advanced/erlang/">Erlang Interoperability</a>) seperti ini:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+iex&gt; :mnesia.create_schema<span class="o">([</span>node<span class="o">()])</span>
+
+<span class="c"># atau jika anda lebih suka rasa Elixir...</span>
+
+iex&gt; <span class="nb">alias</span> :mnesia, as: Mnesia
+iex&gt; Mnesia.create_schema<span class="o">([</span>node<span class="o">()])</span>
+</code></pre></div></div>
+
+<p>Untuk pelajaran ini, kita akan mengambil pendekatan yang terakhir ketika bekerja dengan API Mnesia. <code class="highlighter-rouge">Mnesia.create_schema/1</code> menginisialisasikan sebuah schema kosong yang baru dan memasukkan sebuah Node List. Dalam kasus ini, kita memasukkan node yang terasosiasikan dengan sesi IEx kita.</p>
+
+<h2 id="node">Node</h2>
+
+<p>Begitu kita sudah menjalankan perintah <code class="highlighter-rouge">Mnesia.create_schema([node()])</code> via IEx, anda mestinya melihat sebuah folder bernama <strong>Mnesia.nonode@nohost</strong> atau yang serupa di dalam direktori kerja yang sekarang ada.  Anda mungkin bertanya-tanya apa artinya <strong>nonode@nohost</strong> karena sebelumnya kita belum pernah melihatnya. Mari kita lihat.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">--help</span>
+Usage: iex <span class="o">[</span>options] <span class="o">[</span>.exs file] <span class="o">[</span>data]
+
+  <span class="nt">-v</span>                Prints version
+  <span class="nt">-e</span> <span class="s2">"command"</span>      Evaluates the given <span class="nb">command</span> <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">-r</span> <span class="s2">"file"</span>         Requires the given files/patterns <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">-S</span> <span class="s2">"script"</span>       Finds and executes the given script
+  <span class="nt">-pr</span> <span class="s2">"file"</span>        Requires the given files/patterns <span class="k">in </span>parallel <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">-pa</span> <span class="s2">"path"</span>        Prepends the given path to Erlang code path <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">-pz</span> <span class="s2">"path"</span>        Appends the given path to Erlang code path <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">--app</span> <span class="s2">"app"</span>       Start the given app and its dependencies <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">--erl</span> <span class="s2">"switches"</span>  Switches to be passed down to Erlang <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">--name</span> <span class="s2">"name"</span>     Makes and assigns a name to the distributed node
+  <span class="nt">--sname</span> <span class="s2">"name"</span>    Makes and assigns a short name to the distributed node
+  <span class="nt">--cookie</span> <span class="s2">"cookie"</span> Sets a cookie <span class="k">for </span>this distributed node
+  <span class="nt">--hidden</span>          Makes a hidden node
+  <span class="nt">--werl</span>            Uses Erlang<span class="s1">'s Windows shell GUI (Windows only)
+  --detached        Starts the Erlang VM detached from console
+  --remsh "name"    Connects to a node using a remote shell
+  --dot-iex "path"  Overrides default .iex.exs file and uses path instead;
+                    path can be empty, then no file will be loaded
+
+** Options marked with (*) can be given more than once
+** Options given after the .exs file or -- are passed down to the executed code
+** Options can be passed to the VM using ELIXIR_ERL_OPTIONS or --erl
+</span></code></pre></div></div>
+
+<p>Ketika kita berikan opsi <code class="highlighter-rouge">--help</code> ke IEx dari command line kita ditunjuki semua opsi yang mungkin. Kita bisa melihat bahwa ada opsi <code class="highlighter-rouge">--name</code> dan <code class="highlighter-rouge">--sname</code> untuk memberikan informasi ke node. Sebuah node hanyalah sebuah Erlang Virtual Machine yang sedang berjalan yang menangani sendiri komunikasi, pembersihan sampah (garbage collection), penjadwalan, memori, dan lain-lain. Secara default node dinamai <strong>nonode@nohost</strong>.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">--name</span> learner@elixirschool.com
+
+Erlang/OTP 22.0 <span class="o">[</span>erts-10.5.3] <span class="o">[</span><span class="nb">source</span><span class="o">]</span> <span class="o">[</span>64-bit] <span class="o">[</span>smp:4:4] <span class="o">[</span>async-threads:10] <span class="o">[</span>hipe] <span class="o">[</span>kernel-poll:false] <span class="o">[</span>dtrace]
+
+Interactive Elixir <span class="o">(</span>1.10.1<span class="o">)</span> - press Ctrl+C to <span class="nb">exit</span> <span class="o">(</span><span class="nb">type </span>h<span class="o">()</span> ENTER <span class="k">for </span><span class="nb">help</span><span class="o">)</span>
+iex<span class="o">(</span>learner@elixirschool.com<span class="o">)&gt;</span> Node.self
+:<span class="s2">"learner@elixirschool.com"</span>
+</code></pre></div></div>
+
+<p>Sebagaimana bisa kita lihat, node yang sedang kita jalankan adalah sebuah atom bernama <code class="highlighter-rouge">:"learner@elixirschool.com"</code>. Kalau kita jalankan <code class="highlighter-rouge">Mnesia.create_schema([node()])</code> lagi, kita akan lihat bahwa ia membuat folder lagi bernama <strong>Mnesia.learner@elixirschool.com</strong>. Tujuan dari hal ini adalah sederhana. Node di Erlang digunakan untuk mengkoneksi ke node lain untuk berbagi (distribusi) informasi dan sumber daya (resource). Hal ini tidak harus dibatasi pada mesin yang sama dan dapat berkomunikasi lewat LAN, internet, dan lain-lain.</p>
+
+<h2 id="menjalankan-mnesia">Menjalankan Mnesia</h2>
+
+<p>Sekarang setelah kita mahami dasar-dasarnya dan sudah mensetup databasenya, kita sekarang bisa jalankan DBMS Mnesia dengan perintah <code class="highlighter-rouge">Mnesia.start/0</code> command.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; <span class="nb">alias</span> :mnesia, as: Mnesia
+iex&gt; Mnesia.create_schema<span class="o">([</span>node<span class="o">()])</span>
+:ok
+iex&gt; Mnesia.start<span class="o">()</span>
+:ok
+</code></pre></div></div>
+
+<p>Patut diingat ketika menjalankan sebuah sistem terdistribusi dengan dua node atau lebih, fungsi <code class="highlighter-rouge">Mnesia.start/1</code> harus dijalankan pada semua node yang berpartisipasi.</p>
+
+<h2 id="membuat-tabel">Membuat Tabel</h2>
+
+<p>Fungsi <code class="highlighter-rouge">Mnesia.create_table/2</code> digunakan untuk membuat tabel dalam database kita. Di bawah ini kita membuat tabel bernama <code class="highlighter-rouge">Person</code> dan kemudian memasukkan keyword list yang mendefinisikan schema tabelnya.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; Mnesia.create_table<span class="o">(</span>Person, <span class="o">[</span>attributes: <span class="o">[</span>:id, :name, :job]]<span class="o">)</span>
+<span class="o">{</span>:atomic, :ok<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Kita mendefinisikan kolom-kolom menggunakan atom-atom <code class="highlighter-rouge">:id</code>, <code class="highlighter-rouge">:name</code>, dan <code class="highlighter-rouge">:job</code>. Ketika kita menjalankan <code class="highlighter-rouge">Mnesia.create_table/2</code>, fungsi tersebut akan mengembalikan salah satu dari respons berikut:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">{:atomic, :ok}</code> jika fungsi tersebut selesai dengan baik</li>
+  <li><code class="highlighter-rouge">{:aborted, Reason}</code> jika fungsi tersebut gagal</li>
+</ul>
+
+<h2 id="cara-yang-kotor">Cara yang Kotor</h2>
+
+<p>Pertama-tama kita akan melihat cara yang kotor untuk membaca dan menulis ke sebuah tabel Mnesia.  Hali ini secara umum mesti dihindari karena tidak dijamin berhasil, tetapi ini dapat menolong kita mempelajari dan menjadi terbiasa bekerja dengan Mnesia. MAri tambahkan beberapa etri ke tabel <strong>Person</strong> kita.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; Mnesia.dirty_write<span class="o">({</span>Person, 1, <span class="s2">"Seymour Skinner"</span>, <span class="s2">"Principal"</span><span class="o">})</span>
+:ok
+
+iex&gt; Mnesia.dirty_write<span class="o">({</span>Person, 2, <span class="s2">"Homer Simpson"</span>, <span class="s2">"Safety Inspector"</span><span class="o">})</span>
+:ok
+
+iex&gt; Mnesia.dirty_write<span class="o">({</span>Person, 3, <span class="s2">"Moe Szyslak"</span>, <span class="s2">"Bartender"</span><span class="o">})</span>
+:ok
+</code></pre></div></div>
+
+<p>…dan untuk mengambil entri-entri tersebut kita bisa gunakan <code class="highlighter-rouge">Mnesia.dirty_read/1</code>:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; Mnesia.dirty_read<span class="o">({</span>Person, 1<span class="o">})</span>
+<span class="o">[{</span>Person, 1, <span class="s2">"Seymour Skinner"</span>, <span class="s2">"Principal"</span><span class="o">}]</span>
+
+iex&gt; Mnesia.dirty_read<span class="o">({</span>Person, 2<span class="o">})</span>
+<span class="o">[{</span>Person, 2, <span class="s2">"Homer Simpson"</span>, <span class="s2">"Safety Inspector"</span><span class="o">}]</span>
+
+iex&gt; Mnesia.dirty_read<span class="o">({</span>Person, 3<span class="o">})</span>
+<span class="o">[{</span>Person, 3, <span class="s2">"Moe Szyslak"</span>, <span class="s2">"Bartender"</span><span class="o">}]</span>
+
+iex&gt; Mnesia.dirty_read<span class="o">({</span>Person, 4<span class="o">})</span>
+<span class="o">[]</span>
+</code></pre></div></div>
+
+<p>Kalau kita coba melakukan query ke sebuah record yang tidak ada Mnesia akan merespon dengan sebuah list kosong.</p>
+
+<h2 id="transaksi">Transaksi</h2>
+
+<p>Secara tradisional kita menggunakan <strong>transaksi</strong> untuk mengenkapsulasi pembacaan dan penulisan kita ke database. Transaksi adalah bagian yang penting dalam mendisain sistem sangat terdistribusi yang toleran terhadap kegagalan. Sebuah transaksi Mnesia adalah <em>sebuah mekanisme yang melaluinya serangkaian operasi database bisa dieksekusi sebagai sebuah blok fungsional</em>. Pertama-tama kita membuat sebuah fungsi anonim, dalam hal ini <code class="highlighter-rouge">data_to_write</code> dan kemudian memasukkannya ke <code class="highlighter-rouge">Mnesia.transaction</code>.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; data_to_write <span class="o">=</span> fn -&gt;
+...&gt;   Mnesia.write<span class="o">({</span>Person, 4, <span class="s2">"Marge Simpson"</span>, <span class="s2">"home maker"</span><span class="o">})</span>
+...&gt;   Mnesia.write<span class="o">({</span>Person, 5, <span class="s2">"Hans Moleman"</span>, <span class="s2">"unknown"</span><span class="o">})</span>
+...&gt;   Mnesia.write<span class="o">({</span>Person, 6, <span class="s2">"Monty Burns"</span>, <span class="s2">"Businessman"</span><span class="o">})</span>
+...&gt;   Mnesia.write<span class="o">({</span>Person, 7, <span class="s2">"Waylon Smithers"</span>, <span class="s2">"Executive assistant"</span><span class="o">})</span>
+...&gt; end
+<span class="c">#Function&lt;20.54118792/0 in :erl_eval.expr/5&gt;</span>
+
+iex&gt; Mnesia.transaction<span class="o">(</span>data_to_write<span class="o">)</span>
+<span class="o">{</span>:atomic, :ok<span class="o">}</span>
+</code></pre></div></div>
+<p>Berdasarkan pesan transaksi ini, kita bisa dengan aman mengasumsikan bahwa kita telah menuliskan data ke tabel <code class="highlighter-rouge">Person</code> kita.  Mari kita gunakan transaksi untuk membaca dari database untuk memastikan. Kita akan gunakan <code class="highlighter-rouge">Mnesia.read/1</code> untuk membaca dari database, tetapi sekali lagi dari sebuah fungsi anonim.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; data_to_read <span class="o">=</span> fn -&gt;
+...&gt;   Mnesia.read<span class="o">({</span>Person, 6<span class="o">})</span>
+...&gt; end
+<span class="c">#Function&lt;20.54118792/0 in :erl_eval.expr/5&gt;</span>
+
+iex&gt; Mnesia.transaction<span class="o">(</span>data_to_read<span class="o">)</span>
+<span class="o">{</span>:atomic, <span class="o">[{</span>Person, 6, <span class="s2">"Monty Burns"</span>, <span class="s2">"Businessman"</span><span class="o">}]}</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/id/lessons/specifics/mnesia.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/id/lessons/specifics/ets/" title="Erlang Term Storage (ETS)">← Erlang Term Storage (ETS)</a>
+    </div>
+    
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/mnesia/" title="Bahasa Inggris / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/specifics/mnesia/" title="Bahasa Spanyol / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/specifics/mnesia/" title="Bahasa Yunani">gr</a>
+        
+      
+        
+        
+
+        
+          <strong title="Bahasa Indonesia">id</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/mnesia/" title="Bahasa Korea">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/specifics/mnesia/" title="Bahasa Poland">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/specifics/mnesia/" title="Bahasa Portugis">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/specifics/mnesia/" title="Bahasa Rusia / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/specifics/mnesia/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/specifics/mnesia/" title="Bahasa Vietnam">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/mnesia/" title="Bahasa China">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/mnesia/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Pelajaran mengenai bahasa pemrograman Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/id/" class=" up ">Beranda</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Dasar</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/id/lessons/basics/basics/">1. Dasar</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/collections/">2. Koleksi</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/pattern-matching/">4. Pencocokan Pola</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/control-structures/">5. Struktur Kendali</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/functions/">6. Fungsi</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/pipe-operator/">7. Operator pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/modules/">8. Composition</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/sigils/">10. Sigil</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Lanjutan</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/erlang/">1. Interoperabilitas dengan Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/error-handling/">2. Penanganan Error</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/id/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Khusus</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/id/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">4. Mnesia</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/id/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

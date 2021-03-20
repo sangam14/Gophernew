@@ -1,0 +1,997 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/phoenix-live-view/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/phoenix-live-view/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Walk-Through of Phoenix LiveView &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/phoenix-live-view/&title=Walk-Through of Phoenix LiveView&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/phoenix-live-view/&via=elixirschool&text=ElixirSchool: Walk-Through of Phoenix LiveView&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/phoenix-live-view/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/phoenix-live-view/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Walk-Through of Phoenix LiveView" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/phoenix-live-view/&title=ElixirSchool: Walk-Through of Phoenix LiveView&description=Check out 'Walk-Through of Phoenix LiveView' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Walk-Through of Phoenix LiveView&body=Check out 'Walk-Through of Phoenix LiveView' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/phoenix-live-view/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Walk-Through of Phoenix LiveView</h1>
+    <p><a href="/blog/years/2019/">19 Mar 2019</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/til/">Today I Learned</a></p>
+  </header>
+  <div class="content">
+    <p>It’s here! Phoenix LiveView leverages server-rendered HTML and Phoenix’s native WebSocket tooling so you can build fancy real-time features without all that complicated JavaScript. If you’re sick to death of writing JS (I had a bad day with Redux, don’t ask), then this is the library for you!</p>
+
+<p>Phoenix LiveView is brand brand new so I thought I’d provide a short write-up of a super simple demo I built for anyone looking to get up and running. Keep in mind that the library is still a release candidate and as such, is subject to change.</p>
+
+<h2 id="what-is-liveview">What is LiveView?</h2>
+
+<p>Chris McCord said it best in his <a href="https://dockyard.com/blog/2018/12/12/phoenix-liveview-interactive-real-time-apps-no-need-to-write-javascript">announcement</a> back in December:</p>
+
+<blockquote>
+  <p>Phoenix LiveView is an exciting new library which enables rich, real-time user experiences with server-rendered HTML. LiveView powered applications are stateful on the server with bidirectional communication via WebSockets, offering a vastly simplified programming model compared to JavaScript alternatives.</p>
+</blockquote>
+
+<h2 id="kill-your-javascript">Kill Your JavaScript</h2>
+
+<p>If you’ve waded through an overly complex SPA that Reduxes all the things (for example), you’ve felt the maintenance and iteration costs that often accompany all that fancy JavaScript.</p>
+
+<p>Phoenix LiveView feels like a perfect fit for the 90% of the time that you do want some live updates but don’t actually need the wrecking ball of many modern JS frameworks.</p>
+
+<p>Let’s get LiveView up and running to support a feature that pushes out live updates as our server enacts a step-by-step process of creating a GitHub repo.</p>
+
+<p>Here’s the functionality we’re building:</p>
+
+<div class="responsive-embed">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/8M-Hjj7IBu8" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<p><br /></p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>The following steps are detailed in Phoenix LiveView <a href="https://github.com/phoenixframework/phoenix_live_view">Readme</a>.</p>
+
+<ul>
+  <li>Install the dependency in your <code class="highlighter-rouge">mix.exs</code> file:</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:phoenix_live_view</span><span class="p">,</span> <span class="s2">"~&gt; 0.2.0"</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Update your app’s endpoint configuration with a signing salt for your live view connection to use:</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Configures the endpoint</span>
+<span class="n">config</span> <span class="ss">:my_app</span><span class="p">,</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="o">...</span>
+  <span class="ss">live_view:</span> <span class="p">[</span>
+    <span class="ss">signing_salt:</span> <span class="s2">"YOUR_SECRET"</span>
+  <span class="p">]</span>
+</code></pre></div></div>
+<p><em>Note: You can generate a secret by running <code class="highlighter-rouge">mix phx.gen.secret</code> from the command line.</em></p>
+
+<ul>
+  <li>Update your configuration to enable writing LiveView templates with the  <code class="highlighter-rouge">.leex</code> extension.</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:phoenix</span><span class="p">,</span>
+  <span class="ss">template_engines:</span> <span class="p">[</span><span class="ss">leex:</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span><span class="o">.</span><span class="no">Engine</span><span class="p">]</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Add the live view flash plug to your browser pipeline, after <code class="highlighter-rouge">:fetch_flash</code></li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipeline</span> <span class="ss">:browser</span> <span class="k">do</span>
+  <span class="o">...</span>
+  <span class="n">plug</span> <span class="ss">:fetch_flash</span>
+  <span class="n">plug</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span><span class="o">.</span><span class="no">Flash</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Import the following in your <code class="highlighter-rouge">lib/app_web.ex</code> file:</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">view</span> <span class="k">do</span>
+  <span class="kn">quote</span> <span class="k">do</span>
+    <span class="o">...</span>
+    <span class="kn">import</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">live_render:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">live_render:</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">router</span> <span class="k">do</span>
+  <span class="kn">quote</span> <span class="k">do</span>
+    <span class="o">...</span>
+    <span class="kn">import</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span><span class="o">.</span><span class="no">Router</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Expose a socket for LiveView to use in your endpoint module:</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Endpoint</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">Endpoint</span>
+
+  <span class="n">socket</span> <span class="s2">"/live"</span><span class="p">,</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span><span class="o">.</span><span class="no">Socket</span>
+
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Add LiveView to your NPM dependencies:</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># assets/package.json</span>
+<span class="p">{</span>
+  <span class="s2">"dependencies"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="o">...</span>
+    <span class="s2">"phoenix_live_view"</span><span class="p">:</span> <span class="s2">"file:../deps/phoenix_live_view"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>You’ll need to run <code class="highlighter-rouge">npm install</code> after this step.</p>
+
+<ul>
+  <li>Use the LiveView JavaScript library to connect to the LiveView socket in <code class="highlighter-rouge">app.js</code></li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">LiveSocket</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">phoenix_live_view</span><span class="dl">"</span>
+
+<span class="kd">let</span> <span class="nx">liveSocket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">LiveSocket</span><span class="p">(</span><span class="dl">"</span><span class="s2">/live</span><span class="dl">"</span><span class="p">)</span>
+<span class="nx">liveSocket</span><span class="p">.</span><span class="nx">connect</span><span class="p">()</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Your live views should be saved in the <code class="highlighter-rouge">lib/my_app_web/live/</code> directory. For live page reload support, add the following pattern to your <code class="highlighter-rouge">config/dev.exs</code>:</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:demo</span><span class="p">,</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">live_reload:</span> <span class="p">[</span>
+    <span class="ss">patterns:</span> <span class="p">[</span>
+      <span class="o">...</span><span class="p">,</span>
+      <span class="sr">~r{lib/my_app_web/live/.*(ex)$}</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+</code></pre></div></div>
+
+<p>Now we’re ready to build and render a live view!</p>
+
+<h3 id="rendering-a-live-view-from-the-controller">Rendering a Live View from the Controller</h3>
+
+<p>You can <a href="https://github.com/phoenixframework/phoenix_live_view/blob/master/lib/phoenix_live_view.ex#L86">serve live views directly from your router</a>. However, in this example we’ll teach our controller to render a live view. Let’s take a look at our controller:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">PageController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyApp</span><span class="p">,</span> <span class="ss">:controller</span>
+  <span class="n">alias</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span>
+
+  <span class="k">def</span> <span class="n">index</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">LiveView</span><span class="o">.</span><span class="no">Controller</span><span class="o">.</span><span class="n">live_render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">GithubDeployView</span><span class="p">,</span> <span class="ss">session:</span> <span class="p">%{})</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We’re calling on the <code class="highlighter-rouge">live_render/3</code> function which takes in an argument of the <code class="highlighter-rouge">conn</code>, the live view we want to render, and any session info we want to send down into the live view.</p>
+
+<p>Now we’re ready to define our very own live view.</p>
+
+<h3 id="defining-the-live-view">Defining the Live View</h3>
+
+<p>Our first live view will live in <code class="highlighter-rouge">my_app_web/live/github_deploy_view.ex</code>. This view is responsible for handling an interaction whereby a user “deploys” some content to GitHub. This process involves creating a GitHub organization, creating the repo and pushing up some contents to that repo. We won’t care about the implementation details of this process for the purpose of this example.</p>
+
+<p>Our live view will use <code class="highlighter-rouge">Phoenix.LiveView</code> and must implement two functions: <code class="highlighter-rouge">render/1</code> and <code class="highlighter-rouge">mount/2</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">GithubDeployView</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span>
+
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="sx">~L""</span><span class="s2">"
+    &lt;div class=""&gt;
+      &lt;div&gt;
+        &lt;%= @deploy_step %&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    """</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">deploy_step:</span> <span class="s2">"Ready!"</span><span class="p">)}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now that we have the basic pieces in place, let’s break down the live view process.</p>
+
+<h3 id="how-it-works">How It Works</h3>
+
+<p>The live view connection process looks something like this:</p>
+
+<p><img src="/assets/live_view-6a1ff8ddee59b55d1ee0b72dc8d47c55e55bdcaf6b788cc65af31afec66836d3.png" alt="" /></p>
+
+<p>When our app receives an HTTP request for the index route, it will respond by rendering the static HTML defined in our live view’s <code class="highlighter-rouge">render/1</code> function. It will do so by first invoking our view’s <code class="highlighter-rouge">mount/2</code> function, only then rendering the HTML populated with whatever default values <code class="highlighter-rouge">mount/2</code> assigned to the socket.</p>
+
+<p>The rendered HTML will include the signed session info. The session is signed using the signing salt we provided to our live view configuration in <code class="highlighter-rouge">config.exs</code>. That signed session will be sent back to the server when the client opens the live view socket connection. If you inspect the page rendering your live view in the browser, you’ll see that signed session:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span>
+  <span class="na">id=</span><span class="s">"phx-20gvOvqvFMA="</span>
+  <span class="na">data-phx-view=</span><span class="s">"MyApp.GithubDeployView"</span>
+  <span class="na">data-phx-session=</span><span class="s">"SFMyNTY.g3QAAAACZAAEZGF0YW0AAACQZzNRQUFBQUVaQUFDYVdS"</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Once that static HTML is rendered, the client will send the live socket connect request thanks to this snippet:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">LiveSocket</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">phoenix_live_view</span><span class="dl">"</span>
+
+<span class="kd">let</span> <span class="nx">liveSocket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">LiveSocket</span><span class="p">(</span><span class="dl">"</span><span class="s2">/live</span><span class="dl">"</span><span class="p">)</span>
+<span class="nx">liveSocket</span><span class="p">.</span><span class="nx">connect</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>This initiates a stateful connection that will cause the view to be re-rendered anytime the socket updates. Since the page first renders as static HTML, we can rest assured that our page will always render for our user, even if JavaScript is disabled in the browser.</p>
+
+<p>Now that we understand how the live view is first rendered and how the live view socket connection is established, let’s render some live updates.</p>
+
+<h3 id="rendering-live-updates">Rendering Live Updates</h3>
+
+<p>LiveView is listening to updates to our socket and will re-render <em>only the portions of the page that need updating</em>. Taking a closer look at our <code class="highlighter-rouge">render/1</code> function, we see that it renders the values of the keys assigned to our socket.</p>
+
+<p>Where <code class="highlighter-rouge">mount/2</code> assigned the values <code class="highlighter-rouge">:deploy_step</code>, our <code class="highlighter-rouge">render/1</code> function renders them like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+  <span class="sx">~L""</span><span class="s2">"
+  &lt;div class=""&gt;
+    &lt;div&gt;
+      &lt;%= @deploy_step %&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  """</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>Note: The <a href="https://github.com/phoenixframework/phoenix_live_view/blob/master/lib/phoenix_live_view.ex#L159"><code class="highlighter-rouge">~L</code></a> sigil represents Live EEx. This is the built-in LiveView template. Unlike <code class="highlighter-rouge">.eex</code> templates, LEEx templates are capable of tracking and rendering only necessary changes. So, if the value of <code class="highlighter-rouge">@deploy_step</code> changes, our template will re-render only that portion of the page.</em></p>
+
+<p>Let’s give our user a way to kick off the “deploy to GitHub” process and see the page update as each deploy step is enacted.</p>
+
+<p>LiveView supports DOM element bindings to give us the ability to respond to client-side events. We’ll create a “deploy to GitHub” button and we’ll listen for the click of that button with the phx-click event binding.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+  <span class="sx">~L""</span><span class="s2">"
+  &lt;div class=""&gt;
+    &lt;div&gt;
+      &lt;div&gt;
+        &lt;button phx-click="</span><span class="n">github_deploy</span><span class="s2">"&gt;Deploy to GitHub&lt;/button&gt;
+      &lt;/div&gt;
+      Status: &lt;%= @deploy_step %&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  """</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">phx-click</code> binding will send our click event to the server to be handled by <code class="highlighter-rouge">GithubDeployView</code>. Events are handled in our live views by the <code class="highlighter-rouge">handle_event/3</code> function. This function will take in an argument of the event name, a value and the socket.</p>
+
+<p>There are a <a href="https://github.com/phoenixframework/phoenix_live_view/blob/master/lib/phoenix_live_view.ex#L228">number of ways to populate the <code class="highlighter-rouge">value</code> argument</a>, but we won’t use that data point in this example.</p>
+
+<p>Let’s build out our <code class="highlighter-rouge">handle_event/3</code> function for the <code class="highlighter-rouge">"github_deploy"</code> event:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"github_deploy"</span><span class="p">,</span> <span class="n">_value</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="c1"># do the deploy process</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">deploy_step:</span> <span class="s2">"Starting deploy..."</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Our function is responsible for two things. First, it will kick off the deploy process (coming soon). Then, it will update the value of the <code class="highlighter-rouge">:deploy_step</code> key in our socket. This will cause our template to re-render the portion of the page with <code class="highlighter-rouge">&lt;%= @deploy_step %&gt;</code>, so the user will see <code class="highlighter-rouge">Status: Ready!</code> change to <code class="highlighter-rouge">Status: Starting deploy...</code>.</p>
+
+<p>Next up, we need the “deploying to GitHub” process to be capable of updating the socket’s <code class="highlighter-rouge">:deploy_step</code> at each turn. We’ll have our view’s <code class="highlighter-rouge">handle_event/3</code> function send a message to itself to enact each successive step in the process.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"github_deploy"</span><span class="p">,</span> <span class="n">_value</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="ss">:ok</span> <span class="o">=</span> <span class="no">MyApp</span><span class="o">.</span><span class="n">start_deploy</span><span class="p">()</span>
+  <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="ss">:create_org</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">deploy_step:</span> <span class="s2">"Starting deploy..."</span><span class="p">)}</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="ss">:create_org</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">org</span><span class="p">}</span> <span class="o">=</span> <span class="no">MyApp</span><span class="o">.</span><span class="n">create_org</span><span class="p">()</span>
+  <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="p">{</span><span class="ss">:create_repo</span><span class="p">,</span> <span class="n">org</span><span class="p">})</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">deploy_step:</span> <span class="s2">"Creating GitHub org..."</span><span class="p">)}</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">({</span><span class="ss">:create_repo</span><span class="p">,</span> <span class="n">org</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">repo</span><span class="p">}</span> <span class="o">=</span> <span class="no">MyApp</span><span class="o">.</span><span class="n">create_repo</span><span class="p">(</span><span class="n">org</span><span class="p">)</span>
+  <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="p">{</span><span class="ss">:push_contents</span><span class="p">,</span> <span class="n">repo</span><span class="p">})</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">deploy_step:</span> <span class="s2">"Creating GitHub repo..."</span><span class="p">)}</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">({</span><span class="ss">:push_contents</span><span class="p">,</span> <span class="n">repo</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="ss">:ok</span> <span class="o">=</span> <span class="no">MyApp</span><span class="o">.</span><span class="n">push_contents</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+  <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="ss">:done</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">deploy_step:</span> <span class="s2">"Pushing to repo..."</span><span class="p">)}</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="ss">:done</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">deploy_step:</span> <span class="s2">"Done!"</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>This code is dummied-up––we’re not worried about the implementation details of deploying our GitHub repo, but we can imagine how we might add error handling and other responsibilities into this code flow.</em></p>
+
+<p>Our <code class="highlighter-rouge">handle_event/3</code> function kicks off the deploy process by sending the <code class="highlighter-rouge">:create_org</code> message to the view itself. Our view responds to this message by calling on code that enacts that step and by updating the socket. This will cause our template to re-render once again, so the user will see <code class="highlighter-rouge">Status: Starting deploy...</code> change to <code class="highlighter-rouge">Status: Creating GitHub org...</code>. In this way, the view enacts each step in the GitHub deploy process, updating the socket and causing the template to re-render each time.</p>
+
+<p>Now that we have our live updates working, let’s refactor the HTML code out of our <code class="highlighter-rouge">render/1</code> function and into its own template file.</p>
+
+<h3 id="rendering-a-template-file">Rendering a Template File</h3>
+
+<p>We’ll define our template in <code class="highlighter-rouge">lib/my_app_web/templates/page/github_deploy.html.leex</code>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">phx-click=</span><span class="s">"github_deploy"</span><span class="nt">&gt;</span>Deploy to GitHub<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"github-deploy"</span><span class="nt">&gt;</span>
+      Status: <span class="nt">&lt;</span><span class="err">%=</span> <span class="err">@</span><span class="na">deploy_step</span> <span class="err">%</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Next, we’ll have our live view’s <code class="highlighter-rouge">render/1</code> function simply tell our <code class="highlighter-rouge">PageView</code> to render this template:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">GithubDeployView</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span>
+
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">MyApp</span><span class="o">.</span><span class="no">PageView</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">"github_deploy.html"</span><span class="p">,</span> <span class="n">assigns</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now our code is a bit more organized.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>From even this limited example, we can see what a powerful offering this is. We were able to implement this real-time feature with only server-side code, and not that many lines of server-side code at that! I really enjoyed playing around with Phoenix LiveView and I’m excited to see what other devs build with it. Happy coding!</p>
+
+    
+    <div class="tags">
+      <h4 class="title">Article tags</h4>
+      
+        <span class="tag"><a href="/blog/tags/phoenix/">phoenix</a></span>
+      
+      </div>
+    </p>
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-03-18-phoenix-live-view.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/supervisor-strategies/" title="Elixir Supervisor Strategies" rel="prev">&laquo; Elixir Supervisor Strategies</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/til-ecto-validations-and-constraints/" title="TIL Ecto Constraints and Validations" rel="next">TIL Ecto Constraints and Validations &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

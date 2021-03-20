@@ -1,0 +1,903 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/live-view-with-pub-sub/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/live-view-with-pub-sub/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Building Real-Time Features with Phoenix Live View and PubSub &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/live-view-with-pub-sub/&title=Building Real-Time Features with Phoenix Live View and PubSub&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/live-view-with-pub-sub/&via=elixirschool&text=ElixirSchool: Building Real-Time Features with Phoenix Live View and PubSub&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/live-view-with-pub-sub/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/live-view-with-pub-sub/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Building Real-Time Features with Phoenix Live View and PubSub" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/live-view-with-pub-sub/&title=ElixirSchool: Building Real-Time Features with Phoenix Live View and PubSub&description=Check out 'Building Real-Time Features with Phoenix Live View and PubSub' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Building Real-Time Features with Phoenix Live View and PubSub&body=Check out 'Building Real-Time Features with Phoenix Live View and PubSub' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/live-view-with-pub-sub/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Building Real-Time Features with Phoenix Live View and PubSub</h1>
+    <p><a href="/blog/years/2019/">11 Apr 2019</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <p>In an <a href="https://elixirschool.com/blog/phoenix-live-view/">earlier post</a>, we used the brand new (still pre-release at time of writing) Phoenix LiveView library to build a real-time feature with very little backend code and even less JavaScript. LiveView allowed us to easily connect our client to the server via a socket and push updates down to our client. In an app that allows users to “deploy” a repo to GitHub, we achieved the following real-time functionality:</p>
+
+<div class="responsive-embed">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/8M-Hjj7IBu8" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<p><br /></p>
+
+<p>But what happens when we have a set of clients that <em>all</em> need to see the <em>same</em> real-time updates? Phoenix Channels might seem like the right fit, but wouldn’t it be nice if we could get our existing LiveView to simply broadcast updates to a set of subscribing clients? We can use Phoenix’s PubSub module to do exactly that!</p>
+
+<p>In this post, we’ll learn how to use PubSub to make real-time updates available to all of our LiveView clients, not just the person who clicked the “Deploy to GitHub” button. Our finished product will look like this:</p>
+
+<div class="responsive-embed">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/QLwfYNgVuu0" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<p><br /></p>
+
+<p>Let’s get started!</p>
+
+<h2 id="what-is-pubsub-and-why-do-we-need-it">What is PubSub and Why Do We Need It?</h2>
+
+<p>PubSub (“publish/subscribe”) describes a pattern in which we publish messages to a “topic”, such that those messages can be consumed by any number of subscribers. In the context of our web app, a set of clients connected to our server become the subscribers of a given topic. One particular client (the one who clicks the “Deploy to GitHub” button) will publish, or broadcast, messages to that topic, to be picked up and operated on by the other subscribing clients.</p>
+
+<p><a href="https://hexdocs.pm/phoenix/1.1.0/Phoenix.PubSub.html">Phoenix’s PubSub library</a> will allow us to set up our own publish/subscribe flow. It’s important to note that Phoenix’s PubSub library takes advantage of Distributed Elixir––clients across distributed nodes of our app can subscribe to a shared topic and broadcast to that shared topic because PubSub can directly exchange notifications between servers when configured to use the <code class="highlighter-rouge">Phoenix.PubSub.PG2</code> adapter (more on that later).</p>
+
+<p>First, we’ll subscribe our LiveView processes to a shared topic. Then we’ll use each live view’s socket to push changes out to each subscriber when they receive a broadcast from that topic. In this way, we’ll combine the real-time capability provided by LiveView, with the ability to pass messages across a distributed set of clients provided by PubSub.</p>
+
+<h2 id="configuring-phoenix-pubsub">Configuring Phoenix PubSub</h2>
+
+<p>We’ll configure our app’s endpoint with the <code class="highlighter-rouge">Phoenix.PubSub.PG2</code> adapter. This way, we’ll be able to subscribe clients across distributed nodes of our application, should we deploy it that way. The following configuration in our <code class="highlighter-rouge">config/config.exs</code> will ensure that the pubsub backend starts up and and exposes its functions via the endpoint module.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:my_app</span><span class="p">,</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">pubsub:</span> <span class="p">[</span><span class="ss">name:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">PubSub</span><span class="p">,</span> <span class="ss">adapter:</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">PubSub</span><span class="o">.</span><span class="no">PG2</span><span class="p">]</span>
+  <span class="o">...</span>
+</code></pre></div></div>
+
+<p>Next up, we’ll teach our clients to subscribe to a shared topic in our LiveView.</p>
+
+<h2 id="subscribing-to-a-topic">Subscribing to a Topic</h2>
+
+<p>When should a client subscribe to a topic? We already have a LiveView that is responsible for rendering our view, receiving a click event and pushing out changes to the front-end. This LiveView should also subscribe to a shared topic and broadcast to that topic so that real-time updates can be shared across all instances of the LiveView.</p>
+
+<p>Each LiveView process should subscribe to the topic when the LiveView mounts. We can do that with the <code class="highlighter-rouge">Phoenix.PubSub.subscribe/3</code> function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">GithubDeployView</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span>
+
+  <span class="nv">@topic</span> <span class="s2">"deployments"</span>
+
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">PageView</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">"index.html"</span><span class="p">,</span> <span class="n">assigns</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="nv">@topic</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Ready!"</span><span class="p">,</span> <span class="ss">status:</span> <span class="s2">"ready"</span><span class="p">)}</span>
+  <span class="k">end</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now that our LiveView instances are subscribed to the topic, we’re ready to start broadcasting.</p>
+
+<h2 id="broadcasting-to-the-subscribers">Broadcasting to the Subscribers</h2>
+
+<h3 id="a-liveview-refresher">A LiveView Refresher</h3>
+
+<p>When do we want to broadcast to our subscribing clients? Before we answer this question, let’s take a look at our (slightly refactored) LiveView code. Recall that we are working on an app that allows a user to “deploy” a repo with some contents to GitHub. A user clicks a button which kicks off the several step deployment process (creating an org, creating a repo, pushing some contents).</p>
+
+<p>So, when a user clicks the “Deploy to GitHub” button on our LiveView’s template:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">""</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">"bar"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">button</span> <span class="n">phx</span><span class="o">-</span><span class="n">click</span><span class="o">=</span><span class="s2">"deploy"</span><span class="o">&gt;</span><span class="no">Deploy</span> <span class="n">to</span> <span class="no">GitHub</span><span class="o">&lt;/</span><span class="n">button</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">"github-deploy"</span><span class="o">&gt;</span>
+      <span class="ss">Status:</span> <span class="o">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=&lt;%=</span> <span class="nv">@status</span> <span class="p">%</span><span class="o">&gt;&gt;&lt;%=</span> <span class="nv">@text</span> <span class="p">%</span><span class="err">&gt;</span><span class="o">&lt;/</span><span class="n">span</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>It will call <code class="highlighter-rouge">MyAppWeb.GithubDeployView.handle_event</code> with a first argument of our <code class="highlighter-rouge">phx-click</code>’ event, <code class="highlighter-rouge">"deploy"</code>.</p>
+
+<p>Our live view will then call on some code that enacts each step in the deployment process by looking up the next step in the <code class="highlighter-rouge">@deployment_steps</code> module attribute and passing the next message to the live view.</p>
+
+<p>So when the <code class="highlighter-rouge">"deploy"</code> event gets fired by the user’s button click, our <code class="highlighter-rouge">handle_event/3</code> function will respond by:</p>
+
+<ul>
+  <li>Looking up the next step, <code class="highlighter-rouge">"create-org"</code></li>
+  <li>Looking up the text that we’d like to display, <code class="highlighter-rouge">"Creating org"</code></li>
+  <li>Sending the <code class="highlighter-rouge">"create-org"</code> message to itself</li>
+  <li>Updating the socket’s state to point the <code class="highlighter-rouge">step</code> key to <code class="highlighter-rouge">"create-org"</code> and the <code class="highlighter-rouge">text</code> key to <code class="highlighter-rouge">"Creating org"</code>. This will cause the live view’s template to re-render with the new text.</li>
+</ul>
+
+<p>Sending the <code class="highlighter-rouge">"create-org"</code> message to itself will cause the live view’s <code class="highlighter-rouge">handle_info/2</code> function to be invoked. The live view will in turn look up the next step, pass that next message to itself and update the socket once again. All the way until we reach the <code class="highlighter-rouge">"done"</code> message.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">GithubDeployView</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span>
+  <span class="nv">@deployment_steps</span> <span class="p">%{</span>
+    <span class="s2">"deploy"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="ss">next_step:</span> <span class="s2">"create-org"</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Creating org"</span><span class="p">},</span>
+    <span class="s2">"create-org"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="ss">next_step:</span> <span class="s2">"create-repo"</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Creating repo"</span><span class="p">},</span>
+    <span class="s2">"create-repo"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="ss">next_step:</span> <span class="s2">"push-contents"</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Pushing contents"</span><span class="p">},</span>
+    <span class="s2">"push-contents"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="ss">next_step:</span> <span class="s2">"done"</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Done!"</span><span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nv">@topic</span> <span class="s2">"deployments"</span>
+
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">PageView</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">"index.html"</span><span class="p">,</span> <span class="n">assigns</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Ready!"</span><span class="p">,</span> <span class="ss">status:</span> <span class="s2">"ready"</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">_value</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="nv">@deployment_steps</span><span class="p">[</span><span class="n">step</span><span class="p">][</span><span class="ss">:text</span><span class="p">]</span>
+    <span class="n">next_step</span> <span class="o">=</span> <span class="nv">@deployment_steps</span><span class="p">[</span><span class="n">step</span><span class="p">][</span><span class="ss">:next_step</span><span class="p">]</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">text:</span> <span class="n">text</span><span class="p">,</span> <span class="ss">status:</span> <span class="n">step</span><span class="p">}</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="n">next_step</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">state</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="s2">"done"</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Done!"</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Done!"</span><span class="p">,</span> <span class="ss">status:</span> <span class="s2">"done"</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"HANDLE INFO FOR </span><span class="si">#{</span><span class="n">step</span><span class="si">}</span><span class="s2">..."</span>
+    <span class="no">MyApp</span><span class="o">.</span><span class="no">GitHubClient</span><span class="o">.</span><span class="k">do</span><span class="p">(</span><span class="n">step</span><span class="p">)</span> <span class="c1"># our app doing some work, details omitted.</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="nv">@deployment_steps</span><span class="p">[</span><span class="n">step</span><span class="p">][</span><span class="ss">:text</span><span class="p">]</span>
+    <span class="n">next_step</span> <span class="o">=</span> <span class="nv">@deployment_steps</span><span class="p">[</span><span class="n">step</span><span class="p">][</span><span class="ss">:next_step</span><span class="p">]</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">text:</span> <span class="n">text</span><span class="p">,</span> <span class="ss">status:</span> <span class="n">step</span><span class="p">}</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="n">next_step</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">state</span><span class="p">)}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This works great when we’re only concerned about pushing updates down the socket of <em>one</em> LiveView process. But what about all of the other users who have loaded our Github Deploy page and are operating on their own LiveView processes? What if we want all such users to see the updates caused by one person’s button click? Here’s where our PubSub code comes to the rescue.</p>
+
+<h2 id="enacting-the-broadcasts">Enacting the Broadcasts</h2>
+
+<p>Every time an instance of <code class="highlighter-rouge">GithubDeployView</code> mounts, we subscribe it to the <em>same</em> topic:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@topic</span> <span class="s2">"deployments"</span>
+
+<span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="nv">@topic</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Ready!"</span><span class="p">,</span> <span class="ss">status:</span> <span class="s2">"ready"</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>So, if a given LiveView process <em>broadcasts</em> to that topic, all of our subscribers will receive that message. We want our live view to broadcast whenever it will update the state of its socket. This way, we can tell all subscribing LiveView processes to update their own socket’s state, which will then cause that LiveView’s template to re-render. The flow will work like this:</p>
+
+<p><img src="/assets/live_view_pub_sub-34d2a313aa84af95d437c7120197633465900ee7a4cdabc49232d7c5c8396c0e.png" alt="" /></p>
+
+<p>Let’s add a broadcast when our LiveView first receives the <code class="highlighter-rouge">"deploy"</code> event and when it receives each subsequent deployment step event:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">GithubDeployView</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span>
+  <span class="nv">@deployment_steps</span> <span class="p">%{</span>
+    <span class="s2">"deploy"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="ss">next_step:</span> <span class="s2">"create-org"</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Creating org"</span><span class="p">},</span>
+    <span class="s2">"create-org"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="ss">next_step:</span> <span class="s2">"create-repo"</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Creating repo"</span><span class="p">},</span>
+    <span class="s2">"create-repo"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="ss">next_step:</span> <span class="s2">"push-contents"</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Pushing contents"</span><span class="p">},</span>
+    <span class="s2">"push-contents"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="ss">next_step:</span> <span class="s2">"done"</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Done!"</span><span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nv">@topic</span> <span class="s2">"deployments"</span>
+
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">PageView</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">"index.html"</span><span class="p">,</span> <span class="n">assigns</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Ready!"</span><span class="p">,</span> <span class="ss">status:</span> <span class="s2">"ready"</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">_value</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="nv">@deployment_steps</span><span class="p">[</span><span class="n">step</span><span class="p">][</span><span class="ss">:text</span><span class="p">]</span>
+    <span class="n">next_step</span> <span class="o">=</span> <span class="nv">@deployment_steps</span><span class="p">[</span><span class="n">step</span><span class="p">][</span><span class="ss">:next_step</span><span class="p">]</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">text:</span> <span class="n">text</span><span class="p">,</span> <span class="ss">status:</span> <span class="n">step</span><span class="p">}</span>
+    <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="o">.</span><span class="n">broadcast_from</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="nv">@topic</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="n">next_step</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">state</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="s2">"done"</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Done!"</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">"Done!"</span><span class="p">,</span> <span class="ss">status:</span> <span class="s2">"done"</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Processing </span><span class="si">#{</span><span class="n">step</span><span class="si">}</span><span class="s2">..."</span>
+    <span class="no">MyApp</span><span class="o">.</span><span class="no">GitHubClient</span><span class="o">.</span><span class="k">do</span><span class="p">(</span><span class="n">step</span><span class="p">)</span> <span class="c1"># our app doing some work, details omitted.</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="nv">@deployment_steps</span><span class="p">[</span><span class="n">step</span><span class="p">][</span><span class="ss">:text</span><span class="p">]</span>
+    <span class="n">next_step</span> <span class="o">=</span> <span class="nv">@deployment_steps</span><span class="p">[</span><span class="n">step</span><span class="p">][</span><span class="ss">:next_step</span><span class="p">]</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">text:</span> <span class="n">text</span><span class="p">,</span> <span class="ss">status:</span> <span class="n">step</span><span class="p">}</span>
+    <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="o">.</span><span class="n">broadcast_from</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="nv">@topic</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="n">next_step</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">state</span><span class="p">)}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>By using the <code class="highlighter-rouge">Phoenix.PubSub.broadcast_from/4</code> function, we broadcast a message describing the new socket state to all subscribers of a topic, <em>excluding the process from which we call broadcast</em>. We don’t need the live view that received the click event to broadcast to itself, since it is already sending itself the next message via <code class="highlighter-rouge">send(self(), next_step)</code> and already updating its own socket’s state via <code class="highlighter-rouge">assign(socket, state)</code>.</p>
+
+<p>Now that we are successfully broadcasting the message, we need to teach our LiveView how to handle the receipt of the message. We can do this be defining another <code class="highlighter-rouge">handle_info/2</code> function that will pattern match against the broadcast struct:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">handle_info</span><span class="p">(%{</span><span class="ss">topic:</span> <span class="nv">@topic</span><span class="p">,</span> <span class="ss">payload:</span> <span class="n">state</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"HANDLE BROADCAST FOR </span><span class="si">#{</span><span class="n">state</span><span class="p">[</span><span class="ss">:status</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">state</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This <code class="highlighter-rouge">handle_info/2</code> function will get invoked when our LiveView subscribers receive a broadcast. Each subscriber will then update its own socket via <code class="highlighter-rouge">assign(socket, state)</code>, causing each subscriber’s template to re-render.</p>
+
+<p>If we start up our app, open two browser windows, and click “Deploy to GitHub”, we should see both browsers update:</p>
+
+<p>And we can see via our <code class="highlighter-rouge">puts</code> statements that, only one of our two clients is receiving the broadcasts while the other (the one that initiated the click event), is sending messages directly to itself:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>info] GET /
+<span class="o">[</span>debug] Processing with MyAppWeb.PageController.index/2
+  Parameters: %<span class="o">{}</span>
+  Pipelines: <span class="o">[</span>:browser]
+<span class="o">[</span>info] Sent 200 <span class="k">in </span>33ms
+<span class="o">[</span>info] CONNECT Phoenix.LiveView.Socket
+  Transport: :websocket
+  Connect Info: %<span class="o">{}</span>
+  Parameters: %<span class="o">{</span><span class="s2">"vsn"</span> <span class="o">=&gt;</span> <span class="s2">"2.0.0"</span><span class="o">}</span>
+<span class="o">[</span>info] Replied Phoenix.LiveView.Socket :ok
+<span class="o">[</span>info] Replied phoenix:live_reload :ok
+<span class="o">[</span>info] Replied phoenix:live_reload :ok
+HANDLE BROADCAST FOR deploy
+HANDLE INFO FOR create-org
+HANDLE BROADCAST FOR create-org
+HANDLE INFO FOR create-repo
+HANDLE BROADCAST FOR create-repo
+HANDLE INFO FOR push-contents
+HANDLE BROADCAST FOR push-contents
+Done!
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Another approach to building this broadcast functionality would be to use an Elixir <a href="https://hexdocs.pm/elixir/master/Registry.html">Registry</a>. It wouldn’t give us the ability to broadcast across distributed nodes as easily as PubSub, but I’d be curious to see it implemented to solve this problem.</p>
+
+<p>The Phoenix PubSub library, however, allowed us to build a real-time feature that broadcasts shared updates to a set of users with just an additional five lines of code. Our Phoenix app was already configured to use Phoenix PubSub, and already had the pubsub backend up and running thanks to some out-of-the-box configuration. Integrating it with our existing LiveView code proved to be pretty straightforward, and we had even more advanced real-time functionality up and running in no time.</p>
+
+    
+    <div class="tags">
+      <h4 class="title">Article tags</h4>
+      
+        <span class="tag"><a href="/blog/tags/phoenix/">phoenix</a></span>
+      
+      </div>
+    </p>
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-04-11-live-view-with-pub-sub.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/til-ecto-validations-and-constraints/" title="TIL Ecto Constraints and Validations" rel="prev">&laquo; TIL Ecto Constraints and Validations</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/til-ports/" title="TIL Using Erlang Ports" rel="next">TIL Using Erlang Ports &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

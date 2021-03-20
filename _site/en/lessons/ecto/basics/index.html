@@ -1,0 +1,1030 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="The premier destination for learning and mastering Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/en/lessons/ecto/basics/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="en">
+  <meta property="og:description" content="The premier destination for learning and mastering Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/basics/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/basics/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/en/lessons/ecto/basics/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Basics &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/en/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/en/lessons/ecto/basics/&title=Basics&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/en/lessons/ecto/basics/&via=elixirschool&text=ElixirSchool: Basics&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/en/lessons/ecto/basics/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/en/lessons/ecto/basics/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Basics" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/en/lessons/ecto/basics/&title=ElixirSchool: Basics&description=Check out 'Basics' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Basics&body=Check out 'Basics' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/en/lessons/ecto/basics/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+      <h1>Basics</h1>
+    
+  </header>
+  <div class="content">
+    <p>Ecto is an official Elixir project providing a database wrapper and integrated query language. With Ecto we’re able to create migrations, define schemas, insert and update records, and query them.</p>
+
+<h2>Table of Contents</h2>
+<div id="toc"></div>
+
+<h3 id="adapters">Adapters</h3>
+
+<p>Ecto supports different databases through the use of adapters. A few examples of adapters are:</p>
+
+<ul>
+  <li>PostgreSQL</li>
+  <li>MySQL</li>
+  <li>SQLite</li>
+</ul>
+
+<p>For this lesson we’ll configure Ecto to use the PostgreSQL adapter.</p>
+
+<h3 id="getting-started">Getting Started</h3>
+
+<p>Through the course of this lesson we’ll cover three parts to Ecto:</p>
+
+<ul>
+  <li>The Repository — provides the interface to our database, including the connection</li>
+  <li>Migrations — a mechanism to create, modify, and destroy database tables and indexes</li>
+  <li>Schemas — specialized structs that represent database table entries</li>
+</ul>
+
+<p>To start we’ll create an application with a supervision tree.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new friends <span class="nt">--sup</span>
+<span class="nv">$ </span><span class="nb">cd </span>friends
+</code></pre></div></div>
+
+<p>Add the ecto and postgrex package dependencies to your <code class="highlighter-rouge">mix.exs</code> file.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="p">{</span><span class="ss">:ecto_sql</span><span class="p">,</span> <span class="s2">"~&gt; 3.2"</span><span class="p">},</span>
+      <span class="p">{</span><span class="ss">:postgrex</span><span class="p">,</span> <span class="s2">"~&gt; 0.15"</span><span class="p">}</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Fetch the dependencies using</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+</code></pre></div></div>
+
+<h4 id="creating-a-repository">Creating a Repository</h4>
+
+<p>A repository in Ecto maps to a datastore such as our Postgres database.
+All communication to the database will be done using this repository.</p>
+
+<p>Set up a repository by running:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix ecto.gen.repo <span class="nt">-r</span> Friends.Repo
+</code></pre></div></div>
+
+<p>This will generate the configuration required in <code class="highlighter-rouge">config/config.exs</code> to connect to a database including the adapter to use.
+This is the configuration file for our <code class="highlighter-rouge">Friends</code> application</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:friends</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span>
+  <span class="ss">database:</span> <span class="s2">"friends_repo"</span><span class="p">,</span>
+  <span class="ss">username:</span> <span class="s2">"postgres"</span><span class="p">,</span>
+  <span class="ss">password:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="ss">hostname:</span> <span class="s2">"localhost"</span>
+</code></pre></div></div>
+
+<p>This configures how Ecto will connect to the database. You may need to configure your database to have a matching credentials.</p>
+
+<p>It also creates a <code class="highlighter-rouge">Friends.Repo</code> module inside <code class="highlighter-rouge">lib/friends/repo.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> 
+    <span class="ss">otp_app:</span> <span class="ss">:friends</span><span class="p">,</span>
+    <span class="ss">adapter:</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Adapters</span><span class="o">.</span><span class="no">Postgres</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We’ll use the <code class="highlighter-rouge">Friends.Repo</code> module to query the database. We also tell this module to find its database configuration information in the <code class="highlighter-rouge">:friends</code> Elixir application and we chose the <code class="highlighter-rouge">Ecto.Adapters.Postgres</code> adapter.</p>
+
+<p>Next, we’ll setup the <code class="highlighter-rouge">Friends.Repo</code> as a supervisor within our application’s supervision tree in <code class="highlighter-rouge">lib/friends/application.ex</code>.
+This will start the Ecto process when our application starts.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># List all child processes to be supervised</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span>
+    <span class="p">]</span>
+
+  <span class="o">...</span>
+</code></pre></div></div>
+
+<p>After that we’ll need to add the following line to our <code class="highlighter-rouge">config/config.exs</code> file:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:friends</span><span class="p">,</span> <span class="ss">ecto_repos:</span> <span class="p">[</span><span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>This will allow our application to run ecto mix commands from the commandline.</p>
+
+<p>We’re all done configuring the repository!
+We can now create the database inside of postgres with this command:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix ecto.create
+</code></pre></div></div>
+
+<p>Ecto will use the information in the <code class="highlighter-rouge">config/config.exs</code> file to determine how to connect to Postgres and what name to give the database.</p>
+
+<p>If you receive any errors, make sure that the configuration information is correct and that your instance of postgres is running.</p>
+
+<h3 id="migrations">Migrations</h3>
+
+<p>To create and modify tables inside the postgres database Ecto provides us with migrations.
+Each migration describes a set of actions to be performed on our database, like which tables to create or update.</p>
+
+<p>Since our database doesn’t have any tables yet, we’ll need to create a migration to add some.
+The convention in Ecto is to pluralize our tables so for application we’ll need a <code class="highlighter-rouge">people</code> table, so let’s start there with our migrations.</p>
+
+<p>The best way to create migrations is the mix <code class="highlighter-rouge">ecto.gen.migration &lt;name&gt;</code> task, so in our case let’s use:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix ecto.gen.migration create_people
+</code></pre></div></div>
+
+<p>This will generate a new file in the <code class="highlighter-rouge">priv/repo/migrations</code> folder containing timestamp in the filename.
+If we navigate to our directory and open the migration we should see something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreatePeople</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Let’s start by modifying the <code class="highlighter-rouge">change/0</code> function to create a new table <code class="highlighter-rouge">people</code> with <code class="highlighter-rouge">name</code> and <code class="highlighter-rouge">age</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreatePeople</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:people</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">null:</span> <span class="no">false</span>
+      <span class="n">add</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">default:</span> <span class="mi">0</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>You can see above we’ve also defined the column’s data type.
+Additionally, we’ve included <code class="highlighter-rouge">null: false</code> and <code class="highlighter-rouge">default: 0</code> as options.</p>
+
+<p>Let’s jump to the shell and run our migration:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix ecto.migrate
+</code></pre></div></div>
+
+<h3 id="schemas">Schemas</h3>
+
+<p>Now that we’ve created our initial table we need to tell Ecto more about it, part of how we do that is through schemas.
+A schema is a module that defines mappings to the underlying database table’s fields.</p>
+
+<p>While Ecto favors pluralize database table names, the schema is typically singular, so we’ll create a <code class="highlighter-rouge">Person</code> schema to accompany our table.</p>
+
+<p>Let’s create our new schema at <code class="highlighter-rouge">lib/friends/person.ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"people"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">default:</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here we can see that the <code class="highlighter-rouge">Friends.Person</code> module tells Ecto that this schema relates to the <code class="highlighter-rouge">people</code> table and that we have two columns: <code class="highlighter-rouge">name</code> which is a string and <code class="highlighter-rouge">age</code>, an integer with a default of <code class="highlighter-rouge">0</code>.</p>
+
+<p>Let’s take a peek at our schema by opening <code class="highlighter-rouge">iex -S mix</code> and creating a new person:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{}</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">age:</span> <span class="mi">0</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">nil</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>As expected we get a new <code class="highlighter-rouge">Person</code> with the default value applied to <code class="highlighter-rouge">age</code>.
+Now let’s create a “real” person:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">person</span> <span class="o">=</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">age:</span> <span class="mi">11</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">age:</span> <span class="mi">11</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Since schemas are just structs, we can interact with our data like we’re used to:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">name</span>
+<span class="s2">"Tom"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
+<span class="s2">"Tom"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="ss">name:</span> <span class="n">name</span><span class="p">}</span> <span class="o">=</span> <span class="n">person</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">age:</span> <span class="mi">11</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">name</span>
+<span class="s2">"Tom"</span>
+</code></pre></div></div>
+
+<p>Similarly, we can update our schemas just as we would any other map or struct in Elixir:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="n">person</span> <span class="o">|</span> <span class="ss">age:</span> <span class="mi">18</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">age:</span> <span class="mi">18</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="s2">"Jerry"</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">age:</span> <span class="mi">18</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Jerry"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>In our next lesson on Changesets, we’ll look at how to validate our data changes and finally how to persist them to
+our database.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/en/lessons/ecto/basics.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/advanced/protocols/" title="Protocols">← Protocols</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/ecto/changesets/" title="Changesets">Changesets →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong title="English">en</strong>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/basics/" title="Spanish / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/ecto/basics/" title="Greek">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/ecto/basics/" title="Indonesian / Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/ecto/basics/" title="Japanese / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/ecto/basics/" title="Korean">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/ecto/basics/" title="Polish">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/basics/" title="Portuguese">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/basics/" title="Russian / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/ecto/basics/" title="Slovak">sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/ecto/basics/" title="Vietnamese">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/basics/" title="Chinese">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/ecto/basics/" title="Traditional Chinese">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/en/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <span class="active">1. Basics</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

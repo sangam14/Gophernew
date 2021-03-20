@@ -1,0 +1,1063 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/advanced/concurrency/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/concurrency/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/concurrency/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/advanced/concurrency/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>並行性 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/advanced/concurrency/&title=並行性&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/advanced/concurrency/&via=elixirschool&text=ElixirSchool: 並行性&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/advanced/concurrency/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/advanced/concurrency/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 並行性" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/advanced/concurrency/&title=ElixirSchool: 並行性&description=Check out '並行性' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 並行性&body=Check out '並行性' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/advanced/concurrency/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  並行性
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      翻譯內文可能已過時。<br/>
+    
+
+    自最近更新後，原始課程已執行多次修補 (patches)。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Elixir 的賣點之一是支援並行性 (concurrency)。感謝 Erlang VM (BEAM)，Elixir 的並行性比預期的要容易。並行性模組依賴於 Actors，一個包含通過信文傳遞 (message passing) 而與其它處理程序 (processes) 對話的行程。</p>
+
+<p>在本課程中，將介紹 Elixir 附帶的並行性模組。而在下面章節中，會介紹實現它們的 OTP 行為。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="處理程序-processes">處理程序 (Processes)</h2>
+
+<p>Erlang VM 中的處理程序是輕量級的，可以在所有的 CPU 上執行。儘管看起來像原生執行緒 (native threads)，但它們更簡單，在一個 Elixir 應用程式中有數千個並性處理程序並不罕見。</p>
+
+<p>建立一個新處理程序的最簡單方法是 <code class="highlighter-rouge">spawn</code>，它可以使用匿名函數或命名函數。當建立一個新處理程序時，它會回傳一個 <em>Process Identifier</em> 或 PID，以在應用程式中獨特地標識它。</p>
+
+<p>現在以建立一個模組並定義一個想執行的函數來開始：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>為了非同步 (asynchronously) 地賦值 (evaluate) 函數，使用 <code class="highlighter-rouge">spawn/3</code>：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">spawn</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:add</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">5</span>
+<span class="c1">#PID&lt;0.80.0&gt;</span>
+</code></pre></div></div>
+
+<h3 id="信文遞送-message-passing">信文遞送 (Message Passing)</h3>
+
+<p>為了相互溝通，處理程序依靠信文遞送。其中有兩個主要元件： <code class="highlighter-rouge">send/2</code> 與 <code class="highlighter-rouge">receive</code>。<code class="highlighter-rouge">send/2</code> 函數允許發送信文給 PID。
+而監聽 (listen) 使用 <code class="highlighter-rouge">receive</code> 來配對信文。如果找不到配對，則執行式將處於不中斷狀態。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">listen</span> <span class="k">do</span>
+    <span class="k">receive</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"World"</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">listen</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">spawn</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:listen</span><span class="p">,</span> <span class="p">[])</span>
+<span class="c1">#PID&lt;0.108.0&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">send</span> <span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">}</span>
+<span class="no">World</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">send</span> <span class="n">pid</span><span class="p">,</span> <span class="ss">:ok</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>你可能會注意到 <code class="highlighter-rouge">listen/0</code> 函數是遞迴的，這使得處理程序可以處理多個信文。沒有遞迴，處理程序將在處理完第一則信文後退出。</p>
+
+<h3 id="處理程序連結-process-linking">處理程序連結 (Process Linking)</h3>
+
+<p>當一個處理程序崩潰時，有個與 <code class="highlighter-rouge">spawn</code> 有關問題是已知的。為此，需要使用 <code class="highlighter-rouge">spawn_link</code> 連接處理程序。兩個被連接一起的處理程序將能收到從對方來的退出通知：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">explode</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="k">exit</span><span class="p">(</span><span class="ss">:kaboom</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">spawn</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:explode</span><span class="p">,</span> <span class="p">[])</span>
+<span class="c1">#PID&lt;0.66.0&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">spawn_link</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:explode</span><span class="p">,</span> <span class="p">[])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">EXIT</span> <span class="n">from</span> <span class="c1">#PID&lt;0.57.0&gt;) evaluator process exited with reason: :kaboom</span>
+</code></pre></div></div>
+
+<p>有時我們不希望被連結的處理程序造成當前的崩潰。為此，需要使用 <code class="highlighter-rouge">Process.flag/2</code> 來捕獲 (trap) 退出。它使用 erlang 的 <a href="http://erlang.org/doc/man/erlang.html#process_flag-2">process_flag/2</a> 函數來做為 <code class="highlighter-rouge">trap_exit</code> 旗標 (flag)。當捕獲退出時 (<code class="highlighter-rouge">trap_exit</code> 是被設定為 <code class="highlighter-rouge">true</code>)，退出信號將作為一個 tuple 信文而被接收：<code class="highlighter-rouge">{:EXIT, from_pid, reason}</code>。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">explode</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="k">exit</span><span class="p">(</span><span class="ss">:kaboom</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">run</span> <span class="k">do</span>
+    <span class="no">Process</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="ss">:trap_exit</span><span class="p">,</span> <span class="no">true</span><span class="p">)</span>
+    <span class="n">spawn_link</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:explode</span><span class="p">,</span> <span class="p">[])</span>
+
+    <span class="k">receive</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:EXIT</span><span class="p">,</span> <span class="n">from_pid</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Exit reason: </span><span class="si">#{</span><span class="n">reason</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">run</span>
+<span class="no">Exit</span> <span class="ss">reason:</span> <span class="n">kaboom</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<h3 id="處理程序監視-process-monitoring">處理程序監視 (Process Monitoring)</h3>
+
+<p>如果不想將兩個處理程序連接起來，但是仍然需要通知功能呢？為此，可以使用 <code class="highlighter-rouge">spawn_monitor</code> 進行處理程序監視。當監視的處理程序崩潰時，會收到信文，而不會造成當前的處理程序崩潰或者需要捕獲退出。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">explode</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="k">exit</span><span class="p">(</span><span class="ss">:kaboom</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">run</span> <span class="k">do</span>
+    <span class="p">{</span><span class="n">pid</span><span class="p">,</span> <span class="n">ref</span><span class="p">}</span> <span class="o">=</span> <span class="n">spawn_monitor</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:explode</span><span class="p">,</span> <span class="p">[])</span>
+
+    <span class="k">receive</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:DOWN</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="ss">:process</span><span class="p">,</span> <span class="n">from_pid</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Exit reason: </span><span class="si">#{</span><span class="n">reason</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">run</span>
+<span class="no">Exit</span> <span class="ss">reason:</span> <span class="n">kaboom</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<h2 id="agents">Agents</h2>
+
+<p>Agents 是背景處理程序持續狀態 (maintaining state) 的抽象化。可以從應用程式和節點 (node) 中存取。Agent 狀態被設置為函數的回傳值：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">agent</span><span class="p">}</span> <span class="o">=</span> <span class="no">Agent</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.65.0&gt;}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Agent</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="k">fn</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">state</span> <span class="o">++</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+<span class="ss">:ok</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">))</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>當命名一個 Agent 後，可以用這個命名來代替它的 PID：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Agent</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="k">end</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Numbers</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.74.0&gt;}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Numbers</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">))</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="tasks">Tasks</h2>
+
+<p>Tasks 提供了一種在背景執行函數的方法，可以稍後再擷取它的回傳值。當處理耗時 (expensive) 操作時，因不阻礙當前應用程序的執行而特別有用。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">double</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">do</span>
+    <span class="ss">:timer</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">task</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:double</span><span class="p">,</span> <span class="p">[</span><span class="mi">2000</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Task</span><span class="p">{</span><span class="ss">pid:</span> <span class="c1">#PID&lt;0.111.0&gt;, ref: #Reference&lt;0.0.8.200&gt;}</span>
+
+<span class="c1"># Do some work</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="mi">4000</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/advanced/concurrency.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/advanced/escripts/" title="可執行檔案">← 可執行檔案</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/advanced/otp-concurrency/" title="OTP 並行性">OTP 並行性 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/advanced/concurrency/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/concurrency/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/concurrency/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/concurrency/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/concurrency/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/advanced/concurrency/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/concurrency/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/concurrency/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/advanced/concurrency/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/concurrency/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/concurrency/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/concurrency/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/advanced/concurrency/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/advanced/concurrency/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/advanced/concurrency/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/concurrency/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/concurrency/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">4. 並行性</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

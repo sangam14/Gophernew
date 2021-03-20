@@ -1,0 +1,879 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="es">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lecciones acerca del lenguaje de programación Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/es/lessons/specifics/eex/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="es">
+  <meta property="og:description" content="Lecciones acerca del lenguaje de programación Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/eex/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/eex/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/eex/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/es/lessons/specifics/eex/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Elixir Embebido (EEx) &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/es/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/es/lessons/specifics/eex/&title=Elixir Embebido (EEx)&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/es/lessons/specifics/eex/&via=elixirschool&text=ElixirSchool: Elixir Embebido (EEx)&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/es/lessons/specifics/eex/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/es/lessons/specifics/eex/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Elixir Embebido (EEx)" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/es/lessons/specifics/eex/&title=ElixirSchool: Elixir Embebido (EEx)&description=Check out 'Elixir Embebido (EEx)' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Elixir Embebido (EEx)&body=Check out 'Elixir Embebido (EEx)' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/es/lessons/specifics/eex/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-major"></span>
+  Elixir Embebido (EEx)
+</h1>
+<div class="version-info version-info-major">
+  <span>
+    
+      Algunos contenidos de esta tradución pueden estar desactualizados.<br/>
+    
+
+    Varios cambios mayores fueron aplicados a la lección original desde la última actualización.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Al igual que Ruby tiene ERB y Java JSP, Elixir tiene EEx o Elixir Embebido. Con EEx podemos integrar y evaluar Elixir dentro de las cadenas.</p>
+
+<h2>Tabla de contenidos</h2>
+<div id="toc"></div>
+
+<h2 id="api">API</h2>
+
+<p>La API EEx soporta trabajar con cadenas y archivos directamente. El API se divide en tres componentes principales: evaluación simple, definición de funciones y compilación a AST.</p>
+
+<h3 id="evaluación">Evaluación</h3>
+
+<p>Usando <code class="highlighter-rouge">eval_string/3</code> y <code class="highlighter-rouge">eval_file/2</code> podemos realizar una evaluación simple contra una cadena o contenido de archivos. Esta es la API mas sencilla pero también la más lenta ya que el código es evaluado y no compilado.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">EEx</span><span class="o">.</span><span class="n">eval_string</span> <span class="s2">"Hi, &lt;%= name %&gt;"</span><span class="p">,</span> <span class="p">[</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">]</span>
+<span class="s2">"Hi, Sean"</span>
+</code></pre></div></div>
+
+<h3 id="definiciones">Definiciones</h3>
+
+<p>El más rápido, y preferido, método de utilizar EEx es el de insertar nuestra plantilla en un módulo por lo que este puede ser compilado. Para ello necesitamos nuestra plantilla en tiempo de compilación y las macros <code class="highlighter-rouge">function_from_string/5</code> y <code class="highlighter-rouge">function_from_file/5</code>.</p>
+
+<p>Vamos a pasar nuestro saludo a otro archivo y generar una función para nuestra plantilla:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># greeting.eex</span>
+<span class="no">Hi</span><span class="p">,</span> <span class="o">&lt;%=</span> <span class="n">name</span> <span class="p">%</span><span class="o">&gt;</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">require</span> <span class="no">EEx</span>
+  <span class="no">EEx</span><span class="o">.</span><span class="n">function_from_file</span><span class="p">(</span><span class="ss">:def</span><span class="p">,</span> <span class="ss">:greeting</span><span class="p">,</span> <span class="s2">"greeting.eex"</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">])</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">greeting</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hi, Sean"</span>
+</code></pre></div></div>
+
+<h3 id="compilación">Compilación</h3>
+
+<p>Por último, EEx nos proporciona una forma directa de generar Elixir AST de una cadena o archivo usando <code class="highlighter-rouge">compile_string/2</code> o <code class="highlighter-rouge">compile_file/2</code>. Esta API es utilizada principalmente por las API citadas pero está disponible si desea implementar su propio manejo de Elixir incrustado.</p>
+
+<h2 id="etiquetas">Etiquetas</h2>
+
+<p>De forma predeterminada, hay cuatro etiquetas admitidas en EEx:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="p">%</span> <span class="no">Expresion</span> <span class="no">Elixir</span> <span class="o">-</span> <span class="n">en</span> <span class="n">linea</span> <span class="n">con</span> <span class="n">salida</span> <span class="p">%</span><span class="o">&gt;</span>
+<span class="o">&lt;%=</span> <span class="no">Expresion</span> <span class="no">Elixir</span> <span class="o">-</span> <span class="n">reemplaza</span> <span class="n">con</span> <span class="n">resultado</span> <span class="p">%</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="p">%%</span> <span class="no">EEx</span> <span class="n">quotation</span> <span class="o">-</span> <span class="n">retorna</span> <span class="n">el</span> <span class="n">contenido</span> <span class="n">en</span> <span class="n">su</span> <span class="n">interior</span> <span class="p">%</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="p">%</span><span class="c1"># Comentarios - estos son descartados en el código fuente %&gt;</span>
+</code></pre></div></div>
+
+<p>Todas las expresiones que se desean emitir <strong>deben</strong> utilizan el signo igual (<code class="highlighter-rouge">=</code>). Es importante señalar que, si bien otros lenguajes de plantillas tratan cláusulas como <code class="highlighter-rouge">if</code> de una manera especial, EEx no lo hace. Sin <code class="highlighter-rouge">=</code> nada sera emitido:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;%=</span> <span class="k">if</span> <span class="no">true</span> <span class="k">do</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="no">A</span> <span class="n">truthful</span> <span class="n">statement</span>
+<span class="o">&lt;</span><span class="p">%</span> <span class="k">else</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="no">A</span> <span class="no">false</span> <span class="n">statement</span>
+<span class="o">&lt;</span><span class="p">%</span> <span class="k">end</span> <span class="p">%</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<h2 id="motor">Motor</h2>
+
+<p>Por defecto Elixir utiliza el <code class="highlighter-rouge">EEx.SmartEngine</code> que incluye soporte para asignaciones (como <code class="highlighter-rouge">@name</code>):</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">EEx</span><span class="o">.</span><span class="n">eval_string</span> <span class="s2">"Hi, &lt;%= @name %&gt;"</span><span class="p">,</span> <span class="ss">assigns:</span> <span class="p">[</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">]</span>
+<span class="s2">"Hi, Sean"</span>
+</code></pre></div></div>
+
+<p>Las asignaciones <code class="highlighter-rouge">EEx.SmartEngine</code> son útiles porque las asignaciones se pueden cambiar sin necesidad de compilación de plantilla:</p>
+
+<p>¿Interesado en escribir su propio motor? Echa un vistazo a el comportamiento de <a href="https://hexdocs.pm/eex/EEx.Engine.html"><code class="highlighter-rouge">EEx.Engine</code></a> para ver lo que se requiere.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/es/lessons/specifics/eex.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/es/lessons/specifics/plug/" title="Plug">← Plug</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/es/lessons/specifics/ets/" title="Almacenamiento de términos de Erlang (ETS)">Almacenamiento de términos de Erlang (ETS) →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/specifics/eex/" title="Alemán">de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/eex/" title="Inglés / English">en</a>
+        
+      
+        
+        
+
+        
+          <strong title="Español">es</strong>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/specifics/eex/" title="Griego">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/specifics/eex/" title="Indonesio / Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/eex/" title="Japonés / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/eex/" title="Coreano">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/specifics/eex/" title="Polaco">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/specifics/eex/" title="Portugués">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/specifics/eex/" title="Ruso / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/specifics/eex/" title="Vietnamita">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/eex/" title="Chino">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/eex/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lecciones acerca del lenguaje de programación Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/es/" class=" up ">Inicio</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Básico</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/basics/basics/">1. Básico</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/collections/">2. Colecciones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/pattern-matching/">4. Coincidencia de Patrones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/control-structures/">5. Estructuras de control</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/functions/">6. Funciones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/pipe-operator/">7. Operador Pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/modules/">8. Composición</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/sigils/">10. Sigilos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/documentation/">11. Documentación</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/testing/">12. Pruebas</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/comprehensions/">13. Comprensiones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/strings/">14. Cadenas</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/date-time/">15. Fecha y Hora</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/mix-tasks/">16. Tareas de Mix personalizadas</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/iex-helpers/">17. Ayudantes de IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Avanzado</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/erlang/">1. Interoperabilidad Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/error-handling/">2. Manejo de errores</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/escripts/">3. Ejecutables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/concurrency/">4. Concurrencia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/otp-concurrency/">5. Concurrencia en OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/otp-supervisors/">6. Supervisores OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/otp-distribution/">7. Distribución en OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/metaprogramming/">8. Metaprogramación</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/umbrella-projects/">9. Proyectos Umbrella</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/typespec/">10. Tipos y especificaciones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/behaviours/">11. Comportamientos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/protocols/">13. Protocolos</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/ecto/associations/">3. Asociaciones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Específico</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">2. Elixir Embebido (EEx)</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/ets/">3. Almacenamiento de términos de Erlang (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Librerías</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/libraries/guardian/">1. Guardian (Básico)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/libraries/distillery/">5. Distillery (Básico)</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/es/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

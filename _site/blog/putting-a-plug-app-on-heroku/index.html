@@ -1,0 +1,713 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/putting-a-plug-app-on-heroku/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/putting-a-plug-app-on-heroku/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Deploying our `Plug.Router` application to Heroku &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/putting-a-plug-app-on-heroku/&title=Deploying our `Plug.Router` application to Heroku&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/putting-a-plug-app-on-heroku/&via=elixirschool&text=ElixirSchool: Deploying our `Plug.Router` application to Heroku&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/putting-a-plug-app-on-heroku/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/putting-a-plug-app-on-heroku/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Deploying our `Plug.Router` application to Heroku" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/putting-a-plug-app-on-heroku/&title=ElixirSchool: Deploying our `Plug.Router` application to Heroku&description=Check out 'Deploying our `Plug.Router` application to Heroku' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Deploying our `Plug.Router` application to Heroku&body=Check out 'Deploying our `Plug.Router` application to Heroku' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/putting-a-plug-app-on-heroku/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Deploying our `Plug.Router` application to Heroku</h1>
+    <p><a href="/blog/years/2019/">12 Feb 2019</a> · by 
+
+    <a href="https://github.com/notactuallypagemcconnell" target="_blank" rel="nofollow noopener">Bobby Grayson</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <p>In our previous post, <a href="https://elixirschool.com/blog/building-apps-with-plug-router/">Building web apps with Plug.Router</a> we built a website using just <code class="highlighter-rouge">Plut.Router</code>.
+Today we’ll explore how to take the previous app we built and get it up and running on Heroku; this post won’t focus on Phoenix deployments.
+In this (brief) post, we will show how to get things up and running on <a href="http://heroku.com">Heroku</a> for a vanilla <code class="highlighter-rouge">Plug</code> app.
+It really is quite easy, but today when I set out to do it, the resources I found either focused on Phoenix or had a few holes, so I figured I would write up a simple one here.
+Before we get started, head over to Heroku and make an account as well as install their CLI tools.</p>
+
+<h2 id="lets-do-it">Let’s Do It!</h2>
+
+<p>To deploy our application to Heroku we’ll need to do a few things:</p>
+
+<ul>
+  <li>Add a <code class="highlighter-rouge">Procfile</code> which tells Heroku what our server process does</li>
+  <li>Add buildpacks to our application. These instruct Heroku on how to build our Elixir code.</li>
+  <li>Add our environment variables</li>
+  <li>Finally, update our <code class="highlighter-rouge">application.ex</code> code to use the <code class="highlighter-rouge">PORT</code> variable provided by Heroku</li>
+</ul>
+
+<p>We won’t waste too much time on <code class="highlighter-rouge">Procfile</code> details but simply put they define what our server processes will do. In our case we’ll want to run our application in the <code class="highlighter-rouge">web</code> process. To do that let’s create and open <code class="highlighter-rouge">Procfile</code> in our application root:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web: mix run --no-halt
+</code></pre></div></div>
+<p>We’ve told Heroku we want our <code class="highlighter-rouge">web</code> process to execute the <code class="highlighter-rouge">mix run --no-halt</code> command.
+That’s it!</p>
+
+<p>Now we can run <code class="highlighter-rouge">heroku create</code> to make it real.
+We have a few more steps before its ready to see live, though.</p>
+
+<p>The joy of using Heroku is that they handle a lot of the work for you with awesome builtin tooling.
+One of those features is the <code class="highlighter-rouge">buildpacks</code> which include instructions for building, in our case compiling, our application code.
+For Elixir we’ll need to add a specialized <code class="highlighter-rouge">buildpack</code> that knows how to fetch Elixir dependencies and build that code.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>heroku buildpacks:set https://github.com/HashNuke/heroku-buildpack-elixir
+</code></pre></div></div>
+
+<p>Now we need to setup our environment variables.
+For our application we only need to worry about one: <code class="highlighter-rouge">MIX_ENV</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>heroku config:set MIX_ENV=prod
+</code></pre></div></div>
+
+<p>We also need to give our buildpack some config so it knows what our Elixir/Erlang environments are like.
+Put this in a file called <code class="highlighter-rouge">elixir_buildpack.config</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Erlang version
+erlang_version=21.1
+
+# Elixir version
+elixir_version=1.8
+</code></pre></div></div>
+
+<p>Now we can get it up in the real world:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git push heroku master &amp;&amp; heroku open
+</code></pre></div></div>
+
+<p>And after that push succeeds, we can see our portfolio site live and working in the real world.</p>
+
+<p>Happy Hacking!</p>
+
+    
+    <div class="tags">
+      <h4 class="title">Article tags</h4>
+      
+        <span class="tag"><a href="/blog/tags/plug/">plug</a></span>
+      
+      </div>
+    </p>
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-02-12-putting-a-plug-app-on-heroku.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/til-send-after/" title="TIL about `Process.send_after/4`" rel="prev">&laquo; TIL about `Process.send_after/4`</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/til-genserver-handle-continue/" title="TIL GenServer's `handle_continue/2`" rel="next">TIL GenServer's `handle_continue/2` &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/notactuallypagemcconnell.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/notactuallypagemcconnell">Bobby Grayson</a>
+    
+    </h2>
+    <p class="content"></p>
+    <ul class="icons">
+      
+      
+      <li><a href="https://twitter.com/yburyug" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/notactuallypagemcconnell" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

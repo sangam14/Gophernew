@@ -1,0 +1,990 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ko">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="프로그래밍 언어 Elixir 배우기">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ko/lessons/basics/sigils/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ko">
+  <meta property="og:description" content="프로그래밍 언어 Elixir 배우기">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/sigils/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/sigils/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ko/lessons/basics/sigils/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>시길 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ko/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ko/lessons/basics/sigils/&title=시길&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ko/lessons/basics/sigils/&via=elixirschool&text=ElixirSchool: 시길&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ko/lessons/basics/sigils/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ko/lessons/basics/sigils/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 시길" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ko/lessons/basics/sigils/&title=ElixirSchool: 시길&description=Check out '시길' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 시길&body=Check out '시길' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ko/lessons/basics/sigils/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  시길
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      이 번역의 일부는 유효하지 않을 수 있습니다.<br/>
+    
+
+    마지막 갱신 이후로 원본 문서에 사소한 변경사항이 있습니다.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>시길을 이용하고 만드는 법.</p>
+
+<h2>목차</h2>
+<div id="toc"></div>
+
+<h2 id="시길-개요">시길 개요</h2>
+
+<p>Elixir에서는 리터럴을 표현하거나 리터럴을 가지고 작업을 할 수 있도록 대체 문법을 제공합니다. 시길은 물결 문자 <code class="highlighter-rouge">~</code>와 그 뒤에 붙는 한 문자로 구성되어 있습니다. 몇 가지 시길은 Elixir 코어에서 기본적으로 제공되지만, 여러분이 언어를 확장할 필요가 있을 때 여러분만의 시길을 만들 수도 있습니다.</p>
+
+<p>아래는 사용 가능한 시길의 목록입니다.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">~C</code>는 이스케이프나 내부 식 전개 <strong>없이</strong> 문자 리스트를 생성합니다</li>
+  <li><code class="highlighter-rouge">~c</code>는 이스케이프나 내부 식 전개를 <strong>하면서</strong> 문자 리스트를 생성합니다</li>
+  <li><code class="highlighter-rouge">~R</code>은 이스케이프나 내부 식 전개 <strong>없이</strong> 정규 표현식을 생성합니다</li>
+  <li><code class="highlighter-rouge">~r</code>은 이스케이프나 내부 식 전개를 <strong>하면서</strong> 정규 표현식을 생성합니다</li>
+  <li><code class="highlighter-rouge">~S</code>는 이스케이프나 내부 식 전개 <strong>없이</strong> 문자열을 생성합니다</li>
+  <li><code class="highlighter-rouge">~s</code>는 이스케이프나 내부 식 전개를 <strong>하면서</strong> 문자열을 생성합니다</li>
+  <li><code class="highlighter-rouge">~W</code>는 이스케이프나 내부 식 전개 <strong>없이</strong> 단어 리스트를 생성합니다</li>
+  <li><code class="highlighter-rouge">~w</code>는 이스케이프나 내부 식 전개를 <strong>하면서</strong> 단어 리스트를 생성합니다</li>
+  <li><code class="highlighter-rouge">~N</code>은 <code class="highlighter-rouge">NaiveDateTime</code> 구조체를 생성합니다.</li>
+</ul>
+
+<p>사용 가능한 구분자의 목록은 다음과 같습니다.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">&lt;...&gt;</code> 꺾쇠 괄호 한 쌍</li>
+  <li><code class="highlighter-rouge">{...}</code> 중괄호 한 쌍</li>
+  <li><code class="highlighter-rouge">[...]</code> 대괄호 한 쌍</li>
+  <li><code class="highlighter-rouge">(...)</code> 소괄호 한 쌍</li>
+  <li><code class="highlighter-rouge">|...|</code> 파이프 한 쌍</li>
+  <li><code class="highlighter-rouge">/.../</code> 슬래시 한 쌍</li>
+  <li><code class="highlighter-rouge">"..."</code> 큰따옴표 한 쌍</li>
+  <li><code class="highlighter-rouge">'...'</code> 작은따옴표 한 쌍</li>
+</ul>
+
+<h3 id="문자-리스트">문자 리스트</h3>
+
+<p><code class="highlighter-rouge">~c</code>와 <code class="highlighter-rouge">~C</code> 시길은 각각 문자 리스트를 생성합니다. 예를 들면,</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~c/2 + 7 = #{2 + 7}/</span>
+<span class="s1">'2 + 7 = 9'</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~C/2 + 7 = </span><span class="si">#{</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">7</span><span class="si">}</span><span class="sx">/</span>
+<span class="s1">'2 + 7 = \</span><span class="si">#{</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">7</span><span class="si">}</span><span class="s1">'</span>
+</code></pre></div></div>
+
+<p>소문자 <code class="highlighter-rouge">~c</code>는 수식을 계산하여 문자 리스트에 확장하지만, 대문자 시길 <code class="highlighter-rouge">~C</code>는 그렇지 않음을 알 수 있습니다. 앞으로 살펴볼 내장 시길에서도 소문자/대문자로 수식 확장을 하는가 안 하는가를 구별할 수 있을 것입니다.</p>
+
+<h3 id="정규-표현식">정규 표현식</h3>
+
+<p><code class="highlighter-rouge">~r</code>과 <code class="highlighter-rouge">~R</code> 시길은 정규 표현식을 나타내기 위해 사용됩니다. 정규 표현식은 바로 사용하기 위해 만들거나 <code class="highlighter-rouge">Regex</code> 함수 안에서 쓰기 위해 만듭니다. 예를 들면,</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">re</span> <span class="o">=</span> <span class="sr">~r/elixir/</span>
+<span class="sr">~r/elixir/</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"Elixir"</span> <span class="o">=~</span> <span class="n">re</span>
+<span class="no">false</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"elixir"</span> <span class="o">=~</span> <span class="n">re</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<p>첫번째 동등 비교에서 <code class="highlighter-rouge">Elixir</code>는 정규 표현식과 일치하지 않음을 알 수 있습니다. 왜냐하면 그 단어는 첫 글자가 대문자이기 때문이죠. Elixir는 Perl 호환 정규 표현식 (PCRE)를 지원하기 때문에 시길 뒤에 <code class="highlighter-rouge">i</code>를 붙여서 대소문자 검사를 끌 수 있습니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">re</span> <span class="o">=</span> <span class="sr">~r/elixir/i</span>
+<span class="sr">~r/elixir/i</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"Elixir"</span> <span class="o">=~</span> <span class="n">re</span>
+<span class="no">true</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"elixir"</span> <span class="o">=~</span> <span class="n">re</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<p>더 나아가서, Elixir는 Erlang의 정규 표현식 라이브러리를 기반으로 만들어진 <a href="https://hexdocs.pm/elixir/Regex.html">Regex</a> API를 제공합니다. 정규 표현식 시길을 사용하여 <code class="highlighter-rouge">Regex.split/2</code>를 사용해 봅시다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">"100_000_000"</span>
+<span class="s2">"100_000_000"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Regex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sr">~r/_/</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+<span class="p">[</span><span class="s2">"100"</span><span class="p">,</span> <span class="s2">"000"</span><span class="p">,</span> <span class="s2">"000"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>보다시피, 문자열 <code class="highlighter-rouge">"100_000_000"</code>이 <code class="highlighter-rouge">~r/_/</code> 시길 덕분에 밑줄을 기준으로 쪼개졌습니다. <code class="highlighter-rouge">Regex.split</code> 함수는 리스트를 반환합니다.</p>
+
+<h3 id="문자열">문자열</h3>
+
+<p><code class="highlighter-rouge">~s</code>와 <code class="highlighter-rouge">~S</code> 시길은 문자열 데이터를 생성하는 데 사용됩니다. 예를 들면,</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~s/the cat in the hat on the mat/</span>
+<span class="s2">"the cat in the hat on the mat"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~S/the cat in the hat on the mat/</span>
+<span class="s2">"the cat in the hat on the mat"</span>
+</code></pre></div></div>
+
+<p>차이는 무엇일까요? 차이는 앞에서 보았던 문자 리스트 시길과 비슷합니다. 정답은 식 전개와 이스케이프 시퀀스의 사용입니다. 다른 예를 한 번 들어보겠습니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~s/welcome to elixir #{String.downcase "SCHOOL"}/</span>
+<span class="s2">"welcome to elixir school"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~S/welcome to elixir </span><span class="si">#{</span><span class="no">String</span><span class="o">.</span><span class="n">downcase</span> <span class="s2">"SCHOOL"</span><span class="si">}</span><span class="sx">/</span>
+<span class="s2">"welcome to elixir \</span><span class="si">#{</span><span class="no">String</span><span class="o">.</span><span class="n">downcase</span> <span class="p">\</span><span class="s2">"SCHOOL</span><span class="se">\"</span><span class="s2">}"</span>
+</code></pre></div></div>
+
+<h3 id="단어-리스트">단어 리스트</h3>
+
+<p>단어 리스트 시길은 때때로 유용하게 사용됩니다. 이 시길은 작업 시간과 키 입력 횟수를 동시에 줄이며, 코드베이스의 복잡도를 확실하게 줄여줍니다. 이 간단한 예제를 보죠.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~w/i love elixir school/</span>
+<span class="p">[</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"elixir"</span><span class="p">,</span> <span class="s2">"school"</span><span class="p">]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~W/i love elixir school/</span>
+<span class="p">[</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"elixir"</span><span class="p">,</span> <span class="s2">"school"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>구분자 안에 쓰여진 것들이 공백에 의해 분리되어 리스트로 저장됨을 알 수 있습니다. 하지만 이 두 예제에서 차이점은 없어 보이네요. 이것 역시 차이점은 식 전개와 이스케이프 시퀀스에 있습니다. 다음 예제를 봅시다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~w/i love #{'e'}lixir school/</span>
+<span class="p">[</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"elixir"</span><span class="p">,</span> <span class="s2">"school"</span><span class="p">]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~W/i love </span><span class="si">#{</span><span class="s1">'e'</span><span class="si">}</span><span class="sx">lixir school/</span>
+<span class="p">[</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"\</span><span class="si">#{</span><span class="s1">'e'</span><span class="si">}</span><span class="s2">lixir"</span><span class="p">,</span> <span class="s2">"school"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="naivedatetime">NaiveDateTime</h3>
+
+<p><a href="https://hexdocs.pm/elixir/NaiveDateTime.html">NaiveDateTime</a>으로 타임존 <strong>없는</strong> DateTime을 나타내는 구조체를 빠르게 만드는데 유용하게 사용할 수 있습니다.</p>
+
+<p>대부분의 경우, <code class="highlighter-rouge">NaiveDateTime</code> 구조체를 직접 만드는 것은 피해야 합니다. 하지만, 패턴 매칭에는 매우 유용합니다. 예를 봅시다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">NaiveDateTime</span><span class="o">.</span><span class="n">from_iso8601</span><span class="p">(</span><span class="s2">"2015-01-23 23:50:07"</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="sx">~N[2015-01-23 23:50:07]</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="시길-만들기">시길 만들기</h2>
+
+<p>Elixir의 목표 중 하나는 확장 가능한 프로그래밍 언어가 되는 것입니다. 여러분이 여러분만의 시길을 쉽게 만들 수 있다는 것이 놀랍지 않다고 느껴져야 합니다. 이 예제에서는 문자열을 대문자로 변환하는 시길을 만들어 볼 것입니다. Elixir 코어에는 이미 이러한 일을 하는 함수가 있기 때문에 (<code class="highlighter-rouge">String.upcase/1</code>), 그 함수를 시길로 감싸보겠습니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="k">defmodule</span> <span class="no">MySigils</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="k">def</span> <span class="n">sigil_u</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="p">[]),</span> <span class="k">do</span><span class="p">:</span> <span class="no">String</span><span class="o">.</span><span class="n">upcase</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">MySigils</span>
+<span class="no">nil</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~u/elixir school/</span>
+<span class="no">ELIXIR</span> <span class="no">SCHOOL</span>
+</code></pre></div></div>
+
+<p>먼저 <code class="highlighter-rouge">MySigils</code>라는 모듈을 만들고, 그 모듈 안에 <code class="highlighter-rouge">sigil_u</code>라는 함수를 만들었습니다. 기존의 시길중에 <code class="highlighter-rouge">~u</code> 시길이 없기 때문에 이것을 사용할 것입니다. <code class="highlighter-rouge">_u</code>는 물결 문자 다음에 <code class="highlighter-rouge">u</code>를 쓰고자 한다는 것을 의미합니다. 함수는 반드시 입력과 리스트, 이 두 개의 인자를 받아야 합니다.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ko/lessons/basics/sigils.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ko/lessons/basics/mix/" title="Mix">← Mix</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ko/lessons/basics/documentation/" title="문서화">문서화 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/sigils/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/sigils/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/sigils/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/sigils/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/sigils/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/sigils/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/sigils/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/sigils/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <strong >ko</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/sigils/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/sigils/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/sigils/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/sigils/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/sigils/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/sigils/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/sigils/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/sigils/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/sigils/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/sigils/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>프로그래밍 언어 Elixir 배우기</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ko/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">기초</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/basics/">1. 기본</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/collections/">2. 컬렉션</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/pattern-matching/">4. 패턴 매칭</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/control-structures/">5. 제어 구조</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/functions/">6. 함수</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/pipe-operator/">7. 파이프 연산자</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/modules/">8. 모듈</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">10. 시길</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/documentation/">11. 문서화</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/testing/">12. 테스트</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/strings/">14. 문자열</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/mix-tasks/">16. 커스텀 Mix 태스크</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">심화</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/erlang/">1. Erlang 상호 운용</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/error-handling/">2. 에러 처리</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/escripts/">3. 실행 파일</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/concurrency/">4. 동시성</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/otp-concurrency/">5. OTP 동시성</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/otp-supervisors/">6. OTP 슈퍼바이저</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/metaprogramming/">8. 메타 프로그래밍</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/umbrella-projects/">9. 엄브렐라 프로젝트</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/typespec/">10. 스펙과 타입</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/behaviours/">11. 비헤이비어</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/protocols/">13. 프로토콜</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">활용</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/debugging/">5. 디버깅</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">라이브러리</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ko/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

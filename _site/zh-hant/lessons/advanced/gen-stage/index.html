@@ -1,0 +1,1092 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/advanced/gen-stage/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/gen-stage/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/gen-stage/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/advanced/gen-stage/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>GenStage &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/advanced/gen-stage/&title=GenStage&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/advanced/gen-stage/&via=elixirschool&text=ElixirSchool: GenStage&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/advanced/gen-stage/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/advanced/gen-stage/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: GenStage" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/advanced/gen-stage/&title=ElixirSchool: GenStage&description=Check out 'GenStage' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: GenStage&body=Check out 'GenStage' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/advanced/gen-stage/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  GenStage
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      翻譯內文可能已過時。<br/>
+    
+
+    自最近更新後，原始課程已執行多次修補 (patches)。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>在本課程中，將仔細研究 GenStage、它的作用和如何在應用程式中利用。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="簡介">簡介</h2>
+
+<p>那什麼是 GenStage？從官方文件來看，它是＂Elixir 的規範 (specification) 和計算流程 (computational flow)＂，但這表示著什麼？</p>
+
+<p>這表示著 GenStage 提供了一種方式，在一個單獨過程中通過獨立 steps (或 stages) 來定義管線 (pipeline) 的工作以便執行它；如果之前使用過管線，那麼其中一些概念應該不陌生。</p>
+
+<p>為了更好地理解它的工作原理，現在將一個簡易的生產者-消費者 (producer-consumer) 流程可視化：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[A] -&gt; [B] -&gt; [C]
+</code></pre></div></div>
+
+<p>在這個範例中，有三個 stages：<code class="highlighter-rouge">A</code> 消費者 (producer)，<code class="highlighter-rouge">B</code> 生產者-消費者 (producer-consumer) 與 <code class="highlighter-rouge">C</code> 消費者 (consumer)。  <code class="highlighter-rouge">A</code> 
+產生一個被 <code class="highlighter-rouge">B</code> 消耗的值，<code class="highlighter-rouge">B</code> 執行一些工作並回傳將被 consumer <code class="highlighter-rouge">C</code> 收到的新值；我們將在下一節中看到，stage 的角色很重要。</p>
+
+<p>雖然範例是 1 對 1 的生產者-消費者，但在任何特定 stage 都可能有多個生產者和多個消費者。</p>
+
+<p>為了更好地描繪這些概念，將使用 GenStage 打造一個管線 (pipeline)，但首先探索一下 GenStage 會依賴頗多的這些角色。</p>
+
+<h2 id="消費者-consumers-與生產者-producers">消費者 (Consumers) 與生產者 (Producers)</h2>
+
+<p>正如所讀到的，我們賦予 stage 的角色非常重要。
+GenStage 的規範中承認三種角色：</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">:producer</code> — 源 (source)。
+生產者等待消費者的需求並回應其所請求事件。</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">:producer_consumer</code> — 是源（source）也是匯（sink）。
+生產者－消費者可以回應其他消費者的需求，也能夠向生產者提出請求。</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">:consumer</code> — 匯（sink）。
+消費者向生產者提出請求並接收其資料。</p>
+  </li>
+</ul>
+
+<p>注意到生產者是 <strong>等待</strong> 需求了嗎？通過 GenStage，消費者是向上游發送需求並處理來自生產者的資料。
+這有助於稱為背壓（back-pressure）的機制。
+當消費者忙碌時，背壓機制使生產者不會造成超壓（over-pressure）。</p>
+
+<p>現在已經介紹過 GenStage 中的角色，開始建立應用程式。</p>
+
+<h2 id="入門">入門</h2>
+
+<p>在這個範例中，將建立一個產出數字的 GenStage 應用程式，能排序偶數後輸出。</p>
+
+<p>在應用程式中，將使用全部三個 GenStage 角色。
+生產者將負責計算和產出數字。
+生產者－消費者則過濾出偶數，而後對下游需求做出回應。
+最後建立消費者顯示剩餘數字。</p>
+
+<p>讓我們從生成一個有 supervision 樹的專案開始：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new genstage_example <span class="nt">--sup</span>
+<span class="nv">$ </span><span class="nb">cd </span>genstage_example
+</code></pre></div></div>
+
+<p>現在更新 <code class="highlighter-rouge">mix.exs</code> 中的耦合性 (dependencies) 以包含 <code class="highlighter-rouge">gen_stage</code>：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:gen_stage</span><span class="p">,</span> <span class="s2">"~&gt; 1.0.0"</span><span class="p">},</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>在進一步研究之前，應該先取得 (fetch) 耦合關係 (dependencies) 並進行編譯：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix <span class="k">do </span>deps.get, compile
+</code></pre></div></div>
+
+<p>現在準備好建立生產者了！</p>
+
+<h2 id="生產者">生產者</h2>
+
+<p>GenStage 應用程式的第一件事是建立生產者。
+正如之前討論過的，我們想要建立一個能夠產出持續不斷數字流的生產者。
+現在來建立生產者資料夾和檔案：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir </span>lib/genstage_example
+<span class="nv">$ </span><span class="nb">touch </span>lib/genstage_example/producer.ex
+</code></pre></div></div>
+
+<p>這時可以加入我們所需程式碼：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">GenstageExample</span><span class="o">.</span><span class="no">Producer</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenStage</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">initial</span> <span class="p">\\</span> <span class="mi">0</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenStage</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">initial</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">counter</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:producer</span><span class="p">,</span> <span class="n">counter</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">handle_demand</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="no">Enum</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="n">state</span><span class="o">..</span><span class="p">(</span><span class="n">state</span> <span class="o">+</span> <span class="n">demand</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">state</span> <span class="o">+</span> <span class="n">demand</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>這裡需要注意兩個最重要部分是 <code class="highlighter-rouge">init/1</code> 和 <code class="highlighter-rouge">handle_demand/2</code>。
+在 <code class="highlighter-rouge">init/1</code> 中，設置了初始狀態，就像在 GenServers 中做的那樣，但更重要的是，我們將自己標記為生產者。
+<code class="highlighter-rouge">init/1</code> 函數的回傳值是 GenStage 對處理程序 (process) 進行分類的依據。</p>
+
+<p><code class="highlighter-rouge">handle_demand/2</code> 函數是生產者被定義的主要部份。
+它必須由所有 GenStage 生產者實現。
+在這裡，我們回傳消費者所需的一組數字，並累加我們的計數器（counter）。
+來自消費者的需求，也就是上面程式碼中的 <code class="highlighter-rouge">demand</code>，被表示為一個能夠處理事件量的相對應整數；預設為 1000。</p>
+
+<h2 id="生產者-消費者-producer-consumer">生產者 消費者 (Producer Consumer)</h2>
+
+<p>現在已經有了能產出數字的生產者，接著看生產者－消費者。
+我們希望從生產者索取數字，濾除奇數，並能回應需求。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">touch </span>lib/genstage_example/producer_consumer.ex
+</code></pre></div></div>
+
+<p>現在更新檔案，使其看起來像範例內的程式碼：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">GenstageExample</span><span class="o">.</span><span class="no">ProducerConsumer</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenStage</span>
+
+  <span class="kn">require</span> <span class="no">Integer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_initial</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenStage</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:state_doesnt_matter</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:producer_consumer</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">subscribe_to:</span> <span class="p">[</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Producer</span><span class="p">]}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">numbers</span> <span class="o">=</span>
+      <span class="n">events</span>
+      <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">&amp;</span><span class="no">Integer</span><span class="o">.</span><span class="n">is_even</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">numbers</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>你可能已經注意到，在生產者-消費者裡，<code class="highlighter-rouge">init/1</code> 已經引入了一個新選項和一個新函數： <code class="highlighter-rouge">handle_events/3</code>。
+通過 <code class="highlighter-rouge">subscribe_to</code> 選項，指示 GenStage 讓我們在特定生產者的對話中（communication）。</p>
+
+<p><code class="highlighter-rouge">handle_events/3</code> 函數是我們的主力，接收傳入事件、處理 (process) 它們並回傳轉換後的集合。
+而消費者的實現方式也大致相同，但重要的區別在於 <code class="highlighter-rouge">handle_events/3</code> 函數的回傳值以及如何被使用的。
+當將處理程序標記為 producer_consumer 時，在範例中是 tuple 的第二個引數 - <code class="highlighter-rouge">numbers</code> 是用於達到下游的消費者需求；
+但在消費者中，這個值會被丟棄。</p>
+
+<h2 id="消費者">消費者</h2>
+
+<p>最後但並非最不重要的是消費者。
+開始囉：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">touch </span>lib/genstage_example/consumer.ex
+</code></pre></div></div>
+
+<p>由於消費者和生產者-消費者如此相似，所以程式碼看起來不會有太大的不同：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">GenstageExample</span><span class="o">.</span><span class="no">Consumer</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenStage</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_initial</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenStage</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:state_doesnt_matter</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:consumer</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">subscribe_to:</span> <span class="p">[</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">ProducerConsumer</span><span class="p">]}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">for</span> <span class="n">event</span> <span class="o">&lt;-</span> <span class="n">events</span> <span class="k">do</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">({</span><span class="n">self</span><span class="p">(),</span> <span class="n">event</span><span class="p">,</span> <span class="n">state</span><span class="p">})</span>
+    <span class="k">end</span>
+
+    <span class="c1"># As a consumer we never emit events</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="p">[],</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>正如在前面章節中所介紹的，消費者不會產出事件，所以 tuple 中的第二個值將被丟棄。</p>
+
+<h2 id="將所有角色組合在一起">將所有角色組合在一起</h2>
+
+<p>現在已經建立了生產者、生產者-消費者和消費者，我們已經準備好將所有東西串在一起了。</p>
+
+<p>首先打開 <code class="highlighter-rouge">lib/genstage_example/application.ex</code> 並將新處理程序加入到 supervisor 樹：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+  <span class="kn">import</span> <span class="no">Supervisor</span><span class="o">.</span><span class="no">Spec</span><span class="p">,</span> <span class="ss">warn:</span> <span class="no">false</span>
+
+  <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Producer</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">ProducerConsumer</span><span class="p">,</span> <span class="p">[]},</span>
+    <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Consumer</span><span class="p">,</span> <span class="p">[]}</span>
+  <span class="p">]</span>
+
+  <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">GenstageExample</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+  <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>如果一切都是正確的，專案就可以執行，應該會看到所有東西都能正常運作：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix run <span class="nt">--no-halt</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 2, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 4, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 6, :state_doesnt_matter}</span>
+...
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 229062, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 229064, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 229066, :state_doesnt_matter}</span>
+</code></pre></div></div>
+
+<p>我們做到了！正如預期那樣，應用程式只會產出偶數，而且它做的非常 <strong>快</strong>。</p>
+
+<p>在此刻，我們有了一個工作管線（pipeline）。
+生產者產出數字；生產者-消費者丟棄奇數；消費者則顯示以上這些並繼續流程。</p>
+
+<h2 id="多個生產者或消費者">多個生產者或消費者</h2>
+
+<p>在簡介中提到，有一個以上的生產者或消費者是可行的，
+現在來看看這個。</p>
+
+<p>如果檢查範例中的 <code class="highlighter-rouge">IO.inspect/1</code> 輸出，會看到每個事件都單獨由一個 PID 處理。
+現在通過修改 <code class="highlighter-rouge">lib/genstage_example/application.ex</code> 對多個 worker 進行一些調整：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Producer</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>
+  <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">ProducerConsumer</span><span class="p">,</span> <span class="p">[]},</span>
+  <span class="p">%{</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">start:</span> <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Consumer</span><span class="p">,</span> <span class="ss">:start_link</span><span class="p">,</span> <span class="p">[[]]}</span>
+  <span class="p">},</span>
+  <span class="p">%{</span>
+    <span class="ss">id:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="ss">start:</span> <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Consumer</span><span class="p">,</span> <span class="ss">:start_link</span><span class="p">,</span> <span class="p">[[]]}</span>
+  <span class="p">},</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>現在已經配置了兩個消費者，看看如果執行應用程式會得到什麼：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix run <span class="nt">--no-halt</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 2, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.121.0&gt;, 4, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 6, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 8, :state_doesnt_matter}</span>
+...
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 86478, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.121.0&gt;, 87338, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 86480, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 86482, :state_doesnt_matter}</span>
+</code></pre></div></div>
+
+<p>正如所看到的，現在擁有多個 PID，只需簡單的加入一行程式碼並提供消費者 ID 即可。</p>
+
+<h2 id="使用案例">使用案例</h2>
+
+<p>現在已經介紹了 GenStage 並建立了第一個範例應用程式，但 GenStage 有哪些 <em>真實</em> 案例？</p>
+
+<ul>
+  <li>
+    <p>Data Transformation Pipeline — 生產者不盡然只能是簡單的數字生成器。
+可以從資料庫或甚至像 Apache 的 Kafka 這樣的其他來源生成事件。
+通過結合生產者-消費者和消費者，可以對度量（metrics）進行處理、排序、編目（catalog） 和儲存。</p>
+  </li>
+  <li>
+    <p>Work Queue — 由於事件可以是任何東西，因此可以生產由一系列被消費者完成的工作單元。</p>
+  </li>
+  <li>
+    <p>Event Processing — 與資料管線類似（data pipeline），能夠接收、處理，排序並針對從來源即時發生的事件採取行動。</p>
+  </li>
+</ul>
+
+<p>而這些還只是 GenStage 的 <strong>一小部分</strong> 可能性。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/advanced/gen-stage.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/advanced/behaviours/" title="行為">← 行為</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/advanced/protocols/" title="協定">協定 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/gen-stage/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/gen-stage/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/gen-stage/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/gen-stage/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/gen-stage/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/gen-stage/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/gen-stage/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/gen-stage/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/gen-stage/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/gen-stage/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">12. GenStage</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

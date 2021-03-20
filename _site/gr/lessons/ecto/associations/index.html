@@ -1,0 +1,1233 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="gr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/gr/lessons/ecto/associations/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="gr">
+  <meta property="og:description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/associations/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/associations/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/associations/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/gr/lessons/ecto/associations/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Συσχετισμοί &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/gr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/gr/lessons/ecto/associations/&title=Συσχετισμοί&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/gr/lessons/ecto/associations/&via=elixirschool&text=ElixirSchool: Συσχετισμοί&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/gr/lessons/ecto/associations/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/gr/lessons/ecto/associations/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Συσχετισμοί" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/gr/lessons/ecto/associations/&title=ElixirSchool: Συσχετισμοί&description=Check out 'Συσχετισμοί' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Συσχετισμοί&body=Check out 'Συσχετισμοί' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/gr/lessons/ecto/associations/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Συσχετισμοί
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Αυτή η μετάφραση είναι πλήρως ενημερωμένη.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Σε αυτό τον τομέα θα μάθουμε πως να χρησιμοποιήσουμε το Ecto για να ορίσουμε και να εργαστούμε με συσχετισμούς ανάμεσα στα σχήματά μας.</p>
+
+<h2>Πίνακας περιεχομένων</h2>
+<div id="toc"></div>
+
+<h2 id="στήσιμο">Στήσιμο</h2>
+
+<p>Θα ξεκινήσουμε με την ίδια εφαρμογή <code class="highlighter-rouge">Friends</code> από τα προηγούμενα μαθήματα.
+Μπορείτε να δείτε το στήσιμο <a href="../basics">εδώ</a> για μια γρήγορη ανασκόπηση.</p>
+
+<h2 id="τύποι-συσχετισμών">Τύποι Συσχετισμών</h2>
+
+<p>Υπάρχουν τρεις τύποι συσχετισμών που μπορούμε να ορίσουμε μεταξύ των σχημάτων μας.
+Θα δούμε τι είναι και πως να υλοποιήσουμε κάθε τύπο σχέσης.</p>
+
+<h3 id="ανήκει-σε--έχει-πολλά">Ανήκει σε / Έχει πολλά</h3>
+
+<p>Θα προσθέσουμε μερικές νέες οντότητες στην εφαρμογή μας Friends ώστε να μπορέσουμε να καταχωρήσουμε τις αγαπημένες μας ταινίες.
+Θα ξεκινήσουμε με δύο σχήματα: Τα <code class="highlighter-rouge">Movie</code> και <code class="highlighter-rouge">Character</code>.
+Θα υλοποιήσουμε μια σχέση “έχει πολλά/ανήκει σε” ανάμεσα σε αυτά τα δύο σχήματα: Μια ταινία έχει πολλούς χαρακτήρες και ένας χαρακτήρας ανήκει σε μια ταινία.</p>
+
+<h4 id="η-μετατροπή-για-το-έχει-πολλά">Η Μετατροπή για το Έχει πολλά</h4>
+
+<p>Ας δημιουργήσουμε μια μετατροπή για την <code class="highlighter-rouge">Movie</code>:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_movies
+</span></code></pre></div></div>
+
+<p>Ανοίξτε το πρόσφατα δημιουργημένο αρχείο μετατροπής και ορίστε τη συνάρτηση <code class="highlighter-rouge">change</code> ώστε να δημιουργήσετε τον πίνακα <code class="highlighter-rouge">movies</code> με μερικά χαρακτηριστικά:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/repo/migrations/*_create_movies.exs</span>
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateMovies</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:string</span>
+      <span class="n">add</span> <span class="ss">:tagline</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="το-σχήμα-για-το-έχει-πολλά">Το σχήμα για το Έχει πολλά</h4>
+
+<p>Θα προσθέσουμε ένα σχήμα που ορίζει τη σχέση “έχει πολλά” ανάμεσα στις ταινίες και τους χαρακτήρες της.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/friends/movie.ex</span>
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"movies"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:tagline</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">has_many</span> <span class="ss">:characters</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Η μακροεντολή <code class="highlighter-rouge">has_many/3</code> δεν προσθέτει τίποτα στην ίδια τη βάση δεδομένων.
+Αυτό που κάνει είναι να χρησιμοποιεί το ξένο κλειδί στο συσχετισμένο σχήμα, <code class="highlighter-rouge">characters</code> ώστε να κάνει διαθέσιμους τους σχετικούς χαρακτήρες της ταινίας.
+Αυτό είναι που θα μας δώσει τη δυνατότητα να καλέσουμε την <code class="highlighter-rouge">movie.characters</code>.</p>
+
+<h4 id="η-μετατροπή-για-την-ανήκει-σε">Η Μετατροπή για την Ανήκει σε</h4>
+
+<p>Τώρα είμαστε έτοιμοι να χτίσουμε τη μετατροπή και το σχήμα για το <code class="highlighter-rouge">Character</code>.
+Ένας χαρακτήρας ανήκει σε μια ταινία, έτσι θα ορίσουμε μια μετατροπή και ένα σχήμα που ορίζει αυτή τη σχέση.</p>
+
+<p>Αρχικά, δημιουργήστε τη μετατροπή:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_characters
+</span></code></pre></div></div>
+
+<p>Για να ορίσουμε ότι ένας χαρακτήρας ανήκει σε μια ταινία, θα χρειαστούμε ο πίνακας <code class="highlighter-rouge">characters</code> να έχει μια στήλη <code class="highlighter-rouge">movie_id</code>.
+Θέλουμε αυτή η στήλη να λειτουργεί σαν ξένο κλειδί.
+Μπορούμε να το καταφέρουμε αυτό με την παρακάτω γραμμή στη συνάρτησή μας <code class="highlighter-rouge">create_table/1</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">add</span> <span class="ss">:movie_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Έτσι η μετατροπή μας πρέπει να δείχνει ως εξής:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/migrations/*_create_characters.exs</span>
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateCharacters</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:characters</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+      <span class="n">add</span> <span class="ss">:movie_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="το-σχήμα-της-ανήκει-σε">Το Σχήμα της Ανήκει σε</h4>
+
+<p>Παρόμοια το σχήμα μας θα πρέπει να ορίζει τη σχέση “ανήκει σε” ανάμεσα σε ένα χαρακτήρα και την ταινία του.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/friends/character.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"characters"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">belongs_to</span> <span class="ss">:movie</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ας ρίξουμε μια κοντινότερη ματιά στο τι κάνει η μακροεντολή <code class="highlighter-rouge">belongs_to/3</code> για εμάς.
+Τοποθετεί το ξένο κλειδί <code class="highlighter-rouge">movie_id</code> στο σχήμα μας και μας δίνει τη δυνατότητα να έχουμε πρόσβαση στο συσχετιζόμενο σχήμα <code class="highlighter-rouge">movies</code> <em>μέσα από</em> το <code class="highlighter-rouge">characters</code>.
+Χρησιμοποιεί το ξένο κλειδί για να κάνει διαθέσιμη τη συσχετιζόμενη ταινία ενός χαρακτήρα όταν πραγματοποιήσουμε ένα ερώτημα για αυτούς.
+Αυτό θα μας επιτρέψει να καλέσουμε την <code class="highlighter-rouge">character.movie</code>.</p>
+
+<p>Τώρα είμαστε έτοιμοι να τρέξουμε τις μετατροπές μας:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.migrate
+</span></code></pre></div></div>
+
+<h3 id="belongs-tohas-one">Belongs To/Has One</h3>
+
+<p>Ας πούμε ότι μια ταινία έχει έναν διανομέα, για παράδειγμα το <code class="highlighter-rouge">Netflix</code> είναι ο διανομέας του πρωτότυπου φίλμ τους “Bright”.</p>
+
+<p>Θα ορίσουμε τη μετατροπή και το σχήμα <code class="highlighter-rouge">Distributor</code> με τη σχέση “ανήκει σε”.
+Αρχικά, ας δημιουργήσουμε τη μετατροπή:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_distributors
+</span></code></pre></div></div>
+
+<p>Θα πρέπει να προσθέσουμε ένα ξένο κλειδί <code class="highlighter-rouge">movie_id</code> στη μετατροπή πίνακα <code class="highlighter-rouge">distributors</code> που μόλις δημιουργήσαμε, όπως επίσης και ένα μοναδικό δείκτη για να βεβαιωθούμε ότι η ταινία έχει μόνο ένα διανομέα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/repo/migrations/*_create_distributors.exs</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateDistributors</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:distributors</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+      <span class="n">add</span> <span class="ss">:movie_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+    <span class="k">end</span>
+    
+    <span class="n">create</span> <span class="n">unique_index</span><span class="p">(</span><span class="ss">:distributors</span><span class="p">,</span> <span class="p">[</span><span class="ss">:movie_id</span><span class="p">])</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Και το <code class="highlighter-rouge">Distributor</code> σχήμα θα πρέπει να χρησιμοποιήσει τη μακροεντολή <code class="highlighter-rouge">belongs_to/3</code> για να μας επιτρέψει να καλέσουμε την <code class="highlighter-rouge">distributor.movie</code> και να ψάξουμε τη συσχετιζόμενη ταινία ενός διανομέα χρησιμοποιώντας αυτό το ξένο κλειδί.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/friends/distributor.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"distributors"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">belongs_to</span> <span class="ss">:movie</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Στη συνέχεια, ας προσθέσουμε τη σχέση “has_one” στο σχήμα της <code class="highlighter-rouge">Movie</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/friends/movie.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"movies"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:tagline</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">has_many</span> <span class="ss">:characters</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span>
+    <span class="n">has_one</span> <span class="ss">:distributor</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span> <span class="c1"># I'm new!</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Η μακροεντολή <code class="highlighter-rouge">has_one/3</code> λειτουργεί ακριβώς όπως η <code class="highlighter-rouge">has_many/3</code>.
+Χρησιμοποιεί το ξένο κλειδί του συσχετιζόμενου σχήματος για να ψάξει και να αποκαλύψει τον διανομέα της ταινίας.
+Αυτό θα μας επιτρέψει να καλέσουμε την <code class="highlighter-rouge">movie.distributor</code>.</p>
+
+<p>Είμαστε έτοιμοι να τρέξουμε τη μετατροπή μας:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.migrate
+</span></code></pre></div></div>
+
+<h3 id="πολλά-προς-πολλά">Πολλά προς Πολλά</h3>
+
+<p>Ας πούμε ότι μια ταινία έχει πολλούς ηθοποιούς και ένας ηθοποιός ανήκει σε περισσότερες από μια ταινίες.
+Θα χτίσουμε ένα πίνακα σύνδεσης που αναφέρεται στις ταινίες και τους ηθοποιούς για να υλοποιήσει αυτή τη σχέση.</p>
+
+<p>Αρχικά, θα δημιουργήσουμε τη μετατροπή για τους <code class="highlighter-rouge">Actors</code>:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_actors
+</span></code></pre></div></div>
+
+<p>Ορίστε τη μετατροπή:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/migrations/*_create_actors.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">Actors</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:actors</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ας δημιουργήσουμε τη μετατροπή μας για το πίνακα σύνδεσης:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.gen.migration create_movies_actors
+</span></code></pre></div></div>
+
+<p>Θα ορίσουμε τη μετατροπή μας ώστε να έχει δύο ξένα κλειδιά.
+Θα προσθέσουμε επίσης ένα μοναδικό δείκτη για να βεβαιωθούμε ότι το ταίριασμα ταινίας και ηθοποιού είναι μοναδικό:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># priv/migrations/*_create_movies_actors.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateMoviesActors</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:movies_actors</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:movie_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+      <span class="n">add</span> <span class="ss">:actor_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:actors</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">create</span> <span class="n">unique_index</span><span class="p">(</span><span class="ss">:movies_actors</span><span class="p">,</span> <span class="p">[</span><span class="ss">:movie_id</span><span class="p">,</span> <span class="ss">:actor_id</span><span class="p">])</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Στη συνέχεια, ας προσθέσουμε τη μακροεντολή <code class="highlighter-rouge">many_to_many</code> στο <code class="highlighter-rouge">Movie</code> σχήμα μας:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/friends/movie.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"movies"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:tagline</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">has_many</span> <span class="ss">:characters</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span>
+    <span class="n">has_one</span> <span class="ss">:distributor</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span>
+    <span class="n">many_to_many</span> <span class="ss">:actors</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">,</span> <span class="ss">join_through:</span> <span class="s2">"movies_actors"</span> <span class="c1"># I'm new!</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Τελικά, θα ορίσουμε το <code class="highlighter-rouge">Actor</code> σχήμα μας με την ίδια μακροεντολή <code class="highlighter-rouge">many_to_many</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/friends/actor.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"actors"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">many_to_many</span> <span class="ss">:movies</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">,</span> <span class="ss">join_through:</span> <span class="s2">"movies_actors"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Είμαστε έτοιμοι να τρέξουμε τις μετατροπές μας:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">mix ecto.migrate
+</span></code></pre></div></div>
+
+<h2 id="αποθήκευση-συσχετιζόμενων-δεδομένων">Αποθήκευση Συσχετιζόμενων Δεδομένων</h2>
+
+<p>Ο τρόπος με τον οποίο αποθηκεύουμε εγγραφές μαζί με τα σχετικά δεδομένα τους εξαρτάται από τη φύση της σχέσης μεταξύ των εγγραφών.
+Ας ξεκινήσουμε με τη σχέση “Ανήκει σε/Έχει πολλά”.</p>
+
+<h3 id="ανήκει-σε">Ανήκει σε</h3>
+
+<h4 id="αποθήκευση-με-την-ectobuild_assoc3">Αποθήκευση με την <code class="highlighter-rouge">Ecto.build_assoc/3</code></h4>
+
+<p>Με τη σχέση “ανήκει σε”, μπορούμε να χρησιμοποιήσουμε τη συνάρτηση του Ecto <code class="highlighter-rouge">build_assoc/3</code>.</p>
+
+<p>Η <a href="https://hexdocs.pm/ecto/Ecto.html#build_assoc/3"><code class="highlighter-rouge">build_assoc/3</code></a> δέχεται τρία ορίσματα:</p>
+
+<ul>
+  <li>Τη δομή της εγγραφής που θέλουμε να αποθηκεύσουμε.</li>
+  <li>Το όνομα του συσχετισμού.</li>
+  <li>Κάθε όρισμα που θέλουμε να ορίσουμε στη συσχετιζόμενη εγγραφή που αποθηκεύουμε.</li>
+</ul>
+
+<p>Ας αποθηκεύσουμε μια ταινία και το συσχετιζόμενο χαρακτήρα.
+Αρχικά, ας δημιουργήσουμε μια εγγραφή ταινίας:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">alias</span> <span class="no">Friends</span><span class="o">.</span><span class="p">{</span><span class="no">Movie</span><span class="p">,</span> <span class="no">Character</span><span class="p">,</span> <span class="no">Repo</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="p">%</span><span class="no">Movie</span><span class="p">{</span><span class="ss">title:</span> <span class="s2">"Ready Player One"</span><span class="p">,</span> <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">}</span>
+
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:built</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:actors</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert!</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Τώρα θα χτίσουμε ένα συσχετιζόμενο χαρακτήρα και θα τον εισάγουμε στη βάση δεδομένων:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">character</span> <span class="o">=</span> <span class="no">Ecto</span><span class="o">.</span><span class="n">build_assoc</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="ss">:characters</span><span class="p">,</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Wade Watts"</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Character</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:built</span><span class="p">,</span> <span class="s2">"characters"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">movie:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movie</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Wade Watts"</span>
+<span class="p">}</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">insert!</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Character</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"characters"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">movie:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movie</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Wade Watts"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Παρατηρήστε ότι από τη στιγμή που η μακροεντολή <code class="highlighter-rouge">has_many/3</code> του σχήματος <code class="highlighter-rouge">Movie</code> ορίζει ότι η ταινία έχει πολλούς <code class="highlighter-rouge">:characters</code>, το όνομα του συσχετισμού που περνάμε σαν δεύτερο όρισμα στην <code class="highlighter-rouge">build_assoc/3</code> είναι ακριβώς αυτό: <code class="highlighter-rouge">:characters</code>.
+Μπορούμε να δούμε ότι δημιουργήσαμε ένα χαρακτήρα του οποίου η ιδιότητά <code class="highlighter-rouge">movie_id</code> ορίστηκε σωστά στο ID της συσχετιζόμενης ταινίας.</p>
+
+<p>Για να μπορέσουμε να αποθηκεύσουμε το διανομέα μιας ταινίας με τη χρήση της <code class="highlighter-rouge">build_assoc/3</code>, θα έχουμε την ίδια προσέγγιση περνώντας το <em>όνομα</em> της σχέσης της ταινίας με το διανομέα σαν δεύτερο όρισμα της <code class="highlighter-rouge">build_assoc/3</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">distributor</span> <span class="o">=</span> <span class="no">Ecto</span><span class="o">.</span><span class="n">build_assoc</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="ss">:distributor</span><span class="p">,</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Netflix"</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:built</span><span class="p">,</span> <span class="s2">"distributors"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">movie:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movie</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Netflix"</span>
+<span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert!</span><span class="p">(</span><span class="n">distributor</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"distributors"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">movie:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movie</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Netflix"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="πολλά-προς-πολλά-1">Πολλά προς πολλά</h3>
+
+<h4 id="αποθήκευση-με-την-ectochangesetput_assoc4">Αποθήκευση με την <code class="highlighter-rouge">Ecto.Changeset.put_assoc/4</code></h4>
+
+<p>Η προσέγγιση με την <code class="highlighter-rouge">build_assoc/3</code> δεν θα δουλέψει για τη σχέση μας πολλά-προς-πολλά.
+Αυτό συμβαίνει γιατί κανένας εκ των πινάκων ταινίας και ηθοποιού δεν περιέχει ένα ξένο κλειδί.
+Αντίθετα, θα χρειαστεί να χρησιμοποιήσουμε τα Σετ Αλλαγών του Ecto και τη συνάρτηση <code class="highlighter-rouge">put_assoc/4</code>.</p>
+
+<p>Υποθέτοντας ότι δημιουργήσαμε ήδη μια εγγραφή ταινίας πιο πάνω, ας δημιουργήσουμε μια εγγραφή ηθοποιού:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">alias</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> <span class="p">%</span><span class="no">Actor</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:built</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+<span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert!</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Τώρα είμαστε έτοιμοι να συσχετίσουμε την ταινία και τον ηθοποιό μας μέσα από τον πίνακα σύνδεσης.</p>
+
+<p>Αρχικά, σημειώστε ότι για να εργαστούμε με τα σετ αλλαγών, πρέπει να βεβαιωθούμε ότι η δομή <code class="highlighter-rouge">movie</code> μας έχει προφορτωθεί με τα συσχετιζόμενα δεδομένα.
+Θα μιλήσουμε περισσότερο για την προφόρτωση δεδομένων σε λίγο.
+Για τώρα, είναι αρκετό να καταλάβετε ότι μπορούμε να προφορτώσουμε τους συσχετισμούς μας ως εξής:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">preload</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="p">[</span><span class="ss">:distributor</span><span class="p">,</span> <span class="ss">:characters</span><span class="p">,</span> <span class="ss">:actors</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+ <span class="ss">__meta__:</span> <span class="c1">#Ecto.Schema.Metadata&lt;:loaded, "movies"&gt;,</span>
+  <span class="ss">actors:</span> <span class="p">[],</span>
+  <span class="ss">characters:</span> <span class="p">[</span>
+    <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Character</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="c1">#Ecto.Schema.Metadata&lt;:loaded, "characters"&gt;,</span>
+      <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="ss">movie:</span> <span class="c1">#Ecto.Association.NotLoaded&lt;association :movie is not loaded&gt;,</span>
+      <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="s2">"Wade Watts"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="c1">#Ecto.Schema.Metadata&lt;:loaded, "distributors"&gt;,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">movie:</span> <span class="c1">#Ecto.Association.NotLoaded&lt;association :movie is not loaded&gt;,</span>
+    <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">name:</span> <span class="s2">"Netflix"</span>
+  <span class="p">},</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video game"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Στη συνέχεια, θα δημιουργήσουμε ένα σετ αλλαγών για την εγγραφή της ταινίας μας:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie_changeset</span> <span class="o">=</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">change</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span> <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+ <span class="ss">valid?:</span> <span class="no">true</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Τώρα θα περάσουμε το σετ αλλαγών μας σαν πρώτο όρισμα στην <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#put_assoc/4"><code class="highlighter-rouge">Ecto.Changeset.put_assoc/4</code></a>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie_actors_changeset</span> <span class="o">=</span> <span class="n">movie_changeset</span> <span class="o">|&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">put_assoc</span><span class="p">(</span><span class="ss">:actors</span><span class="p">,</span> <span class="p">[</span><span class="n">actor</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span>
+    <span class="ss">actors:</span> <span class="p">[</span>
+      <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="ss">:update</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span>
+       <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="ss">valid?:</span> <span class="no">true</span><span class="o">&gt;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Αυτό μας δίνει ένα <em>νέο</em> σετ αλλαγών που αναπαριστά την ακόλουθη αλλαγή: προσθήκη των ηθοποιών στη λίστα ηθοποιών της δοθείσας εγγραφής ταινίας.</p>
+
+<p>Τελικά, θα αναβαθμίσουμε τη δοθείσα ταινία και τις εγγραφές ηθοποιών της με το τελευταίο μας σετ αλλαγών:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">update!</span><span class="p">(</span><span class="n">movie_actors_changeset</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="c1">#Ecto.Schema.Metadata&lt;:loaded, "movies"&gt;,</span>
+  <span class="ss">actors:</span> <span class="p">[</span>
+    <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="c1">#Ecto.Schema.Metadata&lt;:loaded, "actors"&gt;,</span>
+      <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="ss">movies:</span> <span class="c1">#Ecto.Association.NotLoaded&lt;association :movies is not loaded&gt;,</span>
+      <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="ss">characters:</span> <span class="p">[</span>
+    <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Character</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="c1">#Ecto.Schema.Metadata&lt;:loaded, "characters"&gt;,</span>
+      <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="ss">movie:</span> <span class="c1">#Ecto.Association.NotLoaded&lt;association :movie is not loaded&gt;,</span>
+      <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="s2">"Wade Watts"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Distributor</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="c1">#Ecto.Schema.Metadata&lt;:loaded, "distributors"&gt;,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">movie:</span> <span class="c1">#Ecto.Association.NotLoaded&lt;association :movie is not loaded&gt;,</span>
+    <span class="ss">movie_id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">name:</span> <span class="s2">"Netflix"</span>
+  <span class="p">},</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video game"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Μπορούμε να δούμε ότι αυτό μας δίνει μια εγγραφή ταινίας με το νέο ηθοποιό σωστά συσχετισμένο και ήδη προφορτωμένο για εμάς στην <code class="highlighter-rouge">movie.actors</code>.</p>
+
+<p>Μπορούμε να χρησιμοποιήσουμε αυτή την προσέγγιση για να δημιουργήσουμε ένα νέο ηθοποιό που συσχετίζεται με τη δοθείσα ταινία.
+Αντί να περάσουμε μια <em>αποθηκευμένη</em> δομή ηθοποιού στην <code class="highlighter-rouge">put_assoc/4</code>, απλά περνάμε ένα χάρτη με τα στοιχεία νέου ηθοποιού που θέλουμε να δημιουργήσουμε:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">changeset</span> <span class="o">=</span> <span class="n">movie_changeset</span> <span class="o">|&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">put_assoc</span><span class="p">(</span><span class="ss">:actors</span><span class="p">,</span> <span class="p">[%{</span><span class="ss">name:</span> <span class="s2">"Gary"</span><span class="p">}])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span>
+    <span class="ss">actors:</span> <span class="p">[</span>
+      <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+        <span class="ss">action:</span> <span class="ss">:insert</span><span class="p">,</span>
+        <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Gary"</span><span class="p">},</span>
+        <span class="ss">errors:</span> <span class="p">[],</span>
+        <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+        <span class="ss">valid?:</span> <span class="no">true</span>
+      <span class="o">&gt;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+<span class="n">iex</span><span class="o">&gt;</span>  <span class="no">Repo</span><span class="o">.</span><span class="n">update!</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">[</span>
+    <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">id:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="s2">"Gary"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="ss">characters:</span> <span class="p">[],</span>
+  <span class="ss">distributor:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Μπορούμε να δούμε ότι ο νέος ηθοποιόος δημιουργήθηκε με το ID “2” και τα χαρακτηριστικά που του ορίσαμε.</p>
+
+<p>Στην επόμενη ενότητα, θα μάθουμε πως να δημιουργούμε ερωτήματα για τις συσχετιζόμενες εγγραφές μας.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/gr/lessons/ecto/associations.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/ecto/changesets/" title="Σετ Αλλαγών">← Σετ Αλλαγών</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/specifics/plug/" title="Plug">Plug →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/ecto/associations/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/associations/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <strong >gr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/ecto/associations/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/associations/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/associations/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/associations/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/ecto/associations/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Μαθήματα προγραμματισμού της γλώσσας Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/gr/" class="">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βασικά</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/basics/">1. Βασικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/collections/">2. Συλλογές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pattern-matching/">4. Αντιπαραβολές Προτύπων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/control-structures/">5. Δομές Ελέγχου</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/functions/">6. Συναρτήσεις</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pipe-operator/">7. Τελεστής Σωλήνα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/modules/">8. Ενότητες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/sigils/">10. Σφραγίδες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/documentation/">11. Τεκμηρίωση</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/testing/">12. Δοκιμές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/comprehensions/">13. Ανάγνωση Λιστών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/strings/">14. Αλφαριθμητικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/date-time/">15. Ημερομηνία και Ώρα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix-tasks/">16. Ειδικές Εργασίες Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/iex-helpers/">17. Βοηθοί IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Προχωρημένα</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/erlang/">1. Διαλειτουργικότητα με την Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/error-handling/">2. Διαχείριση Σφαλμάτων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/escripts/">3. Εκτελέσιμα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/concurrency/">4. Συγχρονισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-concurrency/">5. Συγχρονισμός OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-supervisors/">6. Επιτηρητές OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/metaprogramming/">8. Μεταπρογραμματισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/umbrella-projects/">9. Projects Ομπρέλας</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/typespec/">10. Προδιαγραφές και τύποι</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/behaviours/">11. Συμπεριφορές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/protocols/">13. Πρωτόκολλα</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/changesets/">2. Σετ Αλλαγών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">3. Συσχετισμοί</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ιδιαιτερότητες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/eex/">2. Ένθετη Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βιβλιοθήκες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/guardian/">1. Guardian (Βασικά)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class="">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/gr/report/" class="">Αναφορά Μετάφρασης</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class="">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

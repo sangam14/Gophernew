@@ -1,0 +1,977 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/advanced/otp-concurrency/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/otp-concurrency/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/otp-concurrency/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/advanced/otp-concurrency/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>OTP 並行性 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/advanced/otp-concurrency/&title=OTP 並行性&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/advanced/otp-concurrency/&via=elixirschool&text=ElixirSchool: OTP 並行性&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/advanced/otp-concurrency/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/advanced/otp-concurrency/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: OTP 並行性" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/advanced/otp-concurrency/&title=ElixirSchool: OTP 並行性&description=Check out 'OTP 並行性' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: OTP 並行性&body=Check out 'OTP 並行性' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/advanced/otp-concurrency/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  OTP 並行性
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    翻譯內文為最新版本。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>我們已經看過 Elixir 抽象的並行性，但是有時候需要更好的控制，為此我們轉而了解構建 Elixir 的 OTP 行為 (behaviors)。</p>
+
+<p>在本課程中，焦點會放在最龐大的部分：GenServers。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="genserver">GenServer</h2>
+
+<p>OTP 伺服器是具有實現一組回呼 GenServer 行為的模組。在最基本的級別上，GenServer 是一個執行迴圈的單一處理程序，每次疊代都處理一個經由更新狀態來的請求。</p>
+
+<p>為了展示 GenServer API，我們將實現一個基本佇列 (queue) 來儲存與檢索值。</p>
+
+<p>要開始使用 GenServer，需要啟動它並處理初始化。而在多數情況下，我們希望連接處理程序，所以使用 <code class="highlighter-rouge">GenServer.start_link/3</code>。
+我們將傳入正在啟動的 GenServer 模組、初始引數和一組 GenServer 選項。引數將傳遞給 <code class="highlighter-rouge">GenServer.init/1</code> ，通過它的回傳值設置初始狀態。在下面例子當中，引數將是我們的初始狀態：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  Start our queue and link it.  This is a helper function
+  """</span>
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.init/1 callback
+  """</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="同步函數-synchronous-functions">同步函數 (Synchronous Functions)</h3>
+
+<p>通常需要以同步方式與 GenServers 互動，呼用一個函數並等待回應。
+為了處理同步請求，需要實現 <code class="highlighter-rouge">GenServer.handle_call/3</code> 回呼函數，該回呼函數採用：請求、呼用者的 PID 和現有狀態；它被預期通過回傳一個 tuple 來回覆：<code class="highlighter-rouge">{:reply, response, state}</code>。</p>
+
+<p>通過模式比對，可以為許多不同的請求和狀態定義回呼。可以在 <a href="https://hexdocs.pm/elixir/GenServer.html#c:handle_call/3"><code class="highlighter-rouge">GenServer.handle_call/3</code></a> 文件中找到被接受回傳值的完整清單。</p>
+
+<p>為了展示同步請求，現在加入顯示當前佇列和刪除值的功能：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="c1">### GenServer API</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.init/1 callback
+  """</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.handle_call/3 callback
+  """</span>
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:dequeue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="p">[</span><span class="n">value</span> <span class="o">|</span> <span class="n">state</span><span class="p">])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:dequeue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="p">[]),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="no">nil</span><span class="p">,</span> <span class="p">[]}</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:queue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+
+  <span class="c1">### Client API / Helper functions</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">queue</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:queue</span><span class="p">)</span>
+  <span class="k">def</span> <span class="n">dequeue</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:dequeue</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>現在啟動 SimpleQueue 並測試新的出列 (dequeue) 功能：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">start_link</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.90.0&gt;}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">dequeue</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">dequeue</span>
+<span class="mi">2</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">queue</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="非同步函數-asynchronous-functions">非同步函數 (Asynchronous Functions)</h3>
+
+<p>非同步 (Asynchronous) 請求通過 <code class="highlighter-rouge">handle_cast/2</code> 回呼來處理。這很像 <code class="highlighter-rouge">handle_call/3</code> ，但是不接收呼用者 (caller)，也不會回覆。</p>
+
+<p>我們將實現的排隊 (enqueue) 功能是非同步的，更新佇列 (queue) 但不阻礙當前的執行：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="c1">### GenServer API</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.init/1 callback
+  """</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.handle_call/3 callback
+  """</span>
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:dequeue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="p">[</span><span class="n">value</span> <span class="o">|</span> <span class="n">state</span><span class="p">])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:dequeue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="p">[]),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="no">nil</span><span class="p">,</span> <span class="p">[]}</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:queue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.handle_cast/2 callback
+  """</span>
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">({</span><span class="ss">:enqueue</span><span class="p">,</span> <span class="n">value</span><span class="p">},</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span> <span class="o">++</span> <span class="p">[</span><span class="n">value</span><span class="p">]}</span>
+  <span class="k">end</span>
+
+  <span class="c1">### Client API / Helper functions</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">queue</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:queue</span><span class="p">)</span>
+  <span class="k">def</span> <span class="n">enqueue</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="p">{</span><span class="ss">:enqueue</span><span class="p">,</span> <span class="n">value</span><span class="p">})</span>
+  <span class="k">def</span> <span class="n">dequeue</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:dequeue</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>現在來使用新功能：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">start_link</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.100.0&gt;}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">queue</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="ss">:ok</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">queue</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>有關更多資訊，請參閱官方 <a href="https://hexdocs.pm/elixir/GenServer.html#content">GenServer</a> 文件。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/advanced/otp-concurrency.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/advanced/concurrency/" title="並行性">← 並行性</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/advanced/otp-supervisors/" title="OTP Supervisors">OTP Supervisors →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/advanced/otp-concurrency/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/otp-concurrency/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/otp-concurrency/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/otp-concurrency/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/otp-concurrency/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/otp-concurrency/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/otp-concurrency/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/otp-concurrency/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/otp-concurrency/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/otp-concurrency/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/otp-concurrency/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/otp-concurrency/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. OTP 並行性</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

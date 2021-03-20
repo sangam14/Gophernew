@@ -1,0 +1,1147 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/specifics/mnesia/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/mnesia/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/mnesia/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/mnesia/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/specifics/mnesia/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Mnesia &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/specifics/mnesia/&title=Mnesia&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/specifics/mnesia/&via=elixirschool&text=ElixirSchool: Mnesia&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/specifics/mnesia/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/specifics/mnesia/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Mnesia" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/specifics/mnesia/&title=ElixirSchool: Mnesia&description=Check out 'Mnesia' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Mnesia&body=Check out 'Mnesia' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/specifics/mnesia/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Mnesia
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    翻譯內文為最新版本。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Mnesia 是一個重型即時分佈式資料庫管理系統。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="概要">概要</h2>
+
+<p>Mnesia 是一個資料庫管理系統 (DBMS) 與 Erlang Runtime 系統一起提供，因此能自然地與 Elixir 使用。
+Mnesia 的 <em>關聯和物件混合資料模式</em> 使其適用於開發任何規模的分佈式應用程式。</p>
+
+<h2 id="何時該使用">何時該使用</h2>
+
+<p>尋求何時該應用一項技術的特定部份往往是令人困惑的。
+如果對以下任何問題都回答「是」，那麼這是使用 Mnesia 而不是 ETS 或 DETS 的良好指示。</p>
+
+<ul>
+  <li>需要回復交易嗎 (roll back transactions)？</li>
+  <li>是否需要易用的語法來讀取和寫入資料？</li>
+  <li>應該跨多節點而不是單一節點儲存資料嗎？</li>
+  <li>是否需要選擇儲存資訊的位置（RAM或磁碟）？</li>
+</ul>
+
+<h2 id="schema">Schema</h2>
+
+<p>由於 Mnesia 是 Erlang 核心的一部分，而不是 Elixir，因此必須使用冒號語法存取它 (參考課程：<a href="../../advanced/erlang/">Erlang 互用性</a>)：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="ss">:mnesia</span><span class="o">.</span><span class="n">create_schema</span><span class="p">([</span><span class="n">node</span><span class="p">()])</span>
+
+<span class="c1"># or if you prefer the Elixir feel...</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">alias</span> <span class="ss">:mnesia</span><span class="p">,</span> <span class="ss">as:</span> <span class="no">Mnesia</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">create_schema</span><span class="p">([</span><span class="n">node</span><span class="p">()])</span>
+</code></pre></div></div>
+
+<p>本課程中，將在使用 Mnesia API 時採用後一種方法。
+<code class="highlighter-rouge">Mnesia.create_schema/1</code> 初始化一個新的 schema 並傳入一個 Node List。
+在這個例子中，傳入與 IEx 會話關聯的節點​​。</p>
+
+<h2 id="nodes">Nodes</h2>
+
+<p>一旦通過 IEx 執行 <code class="highlighter-rouge">Mnesia.create_schema([node()])</code> 指令，應該看到一個名為 <strong>Mnesia.nonode@nohost</strong> 的資料夾。
+你可能想知道 <strong>nonode@nohost</strong> 的含義是什麼，因為以前沒有遇到過。
+現在來看一下。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">--help</span>
+Usage: iex <span class="o">[</span>options] <span class="o">[</span>.exs file] <span class="o">[</span>data]
+
+  <span class="nt">-v</span>                Prints version
+  <span class="nt">-e</span> <span class="s2">"command"</span>      Evaluates the given <span class="nb">command</span> <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">-r</span> <span class="s2">"file"</span>         Requires the given files/patterns <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">-S</span> <span class="s2">"script"</span>       Finds and executes the given script
+  <span class="nt">-pr</span> <span class="s2">"file"</span>        Requires the given files/patterns <span class="k">in </span>parallel <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">-pa</span> <span class="s2">"path"</span>        Prepends the given path to Erlang code path <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">-pz</span> <span class="s2">"path"</span>        Appends the given path to Erlang code path <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">--app</span> <span class="s2">"app"</span>       Start the given app and its dependencies <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">--erl</span> <span class="s2">"switches"</span>  Switches to be passed down to Erlang <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+  <span class="nt">--name</span> <span class="s2">"name"</span>     Makes and assigns a name to the distributed node
+  <span class="nt">--sname</span> <span class="s2">"name"</span>    Makes and assigns a short name to the distributed node
+  <span class="nt">--cookie</span> <span class="s2">"cookie"</span> Sets a cookie <span class="k">for </span>this distributed node
+  <span class="nt">--hidden</span>          Makes a hidden node
+  <span class="nt">--werl</span>            Uses Erlang<span class="s1">'s Windows shell GUI (Windows only)
+  --detached        Starts the Erlang VM detached from console
+  --remsh "name"    Connects to a node using a remote shell
+  --dot-iex "path"  Overrides default .iex.exs file and uses path instead;
+                    path can be empty, then no file will be loaded
+
+** Options marked with (*) can be given more than once
+** Options given after the .exs file or -- are passed down to the executed code
+** Options can be passed to the VM using ELIXIR_ERL_OPTIONS or --erl
+</span></code></pre></div></div>
+
+<p>當從命令列向 IEx 輸入 <code class="highlighter-rouge">--help</code> 選項，會看到所有可用選項。
+可以看到有一個 <code class="highlighter-rouge">--name</code> 和 <code class="highlighter-rouge">--sname</code> 選項用於為節點配上資訊。
+節點只是一個正在執行的 Erlang 虛擬機器，它處理自己的通訊、垃圾收集，排程處理程序，記憶體管理等等。
+預設情況下，該節點被命名為<strong>nonode@nohost</strong>。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">--name</span> learner@elixirschool.com
+
+Erlang/OTP 22.0 <span class="o">[</span>erts-10.5.3] <span class="o">[</span><span class="nb">source</span><span class="o">]</span> <span class="o">[</span>64-bit] <span class="o">[</span>smp:4:4] <span class="o">[</span>async-threads:10] <span class="o">[</span>hipe] <span class="o">[</span>kernel-poll:false] <span class="o">[</span>dtrace]
+
+Interactive Elixir <span class="o">(</span>1.10.1<span class="o">)</span> - press Ctrl+C to <span class="nb">exit</span> <span class="o">(</span><span class="nb">type </span>h<span class="o">()</span> ENTER <span class="k">for </span><span class="nb">help</span><span class="o">)</span>
+iex<span class="o">(</span>learner@elixirschool.com<span class="o">)&gt;</span> Node.self
+:<span class="s2">"learner@elixirschool.com"</span>
+</code></pre></div></div>
+
+<p>現在可以看到，正在執行的節點是一個名為 <code class="highlighter-rouge">:"learner@elixirschool.com"</code> 的 atom。
+如果再次執行 <code class="highlighter-rouge">Mnesia.create_schema([node()])</code>，將看到它建立了另一個名為 <strong>Mnesia.learner@elixirschool.com</strong> 的資料夾。
+它的目的很簡單。
+Erlang 中的節點用於連接到其他節點以共享(分送)資訊和資源。
+這不必局限於同一台機器，且可以通過區域網路、廣域網路等進行通訊。</p>
+
+<h2 id="啟動-mnesia">啟動 Mnesia</h2>
+
+<p>現在已經掌握了背景知識並設定了資料庫，我們已經就定位可以使用 <code class="highlighter-rouge">Mnesia.start/0</code> 指令啟動 Mnesia DBMS。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">alias</span> <span class="ss">:mnesia</span><span class="p">,</span> <span class="ss">as:</span> <span class="no">Mnesia</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">create_schema</span><span class="p">([</span><span class="n">node</span><span class="p">()])</span>
+<span class="ss">:ok</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+<p>函數 <code class="highlighter-rouge">Mnesia.start/0</code> 是非同步的。它啟動現有表格的初始化設定並回傳 <code class="highlighter-rouge">:ok</code> atom。如果要在啟動 Mnesia 之後立即對現有表格執行某些動作，需要呼用 <code class="highlighter-rouge">Mnesia.wait_for_tables/2</code> 函數。它會暫停呼用者，直到表格被初始化完成。請參考 <a href="#data-initialization-and-migration">資料初始化和遷移</a> 一章的範例。</p>
+
+<p>在執行具有兩個或更多節點的分佈式系統時，請留心記得，必須在所有參與節點上執行函數 <code class="highlighter-rouge">Mnesia.start/1</code>。</p>
+
+<h2 id="建立-tables">建立 Tables</h2>
+
+<p>函數 <code class="highlighter-rouge">Mnesia.create_table/2</code> 用於在資料庫中建立表格。
+下面建立一個名為 <code class="highlighter-rouge">Person</code>的表格，加上一個定義表格資料結構的關鍵字列表。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="p">[</span><span class="ss">attributes:</span> <span class="p">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:job</span><span class="p">]])</span>
+<span class="p">{</span><span class="ss">:atomic</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>使用 atoms <code class="highlighter-rouge">:id</code>、<code class="highlighter-rouge">:name</code> 和 <code class="highlighter-rouge">:job</code> 定義行 (column)。
+第一個 atom（在本例中為 <code class="highlighter-rouge">:id</code> ）是主鍵。
+且至少需要一個額外屬性。</p>
+
+<p>當執行 <code class="highlighter-rouge">Mnesia.create_table/2</code> 時，它將回傳以下任一結果：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">{:atomic, :ok}</code> 如果函數執行成功</li>
+  <li><code class="highlighter-rouge">{:aborted, Reason}</code> 如果函數執行失敗</li>
+</ul>
+
+<p>特別的是，如果表格已經存在，格式將為 <code class="highlighter-rouge">{:already_exists, table}</code>，所以如果第二次嘗試建立這個表格，將得到：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="p">[</span><span class="ss">attributes:</span> <span class="p">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:job</span><span class="p">]])</span>
+<span class="p">{</span><span class="ss">:aborted</span><span class="p">,</span> <span class="p">{</span><span class="ss">:already_exists</span><span class="p">,</span> <span class="no">Person</span><span class="p">}}</span>
+</code></pre></div></div>
+
+<h2 id="dirty-的方法">Dirty 的方法</h2>
+
+<p>首先，將看一下讀取和寫入 Mnesia 表格的骯髒方式。
+通常應該避免這種情況，因為無法保證成功，但它應該有助於學習並輕鬆地使用 Mnesia
+現在在 <strong>Person</strong> 表格中加入一些條目。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">dirty_write</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Seymour Skinner"</span><span class="p">,</span> <span class="s2">"Principal"</span><span class="p">})</span>
+<span class="ss">:ok</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">dirty_write</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Homer Simpson"</span><span class="p">,</span> <span class="s2">"Safety Inspector"</span><span class="p">})</span>
+<span class="ss">:ok</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">dirty_write</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Moe Szyslak"</span><span class="p">,</span> <span class="s2">"Bartender"</span><span class="p">})</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>…檢索條目可以使用 <code class="highlighter-rouge">Mnesia.dirty_read/1</code>：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">dirty_read</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
+<span class="p">[{</span><span class="no">Person</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Seymour Skinner"</span><span class="p">,</span> <span class="s2">"Principal"</span><span class="p">}]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">dirty_read</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">2</span><span class="p">})</span>
+<span class="p">[{</span><span class="no">Person</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Homer Simpson"</span><span class="p">,</span> <span class="s2">"Safety Inspector"</span><span class="p">}]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">dirty_read</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">3</span><span class="p">})</span>
+<span class="p">[{</span><span class="no">Person</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Moe Szyslak"</span><span class="p">,</span> <span class="s2">"Bartender"</span><span class="p">}]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">dirty_read</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">4</span><span class="p">})</span>
+<span class="p">[]</span>
+</code></pre></div></div>
+
+<p>如果嘗試查詢不存在的記錄，Mnesia 將回應空列表。</p>
+
+<h2 id="交易-transactions">交易 (Transactions)</h2>
+
+<p>傳統上，使用 <strong>transactions</strong> 來封裝 (encapsulate) 對資料庫的讀寫操作。
+Transactions 是設計容錯、高度分佈式系統的重要部分。
+一個 Mnesia <em>transaction 是一種機制，通過該機制，一系列的資料庫操作可以作為一個函數區塊</em> 執行。
+首先，建立一個匿名函數，在本例中為 <code class="highlighter-rouge">data_to_write</code>，然後將其傳進 <code class="highlighter-rouge">Mnesia.transaction</code>。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">data_to_write</span> <span class="o">=</span> <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>   <span class="no">Mnesia</span><span class="o">.</span><span class="n">write</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"Marge Simpson"</span><span class="p">,</span> <span class="s2">"home maker"</span><span class="p">})</span>
+<span class="o">...&gt;</span>   <span class="no">Mnesia</span><span class="o">.</span><span class="n">write</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"Hans Moleman"</span><span class="p">,</span> <span class="s2">"unknown"</span><span class="p">})</span>
+<span class="o">...&gt;</span>   <span class="no">Mnesia</span><span class="o">.</span><span class="n">write</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">"Monty Burns"</span><span class="p">,</span> <span class="s2">"Businessman"</span><span class="p">})</span>
+<span class="o">...&gt;</span>   <span class="no">Mnesia</span><span class="o">.</span><span class="n">write</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"Waylon Smithers"</span><span class="p">,</span> <span class="s2">"Executive assistant"</span><span class="p">})</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="c1">#Function&lt;20.54118792/0 in :erl_eval.expr/5&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span><span class="n">data_to_write</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:atomic</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">}</span>
+</code></pre></div></div>
+<p>基於此 transaction 訊息，可以安心地假設已將資料寫入 <code class="highlighter-rouge">Person</code> 表格。
+現在使用 transaction 從資料庫中讀取來確定。
+將使用 <code class="highlighter-rouge">Mnesia.read/1</code> 從資料庫中讀取，再次的，從匿名函數中讀取。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">data_to_read</span> <span class="o">=</span> <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>   <span class="no">Mnesia</span><span class="o">.</span><span class="n">read</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">6</span><span class="p">})</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="c1">#Function&lt;20.54118792/0 in :erl_eval.expr/5&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span><span class="n">data_to_read</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:atomic</span><span class="p">,</span> <span class="p">[{</span><span class="no">Person</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">"Monty Burns"</span><span class="p">,</span> <span class="s2">"Businessman"</span><span class="p">}]}</span>
+</code></pre></div></div>
+
+<p>注意到，如果要更新資料，只需使用與現存記錄相同的鍵呼用 <code class="highlighter-rouge">Mnesia.write/1</code> 即可。
+因此，要為 Hans 更新記錄，可以這樣做：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span>
+<span class="o">...&gt;</span>   <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="no">Mnesia</span><span class="o">.</span><span class="n">write</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"Hans Moleman"</span><span class="p">,</span> <span class="s2">"Ex-Mayor"</span><span class="p">})</span>
+<span class="o">...&gt;</span>   <span class="k">end</span>
+<span class="o">...&gt;</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="使用索引">使用索引</h2>
+
+<p>Mnesia 支援非鍵欄位 (non-key columns) 的索引建立，然後可以根據這些索引查詢資料。
+所以可以在 <code class="highlighter-rouge">Person</code> 表格的 <code class="highlighter-rouge">:job</code> 欄位中加入一個索引：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">add_table_index</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="ss">:job</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:atomic</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>結果與 <code class="highlighter-rouge">Mnesia.create_table/2</code> 回傳的類似：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">{:atomic, :ok}</code> 如果函數執行成功</li>
+  <li><code class="highlighter-rouge">{:aborted, Reason}</code> 如果函數執行失敗</li>
+</ul>
+
+<p>特別的是，如果索引已經存在，錯誤訊息將以 <code class="highlighter-rouge">{:already_exists, table, attribute_index}</code> 格式顯示，所以如果第二次嘗試加入這個索引，將得到：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">add_table_index</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="ss">:job</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:aborted</span><span class="p">,</span> <span class="p">{</span><span class="ss">:already_exists</span><span class="p">,</span> <span class="no">Person</span><span class="p">,</span> <span class="mi">4</span><span class="p">}}</span>
+</code></pre></div></div>
+
+<p>成功建立索引後，可以讀取它並檢索所有主體的列表：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span>
+<span class="o">...&gt;</span>   <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="no">Mnesia</span><span class="o">.</span><span class="n">index_read</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="s2">"Principal"</span><span class="p">,</span> <span class="ss">:job</span><span class="p">)</span>
+<span class="o">...&gt;</span>   <span class="k">end</span>
+<span class="o">...&gt;</span> <span class="p">)</span>
+<span class="p">{</span><span class="ss">:atomic</span><span class="p">,</span> <span class="p">[{</span><span class="no">Person</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Seymour Skinner"</span><span class="p">,</span> <span class="s2">"Principal"</span><span class="p">}]}</span>
+</code></pre></div></div>
+
+<h2 id="match-和-select">Match 和 select</h2>
+
+<p>Mnesia 支援複雜查詢，以配對和臨時 (ad-hoc) 的選擇函數形式從表格中檢索資料。</p>
+
+<p><code class="highlighter-rouge">Mnesia.match_object/1</code> 函數回傳與給定模式相配的所有記錄。
+如果表格中的任何欄位具有索引，則可以使用它們來提高查詢效率。
+使用特殊 atom <code class="highlighter-rouge">:_</code> 來標記不參與配對的欄位(column)。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span>
+<span class="o">...&gt;</span>   <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="no">Mnesia</span><span class="o">.</span><span class="n">match_object</span><span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="ss">:_</span><span class="p">,</span> <span class="s2">"Marge Simpson"</span><span class="p">,</span> <span class="ss">:_</span><span class="p">})</span>
+<span class="o">...&gt;</span>   <span class="k">end</span>
+<span class="o">...&gt;</span> <span class="p">)</span>
+<span class="p">{</span><span class="ss">:atomic</span><span class="p">,</span> <span class="p">[{</span><span class="no">Person</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"Marge Simpson"</span><span class="p">,</span> <span class="s2">"home maker"</span><span class="p">}]}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Mnesia.select/2</code> 函數允許使用 Elixir 語言 (或Erlang) 中的任何運算符或函數指定一個自定查詢。
+現在來看一個範例，選擇具有大於 3 的鍵的所有記錄：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span>
+<span class="o">...&gt;</span>   <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="no">Mnesia</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="p">[{{</span><span class="no">Person</span><span class="p">,</span> <span class="ss">:"$1"</span><span class="p">,</span> <span class="ss">:"$2"</span><span class="p">,</span> <span class="ss">:"$3"</span><span class="p">},</span> <span class="p">[{</span><span class="ss">:&gt;</span><span class="p">,</span> <span class="ss">:"$1"</span><span class="p">,</span> <span class="mi">3</span><span class="p">}],</span> <span class="p">[</span><span class="ss">:"$$"</span><span class="p">]}])</span>
+<span class="o">...&gt;</span>   <span class="k">end</span>
+<span class="o">...&gt;</span> <span class="p">)</span>
+<span class="p">{</span><span class="ss">:atomic</span><span class="p">,</span> <span class="p">[[</span><span class="mi">7</span><span class="p">,</span> <span class="s2">"Waylon Smithers"</span><span class="p">,</span> <span class="s2">"Executive assistant"</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"Marge Simpson"</span><span class="p">,</span> <span class="s2">"home maker"</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="s2">"Monty Burns"</span><span class="p">,</span> <span class="s2">"Businessman"</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"Hans Moleman"</span><span class="p">,</span> <span class="s2">"unknown"</span><span class="p">]]}</span>
+</code></pre></div></div>
+
+<p>現在來看這個範例。
+第一個屬性是表格 <code class="highlighter-rouge">Person</code>，第二個屬性是 <code class="highlighter-rouge">{match, [guard], [result]}</code>: 形式的 triple：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">match</code> 與您傳遞給 <code class="highlighter-rouge">Mnesia.match_object/1</code> 函數的內容相同; 但是，請注意特殊的 atoms <code class="highlighter-rouge">:"$n"</code> 它指定查詢其餘部分所使用的位置參數。</li>
+  <li>the <code class="highlighter-rouge">guard</code> 列表是一個 tuples 列表，它指定要用的監視函數，本範例中是 <code class="highlighter-rouge">:&gt;</code> (大於) 的第一個位置參數 <code class="highlighter-rouge">:"$1"</code> 和常數 <code class="highlighter-rouge">3</code> 作為屬性的內建函數 with the first positional parameter <code class="highlighter-rouge">:"$1"</code> and the constant <code class="highlighter-rouge">3</code> as attributes</li>
+  <li>the <code class="highlighter-rouge">result</code> 列表是查詢後回傳的欄位列表。以特殊的 atom <code class="highlighter-rouge">:"$$"</code> 的位置參數的形式引用所有欄位，因此可以使用 <code class="highlighter-rouge">[:"$1", :"$2"]</code> 回傳前兩個欄位或用 <code class="highlighter-rouge">[:"$$"]</code> 回傳所有欄位。</li>
+</ul>
+
+<p>有關更多詳細資訊，請參閱 <a href="http://erlang.org/doc/man/mnesia.html#select-2">select/2 的 Erlang Mnesia 文件</a>。</p>
+
+<h2 id="資料初始化和遷移">資料初始化和遷移</h2>
+
+<p>對於每個軟體使用，都有需要升級軟體並遷移儲存在資料庫中資料的時候。
+例如，可能想在 app 的 v2 中的 <code class="highlighter-rouge">Person</code> 表格加入一個 <code class="highlighter-rouge">:age</code> 欄位。
+我們無法在建立 <code class="highlighter-rouge">Person</code> 表格後再次建立，但可以對其進行轉換。
+為此，需要知道何時進行轉換，可以在建立表格時執行此動作。
+要如此做，可以使用 <code class="highlighter-rouge">Mnesia.table_info/2</code> 函數來檢索表格當前結構，並使用 <code class="highlighter-rouge">Mnesia.transform_table/3</code> 函數將其轉換為新結構。</p>
+
+<p>下面的程式碼通過實現以下邏輯來實做：</p>
+
+<ul>
+  <li>使用 v2 屬性建立表格： <code class="highlighter-rouge">[:id, :name, :job, :age]</code></li>
+  <li>處理建立結果:
+    <ul>
+      <li><code class="highlighter-rouge">{:atomic, :ok}</code>: 通過在 <code class="highlighter-rouge">:job</code> 和 <code class="highlighter-rouge">:age</code> 上建立索引來初始化表格。</li>
+      <li><code class="highlighter-rouge">{:aborted, {:already_exists, Person}}</code>: 檢查目前表格中的屬性並採取相應措施：
+        <ul>
+          <li>如果它是v1列表 (<code class="highlighter-rouge">[:id, :name, :job]</code>)，轉換表格並給每個人 21 歲並在 <code class="highlighter-rouge">:age</code> 加入一個新索引。</li>
+          <li>如果它是 v2 列表，一切正常，什麼都不做。</li>
+          <li>如果它是其他的情況，bail out</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>如果在使用 <code class="highlighter-rouge">Mnesia.start/0</code> 啟動 Mnesia 之後立即對現有表格執行任何動作，那麼這些表格可能無法被初始化和存取。在這種情況下，應該使用 <a href="http://erlang.org/doc/man/mnesia.html#wait_for_tables-2"><code class="highlighter-rouge">Mnesia.wait_for_tables/2</code></a> 函數。它將暫停當前處理程序，直到表格初始化完成或到達等候逾時。</p>
+
+<p><code class="highlighter-rouge">Mnesia.transform_table/3</code> 函數將表格的名稱作為屬性，該函數將記錄從舊格式轉換為新格式和新屬性列表。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="p">[</span><span class="ss">attributes:</span> <span class="p">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:job</span><span class="p">,</span> <span class="ss">:age</span><span class="p">]])</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:atomic</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">}</span> <span class="o">-&gt;</span>
+    <span class="no">Mnesia</span><span class="o">.</span><span class="n">add_table_index</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="ss">:job</span><span class="p">)</span>
+    <span class="no">Mnesia</span><span class="o">.</span><span class="n">add_table_index</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="ss">:age</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">:aborted</span><span class="p">,</span> <span class="p">{</span><span class="ss">:already_exists</span><span class="p">,</span> <span class="no">Person</span><span class="p">}}</span> <span class="o">-&gt;</span>
+    <span class="k">case</span> <span class="no">Mnesia</span><span class="o">.</span><span class="n">table_info</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="ss">:attributes</span><span class="p">)</span> <span class="k">do</span>
+      <span class="p">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:job</span><span class="p">]</span> <span class="o">-&gt;</span>
+        <span class="no">Mnesia</span><span class="o">.</span><span class="n">wait_for_tables</span><span class="p">([</span><span class="no">Person</span><span class="p">],</span> <span class="mi">5000</span><span class="p">)</span>
+        <span class="no">Mnesia</span><span class="o">.</span><span class="n">transform_table</span><span class="p">(</span>
+          <span class="no">Person</span><span class="p">,</span>
+          <span class="k">fn</span> <span class="p">({</span><span class="no">Person</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">job</span><span class="p">})</span> <span class="o">-&gt;</span>
+            <span class="p">{</span><span class="no">Person</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="mi">21</span><span class="p">}</span>
+          <span class="k">end</span><span class="p">,</span>
+          <span class="p">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:job</span><span class="p">,</span> <span class="ss">:age</span><span class="p">]</span>
+          <span class="p">)</span>
+        <span class="no">Mnesia</span><span class="o">.</span><span class="n">add_table_index</span><span class="p">(</span><span class="no">Person</span><span class="p">,</span> <span class="ss">:age</span><span class="p">)</span>
+      <span class="p">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:job</span><span class="p">,</span> <span class="ss">:age</span><span class="p">]</span> <span class="o">-&gt;</span>
+        <span class="ss">:ok</span>
+      <span class="n">other</span> <span class="o">-&gt;</span>
+        <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">other</span><span class="p">}</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/specifics/mnesia.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/specifics/ets/" title="Erlang 項式儲存 (ETS)">← Erlang 項式儲存 (ETS)</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/specifics/debugging/" title="除錯">除錯 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/mnesia/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/specifics/mnesia/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/specifics/mnesia/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/specifics/mnesia/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/mnesia/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/specifics/mnesia/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/specifics/mnesia/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/specifics/mnesia/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/specifics/mnesia/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/specifics/mnesia/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/mnesia/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">4. Mnesia</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

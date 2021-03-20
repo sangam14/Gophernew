@@ -1,0 +1,853 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ko">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="프로그래밍 언어 Elixir 배우기">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ko/lessons/libraries/poolboy/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ko">
+  <meta property="og:description" content="프로그래밍 언어 Elixir 배우기">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/poolboy/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/poolboy/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ko/lessons/libraries/poolboy/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Poolboy &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ko/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ko/lessons/libraries/poolboy/&title=Poolboy&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ko/lessons/libraries/poolboy/&via=elixirschool&text=ElixirSchool: Poolboy&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ko/lessons/libraries/poolboy/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ko/lessons/libraries/poolboy/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Poolboy" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ko/lessons/libraries/poolboy/&title=ElixirSchool: Poolboy&description=Check out 'Poolboy' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Poolboy&body=Check out 'Poolboy' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ko/lessons/libraries/poolboy/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Poolboy
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    이 번역은 최신입니다.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>프로그램이 생성 할 수 있는 동시 프로세스의 최대 수를 제한하지 않으면 쉽게 시스템 자원을 고갈시킬 수 있습니다. <a href="https://github.com/devinus/poolboy">Poolboy</a>는 이 문제를 해결하기 위해 Erlang에서 널리 사용되는 가볍고 일반적인 풀링 라이브러리입니다.</p>
+
+<h2>목차</h2>
+<div id="toc"></div>
+
+<h2 id="왜-poolboy를-사용하나요">왜 Poolboy를 사용하나요?</h2>
+
+<p>잠시 구체적인 예를 생각해 봅시다. 사용자 프로필 정보를 데이터베이스에 저장하기 위한 애플리케이션을 작성한다고 합시다. 모든 사용자 등록에 대해 각각 프로세스를 만들면 무한한 수의 연결을 만들게 됩니다. 어떤 시점에서 이러한 연결은 데이터베이스 서버에서 사용할 수 있는 제한된 리소스를 놓고 경합하기 시작합니다. 어느 시점에서 이러한 연결 수가 데이터베이스 서버의 용량을 초과 할 수 있습니다. 결국 응용 프로그램에 시간 초과 및 다양한 예외를 가져올 수 있습니다.</p>
+
+<p>해결책은 사용자 등록을 위한 프로세스를 각각 만드는 대신 한정된 연결 수를 사용하는 워커(프로세스)들을 사용하는 것입니다. 그러면 시스템 자원이 모두 소모되는 것을 쉽게 피할 수 있습니다.</p>
+
+<p>여기서 Poolboy가 필요합니다. Poolboy는 많이 고생할 필요없이 <code class="highlighter-rouge">Supervisor</code>가 관리하는 워커 풀을 쉽게 설정할 수 있게 해줍니다. 많은 라이브러리가 내부적으로 Poolboy를 사용하고 있습니다. 예를 들어 <code class="highlighter-rouge">postgrex</code>의 연결 풀 <em>(PostgreSQL을 사용할 때 Ecto가 사용함)</em>, <code class="highlighter-rouge">redis_poolex</code> <em>(Redis 연결 풀)</em>가 Poolboy를 사용하는 인기있는 라이브러리중의 일부입니다.</p>
+
+<h2 id="설치하기">설치하기</h2>
+
+<p>설치는 mix로 간편하게 할 수 있습니다. 해야 할 일은 <code class="highlighter-rouge">mix.exs</code>에 Poolboy를 의존성으로 추가하는 것 뿐입니다.</p>
+
+<p>먼저 애플리케이션을 만들어 봅시다.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new poolboy_app <span class="nt">--sup</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">mix.exs</code>에 Poolboy를 의존성으로 추가합니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:poolboy</span><span class="p">,</span> <span class="s2">"~&gt; 1.5.1"</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>그리고 Poolboy를 포함해 의존성을 가져옵니다.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+</code></pre></div></div>
+
+<h2 id="설정-옵션">설정 옵션</h2>
+
+<p>Poolboy를 사용하려면 다양한 설정 옵션에 대해 조금은 알아야합니다.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">:name</code> - 풀 이름. <code class="highlighter-rouge">:local</code>, <code class="highlighter-rouge">:global</code>, <code class="highlighter-rouge">:via</code> 스코프를 사용할 수 있습니다.</li>
+  <li><code class="highlighter-rouge">:worker_module</code> - 워커를 나타내는 모듈.</li>
+  <li><code class="highlighter-rouge">:size</code> - 최대 풀 크기.</li>
+  <li><code class="highlighter-rouge">:max_overflow</code> - 풀이 비었을 때 생성하는 워커의 최대 개수. (선택적)</li>
+  <li><code class="highlighter-rouge">:strategy</code> - <code class="highlighter-rouge">:lifo</code>나 <code class="highlighter-rouge">:fifo</code>, 체크인한 워커를 가능한 워커의 처음에 위치시킬지 마지막에 위치시킬지 결정합니다. 기본값은 <code class="highlighter-rouge">:lifo</code>. (선택적)</li>
+</ul>
+
+<h2 id="poolboy-설정">Poolboy 설정</h2>
+
+<p>이 예제에서는 숫자의 제곱근을 계산하라는 요청을 처리하는 워커 풀을 만듭니다. Poolboy에 집중하기 위해 예제를 간략하게 했습니다.</p>
+
+<p>애플리케이션을 시작할 때 Poolboy 설정 옵션을 정의하고 Poolboy의 워커 풀에 자식 워커를 추가해 봅시다. <code class="highlighter-rouge">lib/poolboy_app/application.ex</code>를 수정하세요.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="no">false</span>
+
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">defp</span> <span class="n">poolboy_config</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="ss">name:</span> <span class="p">{</span><span class="ss">:local</span><span class="p">,</span> <span class="ss">:worker</span><span class="p">},</span>
+      <span class="ss">worker_module:</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Worker</span><span class="p">,</span>
+      <span class="ss">size:</span> <span class="mi">5</span><span class="p">,</span>
+      <span class="ss">max_overflow:</span> <span class="mi">2</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="ss">:poolboy</span><span class="o">.</span><span class="n">child_spec</span><span class="p">(</span><span class="ss">:worker</span><span class="p">,</span> <span class="n">poolboy_config</span><span class="p">())</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>처음 정의해야할 것은 풀의 설정 옵션입니다. 고유한 풀 <code class="highlighter-rouge">:worker</code>을 할당하고, <code class="highlighter-rouge">:scope</code>를 <code class="highlighter-rouge">:local</code>로 설정합니다. 그 다음 풀이 사용하는 <code class="highlighter-rouge">:worker_module</code>에 <code class="highlighter-rouge">PoolboyApp.Worker</code> 모듈을 지정합니다. 풀의 <code class="highlighter-rouge">:size</code>를 총 5개로 설정했습니다. 또 모든 워커가 부하를 받고있는 경우, <code class="highlighter-rouge">:max_overflow</code> 옵션을 사용하여 부하를 돕는 두 개의 워커를 추가로 생성하도록 합니다. <em>(<code class="highlighter-rouge">overflow</code>로 만들어진 워커는 일을 마치면 사라집니다.)</em></p>
+
+<p>그런 다음, <code class="highlighter-rouge">poolboy.child_spec/2</code> 함수를 자식 리스트에 추가해 워커 풀이 애플리케이션이 시작될 때 시작되도록 합니다. 이 함수는 풀의 이름, 풀 설정 두 인자를 받습니다.</p>
+
+<h2 id="워커-생성하기">워커 생성하기</h2>
+<p>워커 모듈은 숫자의 제곱근을 계산하고 1초 쉰 다음에 워커의 pid를 출력하는 단순한 <code class="highlighter-rouge">GenServer</code>입니다. <code class="highlighter-rouge">lib/poolboy_app/worker.ex</code>를 만듭니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Worker</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="no">nil</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:square_root</span><span class="p">,</span> <span class="n">x</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"process </span><span class="si">#{</span><span class="n">inspect</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> calculating square root of </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="no">Process</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="poolboy-사용하기">Poolboy 사용하기</h2>
+
+<p><code class="highlighter-rouge">PoolboyApp.Worker</code>가 생겼으니, 이제 Poolboy를 테스트할 수 있습니다. 동시에 실행되는 프로세스를 생성하는 간단한 모듈을 만들어 봅시다.<code class="highlighter-rouge">:poolboy.transaction/3</code> 함수는 워커 풀을 인터페이스 하는데 사용할 수있습니다. <code class="highlighter-rouge">lib/poolboy_app/test.ex</code>를 만드세요.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Test</span> <span class="k">do</span>
+  <span class="nv">@timeout</span> <span class="mi">60000</span>
+
+  <span class="k">def</span> <span class="n">start</span> <span class="k">do</span>
+    <span class="mi">1</span><span class="o">..</span><span class="mi">20</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">async_call_square_root</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="k">fn</span> <span class="n">task</span> <span class="o">-&gt;</span> <span class="n">await_and_inspect</span><span class="p">(</span><span class="n">task</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">async_call_square_root</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Task</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span>
+      <span class="ss">:poolboy</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span>
+        <span class="ss">:worker</span><span class="p">,</span>
+        <span class="k">fn</span> <span class="n">pid</span> <span class="o">-&gt;</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:square_root</span><span class="p">,</span> <span class="n">i</span><span class="p">})</span> <span class="k">end</span><span class="p">,</span>
+        <span class="nv">@timeout</span>
+      <span class="p">)</span>
+    <span class="k">end</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">await_and_inspect</span><span class="p">(</span><span class="n">task</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">task</span> <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">(</span><span class="nv">@timeout</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>테스트 함수를 실행해 결과를 확인해 봅시다.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Test</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.182.0&gt; calculating square root of 7</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.181.0&gt; calculating square root of 6</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.157.0&gt; calculating square root of 2</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.155.0&gt; calculating square root of 4</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.154.0&gt; calculating square root of 5</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.158.0&gt; calculating square root of 1</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.156.0&gt; calculating square root of 3</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>사용할 수 있는 풀 워커가 없다면, Poolboy는 타임아웃 기본값(5초)이 지난 후에 타임아웃하고 새로운 요청을 받지 않습니다. 이 예제에서는 타임아웃 기본값을 변경하는 법을 설명하기 위해, 타임아웃 기본값을 1분으로 늘렸습니다. 이 애플리케이션에서 <code class="highlighter-rouge">@timeout</code>의 값을 1000 이하로 변경하면 에러를 확인할 수 있습니다.</p>
+
+<p>여러 프로세스를 만들려고 해도 <em>(위 예제에서 총 20개)</em> <code class="highlighter-rouge">:poolboy.transaction</code> 함수는 생성할 프로세스를 설정에서 지정한 총 다섯 개 <em>(경우에 따라 두 개의 오버플로 워커를 추가)</em>로 제한합니다. 모든 요청은 요청마다 새 프로세스를 작성하는 것이 아니라 작업자 풀에서 처리됩니다.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ko/lessons/libraries/poolboy.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ko/lessons/libraries/guardian/" title="Guardian (Basics)">← Guardian (Basics)</a>
+    </div>
+    
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/poolboy/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/libraries/poolboy/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/libraries/poolboy/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/libraries/poolboy/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <strong >ko</strong>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/libraries/poolboy/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/libraries/poolboy/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/libraries/poolboy/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/poolboy/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/poolboy/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>프로그래밍 언어 Elixir 배우기</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ko/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">기초</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/basics/">1. 기본</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/collections/">2. 컬렉션</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/pattern-matching/">4. 패턴 매칭</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/control-structures/">5. 제어 구조</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/functions/">6. 함수</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/pipe-operator/">7. 파이프 연산자</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/modules/">8. 모듈</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/sigils/">10. 시길</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/documentation/">11. 문서화</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/testing/">12. 테스트</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/strings/">14. 문자열</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/mix-tasks/">16. 커스텀 Mix 태스크</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">심화</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/erlang/">1. Erlang 상호 운용</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/error-handling/">2. 에러 처리</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/escripts/">3. 실행 파일</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/concurrency/">4. 동시성</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/otp-concurrency/">5. OTP 동시성</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/otp-supervisors/">6. OTP 슈퍼바이저</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/metaprogramming/">8. 메타 프로그래밍</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/umbrella-projects/">9. 엄브렐라 프로젝트</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/typespec/">10. 스펙과 타입</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/behaviours/">11. 비헤이비어</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/protocols/">13. 프로토콜</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">활용</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/debugging/">5. 디버깅</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">라이브러리</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">2. Poolboy</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ko/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

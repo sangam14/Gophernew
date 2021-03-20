@@ -1,0 +1,996 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hans">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 编程语言教程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hans/lessons/advanced/otp-supervisors/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hans">
+  <meta property="og:description" content="Elixir 编程语言教程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/otp-supervisors/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/otp-supervisors/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hans/lessons/advanced/otp-supervisors/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>OTP Supervisors &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hans/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hans/lessons/advanced/otp-supervisors/&title=OTP Supervisors&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hans/lessons/advanced/otp-supervisors/&via=elixirschool&text=ElixirSchool: OTP Supervisors&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hans/lessons/advanced/otp-supervisors/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hans/lessons/advanced/otp-supervisors/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: OTP Supervisors" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hans/lessons/advanced/otp-supervisors/&title=ElixirSchool: OTP Supervisors&description=Check out 'OTP Supervisors' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: OTP Supervisors&body=Check out 'OTP Supervisors' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hans/lessons/advanced/otp-supervisors/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  OTP Supervisors
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    This translation is up to date.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Supervisors 是一种特殊的进程：专门来监控其他的进程。supervisors 能够自动重启出错的子进程，从而编写容错性高的程序。</p>
+
+<h2>目录</h2>
+<div id="toc"></div>
+
+<h2 id="配置">配置</h2>
+
+<p>Supervisors 的魔力主要在 <code class="highlighter-rouge">Supervisor.start_link/2</code> 函数。除了能启动 supervisor 和子进程之外，它还允许我们设置管理子进程的策略。</p>
+
+<p>通过 <a href="../../advanced/otp-concurrency"><code class="highlighter-rouge">OTP 并发</code></a> 课程中实现的 <code class="highlighter-rouge">SimpleQueue</code>，我们开始本节课程：</p>
+
+<p>使用 <code class="highlighter-rouge">mix new simple_queue --sup</code> 命令，我们创建了拥有 supervisor 树的新项目。<code class="highlighter-rouge">SimpleQueue</code> 的代码因为放在 <code class="highlighter-rouge">lib/simple_queue.ex</code> 而 supervisor 的代码我们将添加到 <code class="highlighter-rouge">lib/simple_queue/application.ex</code> 中。</p>
+
+<p>子进程通过列表的方式定义，要么是模块名称的列表：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">SimpleQueue</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>要么是元组的列表，如果你还想包含配置项的话：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="no">SimpleQueue</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>如果我们运行 <code class="highlighter-rouge">iex -S mix</code> 这个命令，我们就会看到 <code class="highlighter-rouge">SimpleQueue</code> 已经自动启动了：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">queue</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>如果我们的 <code class="highlighter-rouge">SimpleQueue</code> 进程崩溃了，或者被中止了，Supervisor 会自动重启这个进程，就像什么事情都没有发生过一样。</p>
+
+<h3 id="策略">策略</h3>
+
+<p>目前有三种不同的重启策略可以使用：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">:one_for_one</code> - 只重启失败的子进程。</li>
+  <li><code class="highlighter-rouge">:one_for_all</code> - 当错误事件出现时，重启所有的子进程。</li>
+  <li><code class="highlighter-rouge">:rest_for_one</code> - 重启失败的子进程，以及所有在它后面启动的进程。</li>
+</ul>
+
+<h2 id="子进程-specification">子进程 Specification</h2>
+
+<p>当 supervisor 进程启动后，它必须知道如何 start/stop/restart 它的子进程。每个子模块都应该拥有 <code class="highlighter-rouge">child_spec/1</code> 函数来定义好这些行为。宏 <code class="highlighter-rouge">use GenServer</code>，<code class="highlighter-rouge">use Supervisor</code> 和 <code class="highlighter-rouge">use Agent</code> 的使用，会自动为我们定义好这些行为（<code class="highlighter-rouge">SimpleQueue</code> 使用了 <code class="highlighter-rouge">use GenServer</code>，所以我们不需要修改这个模块）。但是，如果你需要自己定义这些行为，你要在 <code class="highlighter-rouge">child_spec/1</code> 函数中返回一个选项映射：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">child_spec</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">%{</span>
+    <span class="ss">id:</span> <span class="no">SimpleQueue</span><span class="p">,</span>
+    <span class="ss">start:</span> <span class="p">{</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:start_link</span><span class="p">,</span> <span class="p">[</span><span class="n">opts</span><span class="p">]},</span>
+    <span class="ss">shutdown:</span> <span class="mi">5_000</span><span class="p">,</span>
+    <span class="ss">restart:</span> <span class="ss">:permanent</span><span class="p">,</span>
+    <span class="ss">type:</span> <span class="ss">:worker</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">id</code> - 必备 key。Supervisor 用来定位子进程的 specification。</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">start</code> - 必备 key。被 Supervisor 启动时，需要调用的 Module/Function/Arguments</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">shutdown</code> - 可选 key。子进程关闭时的行为。可选项为有以下几种：</p>
+
+    <ul>
+      <li>
+        <p><code class="highlighter-rouge">:brutal_kill</code> - 子进程立即停止</p>
+      </li>
+      <li>
+        <p>任何正整数 - 以毫秒为单位的等待时间，超过后 Supervisor 将杀掉此子进程。如果进程是 <code class="highlighter-rouge">:worker</code> 类型，此选项默认为 5000。</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">:infinity</code> - Supervisor 将会无限期地等待。这是 <code class="highlighter-rouge">:supervisor</code> 进程类型的默认值。不推荐 <code class="highlighter-rouge">:worker</code> 类型使用。</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">restart</code> - 可选 key。当子进程崩溃时有如下几种处理方式：</p>
+
+    <ul>
+      <li>
+        <p><code class="highlighter-rouge">:permanent</code> - 总是重启子进程。所有进程的默认值。</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">:temporary</code> - 绝不重启子进程。</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">:transient</code> - 只有在非正常中止的时候，才重启子进程。</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">type</code> - 可选 key。进程可以是 <code class="highlighter-rouge">:worker</code> 或者 <code class="highlighter-rouge">:supervisor</code> 类型。默认是 <code class="highlighter-rouge">:worker</code>。</p>
+  </li>
+</ul>
+
+<h2 id="dynamicsupervisor">DynamicSupervisor</h2>
+
+<p>Supervisors 通常在应用启动的时候，伴随着子进程而启动。但是，有时候，被监管的子进程在应用启动的时候，还是未知的（比如，我们可能在 web 应用中，启动了一个新的进程来处理用户到我们网站的连接）。这种情况下，我们需要的是一个能按需启动子进程的 Supervisor。而 DynamicSupervisor 正是用来处理这种场景的。</p>
+
+<p>因为我们并不指定子进程，我们只需要为 supervisor 定义好运行时的选项就可以了。DynamicSupervisor 只支持 <code class="highlighter-rouge">:one_for_one</code> 这种监管策略：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">options</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="ss">name:</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span>
+  <span class="ss">strategy:</span> <span class="ss">:one_for_one</span>
+<span class="p">]</span>
+
+<span class="no">DynamicSupervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>然后，我们需要使用 <code class="highlighter-rouge">start_child/2</code> 函数来动态启动新的 SimpleQueue 子进程。这个函数接收一个 supervisor 和 子进程 specification 作为参数（再次强调，<code class="highlighter-rouge">SimpleQueue</code> 使用了 <code class="highlighter-rouge">use GenServer</code>，所以子进程的 specification 已经定义好了）：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">DynamicSupervisor</span><span class="o">.</span><span class="n">start_child</span><span class="p">(</span><span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span> <span class="no">SimpleQueue</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="task-supervisor">Task Supervisor</h2>
+
+<p>Tasks 有它们自己特殊的 Supervisor，叫做 <code class="highlighter-rouge">Task.Supervisor</code>。它是专门为动态创建的任务而设计的 supervisor，内部实际使用的是 <code class="highlighter-rouge">DynamicSupervisor</code>。</p>
+
+<h3 id="setup">Setup</h3>
+
+<p><code class="highlighter-rouge">Task.Supervisor</code> 使用起来和其他的 supervisors 没有任何区别：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">ExampleApp</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="ss">restart:</span> <span class="ss">:transient</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Supervisor</code> 和 <code class="highlighter-rouge">Task.Supervisor</code> 主要的不同是 <code class="highlighter-rouge">Task.Supervisor</code> 的默认重启策略是 <code class="highlighter-rouge">:temporary</code>（绝不重启子任务）。</p>
+
+<h3 id="受监管的-tasks">受监管的 Tasks</h3>
+
+<p>Supervisor 启动之后，我们可以使用 <code class="highlighter-rouge">start_child/2</code> 函数来创建受监管的 task:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="o">.</span><span class="n">start_child</span><span class="p">(</span><span class="no">ExampleApp</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="n">background_work</span> <span class="k">end</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>如果我们的任务过早地崩溃掉，它会被自动启动。这个功能在处理大量涌来的请求或者后台工作的时候非常有用。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hans/lessons/advanced/otp-supervisors.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/advanced/otp-concurrency/" title="OTP 并发">← OTP 并发</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/advanced/otp-distribution/" title="OTP 分布式">OTP 分布式 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/advanced/otp-supervisors/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/otp-supervisors/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/otp-supervisors/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/otp-supervisors/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/otp-supervisors/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/otp-supervisors/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/otp-supervisors/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/otp-supervisors/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/otp-supervisors/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/otp-supervisors/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/otp-supervisors/" >vi</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hans</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/otp-supervisors/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 编程语言教程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hans/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基础</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/basics/">1. 基础</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/enum/">3. Enum 模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pattern-matching/">4. 模式匹配</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/control-structures/">5. 控制语句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/functions/">6. 函数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pipe-operator/">7. 管道操作符</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/modules/">8. 模块（Module）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/sigils/">10. 魔符(Sigil)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/documentation/">11. 文档模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/testing/">12. 测试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/comprehensions/">13. 推导</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/strings/">14. 字符串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/date-time/">15. 日期和时间</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix-tasks/">16. 自定义 Mix 任务</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/iex-helpers/">17. IEx 辅助函数</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">高级</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/erlang/">1. 和 Erlang 互操作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/error-handling/">2. 错误处理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/escripts/">3. 可执行文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/concurrency/">4. 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-concurrency/">5. OTP 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. OTP Supervisors</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-distribution/">7. OTP 分布式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/metaprogramming/">8. 元编程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/behaviours/">11. 行为</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/protocols/">13. 协议</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/associations/">3. 关联关系</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/querying/">4. 查询</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">专题</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/eex/">2. 嵌入的 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/ets/">3. Erlang 项式存储 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/mnesia/">4. Mnesia 数据库</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/debugging/">5. 调试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">程序库</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/guardian/">1. Guardian（基础）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/distillery/">5. Distillery (基础)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hans/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

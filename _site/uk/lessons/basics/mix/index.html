@@ -1,0 +1,778 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="uk">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Навчальні матеріали про мову програмування Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/uk/lessons/basics/mix/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="uk">
+  <meta property="og:description" content="Навчальні матеріали про мову програмування Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/mix/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/mix/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/mix/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/uk/lessons/basics/mix/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Mix &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/uk/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/uk/lessons/basics/mix/&title=Mix&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/uk/lessons/basics/mix/&via=elixirschool&text=ElixirSchool: Mix&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/uk/lessons/basics/mix/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/uk/lessons/basics/mix/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Mix" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/uk/lessons/basics/mix/&title=ElixirSchool: Mix&description=Check out 'Mix' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Mix&body=Check out 'Mix' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/uk/lessons/basics/mix/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  Mix
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      Деякі частини цього перекладу можуть бути застарілими.<br/>
+    
+
+    Декілька косметичних змін було додано до оригіналу цього уроку з останнього оновлення.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>До того як ми почнемо заглиблюватися в специфіку Elixir, спочатку потрібно вивчити Mix.
+Якщо ви знайомі з Ruby, то цей інструмент дуже схожий на Bundler, RubyGems і Rake, разом узяті.
+Це ключова частина будь-якого Elixir проекту. У цьому уроці ми відкриємо для себе лише деякі його можливості.
+Для отримання повного списку можливостей Mix в поточному середовищі є команда <code class="highlighter-rouge">mix help</code>.</p>
+
+<p>До цього ми працювали тільки з <code class="highlighter-rouge">iex</code>, у якого є обмеження.
+Для побудови чогось більшого потрібно розділити код на файли і ефективно ними управляти, що mix і дозволяє робити за допомогою проектів.</p>
+
+<h2>Зміст</h2>
+<div id="toc"></div>
+
+<h2 id="створення-проекту">Створення проекту</h2>
+
+<p>Коли ми готові створити новий Elixir проект, mix дозволяє це швидко зробити за допомогою команди <code class="highlighter-rouge">mix new</code>.
+Вона згенерує структуру папок проекту і необхідні файли.
+Це просто, так що давайте почнемо:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new example
+</code></pre></div></div>
+
+<p>З виводу цієї команди видно, що mix створив папку і кілька файлів проекту:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">*</span> creating README.md
+<span class="k">*</span> creating .gitignore
+<span class="k">*</span> creating .formatter.exs
+<span class="k">*</span> creating mix.exs
+<span class="k">*</span> creating lib
+<span class="k">*</span> creating lib/example.ex
+<span class="k">*</span> creating <span class="nb">test</span>
+<span class="k">*</span> creating <span class="nb">test</span>/test_helper.exs
+<span class="k">*</span> creating <span class="nb">test</span>/example_test.exs
+</code></pre></div></div>
+
+<p>У цьому уроці ми зосередимося на <code class="highlighter-rouge">mix.exs</code>.
+Тут ми налаштовуємо додаток, залежності, оточення і версію.
+Відкривши файл, можна побачити щось подібне (коментарі прибрані для спрощення):</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Mixfile</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Project</span>
+
+  <span class="k">def</span> <span class="n">project</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="ss">app:</span> <span class="ss">:example</span><span class="p">,</span>
+      <span class="ss">version:</span> <span class="s2">"0.1.0"</span><span class="p">,</span>
+      <span class="ss">elixir:</span> <span class="s2">"~&gt; 1.5"</span><span class="p">,</span>
+      <span class="ss">start_permanent:</span> <span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="p">()</span> <span class="o">==</span> <span class="ss">:prod</span><span class="p">,</span>
+      <span class="ss">deps:</span> <span class="n">deps</span><span class="p">()</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="ss">extra_applications:</span> <span class="p">[</span><span class="ss">:logger</span><span class="p">]</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+    <span class="p">[]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Перший розділ тут - <code class="highlighter-rouge">project</code>.
+У ньому ми визначаємо ім’я застосунку (<code class="highlighter-rouge">app</code>), версію програми (<code class="highlighter-rouge">version</code>), версію мови Elixir (<code class="highlighter-rouge">elixir</code>), і всі зовнішні залежності (<code class="highlighter-rouge">deps</code>).</p>
+
+<p>Розділ <code class="highlighter-rouge">application</code> використовується при генерації файлу програми, яку ми розглянемо нижче.</p>
+
+<h2 id="інтерактивний-режим">Інтерактивний режим</h2>
+
+<p>Можливо, знадобиться використовувати <code class="highlighter-rouge">iex</code> з контексту програми.
+На щастя, mix дозволяє це зробити досить просто.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>example
+<span class="nv">$ </span>iex <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>Такий варіант запуску <code class="highlighter-rouge">iex</code> завантажить додаток і всі його залежності в поточну сесію.</p>
+
+<h2 id="компіляція">Компіляція</h2>
+
+<p>Mix - досить розумний інструмент і буде перекомпілювати зміни тільки коли потрібно, але іноді може знадобитися скомпілювати весь проект.
+У цьому розділі ми розглянемо як скомпілювати проект і що робить компіляція.</p>
+
+<p>Для компіляції mix проекту досить запустити команду <code class="highlighter-rouge">mix compile</code> в папці проекту:
+<strong>Зауваження: Mix завдання для проекту доступні лише з кореневої папки проекту, в іншому випадку доступні лише глобальні Mix завдання.</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix compile
+</code></pre></div></div>
+
+<p>Зараз проект майже порожній, тому вивід команди буде коротким, але вона закінчиться успішно:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Compiled lib/example.ex
+Generated example app
+</code></pre></div></div>
+
+<p>Коли ми компілюємо проект, mix створює папку <code class="highlighter-rouge">_build</code> з результатом збірки.
+Якщо туди зазирнути зараз, то там буде файл з скомпільований проектом <code class="highlighter-rouge">example.app</code>.</p>
+
+<h2 id="управління-залежностями">Управління залежностями</h2>
+
+<p>Так як у нашого проекту поки немає залежностей, давайте їх додамо.</p>
+
+<p>Для підключення нової залежності спочатку варто її додати в <code class="highlighter-rouge">mix.exs</code> в розділ<code class="highlighter-rouge"> deps</code>.
+Список залежностей являє собою кортеж з двома обов’язковими значеннями і одним опціональним: назва пакета у вигляді атома, рядок версії і необов’язкові опції.</p>
+
+<p>Для прикладу можна розглянути проект з залежностями, наприклад <a href="https://github.com/doomspork/phoenix_slim">phoenix_slim</a>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:phoenix</span><span class="p">,</span> <span class="s2">"~&gt; 1.1 or ~&gt; 1.2"</span><span class="p">},</span>
+    <span class="p">{</span><span class="ss">:phoenix_html</span><span class="p">,</span> <span class="s2">"~&gt; 2.3"</span><span class="p">},</span>
+    <span class="p">{</span><span class="ss">:cowboy</span><span class="p">,</span> <span class="s2">"~&gt; 1.0"</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:dev</span><span class="p">,</span> <span class="ss">:test</span><span class="p">]},</span>
+    <span class="p">{</span><span class="ss">:slime</span><span class="p">,</span> <span class="s2">"~&gt; 0.14"</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Як можна здогадатися, залежність <code class="highlighter-rouge">cowboy</code> потрібна тільки в середовищах розробки (dev) і тестування (test).</p>
+
+<p>Як тільки залежності визначені, їх потрібно отримати.
+Це аналог команди <code class="highlighter-rouge">bundle install</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+</code></pre></div></div>
+
+<p>От і все! Ми визначили і отримали залежності проекту.
+Тепер має бути зрозуміло, як додати залежності в проект.</p>
+
+<h2 id="оточення">Оточення</h2>
+
+<p>Mix, як і Bundler, підтримує різні оточення.
+“З коробки” mix конфігурується з трьома оточеннями:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">:dev</code> — Оточення за замовчуванням.</li>
+  <li><code class="highlighter-rouge">:test</code> — Використовується в <code class="highlighter-rouge">mix test</code>. Буде розглянуто докладніше в наступному уроці.</li>
+  <li><code class="highlighter-rouge">:prod</code> — Використовується при запуску програми в “бойовому” оточенні.</li>
+</ul>
+
+<p>Поточне оточення можна отримати за допомогою <code class="highlighter-rouge">Mix.env</code>.
+При запуску будь-якої команди його можна задати за допомогою змінної оточення <code class="highlighter-rouge">MIX_ENV</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ MIX_ENV</span><span class="o">=</span>prod mix compile
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/uk/lessons/basics/mix.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/uk/lessons/basics/modules/" title="Модулі">← Модулі</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/uk/lessons/basics/comprehensions/" title="Вирази">Вирази →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/mix/" >bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/mix/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/mix/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/mix/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/mix/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/mix/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/mix/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/mix/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/mix/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/mix/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/mix/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/mix/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/mix/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/mix/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/mix/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/mix/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/mix/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/mix/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/mix/" >tr</a>
+        
+      
+        
+        
+
+        
+          <strong >uk</strong>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/mix/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/mix/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/mix/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Меню</h2>
+    <p>Навчальні матеріали про мову програмування Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/uk/" class=" up ">Додому</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Основи</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/basics/">1. Основи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/collections/">2. Колекції</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/pattern-matching/">4. Зіставлення зі зразком</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/control-structures/">5. Керуючі конструкції</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/functions/">6. Функції</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/pipe-operator/">7. Оператор конвеєра</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/modules/">8. Модулі</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">9. Mix</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/comprehensions/">13. Вирази</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/mix-tasks/">16. Користувацькі Mix завдання</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Блоґ</a>
+    </li>
+    
+    <li>
+      <a href="/uk/report/" class=" up ">Прогресс перекладу</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Автори</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,1085 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="The premier destination for learning and mastering Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/en/lessons/specifics/debugging/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="en">
+  <meta property="og:description" content="The premier destination for learning and mastering Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/debugging/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/debugging/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/en/lessons/specifics/debugging/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Debugging &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/en/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/en/lessons/specifics/debugging/&title=Debugging&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/en/lessons/specifics/debugging/&via=elixirschool&text=ElixirSchool: Debugging&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/en/lessons/specifics/debugging/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/en/lessons/specifics/debugging/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Debugging" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/en/lessons/specifics/debugging/&title=ElixirSchool: Debugging&description=Check out 'Debugging' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Debugging&body=Check out 'Debugging' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/en/lessons/specifics/debugging/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+      <h1>Debugging</h1>
+    
+  </header>
+  <div class="content">
+    <p>Bugs are an inherent part of any project, that’s why we need debugging.</p>
+
+<p>In this lesson we’ll learn about debugging Elixir code as well as static analysis tools to help find potential bugs.</p>
+
+<h2>Table of Contents</h2>
+<div id="toc"></div>
+
+<h2 id="iex">IEx</h2>
+
+<p>The most straightforward tool we have for debugging Elixir code is IEx.</p>
+
+<p>But don’t be fooled by its simplicity - you can solve most of the issues with your application by it.</p>
+
+<p>IEx means <code class="highlighter-rouge">Elixir's interactive shell</code>.</p>
+
+<p>You could have already seen IEx in one of the previous lessons like <a href="../../basics/basics">Basics</a> where we ran Elixir code interactively in the shell.</p>
+
+<p>The idea here is simple.</p>
+
+<p>You get the interactive shell in the context of the place you want to debug.</p>
+
+<p>Let’s try it.</p>
+
+<p>To do that, create a file named <code class="highlighter-rouge">test.exs</code> and put this into the file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defmodule TestMod do
+  def sum([a, b]) do
+    b = 0
+
+    a + b
+  end
+end
+
+IO.puts(TestMod.sum([34, 65]))
+</code></pre></div></div>
+
+<p>And if you run it - you’ll get an apparent output of <code class="highlighter-rouge">34</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ elixir test.exs
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+34
+</code></pre></div></div>
+
+<p>But now let’s get to the exciting part - the debugging.</p>
+
+<p>Put <code class="highlighter-rouge">require IEx; IEx.pry</code> in the line after <code class="highlighter-rouge">b = 0</code> and let’s try running it once again.</p>
+
+<p>You’ll get something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ elixir test.exs
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+Cannot pry #PID&lt;0.92.0&gt; at TestMod.sum/1 (test.exs:5). Is an IEx shell running?
+34
+</code></pre></div></div>
+
+<p>You should note that vital message.</p>
+
+<p>When running an application, as usual, IEx outputs this message instead of blocking execution of the program.</p>
+
+<p>To run it properly you need to prepend your command with <code class="highlighter-rouge">iex -S</code>.</p>
+
+<p>What this does is it runs <code class="highlighter-rouge">mix</code> inside the <code class="highlighter-rouge">iex</code> command so that it runs the application in a special mode, such that calls to <code class="highlighter-rouge">IEx.pry</code> stop the application execution.</p>
+
+<p>For example, <code class="highlighter-rouge">iex -S mix phx.server</code> to debug your Phoenix application. In our case, it’s going to be <code class="highlighter-rouge">iex -r test.exs</code> to require the file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iex -r test.exs
+Erlang/OTP 21 [erts-10.3.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+Request to pry #PID&lt;0.107.0&gt; at TestMod.sum/1 (test.exs:5)
+
+    3:     b = 0
+    4:
+    5:     require IEx; IEx.pry
+    6:
+    7:     a + b
+
+Allow? [Yn]
+</code></pre></div></div>
+
+<p>After responding to the prompt via <code class="highlighter-rouge">y</code> or pressing Enter, you’ve entered the interactive mode.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ iex -r test.exs
+Erlang/OTP 21 [erts-10.3.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+Request to pry #PID&lt;0.107.0&gt; at TestMod.sum/1 (test.exs:5)
+
+    3:     b = 0
+    4:
+    5:     require IEx; IEx.pry
+    6:
+    7:     a + b
+
+Allow? [Yn] y
+Interactive Elixir (1.8.1) - press Ctrl+C to exit (type h() ENTER for help)
+pry(1)&gt; a
+34
+pry(2)&gt; b
+0
+pry(3)&gt; a + b
+34
+pry(4)&gt; continue
+34
+
+Interactive Elixir (1.8.1) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)&gt;
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+</code></pre></div></div>
+
+<p>To quit IEx, you can either hit <code class="highlighter-rouge">Ctrl+C</code> two times to exit the app, or type <code class="highlighter-rouge">continue</code> to go to the next breakpoint.</p>
+
+<p>As you can see, you can run any Elixir code.</p>
+
+<p>However, the limitation is that you can’t modify variables of existing code, due to language immutability.</p>
+
+<p>However, you can get values of all the variables and run any computations.</p>
+
+<p>In this case, the bug would be in <code class="highlighter-rouge">b</code> reassigned to 0, and <code class="highlighter-rouge">sum</code> function being buggy as a result.</p>
+
+<p>Sure, language has already caught this bug even on the first run, but that’s an example!</p>
+
+<h3 id="iexhelpers">IEx.Helpers</h3>
+
+<p>One of the more annoying parts of working with IEx is it has no history of commands you used in previous runs.</p>
+
+<p>For solving that problem, there is a separate subsection on <a href="https://hexdocs.pm/iex/IEx.html#module-shell-history">IEx documentation</a>, where you can find the solution for your platform of choice.</p>
+
+<p>You can also look through the list of other available helpers in <a href="https://hexdocs.pm/iex/IEx.Helpers.html">IEx.Helpers documentation</a>.</p>
+
+<h2 id="dialyxir-and-dialyzer">Dialyxir and Dialyzer</h2>
+
+<p>The <a href="http://erlang.org/doc/man/dialyzer.html">Dialyzer</a>, a <strong>DI</strong>screpancy <strong>A</strong>na<strong>LYZ</strong>er for <strong>ER</strong>lang programs is a tool for static code analysis.
+In other words they <em>read</em> but do not <em>run</em> code and analyse it e.g.
+looking for some bugs, dead, unnecessary or unreachable code.</p>
+
+<p>The <a href="https://github.com/jeremyjh/dialyxir">Dialyxir</a> is a mix task to simplify usage of Dialyzer in Elixir.</p>
+
+<p>Specifications help tools, like Dialyzer, better understand your code.
+Unlike documentation, which is human readable (if it exists and is well written), <code class="highlighter-rouge">@spec</code> uses a formal syntax better understood by tooling.</p>
+
+<p>Let’s add Dialyxir to our project.
+The simplest way is to add dependency to <code class="highlighter-rouge">mix.exs</code> file:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:dialyxir</span><span class="p">,</span> <span class="s2">"~&gt; 0.4"</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:dev</span><span class="p">]}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then we call:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+...
+<span class="nv">$ </span>mix deps.compile
+</code></pre></div></div>
+
+<p>The first command will download and install Dialyxir.
+You may be asked to install Hex along with it.
+The second compiles the Dialyxir application.
+If you want to install Dialyxir globally, please read its <a href="https://github.com/jeremyjh/dialyxir#installation">documentation</a>.</p>
+
+<p>The last step is to run Dialyzer to rebuild the PLT (Persistent Lookup Table).
+You need to do this every time after installation of a new version of Erlang or Elixir.
+Fortunately, Dialyzer will not try to analyze standard library every time that you try to use it.
+It takes a few minutes for the download to complete.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer <span class="nt">--plt</span>
+Starting PLT Core Build ...
+this will take awhile
+dialyzer <span class="nt">--build_plt</span> <span class="nt">--output_plt</span> /.dialyxir_core_18_1.3.2.plt <span class="nt">--apps</span> erts kernel stdlib crypto public_key <span class="nt">-r</span> /Elixir/lib/elixir/../eex/ebin /Elixir/lib/elixir/../elixir/ebin /Elixir/lib/elixir/../ex_unit/ebin /Elixir/lib/elixir/../iex/ebin /Elixir/lib/elixir/../logger/ebin /Elixir/lib/elixir/../mix/ebin
+  Creating PLT /.dialyxir_core_18_1.3.2.plt ...
+...
+ <span class="k">done in </span>5m14.67s
+<span class="k">done</span> <span class="o">(</span>warnings were emitted<span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="static-analysis-of-code">Static analysis of code</h3>
+
+<p>Now we’re ready to use Dialyxir:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+examples.ex:3: Invalid <span class="nb">type </span>specification <span class="k">for function</span> <span class="s1">'Elixir.Examples'</span>:sum_times/1.
+The success typing is <span class="o">(</span>_<span class="o">)</span> -&gt; number<span class="o">()</span>
+...
+</code></pre></div></div>
+
+<p>The message from Dialyzer is clear: the return type of our function <code class="highlighter-rouge">sum_times/1</code> is different than declared.
+This is because <code class="highlighter-rouge">Enum.sum/1</code> returns a <code class="highlighter-rouge">number</code> and not a <code class="highlighter-rouge">integer</code> but the return type of <code class="highlighter-rouge">sum_times/1</code> is <code class="highlighter-rouge">integer</code>.</p>
+
+<p>Since <code class="highlighter-rouge">number</code> is not <code class="highlighter-rouge">integer</code> we get an error.
+How do we fix it? We need to use the <code class="highlighter-rouge">round/1</code> function to change our <code class="highlighter-rouge">number</code> to an <code class="highlighter-rouge">integer</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">round</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Finally:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+  Proceeding with analysis...
+<span class="k">done in </span>0m0.95s
+<span class="k">done</span> <span class="o">(</span>passed successfully<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Using specifications with tools to perform static code analysis helps us make code that is self-tested and contains less bugs.</p>
+
+<h2 id="debugging">Debugging</h2>
+
+<p>Sometimes static analysis of code is not enough.
+It may be necessary to understand the execution flow in order to find bugs.
+The simplest way is to put output statements in our code like <code class="highlighter-rouge">IO.puts/2</code> to track values and code flow, but this technique is primitive and has limitations.
+Thankfully for us, we can use the Erlang debugger to debug our Elixir code.</p>
+
+<p>Let’s look at a basic module:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">cpu_burns</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="mi">5</span>
+
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then run <code class="highlighter-rouge">iex</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>And run debugger:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:debugger</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.307.0&gt;}</span>
+</code></pre></div></div>
+
+<p>The Erlang <code class="highlighter-rouge">:debugger</code> module provides access to the debugger.
+We can use the <code class="highlighter-rouge">start/1</code> function to configure it:</p>
+
+<ul>
+  <li>An external configuration file can be used by passing the file path.</li>
+  <li>If the argument is <code class="highlighter-rouge">:local</code> or <code class="highlighter-rouge">:global</code> then debugger will:
+    <ul>
+      <li><code class="highlighter-rouge">:global</code> – debugger will interpret code on all known nodes.
+This is default value.</li>
+      <li><code class="highlighter-rouge">:local</code> – debugger will interpret code only on current node.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The next step is to attach our module to debugger:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">ni</span><span class="p">(</span><span class="no">Example</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:module</span><span class="p">,</span> <span class="no">Example</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">:int</code> module is an interpreter that gives us the ability to create breakpoints and step through the execution of the code.</p>
+
+<p>When you start the debugger you will see a new window like this:</p>
+
+<p><img src="/assets/debugger_1-98405f919dea64207148bd2434268c300ce63a4de05b3c242aea8216a001eff9.png" alt="Debugger Screenshot 1" /></p>
+
+<p>After we’ve attached our module to the debugger it will be available in the menu on the left:</p>
+
+<p><img src="/assets/debugger_2-bbb5ca6bc547fbdf1a87021e6f0ab830b03edbc5a3ea3627da6ec869a5f6e9e1.png" alt="Debugger Screenshot 2" /></p>
+
+<h3 id="creating-breakpoints">Creating breakpoints</h3>
+
+<p>A breakpoint is a point in the code where execution will be halted.
+We have two ways of creating breakpoints:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">:int.break/2</code> in our code</li>
+  <li>The debugger’s UI</li>
+</ul>
+
+<p>Let’s try to create a breakpoint in IEx:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>This sets a breakpoint on line 8 of the <code class="highlighter-rouge">Example</code> module.
+Now when we call our function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">cpu_burns</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Execution will be paused in IEx and the debugger window should look like this:</p>
+
+<p><img src="/assets/debugger_3-a102cae7d61b9a645424defbbb3a74af29f37c5739b0635c12d81efc567e85f0.png" alt="Debugger Screenshot 3" /></p>
+
+<p>An additional window with our source code will appear:</p>
+
+<p><img src="/assets/debugger_4-4083df8f049c34f813d3bbbe173d49324498f3be96616d11e94f82d5de8b5ff1.png" alt="Debugger Screenshot 4" /></p>
+
+<p>In this window we can look up the value of variables, step forward to next line, or evaluate expressions.
+<code class="highlighter-rouge">:int.disable_break/2</code> can be called in order to disable a breakpoint:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">disable_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>To re-enable a breakpoint we can call <code class="highlighter-rouge">:int.enable_break/2</code> or we can remove a breakpoint like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">delete_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>The same operations are available in the debugger window.
+In the top menu, <strong>Break</strong>, we can select <strong>Line Break</strong> and setup breakpoints.
+If we select a line that does not contain code then breakpoints will be ignored, but it will appear in the debugger window.
+There are three types of breakpoints:</p>
+
+<ul>
+  <li>Line breakpoint — debugger suspends execution when we reach the line, setup with <code class="highlighter-rouge">:int.break/2</code></li>
+  <li>Conditional breakpoint — similar to the line breakpoint but the debugger suspends only when the specified condition is reached, these are setup using <code class="highlighter-rouge">:int.get_binding/2</code></li>
+  <li>Function breakpoint — debugger will suspend on first line of a function, configured using <code class="highlighter-rouge">:int.break_in/3</code></li>
+</ul>
+
+<p>That’s all! Happy debugging!</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/en/lessons/specifics/debugging.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/specifics/mnesia/" title="Mnesia">← Mnesia</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/specifics/nerves/" title="Nerves">Nerves →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong title="English">en</strong>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/specifics/debugging/" title="Greek">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/debugging/" title="Japanese / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/debugging/" title="Korean">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/specifics/debugging/" title="Portuguese">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/specifics/debugging/" title="Russian / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/debugging/" title="Chinese">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/debugging/" title="Traditional Chinese">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/en/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. Debugging</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

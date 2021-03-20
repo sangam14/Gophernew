@@ -1,0 +1,985 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ko">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="프로그래밍 언어 Elixir 배우기">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ko/lessons/advanced/concurrency/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ko">
+  <meta property="og:description" content="프로그래밍 언어 Elixir 배우기">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/concurrency/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/concurrency/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ko/lessons/advanced/concurrency/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>동시성 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ko/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ko/lessons/advanced/concurrency/&title=동시성&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ko/lessons/advanced/concurrency/&via=elixirschool&text=ElixirSchool: 동시성&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ko/lessons/advanced/concurrency/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ko/lessons/advanced/concurrency/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 동시성" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ko/lessons/advanced/concurrency/&title=ElixirSchool: 동시성&description=Check out '동시성' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 동시성&body=Check out '동시성' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ko/lessons/advanced/concurrency/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  동시성
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      이 번역의 일부는 유효하지 않을 수 있습니다.<br/>
+    
+
+    마지막 갱신 이후로 원본 문서에 사소한 변경사항이 있습니다.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Elixir의 매력적인 부분 중 하나는 동시성(Concurrency) 지원입니다. Erlang VM (BEAM) 덕분에, Elixir에서의 동시성은 여러분이 생각하는 것보다 간단합니다. 동시성 모델은 액터(Actor) 모델에 의존하고 있습니다. 액터는 메시지를 전달하여 다른 프로세스들과 통신하는 독립적인 프로세스입니다.</p>
+
+<p>이번 강의에서는, Elixir에 탑재된 동시성 모듈에 대해 알아보겠습니다. 이어질 챕터에서는 이를 구현하는 OTP 비헤이비어(OTP behavior)를 다루도록 하겠습니다.</p>
+
+<h2>목차</h2>
+<div id="toc"></div>
+
+<h2 id="프로세스">프로세스</h2>
+
+<p>Erlang VM 위에서 돌아가는 프로세스들은 가벼우며 모든 CPU에 걸쳐서 동작합니다. 네이티브 스레드와 비슷하지만 더 단순하며, Elixir 어플리케이션에서 수 천개의 프로세스가 동시에 실행되는 것이 흔합니다.</p>
+
+<p>새로운 프로세스를 생성하는 가장 쉬운 방법은 <code class="highlighter-rouge">spawn</code>입니다. <code class="highlighter-rouge">spawn</code>은 익명 함수나 이름이 있는 함수를 인자로 받습니다. 프로세스를 새로 생성할 때 해당 프로세스가 어플리케이션 내에서 유일한지 식별하기 위해 <strong>프로세스 식별자</strong>, 다시 말해, PID를 반환합니다.</p>
+
+<p>시작하기 전에, 모듈을 생성하고 그 내부에서 실행할 함수를 정의합시다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>방금 정의한 함수를 비동기적으로 평가할 때는, <code class="highlighter-rouge">spawn/3</code>를 사용합니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">spawn</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:add</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">5</span>
+<span class="c1">#PID&lt;0.80.0&gt;</span>
+</code></pre></div></div>
+
+<h3 id="메시지-전달">메시지 전달</h3>
+
+<p>프로세스끼리 통신할 때 메시지 전달을 이용합니다. 메시지 전달은 주로 <code class="highlighter-rouge">send/2</code>, <code class="highlighter-rouge">receive</code>로 이루어 집니다. <code class="highlighter-rouge">send/2</code>함수는 PID에 메시지를 전달할 수 있게 해줍니다. 메시지를 전달받을 때는 <code class="highlighter-rouge">receive</code>로 메시지를 매칭합니다. 매칭되는 것이 없다면, 인터럽트되지 않은 채로 실행이 계속됩니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">listen</span> <span class="k">do</span>
+    <span class="k">receive</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"World"</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">listen</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">spawn</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:listen</span><span class="p">,</span> <span class="p">[])</span>
+<span class="c1">#PID&lt;0.108.0&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">send</span> <span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">}</span>
+<span class="no">World</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">send</span> <span class="n">pid</span><span class="p">,</span> <span class="ss">:ok</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">listen/0</code> 함수를 재귀적으로 호출하므로 여러 메시지를 처리할 수 있습니다. 스스로 호출하지 않으면 프로세스는 첫 메시지를 처리한 후에 종료될 것입니다.</p>
+
+<h3 id="프로세스-연결">프로세스 연결</h3>
+
+<p><code class="highlighter-rouge">spawn</code>을 다룰 때 유념할 점은 프로세스가 비정상적으로 종료(crash)되었는지 여부를 판단하는 것입니다. 이를 위해서는 <code class="highlighter-rouge">spawn_link</code>를 통해 프로세스를 서로 연결할 수 있습니다. 이렇게 연결된 두 프로세스는 상대방 프로세스로부터 종료 신호를 수신할 수 있게 됩니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">explode</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="k">exit</span><span class="p">(</span><span class="ss">:kaboom</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">spawn</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:explode</span><span class="p">,</span> <span class="p">[])</span>
+<span class="c1">#PID&lt;0.66.0&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">spawn_link</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:explode</span><span class="p">,</span> <span class="p">[])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">EXIT</span> <span class="n">from</span> <span class="c1">#PID&lt;0.57.0&gt;) evaluator process exited with reason: :kaboom</span>
+</code></pre></div></div>
+
+<p>가끔은 연결된 프로세스로 인해 현재의 프로세스가 함께 종료되는 것을 막아야할 때도 있습니다. 이를 위해서는 종료 신호를 인지하여 이를 적절하게 처리해 주어야 하는데 이 때 사용되는 것이 <code class="highlighter-rouge">Process.flag/2</code>입니다. 이 예시 모듈에서는 얼랭(erlang)의 <a href="http://erlang.org/doc/man/erlang.html#process_flag-2">process_flag/2</a> 함수를 이용해서 <code class="highlighter-rouge">trap_exit</code> 플래그를 처리합니다. 종료 신호를 trap할 때(<code class="highlighter-rouge">trap_exit</code>를 <code class="highlighter-rouge">true</code>로 설정했을 때), 다음과 같은 튜플 메시지를 수신하게 될 것입니다. <code class="highlighter-rouge">{:EXIT, from_pid, reason}</code></p>
+<ul>
+  <li>[역주] trap 명령은 시스템에서 비동기적으로 발생하는 신호를 잡아서 필요한 작업을 수행하게 해주는 명령입니다.</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">explode</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="k">exit</span><span class="p">(</span><span class="ss">:kaboom</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">run</span> <span class="k">do</span>
+    <span class="no">Process</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="ss">:trap_exit</span><span class="p">,</span> <span class="no">true</span><span class="p">)</span>
+    <span class="n">spawn_link</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:explode</span><span class="p">,</span> <span class="p">[])</span>
+
+    <span class="k">receive</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:EXIT</span><span class="p">,</span> <span class="n">from_pid</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Exit reason: </span><span class="si">#{</span><span class="n">reason</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">run</span>
+<span class="no">Exit</span> <span class="ss">reason:</span> <span class="n">kaboom</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<h3 id="프로세스-모니터링">프로세스 모니터링</h3>
+
+<p>두 프로세스를 서로 연결하고 싶지 않지만, 이에 대한 정보를 계속해서 받고자 한다면 어떻게 하면 될까요? 이런 경우에는 <code class="highlighter-rouge">spawn_monitor</code>로 프로세스를 모니터링할 수 있습니다. 프로세스를 모니터링하면, 구동 중인 프로세스를 충돌시키거나 종료신호를 명시적으로 trap할 필요 없이 프로세스가 충돌 여부를 알려주는 메시지를 얻게 됩니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">explode</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="k">exit</span><span class="p">(</span><span class="ss">:kaboom</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">run</span> <span class="k">do</span>
+    <span class="p">{</span><span class="n">pid</span><span class="p">,</span> <span class="n">ref</span><span class="p">}</span> <span class="o">=</span> <span class="n">spawn_monitor</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:explode</span><span class="p">,</span> <span class="p">[])</span>
+
+    <span class="k">receive</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:DOWN</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="ss">:process</span><span class="p">,</span> <span class="n">from_pid</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Exit reason: </span><span class="si">#{</span><span class="n">reason</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">run</span>
+<span class="no">Exit</span> <span class="ss">reason:</span> <span class="n">kaboom</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<h2 id="에이전트">에이전트</h2>
+
+<p>에이전트(Agent)는 상태를 유지하는 백그라운드 프로세스를 추상화한 것입니다. 어플리케이션이나 노드 내부에 있는 다른 프로세스에서 접근할 수 있습니다. 다음의 예시에서, 에이전트의 상태는 함수의 반환 값으로 설정되어 있습니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">agent</span><span class="p">}</span> <span class="o">=</span> <span class="no">Agent</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.65.0&gt;}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Agent</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="k">fn</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">state</span> <span class="o">++</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+<span class="ss">:ok</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">))</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>에이전트에 이름을 부여하면, PID 대신 이름으로 참조할 수 있습니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Agent</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="k">end</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Numbers</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.74.0&gt;}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Numbers</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">))</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="태스크">태스크</h2>
+
+<p>태스크(task)는 백그라운드에서 함수를 실행하여, 그 반환 값을 나중에 찾을 수 있게 해줍니다. 특히, 어플리케이션 실행 중 블로킹하지 않고 비싼 연산을 처리할 때 유용합니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">double</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">do</span>
+    <span class="ss">:timer</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">task</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="ss">:double</span><span class="p">,</span> <span class="p">[</span><span class="mi">2000</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Task</span><span class="p">{</span><span class="ss">pid:</span> <span class="c1">#PID&lt;0.111.0&gt;, ref: #Reference&lt;0.0.8.200&gt;}</span>
+
+<span class="c1"># 다른 작업을 수행합니다</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="mi">4000</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ko/lessons/advanced/concurrency.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ko/lessons/advanced/escripts/" title="실행 파일">← 실행 파일</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ko/lessons/advanced/otp-concurrency/" title="OTP 동시성">OTP 동시성 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/advanced/concurrency/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/concurrency/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/concurrency/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/concurrency/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/concurrency/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/advanced/concurrency/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/concurrency/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <strong >ko</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/advanced/concurrency/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/concurrency/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/concurrency/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/concurrency/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/advanced/concurrency/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/advanced/concurrency/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/advanced/concurrency/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/concurrency/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/concurrency/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/concurrency/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>프로그래밍 언어 Elixir 배우기</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ko/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">기초</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/basics/">1. 기본</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/collections/">2. 컬렉션</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/pattern-matching/">4. 패턴 매칭</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/control-structures/">5. 제어 구조</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/functions/">6. 함수</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/pipe-operator/">7. 파이프 연산자</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/modules/">8. 모듈</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/sigils/">10. 시길</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/documentation/">11. 문서화</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/testing/">12. 테스트</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/strings/">14. 문자열</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/mix-tasks/">16. 커스텀 Mix 태스크</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">심화</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/erlang/">1. Erlang 상호 운용</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/error-handling/">2. 에러 처리</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/escripts/">3. 실행 파일</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">4. 동시성</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/otp-concurrency/">5. OTP 동시성</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/otp-supervisors/">6. OTP 슈퍼바이저</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/metaprogramming/">8. 메타 프로그래밍</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/umbrella-projects/">9. 엄브렐라 프로젝트</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/typespec/">10. 스펙과 타입</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/behaviours/">11. 비헤이비어</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/protocols/">13. 프로토콜</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">활용</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/debugging/">5. 디버깅</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">라이브러리</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ko/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

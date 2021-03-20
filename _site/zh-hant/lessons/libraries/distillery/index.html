@@ -1,0 +1,976 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/libraries/distillery/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/distillery/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/distillery/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/distillery/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/libraries/distillery/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Distillery（基礎） &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/libraries/distillery/&title=Distillery（基礎）&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/libraries/distillery/&via=elixirschool&text=ElixirSchool: Distillery（基礎）&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/libraries/distillery/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/libraries/distillery/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Distillery（基礎）" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/libraries/distillery/&title=ElixirSchool: Distillery（基礎）&description=Check out 'Distillery（基礎）' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Distillery（基礎）&body=Check out 'Distillery（基礎）' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/libraries/distillery/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  Distillery（基礎）
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      翻譯內文可能已過時。<br/>
+    
+
+    自最近更新後，原始課程已執行多次修補 (patches)。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Distillery 是純粹使用 Elixir 編寫的發布版本管理工具。它可以生成幾乎不需要配置就可以部署到其他地方的發布版本。</p>
+
+<h2 id="什麼是一個發布版本">什麼是一個發布版本？</h2>
+
+<p>一個發布版本是一個包含已編譯的 Erlang/Elixir 程式碼套件（例如 <a href="https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)">BEAM</a> <a href="https://en.wikipedia.org/wiki/Bytecode">位元組碼</a>）。它還提供了啟動應用程式所需的所有腳本。</p>
+
+<blockquote>
+  <p>編寫一個或多個應用程式後，可能會希望使用這些應用程式與 Erlang/OTP 應用程式子集來建立一個完整系統。這稱為一個發布版本。ー <a href="http://erlang.org/doc/design_principles/release_structure.html">Erlang 文件</a></p>
+</blockquote>
+
+<blockquote>
+  <p>發布版本可以簡化部署：它們是獨立（self-contained）的，並提供啟動套件所需的一切；可通過其提供的殼層腳本打開在背景啟動的遠端控制台來輕鬆管理，像是啟動/停止/重新啟動套件或是發送遠端指令等。此外，它們是可封存的加工品，這表示可以在將來的任何時候從其壓縮檔中還原舊發布版本（除非與基礎 OS 或系統函式庫不相容）使用發布版本也是執行熱升級和熱降級的前置作業，而熱升級和熱降級是 Erlang VM 最強大的功能之一。 ー <a href="https://hexdocs.pm/distillery/introduction/understanding_releases.html">Distillery 文件</a></p>
+</blockquote>
+
+<p>一個發布版本將包含以下內容：</p>
+<ul>
+  <li>/bin 資料夾
+    <ul>
+      <li>含有一個腳本，該腳本是執行整個應用程式的起點。</li>
+    </ul>
+  </li>
+  <li>/lib 資料夾
+    <ul>
+      <li>含有應用程式已編譯的位元組碼以及所有相依性。</li>
+    </ul>
+  </li>
+  <li>/releases 資料夾
+    <ul>
+      <li>含有有關該發布版本的後設資料以及鉤子和自定指令。</li>
+    </ul>
+  </li>
+  <li>/erts-VERSION
+    <ul>
+      <li>含有 Erlang 執行期環境，機器無需安裝 Erlang 或 Elixir 即可執行應用程式。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="入門安裝">入門/安裝</h3>
+
+<p>要將 Distillery 加入到專案中，請將其作為相依性加入到 <code class="highlighter-rouge">mix.exs</code> 中。<em>註</em> ㄧ 如果是在保護傘程式上作業，則應該新增到專案根目錄裡的 mix.exs</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:distillery</span><span class="p">,</span> <span class="s2">"~&gt; 2.0"</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>接著在終端機中呼用：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix deps.get
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix compile
+</code></pre></div></div>
+
+<h3 id="建立你的發布版本">建立你的發布版本</h3>
+
+<p>在終端機中，執行</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix release.init
+</code></pre></div></div>
+
+<p>這個指令會產生一個帶有一些配置檔案的 <code class="highlighter-rouge">rel</code> 目錄。</p>
+
+<p>要在終端機中產生一個發布版本請執行 <code class="highlighter-rouge">mix release</code></p>
+
+<p>一旦建立發布版本後，應該會在終端機中看到一些說明</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==&gt; Assembling release..
+==&gt; Building release book_app:0.1.0 using environment dev
+==&gt; You have set dev_mode to true, skipping archival phase
+Release successfully built!
+To start the release you have built, you can use one of the following tasks:
+
+    # start a shell, like 'iex -S mix'
+    &gt; _build/dev/rel/book_app/bin/book_app console
+
+    # start in the foreground, like 'mix run --no-halt'
+    &gt; _build/dev/rel/book_app/bin/book_app foreground
+
+    # start in the background, must be stopped with the 'stop' command
+    &gt; _build/dev/rel/book_app/bin/book_app start
+
+If you started a release elsewhere, and wish to connect to it:
+
+    # connects a local shell to the running node
+    &gt; _build/dev/rel/book_app/bin/book_app remote_console
+
+    # connects directly to the running node's console
+    &gt; _build/dev/rel/book_app/bin/book_app attach
+
+For a complete listing of commands and their use:
+
+    &gt; _build/dev/rel/book_app/bin/book_app help
+</code></pre></div></div>
+
+<p>要執行應用程式，請在終端機中輸入以下內容 <code class="highlighter-rouge">_build/dev/rel/MYAPP/bin/MYAPP foreground</code> 
+在你的情況用你的專案名稱替換 MYAPP。現在是正在執行應用程式的發布版本！</p>
+
+<h2 id="在-phoenix-中使用-distillery">在 Phoenix 中使用 Distillery</h2>
+
+<p>如果你是 Distillery 與 Phoenix 配合著使用，會需要執行一些額外的步驟，然後才能起作用。</p>
+
+<p>首先需要編輯 <code class="highlighter-rouge">config/prod.exs</code> 檔案。</p>
+
+<p>修改以下行數，從：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:book_app</span><span class="p">,</span> <span class="no">BookAppWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">load_from_system_env:</span> <span class="no">true</span><span class="p">,</span>
+  <span class="ss">url:</span> <span class="p">[</span><span class="ss">host:</span> <span class="s2">"example.com"</span><span class="p">,</span> <span class="ss">port:</span> <span class="mi">80</span><span class="p">],</span>
+  <span class="ss">cache_static_manifest:</span> <span class="s2">"priv/static/cache_manifest.json"</span>
+</code></pre></div></div>
+<p>改為：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:book_app</span><span class="p">,</span> <span class="no">BookApp</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">http:</span> <span class="p">[</span><span class="ss">port:</span> <span class="p">{</span><span class="ss">:system</span><span class="p">,</span> <span class="s2">"PORT"</span><span class="p">}],</span>
+  <span class="ss">url:</span> <span class="p">[</span><span class="ss">host:</span> <span class="s2">"localhost"</span><span class="p">,</span> <span class="ss">port:</span> <span class="p">{</span><span class="ss">:system</span><span class="p">,</span> <span class="s2">"PORT"</span><span class="p">}],</span>
+  <span class="ss">cache_static_manifest:</span> <span class="s2">"priv/static/cache_manifest.json"</span><span class="p">,</span>
+  <span class="ss">server:</span> <span class="no">true</span><span class="p">,</span>
+  <span class="ss">root:</span> <span class="s2">"."</span><span class="p">,</span>
+  <span class="ss">version:</span> <span class="no">Application</span><span class="o">.</span><span class="n">spec</span><span class="p">(</span><span class="ss">:book_app</span><span class="p">,</span> <span class="ss">:vsn</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>此時己經完成的事項是：</p>
+<ul>
+  <li><code class="highlighter-rouge">server</code> - 在應用程式啟動時啟動 Cowboy 應用程式的 http 端點服務。</li>
+  <li><code class="highlighter-rouge">root</code> - 設定應用程式根目錄，該目錄是靜態文件存取位置。</li>
+  <li><code class="highlighter-rouge">version</code> - 熱升級應用程式版本時，將清除應用程式快取。</li>
+  <li><code class="highlighter-rouge">port</code> - 藉由設定 ENV 變數可以在啟動應用程式時傳入連接埠號碼來改變連接埠設定。當啟動應用程式時，可以通過執行 <code class="highlighter-rouge">PORT=4001 _build/prod/rel/book_app/bin/book_app foreground</code> 來提供連接埠。</li>
+</ul>
+
+<p>如果執行上述指令，可能會發現應用程試當機了，因為當前不存在資料庫而無法與其連接。這可以通過執行 Ecto <code class="highlighter-rouge">mix</code> 指令來修正。在終端機中，輸入以下內容：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MIX_ENV=prod mix ecto.create
+</code></pre></div></div>
+
+<p>這個指令會建立資料庫。現在嘗試重新執行應用程式，它會成功啟動。但是，你同時會注意到，資料庫遷移尚未執行。通常在開發時，會通過呼用 <code class="highlighter-rouge">mix.ecto migrate</code> 來手動執行這些遷移。但對於發布版本，必須對其進行配置，以便它可以獨立執行遷移。</p>
+
+<h2 id="在正式環境執行遷移">在正式環境執行遷移</h2>
+
+<p>Distillery 能夠在發布版本生命週期的不同時間點之間執行程式碼。這些點稱為 <a href="https://hexdocs.pm/distillery/1.5.2/boot-hooks.html">boot-hooks</a>。 Distillery 提供的鉤子包括</p>
+
+<ul>
+  <li>pre_start</li>
+  <li>post_start</li>
+  <li>pre/post_configure</li>
+  <li>pre/post_stop</li>
+  <li>pre/post_upgrade</li>
+</ul>
+
+<p>因著目的，將使用 <code class="highlighter-rouge">post_start</code> 鉤子在正式環境中執行應用程式遷移。首先，建立一個名為 <code class="highlighter-rouge">migrate</code> 的新發布版本工作。發布版本工作是一個模組函數，可以從終端機上呼用它，其中包含與應用程式內部運作分離的程式碼。對於特別是應用程式本身不需要執行的工作而言，這很有用。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">BookAppWeb</span><span class="o">.</span><span class="no">ReleaseTasks</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">migrate</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">=</span> <span class="no">Application</span><span class="o">.</span><span class="n">ensure_all_started</span><span class="p">(</span><span class="ss">:book_app</span><span class="p">)</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="no">Application</span><span class="o">.</span><span class="n">app_dir</span><span class="p">(</span><span class="ss">:book_app</span><span class="p">,</span> <span class="s2">"priv/repo/migrations"</span><span class="p">)</span>
+
+    <span class="no">Ecto</span><span class="o">.</span><span class="no">Migrator</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="no">BookApp</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="ss">:up</span><span class="p">,</span> <span class="ss">all:</span> <span class="no">true</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>註</em> ー 好的做法是在執行這些遷移之前，確保所有應用程式都已正確啟動。 <a href="https://hexdocs.pm/ecto/2.2.8/Ecto.Migrator.html">Ecto.Migrator</a> 允許對已連接的資料庫執行遷移。</p>
+
+<p>接下來，建立一個新檔案 - <code class="highlighter-rouge">rel/hooks/post_start/migrate.sh</code> 並加入以下程式碼：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "Running migrations"
+
+bin/book_app rpc "Elixir.BookApp.ReleaseTasks.migrate"
+
+</code></pre></div></div>
+
+<p>為了使這些程式碼正常執行，使用了 Erlang 的 <code class="highlighter-rouge">rpc</code> 模組，該模組允許使用遠端程式呼叫 （Remote Produce Call ）服務。基本上，這可以在遠端節點上呼用函數並獲得應答。當在正式環境中執行時，應用程式可能會執行在多個不同的節點上。</p>
+
+<p>最後，在 <code class="highlighter-rouge">rel/config.exs</code> 檔案中，將鉤子加入到正式環境的配置上。</p>
+
+<p>現在將以下</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">environment</span> <span class="ss">:prod</span> <span class="k">do</span>
+  <span class="n">set</span> <span class="ss">include_erts:</span> <span class="no">true</span>
+  <span class="n">set</span> <span class="ss">include_src:</span> <span class="no">false</span>
+  <span class="n">set</span> <span class="ss">cookie:</span> <span class="ss">:"TkJuF,3nc4)OWPBpPxPDb6mz$&gt;)&gt;a&gt;/v/,l2}W*sUFaz&lt;)bG,v*3pPESE,`XOk{,"</span>
+  <span class="n">set</span> <span class="ss">vm_args:</span> <span class="s2">"rel/vm.args"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>取代為</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">environment</span> <span class="ss">:prod</span> <span class="k">do</span>
+  <span class="n">set</span> <span class="ss">include_erts:</span> <span class="no">true</span>
+  <span class="n">set</span> <span class="ss">include_src:</span> <span class="no">false</span>
+  <span class="n">set</span> <span class="ss">cookie:</span> <span class="ss">:"TkJuF,3nc4)OWPBpPxPDb6mz$&gt;)&gt;a&gt;/v/,l2}W*sUFaz&lt;)bG,v*3pPESE,`XOk{,"</span>
+  <span class="n">set</span> <span class="ss">vm_args:</span> <span class="s2">"rel/vm.args"</span>
+  <span class="n">set</span> <span class="ss">post_start_hooks:</span> <span class="s2">"rel/hooks/post_start"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>註</em> - 此鉤子僅存在於此應用程式的正式發布版本中。如果使用預設的開發環境發布版本，它將無法執行。</p>
+
+<h2 id="自訂指令">自訂指令</h2>
+
+<p>在使用發布版本時，有可能無法使用 <code class="highlighter-rouge">mix</code> 指令，因為 <code class="highlighter-rouge">mix</code> 可能未安裝到部署該發布版本的機器上。不過可以通過建立自訂指令來解決此問題。</p>
+
+<blockquote>
+  <p>自訂指令是啟動腳本的擴充，並且與在前景或 remote_console 的相同方式來使用，換句話說，它們看起來像是啟動腳本的一部分。像鉤子一樣，它們可以存取啟動腳本的輔助函數和環境 - <a href="https://hexdocs.pm/distillery/1.5.2/custom-commands.html">Distillery 文件</a></p>
+</blockquote>
+
+<p>其指令與發布版本的工作相似，因為它們都是做為方法的函數，但與指令不同處為，它們是通過終端機，而不是發布版本的腳本來執行。</p>
+
+<p>現在能夠執行遷移了，或許也希望可以通過執行指令為資料庫播種初始資訊。因此，首先為發布版本的工作加入一個新方法。在 <code class="highlighter-rouge">BookAppWeb.ReleaseTasks</code> 中，加入以下內容</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">seed</span> <span class="k">do</span>
+  <span class="n">seed_path</span> <span class="o">=</span> <span class="no">Application</span><span class="o">.</span><span class="n">app_dir</span><span class="p">(</span><span class="ss">:book_app_web</span><span class="p">,</span> <span class="s2">"priv/repo/seeds.exs"</span><span class="p">)</span>
+  <span class="no">Code</span><span class="o">.</span><span class="n">eval_file</span><span class="p">(</span><span class="n">seed_path</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>接著，建立一個新檔案 <code class="highlighter-rouge">rel/commands/seed.sh</code> 並加入以下程式碼：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+
+release_ctl <span class="nb">eval</span> <span class="s2">"BookAppWeb.ReleaseTasks.seed/0"</span>
+</code></pre></div></div>
+
+<p><em>註</em> - <code class="highlighter-rouge">release_ctl()</code> 是 Distillery 提供的殼層腳本，它允許在本機或乾淨的節點中執行指令。如果需要在正在執行的節點上使用此指令，則可以執行 <code class="highlighter-rouge">release_remote_ctl()</code></p>
+
+<p>在 <a href="https://hexdocs.pm/distillery/extensibility/shell_scripts.html">這裡</a>查看更多有關 Distillery 的 shell_scripts 資訊。</p>
+
+<p>最後，將以下內容加入到 <code class="highlighter-rouge">rel/config.exs</code> 檔案中。</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">release</span> <span class="ss">:book_app</span> <span class="k">do</span>
+  <span class="o">...</span>
+  <span class="n">set</span> <span class="ss">commands:</span> <span class="p">[</span>
+    <span class="ss">seed:</span> <span class="s2">"rel/commands/seed.sh"</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>要確定是通過執行 <code class="highlighter-rouge">MIX_ENV=prod mix release</code> 來重新建立發布版本。一旦完成此動作後，就可以在終端機中執行 <code class="highlighter-rouge">PORT=4001 _build/prod/rel/book_app/bin/book_app seed</code>。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/libraries/distillery.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/libraries/bypass/" title="Bypass">← Bypass</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/libraries/stream-data/" title="StreamData">StreamData →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/distillery/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/libraries/distillery/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/libraries/distillery/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/libraries/distillery/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/distillery/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. Distillery（基礎）</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="uk">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Навчальні матеріали про мову програмування Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/uk/lessons/basics/control-structures/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="uk">
+  <meta property="og:description" content="Навчальні матеріали про мову програмування Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/control-structures/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ta" href="/ta/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/control-structures/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/uk/lessons/basics/control-structures/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Керуючі конструкції &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/uk/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/uk/lessons/basics/control-structures/&title=Керуючі конструкції&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/uk/lessons/basics/control-structures/&via=elixirschool&text=ElixirSchool: Керуючі конструкції&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/uk/lessons/basics/control-structures/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/uk/lessons/basics/control-structures/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Керуючі конструкції" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/uk/lessons/basics/control-structures/&title=ElixirSchool: Керуючі конструкції&description=Check out 'Керуючі конструкції' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Керуючі конструкції&body=Check out 'Керуючі конструкції' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/uk/lessons/basics/control-structures/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Керуючі конструкції
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Переклад актуальний.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>В цьому уроці ми розглянемо доступні в мові Elixir керуючі конструкції.</p>
+
+<h2>Зміст</h2>
+<div id="toc"></div>
+
+<h2 id="if-та-unless"><code class="highlighter-rouge">if</code> та <code class="highlighter-rouge">unless</code></h2>
+
+<p>Скоріш за все, ви вже зустрічали оператор <code class="highlighter-rouge">if/2</code>, а якщо програмували на Ruby, то зустрічали і <code class="highlighter-rouge">unless/2</code>. В Elixir вони функціонують так само, але визначені як макрос, а не конструкція мови. Код реалізації можливо побачити в модулі <a href="https://hexdocs.pm/elixir/Kernel.html">Kernel</a>.</p>
+
+<p>Варто зазначити, що в Elixir єдиним хибними значеннями є <code class="highlighter-rouge">nil</code> та <code class="highlighter-rouge">false</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">if</span> <span class="no">String</span><span class="o">.</span><span class="n">valid?</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">)</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="s2">"Valid string!"</span>
+<span class="o">...&gt;</span> <span class="k">else</span>
+<span class="o">...&gt;</span>   <span class="s2">"Invalid string."</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Valid string!"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="k">if</span> <span class="s2">"a string value"</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="s2">"Truthy"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Truthy"</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">unless/2</code> схожий на <code class="highlighter-rouge">if/2</code>, але працює навпаки:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">unless</span> <span class="n">is_integer</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="s2">"Not an Int"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Not an Int"</span>
+</code></pre></div></div>
+
+<h2 id="case"><code class="highlighter-rouge">case</code></h2>
+
+<p>Якщо потрібно зіставити з декількома зразками, використовується оператор <code class="highlighter-rouge">case/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"Hello World"</span><span class="p">}</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">result</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:error</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="s2">"Uh oh!"</span>
+<span class="o">...&gt;</span>   <span class="n">_</span> <span class="o">-&gt;</span> <span class="s2">"Catch all"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Hello World"</span>
+</code></pre></div></div>
+
+<p>Змінна <code class="highlighter-rouge">_</code> є важливою частиною конструкції <code class="highlighter-rouge">case/2</code>. Без неї, у випадку відсутності знайденого зіставлення, станеться помилка:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="ss">:even</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="ss">:odd</span> <span class="o">-&gt;</span> <span class="s2">"Odd"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CaseClauseError</span><span class="p">)</span> <span class="n">no</span> <span class="k">case</span> <span class="n">clause</span> <span class="ss">matching:</span> <span class="ss">:even</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="ss">:even</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="ss">:odd</span> <span class="o">-&gt;</span> <span class="s2">"Odd"</span>
+<span class="o">...&gt;</span>   <span class="n">_</span> <span class="o">-&gt;</span> <span class="s2">"Not Odd"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Not Odd"</span>
+</code></pre></div></div>
+
+<p>Змінну <code class="highlighter-rouge">_</code> можливо розглядати як <code class="highlighter-rouge">else</code>, котрий буде зіставлений з чим завгодно.
+Так, як <code class="highlighter-rouge">case/2</code> базується на зіставлені зі зразком, то всі ті ж обмеження і особливості продовжують діяти. Якщо потрібно провести зіставлення зі значенням змінної замість її присвоєння, використовується вже знайомий оператор <code class="highlighter-rouge">^/1</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">pie</span> <span class="o">=</span> <span class="mf">3.14</span>
+<span class="mf">3.14</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="s2">"cherry pie"</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="o">^</span><span class="n">pie</span> <span class="o">-&gt;</span> <span class="s2">"Not so tasty"</span>
+<span class="o">...&gt;</span>   <span class="n">pie</span> <span class="o">-&gt;</span> <span class="s2">"I bet </span><span class="si">#{</span><span class="n">pie</span><span class="si">}</span><span class="s2"> is tasty"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"I bet cherry pie is tasty"</span>
+</code></pre></div></div>
+
+<p>Другою цікавою можливістю <code class="highlighter-rouge">case/2</code> є підтримка обмежувальних виразів:</p>
+
+<p><em>Цей приклад взятий з офіційної документації <a href="http://elixir-lang.org/getting-started/case-cond-and-if.html#case">Getting Started</a>.</em></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="ow">when</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"Will match"</span>
+<span class="o">...&gt;</span>   <span class="n">_</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"Won't match"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Will match"</span>
+</code></pre></div></div>
+
+<p>Також рекомендуємо почитати офіційну документацію про <a href="https://hexdocs.pm/elixir/guards.html#list-of-allowed-expressions">вирази, доступні в обмежувальних виразах</a>.</p>
+
+<h2 id="cond"><code class="highlighter-rouge">cond</code></h2>
+
+<p>Коли потрібно перевіряти умови, а не значення, можна скористатися <code class="highlighter-rouge">cond/1</code>. Це схоже на <code class="highlighter-rouge">else if</code> чи <code class="highlighter-rouge">elsif</code> в інших мовах:</p>
+
+<p><em>Цей приклад взятий з офіційної документації <a href="http://elixir-lang.org/getting-started/case-cond-and-if.html#cond">Getting Started</a>.</em></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">cond</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">5</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"This will not be true"</span>
+<span class="o">...&gt;</span>   <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"Nor this"</span>
+<span class="o">...&gt;</span>   <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"But this will"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"But this will"</span>
+</code></pre></div></div>
+
+<p>Так само, як і <code class="highlighter-rouge">case/2</code>, <code class="highlighter-rouge">cond/1</code> викличе помилку, якщо не пройде жоден з виразів. Для вирішення цієї проблеми можна визначити умову в <code class="highlighter-rouge">true</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">cond</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="mi">7</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">-&gt;</span> <span class="s2">"Incorrect"</span>
+<span class="o">...&gt;</span>   <span class="no">true</span> <span class="o">-&gt;</span> <span class="s2">"Catch all"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Catch all"</span>
+</code></pre></div></div>
+
+<h2 id="with"><code class="highlighter-rouge">with</code></h2>
+
+<p>Спеціальна форма <code class="highlighter-rouge">with/1</code> може знадобитися в ситуаціях, коли важко використовувати оператор потоку, або коли потрібен вкладений виклик <code class="highlighter-rouge">case/2</code>. <code class="highlighter-rouge">with/1</code> складається з ключових слів, генераторів та виразу в кінці.</p>
+
+<p>Ми ще поговоримо про генератори в <a href="../comprehensions/">уроці про спискові включення</a>, але зараз нам достатньо знати лише те, що вони використовують <a href="../pattern-matching/">зіставлення зі зразком</a> для порівняння правої частини <code class="highlighter-rouge">&lt;-</code> з лівою.</p>
+
+<p>Почнемо з простого прикладу з <code class="highlighter-rouge">with/1</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">first:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">last:</span> <span class="s2">"Callan"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">first:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">last:</span> <span class="s2">"Callan"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">first</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:first</span><span class="p">),</span>
+<span class="o">...&gt;</span>      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">last</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:last</span><span class="p">),</span>
+<span class="o">...&gt;</span>      <span class="k">do</span><span class="p">:</span> <span class="n">last</span> <span class="o">&lt;&gt;</span> <span class="s2">", "</span> <span class="o">&lt;&gt;</span> <span class="n">first</span>
+<span class="s2">"Callan, Sean"</span>
+</code></pre></div></div>
+
+<p>У випадку, якщо для виразу не знайдеться збіг, повернеться значення, яке не збіглося:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">first:</span> <span class="s2">"doomspork"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">first:</span> <span class="s2">"doomspork"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">first</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:first</span><span class="p">),</span>
+<span class="o">...&gt;</span>      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">last</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:last</span><span class="p">),</span>
+<span class="o">...&gt;</span>      <span class="k">do</span><span class="p">:</span> <span class="n">last</span> <span class="o">&lt;&gt;</span> <span class="s2">", "</span> <span class="o">&lt;&gt;</span> <span class="n">first</span>
+<span class="ss">:error</span>
+</code></pre></div></div>
+
+<p>Давайте глянемо на приклад побільше без використання <code class="highlighter-rouge">with/1</code>, а потім подивимось, як його можна покращити:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+    <span class="k">case</span> <span class="no">Guardian</span><span class="o">.</span><span class="n">encode_and_sign</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:token</span><span class="p">,</span> <span class="n">claims</span><span class="p">)</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">full_claims</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">important_stuff</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">full_claims</span><span class="p">)</span>
+
+      <span class="n">error</span> <span class="o">-&gt;</span>
+        <span class="n">error</span>
+    <span class="k">end</span>
+
+  <span class="n">error</span> <span class="o">-&gt;</span>
+    <span class="n">error</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>А тепер, завдяки <code class="highlighter-rouge">with/1</code>, ми отримаємо короткий та простий для розуміння код:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">changeset</span><span class="p">),</span>
+     <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">full_claims</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Guardian</span><span class="o">.</span><span class="n">encode_and_sign</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:token</span><span class="p">,</span> <span class="n">claims</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">important_stuff</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">full_claims</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Починаючи з версії Elixir 1.3, конструкція <code class="highlighter-rouge">with/1</code> також почала підтримувати <code class="highlighter-rouge">else</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">Integer</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">c:</span> <span class="mi">3</span><span class="p">}</span>
+
+<span class="n">a</span> <span class="o">=</span>
+  <span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">number</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="ss">:a</span><span class="p">),</span>
+       <span class="no">true</span> <span class="o">&lt;-</span> <span class="n">is_even</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">number</span><span class="si">}</span><span class="s2"> divided by 2 is </span><span class="si">#{</span><span class="n">div</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="ss">:even</span>
+  <span class="k">else</span>
+    <span class="ss">:error</span> <span class="o">-&gt;</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"We don't have this item in map"</span><span class="p">)</span>
+      <span class="ss">:error</span>
+
+    <span class="n">_</span> <span class="o">-&gt;</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"It is odd"</span><span class="p">)</span>
+      <span class="ss">:odd</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Це допомагає структурувати код обробки помилок за допомогою зіставлення зі зразком в загальному блоці-обробнику. Значення, котре туди передаєтеся — перший же вираз, який не зіставився в основному тілі <code class="highlighter-rouge">with</code>.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/uk/lessons/basics/control-structures.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/uk/lessons/basics/pattern-matching/" title="Зіставлення зі зразком">← Зіставлення зі зразком</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/uk/lessons/basics/functions/" title="Функції">Функції →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/control-structures/" >bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/control-structures/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/control-structures/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/control-structures/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/control-structures/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/control-structures/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/control-structures/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/control-structures/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/control-structures/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/control-structures/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/control-structures/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/control-structures/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/control-structures/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/control-structures/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/control-structures/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/control-structures/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/control-structures/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/ta/lessons/basics/control-structures/" >ta</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/control-structures/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/control-structures/" >tr</a>
+        
+      
+        
+        
+
+        
+          <strong >uk</strong>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/control-structures/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/control-structures/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/control-structures/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Меню</h2>
+    <p>Навчальні матеріали про мову програмування Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/uk/" class=" up ">Додому</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Основи</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/basics/">1. Основи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/collections/">2. Колекції</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/pattern-matching/">4. Зіставлення зі зразком</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. Керуючі конструкції</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/functions/">6. Функції</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/pipe-operator/">7. Оператор конвеєра</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/modules/">8. Модулі</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/comprehensions/">13. Вирази</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/mix-tasks/">16. Користувацькі Mix завдання</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Блоґ</a>
+    </li>
+    
+    <li>
+      <a href="/uk/report/" class=" up ">Прогресс перекладу</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Автори</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

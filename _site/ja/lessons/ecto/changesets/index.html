@@ -1,0 +1,1010 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/ecto/changesets/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/changesets/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/changesets/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/ecto/changesets/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>チェンジセット &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/ecto/changesets/&title=チェンジセット&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/ecto/changesets/&via=elixirschool&text=ElixirSchool: チェンジセット&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/ecto/changesets/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/ecto/changesets/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: チェンジセット" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/ecto/changesets/&title=ElixirSchool: チェンジセット&description=Check out 'チェンジセット' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: チェンジセット&body=Check out 'チェンジセット' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/ecto/changesets/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  チェンジセット
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    この和訳は最新です。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>挿入、更新、またはデータベースからデータの削除をするために、 <code class="highlighter-rouge">Ecto.Repo.insert/2</code> 、 <code class="highlighter-rouge">update/2</code> そして <code class="highlighter-rouge">delete/2</code> は第１引数にチェンジセットを必要とします。
+しかしチェンジセットとは何でしょうか？</p>
+
+<p>ほぼ全ての開発者にとって馴染みのあるタスクは、潜在的なエラーのために入力データをチェックすることです。目的に沿ってデータを使用する前に、そのデータが正常な状態であることを確認したいのです。</p>
+
+<p>Ectoは <code class="highlighter-rouge">Changeset</code> モジュールとデータ構造体という形で、データの変更を扱うための完全なソリューションを提供します。
+このレッスンではそれらの機能を調べ、データベースへ永続化する前にデータの整合性を検証する方法を学びます。</p>
+
+<h2>目次</h2>
+<div id="toc"></div>
+
+<h2 id="最初のchangesetを作る">最初のChangesetを作る</h2>
+
+<p>空の <code class="highlighter-rouge">%Changeset{}</code> 構造体を見てみましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="p">{}</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span> <span class="ss">data:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">valid?:</span> <span class="no">false</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>見ての通り、便利そうなフィールドがいくつかありますが、全て空になっています。</p>
+
+<p>チェンジセットを本当に役立つものにするためには、作成時に、どのようなデータになるかという設計図を提供する必要があります。
+フィールドと型の定義を持つ私たちが作ったスキーマよりも、データのためのより良い設計図とはなんでしょうか？</p>
+
+<p>前のレッスンの <code class="highlighter-rouge">Friends.Person</code> スキーマを使いましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"people"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">default:</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Person</code> スキーマを使うチェンジセットを作るためには、 <code class="highlighter-rouge">Ecto.Changeset.cast/3</code> を使います:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">cast</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span> <span class="p">%{},</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span> <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+ <span class="ss">valid?:</span> <span class="no">true</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>最初のパラメータは元のデータで、この場合は初期化された <code class="highlighter-rouge">%Friends.Person{}</code> 構造体です。
+Ectoは構造体そのものに基づいてスキーマを見つけることができます。
+2番目は私たちが行いたい変更であり、ただの空のマップです。
+3番目のパラメータが <code class="highlighter-rouge">cast/3</code> を特別なものにします。これは通過させることを許可するフィールドのリストであり、これによってどのフィールドが変更可能なのかを制御可能とし、残りを安全に保護します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">cast</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Jack"</span><span class="p">},</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Jack"</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">cast</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Jack"</span><span class="p">},</span> <span class="p">[])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span> <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+ <span class="ss">valid?:</span> <span class="no">true</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>2回目では新しいnameが明示的に許可されていないため、無視されていることがわかるでしょう。</p>
+
+<p><code class="highlighter-rouge">cast/3</code> の代わりとして <code class="highlighter-rouge">change/2</code> もあり、これは <code class="highlighter-rouge">cast/3</code> のように変更をフィルタリングする機能を持ちません。
+これは変更を加えるソースが信頼できるとき、あるいは手動でデータを扱う時に便利です。</p>
+
+<p>ここではチェンジセットを作りましたが、バリデーションを持っていないので、personのnameにあらゆる変更が受け付けられてしまい、その結果、空の名前になる可能性もあります。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">cast</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">},</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="no">nil</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Ectoはチェンジセットが正常であると言っていますが、実際には空の名前を許可したくありません。これを修正しましょう！</p>
+
+<h2 id="バリデーション">バリデーション</h2>
+
+<p>Ectoは私たちを手助けするために、いくつものビルトインのバリデーション機能を持っています。</p>
+
+<p>これから <code class="highlighter-rouge">Ecto.Changeset</code> を何度も使うので、以下のスキーマを持つ <code class="highlighter-rouge">person.ex</code> に <code class="highlighter-rouge">Ecto.Changeset</code> インポートしましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span>
+
+  <span class="n">schema</span> <span class="s2">"people"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">default:</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>これで <code class="highlighter-rouge">cast/3</code> 関数を直接使うことができます。</p>
+
+<p>1つのスキーマに複数のチェンジセット作成関数を持つことはよくあります。まずは、構造体、変更のマップを受け取って、チェンジセットを返すものを作りましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>これで <code class="highlighter-rouge">name</code> が常に存在することを保証できます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_required</span><span class="p">([</span><span class="ss">:name</span><span class="p">])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Friends.Person.changeset/2</code> 関数に空のnameを渡して呼び出すと、チェンジセットは無効になり、役に立つエラーメッセージまで含まれます。
+注: <code class="highlighter-rouge">iex</code> を使っている場合は <code class="highlighter-rouge">recompile()</code> の実行を忘れないでください。そうしなければ、コードの変更が反映されません。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{},</span>
+  <span class="ss">errors:</span> <span class="p">[</span><span class="ss">name:</span> <span class="p">{</span><span class="s2">"can't be blank"</span><span class="p">,</span> <span class="p">[</span><span class="ss">validation:</span> <span class="ss">:required</span><span class="p">]}],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">false</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>上のチェンジセットで <code class="highlighter-rouge">Repo.insert(changeset)</code> をしようとする場合、同じエラーとともに <code class="highlighter-rouge">{:error, changeset}</code> を受け取るので、 <code class="highlighter-rouge">changeset.valid?</code> を自身で毎回チェックする必要はありません。
+挿入、更新、削除を試みて、エラーがある場合は後から処理をする方が簡単です。</p>
+
+<p><code class="highlighter-rouge">validate_required/2</code> とは別に、 いくつかの追加オプションを受け取る <code class="highlighter-rouge">validate_length/3</code> もあります。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_required</span><span class="p">([</span><span class="ss">:name</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_length</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">min:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>nameに対して1つの文字を渡した場合、どのような結果になるかを試してみましょう！</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">User</span><span class="p">{},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"A"</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"A"</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[</span>
+    <span class="ss">name:</span> <span class="p">{</span><span class="s2">"should be at least %{count} character(s)"</span><span class="p">,</span>
+     <span class="p">[</span><span class="ss">count:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">validation:</span> <span class="ss">:length</span><span class="p">,</span> <span class="ss">min:</span> <span class="mi">2</span><span class="p">]}</span>
+  <span class="p">],</span>
+  <span class="ss">data:</span> <span class="c1">#User&lt;&gt;,</span>
+  <span class="ss">valid?:</span> <span class="no">false</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>エラーメッセージが暗号のような <code class="highlighter-rouge">%{count}</code> を含んでいることに驚くかもしれません。これは他言語への翻訳を補助するためです。ユーザーに直接エラーを表示したい場合、 <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#traverse_errors/2"><code class="highlighter-rouge">traverse_errors/2</code></a> を使って人が読める形式に変更できます。ドキュメントで提供されている例に目を通してください。</p>
+
+<p><code class="highlighter-rouge">Ecto.Changeset</code> にある他のビルトインのバリデーションは、以下のものがあります:</p>
+
+<ul>
+  <li>validate_acceptance/3</li>
+  <li>validate_change/3 &amp; /4</li>
+  <li>validate_confirmation/3</li>
+  <li>validate_exclusion/4 &amp; validate_inclusion/4</li>
+  <li>validate_format/4</li>
+  <li>validate_number/3</li>
+  <li>validate_subset/4</li>
+</ul>
+
+<p>これらの使用方法の詳細と完全なリストは <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#summary">ここ</a> で確認できます。</p>
+
+<h3 id="カスタムバリデーション">カスタムバリデーション</h3>
+
+<p>ビルトインのバリデーションは広い範囲のユースケースをカバーしていますが、それらとは別のものがまだ必要かもしれません。</p>
+
+<p>私たちがこれまで使ってきた全ての <code class="highlighter-rouge">validate_</code> 関数は <code class="highlighter-rouge">%Ecto.Changeset{}</code> を受け取って返すので、私たち自身のものを簡単に接続することができます。</p>
+
+<p>例えば、架空のキャラクター名のみの許可を確実にすることができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@fictional_names</span> <span class="p">[</span><span class="s2">"Black Panther"</span><span class="p">,</span> <span class="s2">"Wonder Woman"</span><span class="p">,</span> <span class="s2">"Spiderman"</span><span class="p">]</span>
+<span class="k">def</span> <span class="n">validate_fictional_name</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="n">get_field</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="nv">@fictional_names</span> <span class="k">do</span>
+    <span class="n">changeset</span>
+  <span class="k">else</span>
+    <span class="n">add_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="s2">"is not a superhero"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>上のコードでは2つの新しいヘルパー関数である <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#get_field/3"><code class="highlighter-rouge">get_field/3</code></a> と <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#add_error/4"><code class="highlighter-rouge">add_error/4</code></a> を導入しました。これらの動作はほとんど名前が表す通りですが、ドキュメントのリンクを確認することをお勧めします。</p>
+
+<p><code class="highlighter-rouge">|&gt;</code> オペレータを使って他のバリデーションを追加しやすいようにするため、 <code class="highlighter-rouge">%Ecto.Changeset{}</code> 常に返すことがグッドプラクティスです。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_required</span><span class="p">([</span><span class="ss">:name</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_length</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">min:</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="n">validate_fictional_name</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Bob"</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[</span><span class="ss">name:</span> <span class="p">{</span><span class="s2">"is not a superhero"</span><span class="p">,</span> <span class="p">[]}],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">false</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>素晴らしい、動きました！しかし、 <code class="highlighter-rouge">validate_inclusion/4</code> 関数を代わりに使うこともできるので、この関数を私たち自身が実装する必要はそれほどありません。それでも、役に立つはずの自身のエラー追加する方法を確認できます。</p>
+
+<h2 id="プログラムでの変更の追加">プログラムでの変更の追加</h2>
+
+<p>手動でチェンジセットに変更を加えたいことがあるでしょう。 <code class="highlighter-rouge">put_change/3</code> ヘルパーはこの目的のために存在します。</p>
+
+<p><code class="highlighter-rouge">name</code> フィールドを必須にするよりも、名前無しでのサインアップをユーザーに許可し、彼らを”Anonymous”と呼びましょう。
+必要な関数はおなじみのものになます。先ほど紹介した <code class="highlighter-rouge">validate_fictional_name/1</code> のように、チェンジセットを受け取って返します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">set_name_if_anonymous</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="n">get_field</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">is_nil</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">put_change</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="s2">"Anonymous"</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="n">changeset</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>ユーザーの名前を”Anonymous”として設定できるのは、ユーザーがアプリケーションに登録したときだけです。これを行うために、新しいチェンジセット作成関数を作ります。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">registration_changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">set_name_if_anonymous</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>これで <code class="highlighter-rouge">name</code> を渡す必要はなくなり、 <code class="highlighter-rouge">Anonymous</code> は自動的に設定されます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">registration_changeset</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{},</span> <span class="p">%{})</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Anonymous"</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>特定の責任を持つ（ <code class="highlighter-rouge">registration_changeset/2</code> のような）チェンジセット作成関数を持つことは珍しいことではありません。特定のバリデーションだけを実行したり、特定のパラメータをフィルタリングしたりする柔軟性が必要なこともあります。
+上の関数は、他の場所にある専用の <code class="highlighter-rouge">sign_up/1</code> ヘルパーで使用することができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">sign_up</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{}</span>
+  <span class="o">|&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">registration_changeset</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="まとめ">まとめ</h2>
+
+<p><em>あらゆる</em> データのバリデーションに使える <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#module-schemaless-changesets">schemaless changesets</a> や、チェンジセット (<a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#prepare_changes/2"><code class="highlighter-rouge">prepare_changes/2</code></a>) に伴う副作用の処理、アソシエーションや埋め込みなど、このレッスンではカバーできなかった多くのユースケースや機能があります。
+将来的に、上級レッスンとしてこれらをカバーするかもしれませんが、それまでは <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html">Ecto Changeset</a> の公式ドキュメントで詳細を見ることをお勧めします。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/ecto/changesets.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/ecto/basics/" title="基本">← 基本</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/ecto/associations/" title="アソシエーション">アソシエーション →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/ecto/changesets/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/changesets/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/ecto/changesets/" title="ギリシャ語">gr</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/changesets/" title="ポルトガル語">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/changesets/" title="ロシア語 / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/changesets/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/ecto/changesets/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/collections/">2. コレクション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/modules/">8. モジュール</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-distribution/">7. OTPディストリビューション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">2. チェンジセット</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/querying/">4. クエリ</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

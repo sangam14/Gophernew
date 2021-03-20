@@ -1,0 +1,1145 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/basics/collections/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/collections/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ta" href="/ta/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/collections/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/collections/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/basics/collections/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>コレクション &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/basics/collections/&title=コレクション&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/basics/collections/&via=elixirschool&text=ElixirSchool: コレクション&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/basics/collections/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/basics/collections/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: コレクション" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/basics/collections/&title=ElixirSchool: コレクション&description=Check out 'コレクション' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: コレクション&body=Check out 'コレクション' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/basics/collections/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  コレクション
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    この和訳は最新です。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>リスト、タプル、キーワードリスト、マップ。</p>
+
+<h2>目次</h2>
+<div id="toc"></div>
+
+<h2 id="リスト">リスト</h2>
+
+<p>リストは値の単純なコレクションで、複数の型を含むことができます。また、一意ではない値を含むことができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Elixirはリストコレクションを連結リストとして実装しています。すなわちリストの長さを得るのは線形時間(<code class="highlighter-rouge">O(n)</code>)の処理となります。このことから、リスト先頭への追加はほとんどの場合にリスト末尾への追加より高速です:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+<span class="c1"># リスト先頭への追加(高速)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="s2">"π"</span> <span class="o">|</span> <span class="n">list</span><span class="p">]</span>
+<span class="p">[</span><span class="s2">"π"</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+<span class="c1"># リスト末尾への追加(低速)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">++</span> <span class="p">[</span><span class="s2">"Cherry"</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Cherry"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="リストの連結">リストの連結</h3>
+
+<p>リストの連結には <code class="highlighter-rouge">++/2</code> 演算子を用います:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">++</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>上記の名前(<code class="highlighter-rouge">++/2</code>)の形式についての追記:
+Elixir(とその土台のErlang)において、関数や演算子の名前は2つの部分、与えられた名前(ここでは <code class="highlighter-rouge">++</code>)とその <em>アリティ</em> から成ります。アリティはElixir(とErlang)のコードについて説明するときの中核となるものです。アリティは関数や演算子が取る引数の数(この場合は2)です。名前とアリティはスラッシュで繋げられます。後ほどより詳しく扱いますが、この知識は今のところこの表記法を理解する助けになるでしょう。</p>
+
+<h3 id="リストの減算">リストの減算</h3>
+
+<p>減算に対応するために <code class="highlighter-rouge">--/2</code> 演算子が用意されています。存在しない値を引いてしまっても安全です:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="s2">"foo"</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="mi">42</span><span class="p">]</span> <span class="o">--</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">]</span>
+<span class="p">[</span><span class="s2">"foo"</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>重複した値に注意してください。
+右辺の要素のそれぞれに対し、左辺の要素のうち初めて登場した同じ値が順次削除されます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">--</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p><strong>参考:</strong> リストの減算の値のマッチには <a href="../basics/#comparison">strict comparison</a> が使われています。例えば:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">--</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">]</span> <span class="o">--</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">]</span>
+<span class="p">[]</span>
+</code></pre></div></div>
+
+<h3 id="頭部--尾部">頭部 / 尾部</h3>
+
+<p>リストを扱う際には、よくリストの頭部と尾部を利用したりします。頭部はそのリストの最初の要素で、尾部は残りの要素になります。Elixirはこれらを扱うために、 <code class="highlighter-rouge">hd</code> と <code class="highlighter-rouge">tl</code> という2つの便利な関数を用意しています:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">hd</span> <span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+<span class="mf">3.14</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">tl</span> <span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+<span class="p">[</span><span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>前述した関数に加えて、リストを頭部と尾部に分けるのに<a href="../pattern-matching/">パターンマッチング</a>やcons演算子(<code class="highlighter-rouge">|</code>)を使うこともできます。このパターンについては後のレッスンで取り上げます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">head</span>
+<span class="mf">3.14</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">tail</span>
+<span class="p">[</span><span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="タプル">タプル</h2>
+
+<p>タプルはリストに似ていますが、各要素はメモリ上に隣接して格納されます。
+このため、タプルの長さを得るのは高速ですが、修正を行うのは高コストとなります。というのも、新しいタプルは全ての要素がメモリにコピーされるからです。タプルは波括弧を用いて定義されます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">{</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">}</span>
+<span class="p">{</span><span class="mf">3.14</span><span class="p">,</span> <span class="ss">:pie</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>タプルは関数から補助的な情報を返す仕組みとしてよく利用されます。この便利さは、パターンマッチングについて扱う時により明らかになるでしょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">"path/to/existing/file"</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"... contents ..."</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">"path/to/unknown/file"</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:enoent</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="キーワードリスト">キーワードリスト</h2>
+
+<p>キーワードリストとマップはElixirの連想コレクションです。Elixirでは、キーワードリストは最初の要素がアトムのタプルからなる特別なリストで、リストと同様の性能になります:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">]</span>
+<span class="p">[</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">[{</span><span class="ss">:foo</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">},</span> <span class="p">{</span><span class="ss">:hello</span><span class="p">,</span> <span class="s2">"world"</span><span class="p">}]</span>
+<span class="p">[</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>キーワードリストの重要性は次の3つの特徴によって強調づけられています:</p>
+
+<ul>
+  <li>キーはアトムです。</li>
+  <li>キーは順序付けされています。</li>
+  <li>キーの一意性は保証されません。</li>
+</ul>
+
+<p>こうした理由から、キーワードリストは関数にオプションを渡すために非常に良く用いられます。</p>
+
+<h2 id="マップ">マップ</h2>
+
+<p>Elixirではマップは”花形の”キーバリューストアです。
+キーワードリストとは違ってどんな型のキーも使え、順序付けされません。
+マップは <code class="highlighter-rouge">%{}</code> 構文で定義することができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span> <span class="o">=&gt;</span> <span class="ss">:world</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span> <span class="o">=&gt;</span> <span class="ss">:world</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">[</span><span class="ss">:foo</span><span class="p">]</span>
+<span class="s2">"bar"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">[</span><span class="s2">"hello"</span><span class="p">]</span>
+<span class="ss">:world</span>
+</code></pre></div></div>
+
+<p>Elixir 1.2では変数をマップのキーにすることができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">"hello"</span>
+<span class="s2">"hello"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="n">key</span> <span class="o">=&gt;</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="p">%{</span><span class="s2">"hello"</span> <span class="o">=&gt;</span> <span class="s2">"world"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>重複したキーが追加された場合は、前の値が置き換えられます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="s2">"hello world"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"hello world"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>上記の出力からわかるように、アトムのキーだけを含んだマップには特別な構文があります:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span> <span class="o">==</span> <span class="p">%{</span><span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">:hello</span> <span class="o">=&gt;</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<p>加えて、アトムのキーにアクセスするための特別な構文もあります:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">.</span><span class="n">hello</span>
+<span class="s2">"world"</span>
+</code></pre></div></div>
+
+<p>マップのもう一つの興味深い特性は、マップの更新のための固有の構文があることです(注: 更新と言っていますが、新しいmapが作成されます):</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="n">map</span> <span class="o">|</span> <span class="ss">foo:</span> <span class="s2">"baz"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"baz"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>注意</strong>: この構文は、マップに既に存在するキーを更新する場合にのみ機能します！キーが存在しない場合、 <code class="highlighter-rouge">KeyError</code> が発生します。</p>
+
+<p>新しいキーを作成するには、代わりに <a href="https://hexdocs.pm/elixir/Map.html#put/3"><code class="highlighter-rouge">Map.put/3</code></a> を使用します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="n">map</span> <span class="o">|</span> <span class="ss">foo:</span> <span class="s2">"baz"</span><span class="p">}</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">KeyError</span><span class="p">)</span> <span class="n">key</span> <span class="ss">:foo</span> <span class="ow">not</span> <span class="n">found</span> <span class="ow">in</span><span class="p">:</span> <span class="p">%{</span><span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+    <span class="p">(</span><span class="n">stdlib</span><span class="p">)</span> <span class="ss">:maps</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="ss">:foo</span><span class="p">,</span> <span class="s2">"baz"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">})</span>
+    <span class="p">(</span><span class="n">stdlib</span><span class="p">)</span> <span class="n">erl_eval</span><span class="o">.</span><span class="ss">erl:</span><span class="mi">259</span><span class="p">:</span> <span class="n">anonymous</span> <span class="k">fn</span><span class="o">/</span><span class="mi">2</span> <span class="ow">in</span> <span class="ss">:erl_eval</span><span class="o">.</span><span class="n">expr</span><span class="o">/</span><span class="mi">5</span>
+    <span class="p">(</span><span class="n">stdlib</span><span class="p">)</span> <span class="n">lists</span><span class="o">.</span><span class="ss">erl:</span><span class="mi">1263</span><span class="p">:</span> <span class="ss">:lists</span><span class="o">.</span><span class="n">foldl</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="ss">:foo</span><span class="p">,</span> <span class="s2">"baz"</span><span class="p">)</span>
+<span class="p">%{</span><span class="ss">foo:</span> <span class="s2">"baz"</span><span class="p">,</span> <span class="ss">hello:</span> <span class="s2">"world"</span><span class="p">}</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/basics/collections.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/basics/basics/" title="基本">← 基本</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/basics/enum/" title="Enum">Enum →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/collections/" title="ブルガリア語">bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/collections/" title="ベンガル語">bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/collections/" title="ドイツ語">de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/collections/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/collections/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/collections/" title="フランス語 / Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/collections/" title="ギリシャ語">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/collections/" title="インドネシア語 / Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/collections/" title="イタリア語">it</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/collections/" title="韓国語">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/collections/" title="マレーシア語">ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/collections/" title="ノルウェー語">no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/collections/" title="ポーランド語">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/collections/" title="ポルトガル語">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/collections/" title="ロシア語 / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/collections/" title="スロバキア語">sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/ta/lessons/basics/collections/" title="ターミル語">ta</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/collections/" title="タイ語 / ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/collections/" title="トルコ語">tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/collections/" title="ウクライナ語">uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/collections/" title="ベトナム語">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/collections/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/collections/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">2. コレクション</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/modules/">8. モジュール</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-distribution/">7. OTPディストリビューション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/changesets/">2. チェンジセット</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/querying/">4. クエリ</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

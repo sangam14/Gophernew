@@ -1,0 +1,897 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ko">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="프로그래밍 언어 Elixir 배우기">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ko/lessons/advanced/otp-concurrency/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ko">
+  <meta property="og:description" content="프로그래밍 언어 Elixir 배우기">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/otp-concurrency/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/otp-concurrency/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/otp-concurrency/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ko/lessons/advanced/otp-concurrency/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>OTP 동시성 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ko/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ko/lessons/advanced/otp-concurrency/&title=OTP 동시성&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ko/lessons/advanced/otp-concurrency/&via=elixirschool&text=ElixirSchool: OTP 동시성&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ko/lessons/advanced/otp-concurrency/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ko/lessons/advanced/otp-concurrency/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: OTP 동시성" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ko/lessons/advanced/otp-concurrency/&title=ElixirSchool: OTP 동시성&description=Check out 'OTP 동시성' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: OTP 동시성&body=Check out 'OTP 동시성' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ko/lessons/advanced/otp-concurrency/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  OTP 동시성
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      이 번역의 일부는 유효하지 않을 수 있습니다.<br/>
+    
+
+    마지막 갱신 이후로 원본 문서에 사소한 변경사항이 있습니다.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>지난 강의에서는 Elixir의 동시성에 대해 살펴보았습니다만, 더 정밀한 조작이 필요한 경우가 있습니다. 그럴 때에는 Elixir의 바탕이 된 OTP 비헤이비어를 사용할 수 있습니다.</p>
+
+<p>이번 강의에서는 가장 큰 부분인 GenServer에 대해서 다루겠습니다.</p>
+
+<h2>목차</h2>
+<div id="toc"></div>
+
+<h2 id="genserver">GenServer</h2>
+
+<p>OTP 서버는 여러 콜백을 구현한 GenServer 비헤이비어가 포함된 모듈입니다. GenServer는 기본적으로 각 반복마다 한 요청을 처리해 갱신된 상태를 넘기는 반복문으로 구성됩니다.</p>
+
+<p>GenServer API를 나타내기 위해, 값을 저장하고 빼낼 수 있는 기초적인 큐(queue)를 구현해보겠습니다.</p>
+
+<p>GenServer를 시작하기 위해, 기동 하고 초기화 처리를 해야 합니다. 대부분의 경우, 프로세스를 연결해야 하므로 <code class="highlighter-rouge">GenServer.start_link/3</code>를 사용할 수 있습니다. 방금 언급한 함수를 이용할 때, 시작할 GenServer 모듈, 초기 인자, 그리고 GenServer 옵션들을 넘깁니다. 반환되는 값을 통해 초기 상태를 결정하는 <code class="highlighter-rouge">GenServer.init/1</code>로 인자들이 넘겨지게 될 것입니다. 넘겨지는 인자가 초기 상태가 되는 다음의 예제를 보겠습니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  큐로 프로세스를 연결하세요. 이것은 헬퍼 함수 입니다.
+  """</span>
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.init/1 callback
+  """</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="동기-함수">동기 함수</h3>
+
+<p>GenServer와 동기적(함수를 호출하여 응답을 기다림)으로 데이터를 주고 받아야 할 때가 종종 있습니다. 동기 요청을 다루기 위해, <code class="highlighter-rouge">GenServer.handle_call/3</code> 콜백을 구현해야 합니다. 이는 요청, 함수를 호출하는 프로세스의 PID, 현재 상태를 인자로 가집니다. <code class="highlighter-rouge">{:reply, response, state}</code> 같은 튜플을 응답으로 반환하길 기대합니다.</p>
+
+<p>패턴매칭을 이용하여, 다양한 요청과 상태에 따라 콜백을 정의할 수 있습니다. <a href="https://hexdocs.pm/elixir/GenServer.html#c:handle_call/3"><code class="highlighter-rouge">GenServer.handle_call/3</code></a> 문서에서 허용되는 반환 값의 전체 목록을 확인할 수 있습니다.</p>
+
+<p>현재 큐의 상태를 보여주는 기능과 값을 제거하는 기능을 추가해, 동기 응답이 어떻게 동작하는지 보죠.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="c1">### GenServer API</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.init/1 callback
+  """</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.handle_call/3 callback
+  """</span>
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:dequeue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="p">[</span><span class="n">value</span> <span class="o">|</span> <span class="n">state</span><span class="p">])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:dequeue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="p">[]),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="no">nil</span><span class="p">,</span> <span class="p">[]}</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:queue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+
+  <span class="c1">### Client API / Helper functions</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">queue</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:queue</span><span class="p">)</span>
+  <span class="k">def</span> <span class="n">dequeue</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:dequeue</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>이제 SimpleQueue를 시작해 새로만든 dequeue 기능을 테스트해봅시다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">start_link</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.90.0&gt;}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">dequeue</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">dequeue</span>
+<span class="mi">2</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">queue</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="비동기-함수">비동기 함수</h3>
+
+<p>비동기적인 요청은 <code class="highlighter-rouge">handle_cast/2</code> 콜백으로 다룰 수 있습니다. <code class="highlighter-rouge">handle_call/3</code>처럼 작동하지만, 함수를 호출하는 프로세스를 인자로 받지 않으며, 응답도 보내지 않습니다.</p>
+
+<p>enqueue 기능을 비동기적으로 구현하여, 실행 중인 프로세스를 블록하지 않고 큐를 갱신해보겠습니다.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="c1">### GenServer API</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.init/1 callback
+  """</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.handle_call/3 callback
+  """</span>
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:dequeue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="p">[</span><span class="n">value</span> <span class="o">|</span> <span class="n">state</span><span class="p">])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:dequeue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="p">[]),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="no">nil</span><span class="p">,</span> <span class="p">[]}</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:queue</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  GenServer.handle_cast/2 callback
+  """</span>
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">({</span><span class="ss">:enqueue</span><span class="p">,</span> <span class="n">value</span><span class="p">},</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span> <span class="o">++</span> <span class="p">[</span><span class="n">value</span><span class="p">]}</span>
+  <span class="k">end</span>
+
+  <span class="c1">### Client API / Helper functions</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">queue</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:queue</span><span class="p">)</span>
+  <span class="k">def</span> <span class="n">enqueue</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="p">{</span><span class="ss">:enqueue</span><span class="p">,</span> <span class="n">value</span><span class="p">})</span>
+  <span class="k">def</span> <span class="n">dequeue</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:dequeue</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>새로 만든 기능을 사용해보도록 하죠.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">start_link</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.100.0&gt;}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">queue</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="ss">:ok</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">queue</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>자세한 내용은 <a href="https://hexdocs.pm/elixir/GenServer.html#content">GenServer</a> 공식 문서에서 확인해보세요.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ko/lessons/advanced/otp-concurrency.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ko/lessons/advanced/concurrency/" title="동시성">← 동시성</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ko/lessons/advanced/otp-supervisors/" title="OTP 슈퍼바이저">OTP 슈퍼바이저 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/advanced/otp-concurrency/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/otp-concurrency/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/otp-concurrency/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/otp-concurrency/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/otp-concurrency/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/otp-concurrency/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <strong >ko</strong>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/otp-concurrency/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/otp-concurrency/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/otp-concurrency/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/otp-concurrency/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/otp-concurrency/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/otp-concurrency/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>프로그래밍 언어 Elixir 배우기</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ko/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">기초</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/basics/">1. 기본</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/collections/">2. 컬렉션</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/pattern-matching/">4. 패턴 매칭</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/control-structures/">5. 제어 구조</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/functions/">6. 함수</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/pipe-operator/">7. 파이프 연산자</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/modules/">8. 모듈</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/sigils/">10. 시길</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/documentation/">11. 문서화</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/testing/">12. 테스트</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/strings/">14. 문자열</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/mix-tasks/">16. 커스텀 Mix 태스크</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">심화</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/erlang/">1. Erlang 상호 운용</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/error-handling/">2. 에러 처리</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/escripts/">3. 실행 파일</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/concurrency/">4. 동시성</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. OTP 동시성</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/otp-supervisors/">6. OTP 슈퍼바이저</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/metaprogramming/">8. 메타 프로그래밍</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/umbrella-projects/">9. 엄브렐라 프로젝트</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/typespec/">10. 스펙과 타입</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/behaviours/">11. 비헤이비어</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/advanced/protocols/">13. 프로토콜</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">활용</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/specifics/debugging/">5. 디버깅</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">라이브러리</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ko/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ko/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ko/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

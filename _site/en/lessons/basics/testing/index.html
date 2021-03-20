@@ -1,0 +1,1086 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="The premier destination for learning and mastering Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/en/lessons/basics/testing/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="en">
+  <meta property="og:description" content="The premier destination for learning and mastering Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/testing/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/testing/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/en/lessons/basics/testing/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Testing &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/en/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/en/lessons/basics/testing/&title=Testing&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/en/lessons/basics/testing/&via=elixirschool&text=ElixirSchool: Testing&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/en/lessons/basics/testing/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/en/lessons/basics/testing/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Testing" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/en/lessons/basics/testing/&title=ElixirSchool: Testing&description=Check out 'Testing' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Testing&body=Check out 'Testing' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/en/lessons/basics/testing/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+      <h1>Testing</h1>
+    
+  </header>
+  <div class="content">
+    <p>Testing is an important part of developing software.
+In this lesson we’ll look at how to test our Elixir code with ExUnit and some best practices for doing so.</p>
+
+<h2>Table of Contents</h2>
+<div id="toc"></div>
+
+<h2 id="exunit">ExUnit</h2>
+
+<p>Elixir’s built-in test framework is ExUnit and it includes everything we need to thoroughly test our code.
+Before moving on it is important to note that tests are implemented as Elixir scripts so we need to use the <code class="highlighter-rouge">.exs</code> file extension.
+Before we can run our tests we need to start ExUnit with <code class="highlighter-rouge">ExUnit.start()</code>, this is most commonly done in <code class="highlighter-rouge">test/test_helper.exs</code>.</p>
+
+<p>When we generated our example project in the previous lesson, mix was helpful enough to create a simple test for us, we can find it at <code class="highlighter-rouge">test/example_test.exs</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ExampleTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="n">doctest</span> <span class="no">Example</span>
+
+  <span class="n">test</span> <span class="s2">"greets the world"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span> <span class="o">==</span> <span class="ss">:world</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We can run our project’s tests with <code class="highlighter-rouge">mix test</code>.
+If we do that now we should see an output similar to:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+
+Finished <span class="k">in </span>0.03 seconds
+2 tests, 0 failures
+</code></pre></div></div>
+
+<p>Why are there two dots in the test output? Besides the test in <code class="highlighter-rouge">test/example_test.exs</code>, Mix also generated a doctest in <code class="highlighter-rouge">lib/example.ex</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="sd">"""
+  Documentation for Example.
+  """</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  Hello world.
+
+  ## Examples
+
+      iex&gt; Example.hello
+      :world
+
+  """</span>
+  <span class="k">def</span> <span class="n">hello</span> <span class="k">do</span>
+    <span class="ss">:world</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="assert">assert</h3>
+
+<p>If you’ve written tests before then you’re familiar with <code class="highlighter-rouge">assert</code>; in some frameworks <code class="highlighter-rouge">should</code> or <code class="highlighter-rouge">expect</code> fill the role of <code class="highlighter-rouge">assert</code>.</p>
+
+<p>We use the <code class="highlighter-rouge">assert</code> macro to test that the expression is true.
+In the event that it is not, an error will be raised and our tests will fail.
+To test a failure let’s change our sample and then run <code class="highlighter-rouge">mix test</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ExampleTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="n">doctest</span> <span class="no">Example</span>
+
+  <span class="n">test</span> <span class="s2">"greets the world"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span> <span class="o">==</span> <span class="ss">:word</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now we should see a different kind of output:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  1<span class="o">)</span> <span class="nb">test </span>greets the world <span class="o">(</span>ExampleTest<span class="o">)</span>
+     <span class="nb">test</span>/example_test.exs:5
+     Assertion with <span class="o">==</span> failed
+     code:  assert Example.hello<span class="o">()</span> <span class="o">==</span> :word
+     left:  :world
+     right: :word
+     stacktrace:
+       <span class="nb">test</span>/example_test.exs:6 <span class="o">(</span><span class="nb">test</span><span class="o">)</span>
+
+<span class="nb">.</span>
+
+Finished <span class="k">in </span>0.03 seconds
+2 tests, 1 failures
+</code></pre></div></div>
+
+<p>ExUnit will tell us exactly where our failed assertions are, what the expected value was, and what the actual value was.</p>
+
+<h3 id="refute">refute</h3>
+
+<p><code class="highlighter-rouge">refute</code> is to <code class="highlighter-rouge">assert</code> as <code class="highlighter-rouge">unless</code> is to <code class="highlighter-rouge">if</code>.
+Use <code class="highlighter-rouge">refute</code> when you want to ensure a statement is always false.</p>
+
+<h3 id="assert_raise">assert_raise</h3>
+
+<p>Sometimes it may be necessary to assert that an error has been raised.
+We can do this with <code class="highlighter-rouge">assert_raise</code>.
+We’ll see an example of <code class="highlighter-rouge">assert_raise</code> in the next lesson on Plug.</p>
+
+<h3 id="assert_receive">assert_receive</h3>
+
+<p>In Elixir, applications consist of actors/processes that send messages to each other, therefore you will want to test the messages being sent.
+Since ExUnit runs in its own process it can receive messages just like any other process and you can assert on it with the <code class="highlighter-rouge">assert_received</code> macro:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SendingProcess</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">run</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="ss">:ping</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">defmodule</span> <span class="no">TestReceive</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">test</span> <span class="s2">"receives ping"</span> <span class="k">do</span>
+    <span class="no">SendingProcess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">self</span><span class="p">())</span>
+    <span class="n">assert_received</span> <span class="ss">:ping</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">assert_received</code> does not wait for messages, with <code class="highlighter-rouge">assert_receive</code> you can specify a timeout.</p>
+
+<h3 id="capture_io-and-capture_log">capture_io and capture_log</h3>
+
+<p>Capturing an application’s output is possible with <code class="highlighter-rouge">ExUnit.CaptureIO</code> without changing the original application.
+Simply pass the function generating the output in:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">OutputTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">import</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">CaptureIO</span>
+
+  <span class="n">test</span> <span class="s2">"outputs Hello World"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">capture_io</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Hello World"</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"Hello World</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">ExUnit.CaptureLog</code> is the equivalent for capturing output to <code class="highlighter-rouge">Logger</code>.</p>
+
+<h2 id="test-setup">Test Setup</h2>
+
+<p>In some instances it may be necessary to perform setup before our tests.
+To accomplish this we can use the <code class="highlighter-rouge">setup</code> and <code class="highlighter-rouge">setup_all</code> macros.
+<code class="highlighter-rouge">setup</code> will be run before each test and <code class="highlighter-rouge">setup_all</code> once before the suite.
+It is expected that they will return a tuple of <code class="highlighter-rouge">{:ok, state}</code>, the state will be available to our tests.</p>
+
+<p>For the sake of example, we’ll change our code to use <code class="highlighter-rouge">setup_all</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ExampleTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="n">doctest</span> <span class="no">Example</span>
+
+  <span class="n">setup_all</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="ss">recipient:</span> <span class="ss">:world</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">"greets"</span><span class="p">,</span> <span class="n">state</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span> <span class="o">==</span> <span class="n">state</span><span class="p">[</span><span class="ss">:recipient</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="test-mocks">Test Mocks</h2>
+
+<p>We want to be careful of how we think about “mocking”. When we mock certain interactions by creating unique function stubs in a given test example, we establish a dangerous pattern. We couple the run of our tests to the behavior of a particular dependency, like an API client. We avoid defining shared behavior among our stubbed functions. We make it harder to iterate on our tests.</p>
+
+<p>Instead, the Elixir community encourages us to change the way we think about test mocks; that we think about a mock as a noun, instead of a verb.</p>
+
+<p>For a longer discussion on this topic, see this <a href="http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/">excellent article</a>.</p>
+
+<p>The gist is, that instead of mocking away dependencies for testing (mock as a <em>verb</em>), it has many advantages to explicitly define interfaces (behaviors) for code outside your application and use mock (as a <em>noun</em>) implementations in your code for testing.</p>
+
+<p>To leverage this “mocks-as-a-noun” pattern you can:</p>
+
+<ul>
+  <li>Define a behaviour that is implemented both by the entity for which you’d like to define a mock <em>and</em> the module that will act as the mock.</li>
+  <li>Define the mock module</li>
+  <li>Configure your application code to use the mock in the given test or test environment, for example by passing the mock module into a function call as an argument or by configuring your application to use the mock module in the test environment.</li>
+</ul>
+
+<p>For a deeper dive into test mocks in Elixir, and a look at the Mox library that allows you to define concurrent mock, check out our lesson on Mox <a href="../../libraries/mox">here</a></p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/en/lessons/basics/testing.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/basics/documentation/" title="Documentation">← Documentation</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/basics/comprehensions/" title="Comprehensions">Comprehensions →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/testing/" title="Bengali">bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/testing/" title="German">de</a>
+        
+      
+        
+        
+
+        
+          <strong title="English">en</strong>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/testing/" title="Spanish / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/testing/" title="French / Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/testing/" title="Greek">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/testing/" title="Indonesian / Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/testing/" title="Japanese / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/testing/" title="Korean">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/testing/" title="Malaysian">ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/testing/" title="Norwegian">no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/testing/" title="Polish">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/testing/" title="Portuguese">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/testing/" title="Russian / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/testing/" title="Slovak">sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/testing/" title="Turkish">tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/testing/" title="Vietnamese">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/testing/" title="Chinese">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/testing/" title="Traditional Chinese">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/en/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">12. Testing</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

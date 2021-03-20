@@ -1,0 +1,903 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/til-ecto-select-merge/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/til-ecto-select-merge/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>TIL How to Select Merge with Ecto.Query &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/til-ecto-select-merge/&title=TIL How to Select Merge with Ecto.Query&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/til-ecto-select-merge/&via=elixirschool&text=ElixirSchool: TIL How to Select Merge with Ecto.Query&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/til-ecto-select-merge/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/til-ecto-select-merge/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: TIL How to Select Merge with Ecto.Query" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/til-ecto-select-merge/&title=ElixirSchool: TIL How to Select Merge with Ecto.Query&description=Check out 'TIL How to Select Merge with Ecto.Query' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: TIL How to Select Merge with Ecto.Query&body=Check out 'TIL How to Select Merge with Ecto.Query' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/til-ecto-select-merge/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">TIL How to Select Merge with Ecto.Query</h1>
+    <p><a href="/blog/years/2019/">23 Aug 2019</a> · by 
+
+    <a href="https://kate-travers.com/" target="_blank" rel="nofollow noopener">Kate Travers</a> in <a href="/blog/categories/til/">Today I Learned</a></p>
+  </header>
+  <div class="content">
+    <p>Working with Elixir and Ecto, I’ve run into scenarios where I needed to retrieve data from a table plus maybe a field or two from an unassociated table. In the past, whenever this happened, I’d usually spin up something I wasn’t totally satisfied with – maybe updating the schema(s), breaking it up into multiple queries, or building a multi-select statement if I was feeling fancy.</p>
+
+<p>Happily, today I learned there’s a better way. You can accomplish that same end result in a single query expression with <code class="highlighter-rouge">Ecto.Query#select_merge/3</code>.</p>
+
+<p>Let’s run through an example to see it in action.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>Say you work at a school with an admissions department, and you’ve been tasked with displaying an event log showing all the events related to a given admission, organized into three columns: 1) date, 2) action taken, and 3) who the action was taken by.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Action</th>
+      <th>Taken By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8/1/2019</td>
+      <td>Student Admitted</td>
+      <td>Albus Dumbledore</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To start with, we have an <code class="highlighter-rouge">AdmissionEvent</code> schema that looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"admission_events"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:action</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admission_id</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admitter_uuid</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">UUID</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:occurred_at</span><span class="p">,</span> <span class="ss">:naive_datetime</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>…and a User schema that looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:uuid</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">UUID</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:full_name</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>…and just for the sake of completeness, a super simple Admission schema:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Admission</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"admission"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admittee_uuid</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">UUID</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admitter_uuid</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">UUID</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admitted_at</span><span class="p">,</span> <span class="ss">:naive_datetime</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The problem here is the admitter’s full name lives on <code class="highlighter-rouge">User</code>, which isn’t currently associated with <code class="highlighter-rouge">AdmissionEvent</code>. So if we did a straight-forward select query, we’d end up with the admission events we need to populate the table, but not the admitters’ full names.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">from:</span> <span class="mi">2</span><span class="p">]</span>
+  <span class="n">alias</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Admission</span>
+  <span class="n">alias</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span>
+
+  <span class="n">schema</span> <span class="s2">"admission_events"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:action</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admission_id</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admitter_uuid</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">UUID</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:occurred_at</span><span class="p">,</span> <span class="ss">:naive_datetime</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">for_admission</span><span class="p">(</span><span class="n">query</span> <span class="p">\\</span> <span class="no">AdmissionEvent</span><span class="p">,</span> <span class="p">%</span><span class="no">Admission</span><span class="p">{}</span> <span class="o">=</span> <span class="n">admission</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">from</span><span class="p">(</span><span class="n">ae</span> <span class="ow">in</span> <span class="n">query</span><span class="p">,</span>
+      <span class="ss">where:</span> <span class="n">ae</span><span class="o">.</span><span class="n">admission_id</span> <span class="o">==</span> <span class="o">^</span><span class="n">admission</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+      <span class="ss">order_by:</span> <span class="p">[</span><span class="ss">desc:</span> <span class="n">ae</span><span class="o">.</span><span class="n">occurred_at</span><span class="p">]</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Taking our query function for a spin...</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">admission</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Admission</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">AdmissionEvent</span><span class="o">.</span><span class="n">for_admission</span><span class="p">(</span><span class="n">admission</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="p">[</span>
+  <span class="p">%</span><span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"admission_events"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">action:</span> <span class="s2">"Student Admitted"</span><span class="p">,</span>
+    <span class="ss">admission_id:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="ss">admitter_uuid:</span> <span class="s2">"7edd4d7f-a790-41f9-b4ef-16f1dc3b33ea"</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">occurred_at:</span> <span class="sx">~N[2019-07-29 02:22:18]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>So, how do we want to go about getting the full name? We’ve got lots of options to choose from, but for this post, we’ll compare two: one folks might reach for first (adding an association and preloading the data) and one we’ll hopefully reach for more often moving forward (<code class="highlighter-rouge">Ecto.Query#select_merge/3</code>).</p>
+
+<h2 id="option-1-add-an-association-and-preload-the-data">Option 1: Add an Association and Preload the Data</h2>
+
+<p>If we associate User and AdmissionEvent, then we can preload the associated User record and read the full name directly from there.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">from:</span> <span class="mi">2</span><span class="p">]</span>
+  <span class="n">alias</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span>
+  <span class="n">alias</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">User</span>
+
+  <span class="n">schema</span> <span class="s2">"admission_events"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:action</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admission_id</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admitter_uuid</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">UUID</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:occurred_at</span><span class="p">,</span> <span class="ss">:naive_datetime</span><span class="p">)</span>
+
+    <span class="c1"># New association</span>
+    <span class="n">belongs_to</span><span class="p">(</span><span class="ss">:admitter</span><span class="p">,</span> <span class="no">User</span><span class="p">,</span> <span class="ss">foreign_key:</span> <span class="ss">:uuid</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="n">alias</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span>
+
+  <span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:uuid</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">UUID</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:full_name</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+
+    <span class="c1"># New association</span>
+    <span class="n">has_many</span><span class="p">(</span><span class="ss">:admission_events</span><span class="p">,</span> <span class="no">AdmissionEvent</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Trying out our new association...</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">admission</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Admission</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">events</span> <span class="o">=</span> <span class="no">AdmissionEvent</span><span class="o">.</span><span class="n">for_admission</span><span class="p">(</span><span class="n">admission</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">preload</span><span class="p">(</span><span class="ss">:admitter</span><span class="p">)</span>
+<span class="p">[</span>
+  <span class="p">%</span><span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"admission_events"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">action:</span> <span class="s2">"Student Admitted"</span><span class="p">,</span>
+    <span class="ss">admission_id:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="ss">admitter:</span> <span class="p">%</span><span class="no">Registrar</span><span class="o">.</span><span class="no">User</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"users"</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="s2">"Albus Dumbledore"</span><span class="p">,</span>
+      <span class="ss">uuid:</span> <span class="s2">"7edd4d7f-a790-41f9-b4ef-16f1dc3b33ea"</span>
+    <span class="p">},</span>
+    <span class="ss">admitter_uuid:</span> <span class="s2">"7edd4d7f-a790-41f9-b4ef-16f1dc3b33ea"</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">occurred_at:</span> <span class="sx">~N[2019-07-29 02:22:18]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">event</span> <span class="o">=</span> <span class="no">List</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">event</span><span class="o">.</span><span class="n">admitter</span><span class="o">.</span><span class="n">name</span>
+<span class="s2">"Albus Dumbledore"</span>
+</code></pre></div></div>
+
+<p>This approach gets the job done, but it’s a little heavy. We only need the admitter’s full name, so why retrieve an entire <code class="highlighter-rouge">User</code> struct? You can also see how this pattern could lead to a super cluttered User schema. Right now it has many <code class="highlighter-rouge">admission_events</code>, but soon it could have many <code class="highlighter-rouge">application_events</code>, <code class="highlighter-rouge">interview_events</code>, <code class="highlighter-rouge">billing_events</code>, etc.</p>
+
+<h2 id="option-2--select-merge-">Option 2: ✨ Select Merge ✨</h2>
+
+<p><code class="highlighter-rouge">Ecto.Query#select_merge/3</code> gives us an option that’s much more succinct and precise. Check out this slickness:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">from:</span> <span class="mi">2</span><span class="p">]</span>
+  <span class="n">alias</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Admission</span>
+  <span class="n">alias</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">User</span>
+  <span class="n">alias</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span>
+
+  <span class="n">schema</span> <span class="s2">"admission_events"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:action</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admission_id</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admitter_uuid</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">UUID</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:occurred_at</span><span class="p">,</span> <span class="ss">:naive_datetime</span><span class="p">)</span>
+
+    <span class="c1">###### STEP ONE #######</span>
+    <span class="c1">#  Add Virtual Field  #</span>
+    <span class="c1">#######################</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:admitter_name</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">for_admission</span><span class="p">(</span><span class="n">query</span> <span class="p">\\</span> <span class="no">AdmissionEvent</span><span class="p">,</span> <span class="p">%</span><span class="no">Admission</span><span class="p">{}</span> <span class="o">=</span> <span class="n">admission</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">from</span><span class="p">(</span><span class="n">ae</span> <span class="ow">in</span> <span class="n">query</span><span class="p">,</span>
+      <span class="ss">where:</span> <span class="n">ae</span><span class="o">.</span><span class="n">admission_id</span> <span class="o">==</span> <span class="o">^</span><span class="n">admission</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+      <span class="ss">order_by:</span> <span class="p">[</span><span class="ss">desc:</span> <span class="n">ae</span><span class="o">.</span><span class="n">occurred_at</span><span class="p">],</span>
+
+      <span class="c1">#### STEP TWO ####</span>
+      <span class="c1">#  Join on User  #</span>
+      <span class="c1">##################</span>
+      <span class="ss">join:</span> <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+      <span class="ss">on:</span> <span class="n">ae</span><span class="o">.</span><span class="n">admitter_uuid</span> <span class="o">==</span> <span class="n">u</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
+
+      <span class="c1">############ STEP THREE #############</span>
+      <span class="c1">#  Select Merge into Virtual Field  #</span>
+      <span class="c1">#####################################</span>
+      <span class="ss">select_merge:</span> <span class="p">%{</span><span class="ss">admitter_name:</span> <span class="n">u</span><span class="o">.</span><span class="n">full_name</span><span class="p">}</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Trying out select merge...</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">admission</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Admission</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">AdmissionEvent</span><span class="o">.</span><span class="n">for_admission</span><span class="p">(</span><span class="n">admission</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="p">[</span>
+  <span class="p">%</span><span class="no">Registrar</span><span class="o">.</span><span class="no">Tracking</span><span class="o">.</span><span class="no">AdmissionEvent</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"admission_events"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">action:</span> <span class="s2">"Student Admitted"</span><span class="p">,</span>
+    <span class="ss">admission_id:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="ss">admitter_name:</span> <span class="s2">"Albus Dumbledore"</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">occurred_at:</span> <span class="sx">~N[2019-07-29 02:22:18]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">event</span> <span class="o">=</span> <span class="no">List</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">event</span><span class="o">.</span><span class="n">admitter_name</span>
+<span class="s2">"Albus Dumbledore"</span>
+</code></pre></div></div>
+
+<p>By adding a virtual field and populating it with <code class="highlighter-rouge">select_merge</code>, we end up with a much lighter-weight solution. We get exactly the data we need without adding any new associations, keeping our schemas decoupled. Plus we have a pattern to follow that’s a little more extensible moving forward, should we need to introduce event logs for different types of events.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p><code class="highlighter-rouge">Ecto.Query#select_merge/3</code> allows us to populate a virtual field directly within a select query, giving us all kinds of flexibility when it comes to designing schemas and composing queries.</p>
+
+<p>10/10 Would compose again</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://hexdocs.pm/ecto/Ecto.Query.html#select_merge/3">Docs</a></li>
+  <li><a href="https://github.com/elixir-ecto/ecto/blob/master/lib/ecto/query.ex#L1168-L1209">Source code</a></li>
+</ul>
+
+    
+    <div class="tags">
+      <h4 class="title">Article tags</h4>
+      
+        <span class="tag"><a href="/blog/tags/ecto/">ecto</a></span>
+      
+      </div>
+    </p>
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-08-23-til-ecto-select-merge.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/elixir-conf-eu-2019-review/" title="Reviewing Elixir Conf EU 2019" rel="prev">&laquo; Reviewing Elixir Conf EU 2019</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/elixirconf-2019-review/" title="Dispatch From ElixirConf 2019" rel="next">Dispatch From ElixirConf 2019 &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/ktravers.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/ktravers">Kate Travers</a>
+    
+    </h2>
+    <p class="content">Kate is an engineer at the Flatiron School.</p>
+    <ul class="icons">
+      
+      <li><a href="https://kate-travers.com/" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/kttravers" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/ktravers" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

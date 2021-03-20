@@ -1,0 +1,1083 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_two/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_two/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_two/&title=Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_two/&via=elixirschool&text=ElixirSchool: Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_two/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_two/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_two/&title=ElixirSchool: Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters&description=Check out 'Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters&body=Check out 'Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_two/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Instrumenting Phoenix with Telemetry Part II: Telemetry Metrics + Reporters</h1>
+    <p><a href="/blog/years/2020/">29 Apr 2020</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <h2 id="table-of-contents">Table Of Contents</h2>
+
+<p>In this series, we’re instrumenting a Phoenix app and sending metrics to StatsD with the help of Elixir and Erlang’s Telemetry offerings.</p>
+
+<ul>
+  <li><a href="https://elixirschool.com/blog/instrumenting-phoenix-with-telemetry-part-one/">Part I: Telemetry Under The Hood</a></li>
+  <li>Part II: Handling Telemetry Events with <code class="highlighter-rouge">TelemetryMetrics</code> + <code class="highlighter-rouge">TelemetryMetricsStatsd</code></li>
+  <li><a href="https://elixirschool.com/blog/instrumenting_phoenix_with_telemetry_part_three/">Part III: Observing Phoenix + Ecto Telemetry Events</a></li>
+  <li><a href="https://elixirschool.com/blog/instrumenting-phoenix-with-telemetry-part-four/">Part IV: Erlang VM Measurements with <code class="highlighter-rouge">telemetry_poller</code>, <code class="highlighter-rouge">TelemetryMetrics</code> + <code class="highlighter-rouge">TelemetryMetricsStatsd</code></a></li>
+</ul>
+
+<h2 id="intro">Intro</h2>
+
+<p>In <a href="https://elixirschool.com/blog/instrumenting-phoenix-with-telemetry-part-one/">Part I</a> of this series, we learned why observability is important and introduced Erlang’s Telemetry library. We used it to hand-roll some instrumentation for our Phoenix app, but it left us with some additional problems to solve. In this post, we’ll use Elixir’s <code class="highlighter-rouge">Telemetry.Metrics</code> and <code class="highlighter-rouge">TelemetryMetricsStatsd</code> libraries to define and send metrics to StatsD for a given Telemetry event.</p>
+
+<h2 id="recap">Recap</h2>
+
+<p>In <a href="https://elixirschool.com/blog/instrumenting-phoenix-with-telemetry-part-one/">our previous post</a>, we added some Telemetry instrumentation to our Phoenix app, <a href="https://github.com/elixirschool/telemetry-code-along/tree/part-1-solution">Quantum</a>. You can review the final code from our previous article <a href="https://github.com/elixirschool/telemetry-code-along/tree/part-1-solution">here</a>. To recap, we established a Telemetry event, <code class="highlighter-rouge">[:phoenix, :request]</code>, that we attached to a handler module, <code class="highlighter-rouge">Quantum.Telemetry.Metrics</code>. We executed this event from just one controller action–the <code class="highlighter-rouge">new</code> action of the <code class="highlighter-rouge">UserController</code>.</p>
+
+<p>From that controller action, we execute the Telemetry event with a measurement map that includes the duration of the web request along with the request <code class="highlighter-rouge">conn</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/quantum_web/controllers/user_controller.ex</span>
+<span class="k">def</span> <span class="n">new</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">start</span> <span class="o">=</span> <span class="no">System</span><span class="o">.</span><span class="n">monotonic_time</span><span class="p">()</span>
+  <span class="n">changeset</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">change_user</span><span class="p">(%</span><span class="no">User</span><span class="p">{})</span>
+  <span class="ss">:telemetry</span><span class="o">.</span><span class="n">execute</span><span class="p">([</span><span class="ss">:phoenix</span><span class="p">,</span> <span class="ss">:request</span><span class="p">],</span> <span class="p">%{</span><span class="ss">duration:</span> <span class="no">System</span><span class="o">.</span><span class="n">monotonic_time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">},</span> <span class="n">conn</span><span class="p">)</span>
+  <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">"new.html"</span><span class="p">,</span> <span class="ss">changeset:</span> <span class="n">changeset</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We handle this event in our handler module, <code class="highlighter-rouge">Quantum.Telemetry.Metric</code>, with the <code class="highlighter-rouge">handle_event/4</code> callback function. In this function we use the event data, including the duration and information in the <code class="highlighter-rouge">conn</code> to, send a set of metrics to StatsD with the help of the <code class="highlighter-rouge">Statix</code> Elixir StatsD client library:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/quantum/telemetry/metrics.ex</span>
+<span class="k">defmodule</span> <span class="no">Quantum</span><span class="o">.</span><span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span> <span class="k">do</span>
+  <span class="kn">require</span> <span class="no">Logger</span>
+  <span class="n">alias</span> <span class="no">Quantum</span><span class="o">.</span><span class="no">Telemetry</span><span class="o">.</span><span class="no">StatsdReporter</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">([</span><span class="ss">:phoenix</span><span class="p">,</span> <span class="ss">:request</span><span class="p">],</span> <span class="p">%{</span><span class="ss">duration:</span> <span class="n">dur</span><span class="p">},</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">_config</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">StatsdReporter</span><span class="o">.</span><span class="n">increment</span><span class="p">(</span><span class="s2">"phoenix.request.success"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="no">StatsdReporter</span><span class="o">.</span><span class="n">timing</span><span class="p">(</span><span class="s2">"phoenix.request.success"</span><span class="p">,</span> <span class="n">dur</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="whats-wrong-with-this">What’s Wrong With This?</h2>
+
+<p>Telemetry made it easy for us to emit an event and operate on it, but our current usage of the Telemetry library leaves a lot to be desired.</p>
+
+<p>One drawback of our current approach is that it leaves us on the hook for Telemetry event handling and metrics reporting. We had to define our own custom event handling module, manually attach that module to the given Telemetry event and define the handler’s callback function.</p>
+
+<p>In order for that callback function to report metrics to StatsD for a given event, we had to create our own custom module that uses the <code class="highlighter-rouge">Statix</code> library <em>and</em> write code that formats the metric to send to StatsD for a given Telemetry event. The mental overhead of translating Telemetry event data into the appropriate StatsD metric is costly, and that effort will have to be undertaken for every new Telemetry event we execute and handle.</p>
+
+<h2 id="we-need-help">We Need Help</h2>
+
+<p>Wouldn’t it be great if we <em>didn’t</em> have to define our own handler modules or metric reporting logic? If only there was some way to simply list the Telemetry events we care about and have them automatically reported to StatsD as the correctly formatted metric…</p>
+
+<p>This is exactly where the <code class="highlighter-rouge">Telemetry.Metrics</code> and <code class="highlighter-rouge">TelemetryMetricsStatsd</code> libraries come in!</p>
+
+<h2 id="introducing-telemetrymetrics-and-telemetrymetricsstatsd">Introducing <code class="highlighter-rouge">Telemetry.Metrics</code> and <code class="highlighter-rouge">TelemetryMetricsStatsd</code></h2>
+
+<p>The <a href="https://hexdocs.pm/telemetry_metrics/Telemetry.Metrics.html"><code class="highlighter-rouge">Telemetry.Metrics</code> library</a> provides a common interface for defining metrics based on Telemetry events. It allows us declare the set of Telemetry events that we want to handle and specify which metrics to construct for these events. It also allows us to specify an out-of-the-box reporter with which to handle and report our events to third-parties.</p>
+
+<p>This means we <em>don’t</em> have to define our own handler modules and functions and we <em>don’t</em> have to write any code responsible for reporting metrics for events to common third-party tools like StatsD. We’ll report our metrics to StatsD with the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> reporting library, but Elixir’s Telemetry family of libraries also includes a reporter for Prometheus, or you can roll your own.</p>
+
+<p>In the previous post, we added code to execute the following Telemetry event from the <code class="highlighter-rouge">new</code> action of our <code class="highlighter-rouge">UserController</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">:telemetry</span><span class="o">.</span><span class="n">execute</span><span class="p">([</span><span class="ss">:phoenix</span><span class="p">,</span> <span class="ss">:request</span><span class="p">],</span> <span class="p">%{</span><span class="ss">duration:</span> <span class="no">System</span><span class="o">.</span><span class="n">monotonic_time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">},</span> <span class="n">conn</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now, instead of handling this event with our custom handler and <code class="highlighter-rouge">Statix</code> reporter, will use <code class="highlighter-rouge">Telemetry.Metrics</code> and the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> reporter to do all of the work for us!</p>
+
+<h2 id="how-it-works">How It Works</h2>
+
+<p>Before we start writing code, let’s walk through how <code class="highlighter-rouge">Telemetry.Metrics</code> and the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> reporter work together with Erlang’s Telemetry library to handle Telemetry events.</p>
+
+<p>The <code class="highlighter-rouge">Telemetry.Metrics</code> library is responsible for specifying which Telemetry events we want to handle as metrics. It defines the list of events we care about and specifies which events should be sent to StatsD as which type of metric (for example, counter, timing, gauge etc.). It gives this list of events-as-metrics to the Telemetry reporting client, <code class="highlighter-rouge">TelemetryMetricsStatsd</code>.</p>
+
+<p>The <code class="highlighter-rouge">TelemetryMetricsStatsd</code> library is responsible for taking that list of events and attaching its own event handler module, <code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler</code> to each event via a call to <code class="highlighter-rouge">:telemetry.attach/4</code>. Recall from our first post that <code class="highlighter-rouge">:telemetry/attach/4</code> stores events and their associated handlers in an ETS table.</p>
+
+<p>Later, when a Telemetry event is executed via a call to <code class="highlighter-rouge">:telemetry.execute/3</code>, Telemetry looks up the event handler, <code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler</code>, for the given event in the ETS table and invokes it. The event handler module will format the event, metadata and any associated tags as the appropriate StatsD metric and send the resulting metric to StatsD over UDP.</p>
+
+<p>Most of this happens under the hood. We are only on the hook for defining a <code class="highlighter-rouge">Telemetry.Metrics</code> module and listing the Telemetry events we want to handle as which type of metric. That’s it!</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>You can follow along with this tutorial by cloning down the repo <a href="https://github.com/elixirschool/telemetry-code-along/tree/part-2-start">here</a>.</p>
+<ul>
+  <li>Checking out the starting state of our code on the branch <a href="https://github.com/elixirschool/telemetry-code-along/tree/part-2-start">part-2-start</a></li>
+  <li>Find the solution code on the branch <a href="https://github.com/elixirschool/telemetry-code-along/tree/part-2-solution">part-2-solution</a></li>
+</ul>
+
+<h2 id="overview">Overview</h2>
+
+<p>In order to get this Telemetry pipeline up and running, we don’t have to write too much code.</p>
+
+<p>We will:</p>
+
+<ol>
+  <li>Define a supervisor module that imports <code class="highlighter-rouge">Telemetry.Metrics</code></li>
+  <li>Define a set of metrics for the Telemetry events we want to observe using the <code class="highlighter-rouge">Telemetry.Metrics</code> metrics definition functions</li>
+  <li>Tell the supervisor to run the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> GenServer with the list of metrics we defined in the previous step</li>
+</ol>
+
+<p>Let’s do it!</p>
+
+<h2 id="setting-up-telemetrymetrics">Setting Up <code class="highlighter-rouge">Telemetry.Metrics</code></h2>
+
+<p>First, we’ll add the <code class="highlighter-rouge">Telemetry.Metrics</code> library and the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> reporter library to our application’s dependencies and run <code class="highlighter-rouge">mix deps.get</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># mix.exs</span>
+<span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:telemetry_metrics</span><span class="p">,</span> <span class="s2">"~&gt; 0.4"</span><span class="p">},</span>
+    <span class="p">{</span><span class="ss">:telemetry_metrics_statsd</span><span class="p">,</span> <span class="s2">"~&gt; 0.3.0"</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now we’re ready to define a module that imports <code class="highlighter-rouge">Telemetry.Metrics</code>.</p>
+
+<h2 id="step-1-defining-a-metrics-module">Step 1: Defining a Metrics Module</h2>
+
+<p>We’ll define a module that imports the <code class="highlighter-rouge">Telemetry.Metrics</code> library and acts as a Supervisor. Our Supervisor will start up the child GenServer provided by the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> reporter. It will start that GenServer along with an argument of the list of Telemetry events to listen for, structured as metrics, via the <code class="highlighter-rouge">:metrics</code> option.</p>
+
+<p>We’ll place our metrics module in <code class="highlighter-rouge">lib/quantum/telemetry.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Quantum</span><span class="o">.</span><span class="no">Telemetry</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Supervisor</span>
+  <span class="kn">import</span> <span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">_arg</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="no">TelemetryMetricsStatsd</span><span class="p">,</span> <span class="ss">metrics:</span> <span class="n">metrics</span><span class="p">()}</span>
+    <span class="p">]</span>
+
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">metrics</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="c1"># coming soon!</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We’ll come back to the metrics list in a bit. First, let’s teach our application to start this Supervisor when the app starts up but adding it to our application’s supervision tree in the <code class="highlighter-rouge">Quantum.Application.start/2</code> function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/quantum/application.ex</span>
+<span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="no">Quantum</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span>
+    <span class="no">QuantumWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+    <span class="no">Quantum</span><span class="o">.</span><span class="no">Telemetry</span>
+  <span class="p">]</span>
+
+  <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Quantum</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+  <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now we’re ready to specify which Telemetry events to handle as metrics.</p>
+
+<h2 id="step-2-specifying-events-as-metrics">Step 2: Specifying Events As Metrics</h2>
+
+<p>Our <code class="highlighter-rouge">Telemetry.Metrics</code> module, <code class="highlighter-rouge">Quantum.Telemetry</code>, is responsible for telling the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> GenServer which Telemetry events to respond to and how to treat each event as a specific type of metric.</p>
+
+<p>We want to handle the <code class="highlighter-rouge">[:phoenix, :request]</code> event described above. First, let’s consider what type of metrics we want to report for this event. Let’s say we want to increment a counter for each such event, thereby keeping track of the number of requests our app receives to the endpoint. Let’s also send a timing metric to report the duration of a given web request.</p>
+
+<p>Now that we have a basic idea of what kind of metrics we want to construct and send to StatsD for our event, let’s take a look at how <code class="highlighter-rouge">Telemetry.Metrics</code> allows us to define these metrics.</p>
+
+<h3 id="defining-our-metrics">Defining Our Metrics</h3>
+
+<p>The <code class="highlighter-rouge">Telemetry.Metrics</code> module provides a set of <a href="https://hexdocs.pm/telemetry_metrics/Telemetry.Metrics.html#module-metrics">five metrics functions</a>. These functions are responsible for formatting Telemetry event data as a given metric.</p>
+
+<p>We’ll use the <code class="highlighter-rouge">Telemetry.Metrics.counter/2</code> and the <code class="highlighter-rouge">Telemetry.Metrics.summary/2</code> functions to define our metrics for the given event.</p>
+
+<p>In our <code class="highlighter-rouge">Quantum.Telemetry</code> module, which imports <code class="highlighter-rouge">Telemetry.Metrics</code>, we’ll add the following to the <code class="highlighter-rouge">metrics</code> function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/quantum/telemetry.ex</span>
+<span class="k">defp</span> <span class="n">metrics</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="n">summary</span><span class="p">(</span>
+      <span class="s2">"phoenix.request.duration"</span><span class="p">,</span>
+      <span class="ss">unit:</span> <span class="p">{</span><span class="ss">:native</span><span class="p">,</span> <span class="ss">:millisecond</span><span class="p">},</span>
+      <span class="ss">tags:</span> <span class="p">[</span><span class="ss">:request_path</span><span class="p">]</span>
+    <span class="p">),</span>
+
+    <span class="n">counter</span><span class="p">(</span>
+      <span class="s2">"phoenix.request.count"</span><span class="p">,</span>
+      <span class="ss">tags:</span> <span class="p">[</span><span class="ss">:request_path</span><span class="p">]</span>
+    <span class="p">)</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Each metric function takes in two arguments:</p>
+
+<ul>
+  <li>The event name</li>
+  <li>A list of options</li>
+</ul>
+
+<p>And returns a struct that describes the given metric type. For example, the <code class="highlighter-rouge">counter/2</code> function returns a <a href="https://hexdocs.pm/telemetry_metrics/Telemetry.Metrics.Counter.html#content"><code class="highlighter-rouge">%Telemetry.Metrics.Counter{}</code> struct</a> that looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%</span><span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span><span class="o">.</span><span class="no">Counter</span><span class="p">{</span>
+  <span class="ss">description:</span> <span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span><span class="o">.</span><span class="n">description</span><span class="p">(),</span>
+  <span class="ss">event_name:</span> <span class="ss">:telemetry</span><span class="o">.</span><span class="n">event_name</span><span class="p">(),</span>
+  <span class="ss">measurement:</span> <span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span><span class="o">.</span><span class="n">measurement</span><span class="p">(),</span>
+  <span class="ss">name:</span> <span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span><span class="o">.</span><span class="n">normalized_metric_name</span><span class="p">(),</span>
+  <span class="ss">reporter_options:</span> <span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span><span class="o">.</span><span class="n">reporter_options</span><span class="p">(),</span>
+  <span class="ss">tag_values:</span> <span class="p">(</span><span class="ss">:telemetry</span><span class="o">.</span><span class="n">event_metadata</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="ss">:telemetry</span><span class="o">.</span><span class="n">event_metadata</span><span class="p">()),</span>
+  <span class="ss">tags:</span> <span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span><span class="o">.</span><span class="n">tags</span><span class="p">(),</span>
+  <span class="ss">unit:</span> <span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span><span class="o">.</span><span class="n">unit</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now that we’ve defined our metrics list, we’re ready for the next step.</p>
+
+<h2 id="step-3-start-the-telemetrymetricsstatsd-genserver-with-the-metrics-list">Step 3: Start The <code class="highlighter-rouge">TelemetryMetricsStatsd</code> GenServer with the Metrics List</h2>
+
+<p>The list of metrics structs gets passed to the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> GenServer when it gets started up:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Quantum</span><span class="o">.</span><span class="no">Telemetry</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Supervisor</span>
+  <span class="kn">import</span> <span class="no">Telemetry</span><span class="o">.</span><span class="no">Metrics</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">_arg</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="no">TelemetryMetricsStatsd</span><span class="p">,</span> <span class="ss">metrics:</span> <span class="n">metrics</span><span class="p">()}</span> <span class="c1"># here!</span>
+    <span class="p">]</span>
+
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">metrics</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="n">summary</span><span class="p">(</span>
+        <span class="s2">"phoenix.request.duration"</span><span class="p">,</span>
+        <span class="ss">unit:</span> <span class="p">{</span><span class="ss">:native</span><span class="p">,</span> <span class="ss">:millisecond</span><span class="p">},</span>
+        <span class="ss">tags:</span> <span class="p">[</span><span class="ss">:request_path</span><span class="p">]</span>
+      <span class="p">),</span>
+
+      <span class="n">counter</span><span class="p">(</span>
+        <span class="s2">"phoenix.request.count"</span><span class="p">,</span>
+        <span class="ss">tags:</span> <span class="p">[</span><span class="ss">:request_path</span><span class="p">]</span>
+      <span class="p">)</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This kicks off the following process:</p>
+
+<ul>
+  <li>When the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> starts, it stores events in ETS along with their handler <em>and</em> a config map including this list of metric structs</li>
+  <li>Later, when <code class="highlighter-rouge">TelemetryMetricsStatsd</code> is responding to executed events, it looks up the event in ETS and uses the metrics structs stored in that config map to format the appropriate metrics for sending to StatsD</li>
+</ul>
+
+<h3 id="seeing-it-in-action">Seeing It In Action</h3>
+
+<p>Note that in our call to <code class="highlighter-rouge">counter/2</code> and <code class="highlighter-rouge">summary/2</code>, we’re using the <code class="highlighter-rouge">:tag</code> option to specify which tags will be applied to the metric when it gets sent to StatsD. The <code class="highlighter-rouge">TelemetryMetricsStatsD</code> reporter will, when it receives our <code class="highlighter-rouge">[:phoenix, :request]</code> event, grab any values for the tag keys that are present in the event metadata and use them to construct the metric.</p>
+
+<p>So, when we execute our Telemetry with the <code class="highlighter-rouge">conn</code> passed in as the metadata argument:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/quantum_web/controllers/user_controller.ex</span>
+<span class="k">def</span> <span class="n">new</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_params</span><span class="p">)</span> <span class="k">do</span> 
+  <span class="ss">:telemetry</span><span class="o">.</span><span class="n">execute</span><span class="p">([</span><span class="ss">:phoenix</span><span class="p">,</span> <span class="ss">:request</span><span class="p">],</span> <span class="p">%{</span><span class="ss">duration:</span> <span class="no">System</span><span class="o">.</span><span class="n">monotonic_time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">},</span> <span class="n">conn</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">TelemetryMetricsStatsD</code> will format a counter and summary metric tagged with the value of the <code class="highlighter-rouge">:request_path</code> key found in the <code class="highlighter-rouge">conn</code>.</p>
+
+<p>So, if we run our app and send some web requests, we’ll see the following metrics reported to StatsD:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  counters: {
+    'phoenix.request.count.-register-new': 2,
+  },
+  timers: {
+    'phoenix.request.count.-register-new': [ 0, 0 ],
+  },
+  timer_data: {
+    'phoenix.request.duration.-register-new': {
+      count_90: 2,
+      mean_90: 0,
+      upper_90: 0,
+      sum_90: 0,
+      sum_squares_90: 0,
+      std: 0,
+      upper: 0,
+      lower: 0,
+      count: 2,
+      count_ps: 0.2,
+      sum: 0,
+      sum_squares: 0,
+      mean: 0,
+      median: 0
+    }
+  }
+}
+</code></pre></div></div>
+
+<h2 id="under-the-hood">Under The Hood</h2>
+
+<p>The <code class="highlighter-rouge">Quantum.Telemetry</code> module is, believe it or not, the <em>only</em> code we have to write in order to send these metrics to StatsD for the <code class="highlighter-rouge">"phoenix.router_dispatch.stop"</code> event. The Telemetry libraries take care of everything else for us under the hood.</p>
+
+<p>Let’s take a closer look at how it all works.</p>
+
+<ol>
+  <li>The <code class="highlighter-rouge">Telemetry.Metrics</code> supervisor that we defined in <code class="highlighter-rouge">Quantum.Telemetry</code> defines a list of metrics that we want to emit to StatsD for a given Telemetry event</li>
+  <li>When the supervisor starts, it starts the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> GenServer and gives it this list</li>
+  <li>When the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> GenServer starts, it calls <code class="highlighter-rouge">:telemetry.attach/4</code> for each listed event, storing it in an ETS table along with the handler callback and a config map that includes the metrics definitions. The handler callback it gives to <code class="highlighter-rouge">:telemetry.attach/4</code> is its own <code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler.handle_event/4</code> function.</li>
+  <li>Later, when a Telemetry event is executed via a call to <code class="highlighter-rouge">:telemetry.execute/3</code>, Telemetry looks up the handler callback and config (including metrics definitions) for the given event in ETS</li>
+  <li>The <code class="highlighter-rouge">:telemetry.execute/3</code> function then calls this handler callback, <code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler.handle_event/4</code>, with the event name, event measurement map, event metadata and metrics config</li>
+  <li>The <code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler.handle_event/4</code> function formats the appropriate metric using all of this information and sends it to StatsD over UDP</li>
+</ol>
+
+<p>Phew!</p>
+
+<p>Let’s take a deeper dive into this process by taking a look at some source code.</p>
+
+<h3 id="telemetrymetricsstatsd-attaches-events-to-handlers-and-config-data"><code class="highlighter-rouge">TelemetryMetricsStatsd</code> Attaches Events to Handlers and Config Data</h3>
+
+<p>When our supervisor starts the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> GenServer, the GenServer’s <code class="highlighter-rouge">init/1</code> function calls on <a href="https://github.com/beam-telemetry/telemetry_metrics_statsd/blob/master/lib/telemetry_metrics_statsd/event_handler.ex#L24"><code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler.attach/7</code></a> with a set of arguments that includes the metrics list we provided. This in turn executes a call to <code class="highlighter-rouge">:telemetry.attach/4</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># telemetry_metrics_statsd/lib/telemetry_metrics_statsd/event_handler.ex</span>
+
+<span class="k">def</span> <span class="n">attach</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">reporter</span><span class="p">,</span> <span class="n">mtu</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">formatter</span><span class="p">,</span> <span class="n">global_tags</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">metrics_by_event</span> <span class="o">=</span> <span class="no">Enum</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="o">&amp;</span> <span class="nv">&amp;1</span><span class="o">.</span><span class="n">event_name</span><span class="p">)</span>
+
+  <span class="n">for</span> <span class="p">{</span><span class="n">event_name</span><span class="p">,</span> <span class="n">metrics</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="n">metrics_by_event</span> <span class="k">do</span>
+    <span class="n">handler_id</span> <span class="o">=</span> <span class="n">handler_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="n">reporter</span><span class="p">)</span>
+
+    <span class="ss">:ok</span> <span class="o">=</span>
+      <span class="ss">:telemetry</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">handler_id</span><span class="p">,</span> <span class="n">event_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="bp">__MODULE__</span><span class="o">.</span><span class="n">handle_event</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="p">%{</span>
+        <span class="ss">reporter:</span> <span class="n">reporter</span><span class="p">,</span>
+        <span class="ss">metrics:</span> <span class="n">metrics</span><span class="p">,</span>
+        <span class="ss">mtu:</span> <span class="n">mtu</span><span class="p">,</span>
+        <span class="ss">prefix:</span> <span class="n">prefix</span><span class="p">,</span>
+        <span class="ss">formatter:</span> <span class="n">formatter</span><span class="p">,</span>
+        <span class="ss">global_tags:</span> <span class="n">global_tags</span>
+      <span class="p">})</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The call to <code class="highlighter-rouge">:telemetry.attach/4</code> will create an ETS entry that stores the event name along with the handler callback function,<code class="highlighter-rouge">&amp;TelemetryMetricsStatsd.EventHandler.handle_event/4</code>, and a config map that contains the metrics definitions for the event.</p>
+
+<h3 id="telemetrymetricsstatsdeventhandler-handles-executed-events"><code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler</code> Handles Executed Events</h3>
+
+<p>Later, the <code class="highlighter-rouge">[:phoenix, :request]</code> event is executed in our <code class="highlighter-rouge">UserController</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/quantum_web/controllers/user_controller.ex</span>
+<span class="k">def</span> <span class="n">new</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="ss">:telemetry</span><span class="o">.</span><span class="n">execute</span><span class="p">([</span><span class="ss">:phoenix</span><span class="p">,</span> <span class="ss">:request</span><span class="p">],</span> <span class="p">%{</span><span class="ss">duration:</span> <span class="no">System</span><span class="o">.</span><span class="n">monotonic_time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">},</span> <span class="n">conn</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">:telemetry.execute/3</code> function looks up the event in ETS. It fetches the handler callback function, along with the config that was stored for that event, including the list of metric definitions.</p>
+
+<p>Telemetry will then call the callback function, <code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler.handle_event/4</code>, with the provided measurement map and metadata, along with stored config it looked up for the event in ETS.</p>
+
+<p><code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler.handle_event/4</code> will format the metric according to the metrics definitions stored in ETS for the event and send the resulting metric to StatsD.</p>
+
+<p>Here we can see that the <a href="https://github.com/beam-telemetry/telemetry_metrics_statsd/blob/master/lib/telemetry_metrics_statsd/event_handler.ex#L46"><code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler.handle_event/4</code></a> iterates over the metric definitions for the event and constructs the appropriate metric from the event data using the given measurement and metadata maps along with the metric struct from the list of metrics stored in the config. It then publishes the metric to StatsD over UDP via the call to <code class="highlighter-rouge">publish_metrics/2</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># telemetry_metrics_statsd/lib/telemetry_metrics_statsd/event_handler.ex</span>
+
+<span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="n">_event</span><span class="p">,</span> <span class="n">measurements</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="p">%{</span>
+      <span class="ss">reporter:</span> <span class="n">reporter</span><span class="p">,</span>
+      <span class="ss">metrics:</span> <span class="n">metrics</span><span class="p">,</span>
+      <span class="ss">mtu:</span> <span class="n">mtu</span><span class="p">,</span>
+      <span class="ss">prefix:</span> <span class="n">prefix</span><span class="p">,</span>
+      <span class="ss">formatter:</span> <span class="n">formatter_mod</span><span class="p">,</span>
+      <span class="ss">global_tags:</span> <span class="n">global_tags</span>
+    <span class="p">})</span> <span class="k">do</span>
+  <span class="n">packets</span> <span class="o">=</span>
+    <span class="c1"># iterate over the stored metric definitions</span>
+    <span class="n">for</span> <span class="n">metric</span> <span class="o">&lt;-</span> <span class="n">metrics</span> <span class="k">do</span>
+      <span class="c1"># get the measurement for the metric type from the measurements map</span>
+      <span class="k">case</span> <span class="n">fetch_measurement</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">measurements</span><span class="p">)</span> <span class="k">do</span>
+        <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">value</span><span class="p">}</span> <span class="o">-&gt;</span>
+          <span class="c1"># collect metric tags specified in the metric struct</span>
+          <span class="n">tag_values</span> <span class="o">=</span>
+            <span class="n">global_tags</span>
+            <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+            <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">metric</span><span class="o">.</span><span class="n">tag_values</span><span class="o">.</span><span class="p">(</span><span class="n">metadata</span><span class="p">))</span>
+          <span class="n">tags</span> <span class="o">=</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">metric</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">{</span><span class="nv">&amp;1</span><span class="p">,</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch!</span><span class="p">(</span><span class="n">tag_values</span><span class="p">,</span> <span class="nv">&amp;1</span><span class="p">)})</span>
+          <span class="c1"># format the metric given the metric type, value and tags</span>
+          <span class="no">Formatter</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">formatter_mod</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
+
+        <span class="ss">:error</span> <span class="o">-&gt;</span>
+          <span class="ss">:nopublish</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">fn</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="n">l</span> <span class="o">!=</span> <span class="ss">:nopublish</span> <span class="k">end</span><span class="p">)</span>
+
+  <span class="k">case</span> <span class="n">packets</span> <span class="k">do</span>
+    <span class="p">[]</span> <span class="o">-&gt;</span>
+      <span class="ss">:ok</span>
+
+    <span class="n">packets</span> <span class="o">-&gt;</span>
+      <span class="c1"># publish metrics to StatsD</span>
+      <span class="n">publish_metrics</span><span class="p">(</span><span class="n">reporter</span><span class="p">,</span> <span class="no">Packet</span><span class="o">.</span><span class="n">build_packets</span><span class="p">(</span><span class="n">packets</span><span class="p">,</span> <span class="n">mtu</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The <code class="highlighter-rouge">Telemetry.Metrics</code> and <code class="highlighter-rouge">TelemetryMetricsStatsd</code> libraries make it even easier for us to handle Telemetry events and report metrics based on those events. All we have to do is define a Supervisor that uses <code class="highlighter-rouge">Telemetry.Metrics</code> and tell that Supervisor to start the <code class="highlighter-rouge">TelemetryMetricsStatsd</code> GenServer with a list of metric definitions.</p>
+
+<p>That’s it! The <code class="highlighter-rouge">TelemetryMetricsStatsd</code> library will take care of calling <code class="highlighter-rouge">:telemetry.attach/3</code> to store events in ETS along with a handler callback function and the metrics list for that event. Later, when a Telemetry event is executed, Telemetry will lookup the event and its associated handler function and metrics list and invoke the handler function with this data. The handler function, <code class="highlighter-rouge">TelemetryMetricsStatsd.EventHandler.handle_event/4</code>, will iterate over the list of metric structs that was stored for the event in ETS and construct the appropriate StatsD metric given the metric type and tags, the event measurement map and metadata. All for free!</p>
+
+<h2 id="next-up">Next Up</h2>
+
+<p>In this post, we saw how <code class="highlighter-rouge">Telemetry.Metrics</code> and <code class="highlighter-rouge">TelemetryMetricsStatsd</code> abstracted away the need to define custom handlers and callback functions, attach those handlers to events and implement our own metric reporting logic. But our Telemetry pipeline still needs a little work.</p>
+
+<p>We’re still on the hook for emitting <em>all</em> of our own Telemetry events.</p>
+
+<p>In order to really be able to observe the state of our production Phoenix app, we need to be reporting on much more than just one endpoint’s request duration and count. We want to be able to handle information-rich events describing web requests across the app, database queries, the behavior and state of the Erlang VM, the behavior and state of any workers in our app, and more.</p>
+
+<p>Instrumenting all of that by hand, by executing custom Telemetry events wherever we need, them will be tedious and time-consuming. On top of that, it will be a challenge to standardize event naming conventions, measurements and metadata across the app.</p>
+
+<p>In <a href="https://elixirschool.com/blog/instrumenting_phoenix_with_telemetry_part_three/">next week’s post</a>, we’ll examine Phoenix and Ecto’s out-of-the-box Telemetry events and use <code class="highlighter-rouge">Telemetry.Metrics</code> to observe a wide-range of such events, thus eliminating the need for us to execute our own custom events for most of our observability use-cases.</p>
+
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2020-04-29-instrumenting_phoenix_with_telemetry_part_two.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/instrumenting-phoenix-with-live-dashboard/" title="Instrumenting Phoenix with Telemetry and LiveDashboard" rel="prev">&laquo; Instrumenting Phoenix with Telemetry and LiveDa...</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/instrumenting_phoenix_with_telemetry_part_three/" title="Instrumenting Phoenix with Telemetry Part III: Phoenix + Ecto Telemetry Events" rel="next">Instrumenting Phoenix with Telemetry Part III: ... &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

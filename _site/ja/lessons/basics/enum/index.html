@@ -1,0 +1,1201 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/basics/enum/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/enum/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ta" href="/ta/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/enum/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/basics/enum/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Enum &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/basics/enum/&title=Enum&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/basics/enum/&via=elixirschool&text=ElixirSchool: Enum&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/basics/enum/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/basics/enum/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Enum" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/basics/enum/&title=ElixirSchool: Enum&description=Check out 'Enum' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Enum&body=Check out 'Enum' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/basics/enum/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Enum
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    この和訳は最新です。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>コレクションを列挙していくために用いる一連のアルゴリズム。</p>
+
+<h2>目次</h2>
+<div id="toc"></div>
+
+<h2 id="enum">Enum</h2>
+
+<p><code class="highlighter-rouge">Enum</code> モジュールはおよそ70個以上の関数を含んでいます。<a href="../collections/">前回のレッスン</a>で学習した、タプルを除く全てのコレクションを列挙できます。</p>
+
+<p>このレッスンは利用可能な関数のうち一部分しか取り上げませんが、実は全ての関数を自分自身で調べることができます。
+IExでちょっとした実験をしてみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">__info__</span><span class="p">(</span><span class="ss">:functions</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="k">fn</span><span class="p">({</span><span class="n">function</span><span class="p">,</span> <span class="n">arity</span><span class="p">})</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>   <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">function</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">arity</span><span class="si">}</span><span class="s2">"</span>
+<span class="o">...&gt;</span> <span class="k">end</span><span class="p">)</span>
+<span class="n">all?</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">all?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">any?</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">any?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">at</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">at</span><span class="o">/</span><span class="mi">3</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>このように、 <code class="highlighter-rouge">Enum</code> モジュールが非常に多くの機能を持っていることは一目瞭然ですが、これには明確な理由があります。
+列挙は関数型プログラミングの中核であり、Elixirが開発者にもたらす驚くべきその他の恩恵と基部で統合的に用意されているおかげです。</p>
+
+<p>全ての関数を知りたい場合は公式ドキュメントの<a href="https://hexdocs.pm/elixir/Enum.html"><code class="highlighter-rouge">Enum</code></a>を参照してください。尚、列挙の遅延処理では<a href="https://hexdocs.pm/elixir/Stream.html"><code class="highlighter-rouge">Stream</code></a>モジュールを利用してください。</p>
+
+<h3 id="all">all?</h3>
+
+<p>通常、 <code class="highlighter-rouge">all?/2</code> にはコレクションの要素に対して適用する関数を渡します。 <code class="highlighter-rouge">all?/2</code> の場合、コレクションの全体が <code class="highlighter-rouge">true</code> と評価されなければならず、そうでなければ <code class="highlighter-rouge">false</code> が返されます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">false</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<h3 id="any">any?</h3>
+
+<p>上記と違って、 <code class="highlighter-rouge">any?</code> は少なくとも1つの要素が <code class="highlighter-rouge">true</code> と評価された場合に <code class="highlighter-rouge">true</code> を返します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">any?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<h3 id="chunk_every">chunk_every</h3>
+
+<p>コレクションを小さなグループに分割する必要があるなら、恐らく <code class="highlighter-rouge">chunk_every/2</code> こそが探し求めている関数でしょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_every</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">chunk_every/4</code> にはいくつかのオプションがありますが、ここでは触れないので<a href="https://hexdocs.pm/elixir/Enum.html#chunk_every/4"><code class="highlighter-rouge">この関数の公式ドキュメント</code></a>を調べてください。</p>
+
+<h3 id="chunk_by">chunk_by</h3>
+
+<p>要素数ではない他の何かでコレクションを分類したい場合には、 <code class="highlighter-rouge">chunk_by/2</code> 関数を使うことができます。この関数は列挙可能なコレクションと関数を引数に取り、その関数の戻り値が変化することによってコレクションの分類もそれに倣いながら開始されます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_by</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">,</span> <span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[[</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"three"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">]]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_by</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">,</span> <span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">,</span> <span class="s2">"six"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[[</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"three"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"six"</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<h3 id="map_every">map_every</h3>
+
+<p>時にはコレクションをグループに別けるだけでは充分ではない場合があります。 <code class="highlighter-rouge">nth</code> 毎のアイテムに対して何かの処理をしたい時には <code class="highlighter-rouge">map_every/3</code> が有用です。これは最初の要素にかならず触れます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 関数を最初に適用してから3つ毎に同様の処理</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map_every</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="k">fn</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1000</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1001</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1004</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1007</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="each">each</h3>
+
+<p>新しい値を生成することなく、コレクションを反復する必要があるかもしれません。こうした場合には <code class="highlighter-rouge">each/2</code> を使います:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="n">one</span>
+<span class="n">two</span>
+<span class="n">three</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p><strong>注記</strong>: <code class="highlighter-rouge">each</code> 関数は <code class="highlighter-rouge">:ok</code> というアトムを返します。</p>
+
+<h3 id="map">map</h3>
+
+<p>関数を各要素に適用して新しいコレクションを生み出すなら <code class="highlighter-rouge">map/2</code> 関数です:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="min">min</h3>
+
+<p>コレクションの中で最小の(<code class="highlighter-rouge">min/1</code>)値を探します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">min/2</code> も同様ですが、コレクションが空であった場合にあらかじめ最小値を生成する為の関数を渡すことができます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">min</span><span class="p">([],</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="ss">:foo</span> <span class="k">end</span><span class="p">)</span>
+<span class="ss">:foo</span>
+</code></pre></div></div>
+
+<h3 id="max">max</h3>
+
+<p>コレクションの中で最大の(<code class="highlighter-rouge">max/1</code>)値を返します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="mi">5</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">max/2</code> と <code class="highlighter-rouge">max/1</code> の関係は <code class="highlighter-rouge">min/2</code> と <code class="highlighter-rouge">min/1</code> の関係と同じです:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Enum</span><span class="o">.</span><span class="n">max</span><span class="p">([],</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="ss">:bar</span> <span class="k">end</span><span class="p">)</span>
+<span class="ss">:bar</span>
+</code></pre></div></div>
+
+<h3 id="filter">filter</h3>
+
+<p><code class="highlighter-rouge">filter/2</code> を使うと、与えられた関数によって <code class="highlighter-rouge">true</code> と評価された要素だけを得る為に、それ以外の要素を取り除くことができます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">filter</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">rem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="reduce">reduce</h3>
+
+<p><code class="highlighter-rouge">reduce/3</code> を用いることで、コレクションをまとめ、そこから単一の値へと抽出することができます。この処理には任意のアキュムレータを関数に渡します。アキュムレータとは、前の演算結果を一時的に保持するものです(この例では <code class="highlighter-rouge">10</code>)。アキュムレータが与えられない場合にはコレクションの最初の要素が用いられます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">10</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="mi">16</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="mi">6</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span><span class="s2">"b"</span><span class="p">,</span><span class="s2">"c"</span><span class="p">],</span> <span class="s2">"1"</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">acc</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">x</span> <span class="o">&lt;&gt;</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="s2">"cba1"</span>
+</code></pre></div></div>
+
+<h3 id="sort">sort</h3>
+
+<p>コレクションのソートに、関数を1つだけでなく2つ使うと容易になります。</p>
+
+<p><code class="highlighter-rouge">sort/1</code> はソートの順序を決める為にErlangの <a href="http://erlang.org/doc/reference_manual/expressions.html#term-comparisons">Term優先順位</a> を使います:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([</span><span class="ss">:foo</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="no">Enum</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="no">Enum</span><span class="p">,</span> <span class="ss">:foo</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>一方で <code class="highlighter-rouge">sort/2</code> には、自分で順序を決める為の関数を渡すことができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ソート関数あり</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([%{</span><span class="ss">:val</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">:val</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">[</span><span class="ss">:val</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">[</span><span class="ss">:val</span><span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[%{</span><span class="ss">val:</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">val:</span> <span class="mi">1</span><span class="p">}]</span>
+
+<span class="c1"># なし</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([%{</span><span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}])</span>
+<span class="p">[%{</span><span class="ss">count:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">count:</span> <span class="mi">4</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<h3 id="uniq">uniq</h3>
+
+<p><code class="highlighter-rouge">uniq/1</code> を使ってコレクションから重複した要素を取り除くことができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">uniq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="uniq_by">uniq_by</h3>
+
+<p><code class="highlighter-rouge">uniq_by/2</code> もコレクションから重複した要素を削除しますが、ユニークかどうか比較を行う関数を渡せます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">uniq_by</span><span class="p">([%{</span><span class="ss">x:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">x:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">x:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">3</span><span class="p">}],</span> <span class="k">fn</span> <span class="n">coord</span> <span class="o">-&gt;</span> <span class="n">coord</span><span class="o">.</span><span class="n">y</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[%{</span><span class="ss">x:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">x:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">y:</span> <span class="mi">3</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<h3 id="キャプチャ演算子を使用したenum">キャプチャ演算子（&amp;）を使用したEnum</h3>
+<p>ElixirのEnumモジュール内の多くの関数は、渡されるEnum型のオブジェクトを処理するための引数として無名関数を取ります。</p>
+
+<p>これらの無名関数は、多くの場合、キャプチャ演算子（&amp;）を使用して省略形で記述されます。</p>
+
+<p>Enumモジュールを使用してキャプチャ演算子を実装する方法を示すいくつかの例を次に示します。
+各バージョンは機能的に同等です。</p>
+
+<h4 id="無名関数でのキャプチャ演算子の使用">無名関数でのキャプチャ演算子の使用</h4>
+
+<p>以下は、無名関数を <code class="highlighter-rouge">Enum.map/2</code> に渡すときの標準構文の典型的な例です。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="k">fn</span> <span class="n">number</span> <span class="o">-&gt;</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">3</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>次に、キャプチャ演算子（&amp;）を実装します。数値のリスト（[1,2,3]）の各要素をキャプチャし、マッピング関数を通過するときに各要素を変数&amp;1に割り当てます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">))</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>これをさらにリファクタリングして、キャプチャ演算子を特徴とする以前の無名関数を変数に割り当て、 <code class="highlighter-rouge">Enum.map/2</code> 関数から呼び出すことができます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">plus_three</span> <span class="o">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">plus_three</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h4 id="名前付き関数でのキャプチャ演算子の使用">名前付き関数でのキャプチャ演算子の使用</h4>
+<p>まず、名前付き関数を作成し、 <code class="highlighter-rouge">Enum.map/2</code> で定義されている無名関数内で呼び出します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Adding</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">plus_three</span><span class="p">(</span><span class="n">number</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span>  <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="k">fn</span> <span class="n">number</span> <span class="o">-&gt;</span> <span class="no">Adding</span><span class="o">.</span><span class="n">plus_three</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>次に、キャプチャ演算子を使用するようにリファクタリングできます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="no">Adding</span><span class="o">.</span><span class="n">plus_three</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">))</span> 
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>最も簡潔な構文の場合、変数を明示的にキャプチャせずに、名前付き関数を直接呼び出すことができます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="no">Adding</span><span class="o">.</span><span class="n">plus_three</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span> 
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/basics/enum.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/basics/collections/" title="コレクション">← コレクション</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/basics/pattern-matching/" title="パターンマッチング">パターンマッチング →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/enum/" title="ブルガリア語">bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/enum/" title="ベンガル語">bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/enum/" title="ドイツ語">de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/enum/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/enum/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/enum/" title="フランス語 / Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/enum/" title="ギリシャ語">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/enum/" title="インドネシア語 / Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/enum/" title="イタリア語">it</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/enum/" title="韓国語">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/enum/" title="マレーシア語">ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/enum/" title="ノルウェー語">no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/enum/" title="ポーランド語">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/enum/" title="ポルトガル語">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/enum/" title="ロシア語 / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/enum/" title="スロバキア語">sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/ta/lessons/basics/enum/" title="ターミル語">ta</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/enum/" title="タイ語 / ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/enum/" title="トルコ語">tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/enum/" title="ウクライナ語">uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/enum/" title="ベトナム語">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/enum/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/enum/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/collections/">2. コレクション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">3. Enum</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/modules/">8. モジュール</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-distribution/">7. OTPディストリビューション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/changesets/">2. チェンジセット</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/querying/">4. クエリ</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

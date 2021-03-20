@@ -1,0 +1,821 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="de">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Übungen zur Programmiersprache Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/de/lessons/advanced/otp-supervisors/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="de">
+  <meta property="og:description" content="Übungen zur Programmiersprache Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/otp-supervisors/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/otp-supervisors/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/otp-supervisors/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/de/lessons/advanced/otp-supervisors/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>OTP Supervisors &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/de/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/de/lessons/advanced/otp-supervisors/&title=OTP Supervisors&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/de/lessons/advanced/otp-supervisors/&via=elixirschool&text=ElixirSchool: OTP Supervisors&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/de/lessons/advanced/otp-supervisors/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/de/lessons/advanced/otp-supervisors/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: OTP Supervisors" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/de/lessons/advanced/otp-supervisors/&title=ElixirSchool: OTP Supervisors&description=Check out 'OTP Supervisors' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: OTP Supervisors&body=Check out 'OTP Supervisors' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/de/lessons/advanced/otp-supervisors/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  OTP Supervisors
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Diese Übersetzung ist aktuell.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Supervisors sind besondere Prozesse mit einem Zweck: andere Prozesse zu überwachen. Diese Supervisors erlauben uns fehlertolerante Anwendungen zu erstellen, indem sie Kindprozesse automatisch neu starten, falls diese versagen.</p>
+
+<h2>Inhaltsverzeichnis</h2>
+<div id="toc"></div>
+
+<h2 id="konfiguration">Konfiguration</h2>
+
+<p>Die Magie von Supervisors liegt in der <code class="highlighter-rouge">Supervisor.start_link/2</code>-Funktion. Zusätzlich zum Starten unserer Supervisors und Kinder erlaubt sie uns die Strategie zu bestimmen, mit der unser Supervisor Kindprozesse verwaltet.</p>
+
+<p>Wir benutzen SimpleQueue aus der Lektion <a href="../../advanced/otp-concurrency">OTP Concurrency</a> und legen los:</p>
+
+<p>Erstelle ein neues Projekt mit dem Befehl <code class="highlighter-rouge">mix new simple_queue --sup</code> um ein Projekt mit einem Supervisor-Baum zu erzeugen. Der Code für das Modul SimpleQueue sollte in <code class="highlighter-rouge">lib/simple_queue.ex</code> liegen und der Supervisor Code, den wir hinzufügen werden, soll in <code class="highlighter-rouge">lib/simple_queue/application.ex</code> liegen.</p>
+
+<p>Kinder werden werden in einer Liste definiert, entweder eine Liste von Modulnamen:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">Supervisor</span><span class="o">.</span><span class="no">Spec</span>
+
+<span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="n">worker</span><span class="p">(</span><span class="no">SimpleQueue</span><span class="p">,</span> <span class="p">[],</span> <span class="ss">name:</span> <span class="no">SimpleQueue</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">)</span>
+</code></pre></div></div>
+<p>oder eine Liste von Tupeln, falls du Konfigurations-Optionen mitgeben willst:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="no">SimpleQueue</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Wenn wir <code class="highlighter-rouge">iex -S mix</code> ausführen, sehen wir, dass unsere SimpleQueue automatisch gestartet wird:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="n">queue</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Falls unser SimpleQueue Prozess abstürzt oder sonstwie terminiert, würde unser Supervisor ihn automatisch neu starten, als ob nichts gewesen wäre.</p>
+
+<h3 id="strategien">Strategien</h3>
+
+<p>Es gibt zurzeit drei verschiedene Strategien zum Neustart, welche Supervisors benutzen können:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">:one_for_one</code> - Startet nur den abgestürzten Kindprozess neu.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">:one_for_all</code> - Startet alle Kindprozesse neu im Falle eines Fehlers.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">:rest_for_one</code> - Startet den abgestürzten Prozess und alle nach ihm gestarteten Prozesse neu.</p>
+  </li>
+</ul>
+
+<h2 id="kind-spezfikation">Kind-Spezfikation</h2>
+
+<p>Nachdem ein Supervisor gestartet ist, muss er wissen, wie er seine Kinder starten/stoppen/neustarten soll.
+Jedes Kind-Modul sollte eine <code class="highlighter-rouge">child_spec/1</code> Funktion haben, die dieses Verhalten definiert.
+Die Macros <code class="highlighter-rouge">use GenServer</code>, <code class="highlighter-rouge">use Supervisor</code>, und <code class="highlighter-rouge">use Agent</code> definieren diese Methode automatisch für uns (<code class="highlighter-rouge">SimpleQueue</code> hat <code class="highlighter-rouge">use Genserver</code>, also brauchen wir dieses Modul nicht anzupassen), aber wenn du sie selbst definieren musst, sollte <code class="highlighter-rouge">child_spec/1</code> eine Map von Optionen zurückgeben:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">child_spec</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">%{</span>
+    <span class="ss">id:</span> <span class="no">SimpleQueue</span><span class="p">,</span>
+    <span class="ss">start:</span> <span class="p">{</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:start_link</span><span class="p">,</span> <span class="p">[</span><span class="n">opts</span><span class="p">]},</span>
+    <span class="ss">shutdown:</span> <span class="mi">5_000</span><span class="p">,</span>
+    <span class="ss">restart:</span> <span class="ss">:permanent</span><span class="p">,</span>
+    <span class="ss">type:</span> <span class="ss">:worker</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">id</code> - Notwendiger Key.
+Vom Supervisor benutzt um die die Kind-Spezifikation zu identifizieren</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">start</code> - Notwendiger Key.
+Das Modul/die Funktion/Argumente, die beim Start vom Supervisor aufgerufen werden sollen</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">shutdown</code> - Optionaler Key.
+Definiert das Verhalten des Kindes während des Beendens
+Die Optionen sind:</p>
+
+    <ul>
+      <li>
+        <p><code class="highlighter-rouge">:brutal_kill</code> - Kind wird sofort gestoppt</p>
+      </li>
+      <li>
+        <p>ein positiver Integer - Zeit in Millisekunden, die der Supervisor warten wird, bevor er den Kind-Prozess killt.
+Wenn der Prozess vom Typ <code class="highlighter-rouge">:worker</code> ist, ist dieser Wert standardmäßig 5000.</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">:infinity</code> - Der Supervisor wird unednlich lange warten, bevor er den Prozess killt.
+Standardwert für den Prozesstyp <code class="highlighter-rouge">:supervisor</code>.
+Nicht empfohlen für den Typ <code class="highlighter-rouge">:worker</code>.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">restart</code> - Optionaler Key.
+Es gibt mehrere Herangehensweisen, um abstürzende Kindprozesse zu verwalten:</p>
+
+    <ul>
+      <li>
+        <p><code class="highlighter-rouge">:permanent</code> - Kind wird immer neugestartet.
+Standard für alle Prozesse</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">:temporary</code> - Kindprozess wird niemals neugestartet.</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">:transient</code> - Kindprozess wird nur neugestartet, falls er abnorm terminiert.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">type</code> - Optionaler Key.
+Prozesse können entweder <code class="highlighter-rouge">:worker</code> oder <code class="highlighter-rouge">:supervisor</code> sein.
+Standardwert ist <code class="highlighter-rouge">:worker</code>.</p>
+  </li>
+</ul>
+
+<h2 id="dynamicsupervisor">DynamicSupervisor</h2>
+
+<p>Supervisors starten normalerweise mit einer Liste von Kindern, die sie starten, wenn die App startet.
+Manchmal jedoch sind die beausichtigten Kinder beim App-Start nicht bekannt (zum Beispiel könnten wir eine Web-App haben, die einen neuen Prozess startet, wenn sich ein Nutzer mit unserer Webseite verbindet.)
+Für diese Fälle brauchen wir eine Supervisor, der Kinder bei Bedarf starten kann.
+In diesem Fall benutzen wir den DynamicSupervisor.</p>
+
+<p>Da wir keine Kinder spezifizieren, müssen wir nur die Laufzeit-Optionen für den Supervisor bestimmen.
+Der DynamicSupervisor unterstüzt nur die Supervison-Strategie <code class="highlighter-rouge">:one_for_one</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">options</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="ss">name:</span> <span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span>
+  <span class="ss">strategy:</span> <span class="ss">:one_for_one</span>
+<span class="p">]</span>
+
+<span class="no">DynamicSupervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Um eine neue SimpleQueue dynamisch zu starten, nutzen wir dann die Funktion <code class="highlighter-rouge">start_child/2</code>, welche einen Supervisor und eine Kind-Spezifikation als Argumente nimmt (<code class="highlighter-rouge">SimpleQueue</code> nutzt <code class="highlighter-rouge">use GenServer</code>, die Kind-Spezifikation ist daher schon definiert):</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">DynamicSupervisor</span><span class="o">.</span><span class="n">start_child</span><span class="p">(</span><span class="no">SimpleQueue</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span> <span class="no">SimpleQueue</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="task-supervisor">Task Supervisor</h2>
+
+<p>Tasks haben ihren eigenen spezialisierten Supervisor, <code class="highlighter-rouge">Task.Supervisor</code>. Dieser Supervisor wurde für dynamisch erstellte Tasks entworfen und benutzt <code class="highlighter-rouge">DynamicSupervisor</code> unter der Haube.</p>
+
+<h3 id="setup">Setup</h3>
+
+<p><code class="highlighter-rouge">Task.Supervisor</code> zu benutzen ist nicht anders wie andere Supervisors:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">ExampleApp</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="ss">restart:</span> <span class="ss">:transient</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Der Hauptunterschied zwischen <code class="highlighter-rouge">Supervisor</code> und <code class="highlighter-rouge">Task.Supervisor</code> ist, dass die standardmäßige Strategie zum Neustart <code class="highlighter-rouge">:temporary</code> ist (Tasks würden nie neu gestartet werden).</p>
+
+<h3 id="supervised-tasks">Supervised Tasks</h3>
+
+<p>Wenn der Supervisor gestartet ist, können wir die Funktion <code class="highlighter-rouge">start_child/2</code> benutzen, um einen supervised Task zu erstellen:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="o">.</span><span class="n">start_child</span><span class="p">(</span><span class="no">ExampleApp</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="n">background_work</span> <span class="k">end</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Falls unser Task vorzeitig abstürzt, wird er für uns neu gestartet. Das kann besonders sinnvoll sein, wenn wir mit eingehenden Verbindungen arbeiten oder Hintergrundarbeit verrichten.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/de/lessons/advanced/otp-supervisors.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/de/lessons/advanced/otp-concurrency/" title="OTP Nebenläufigkeit">← OTP Nebenläufigkeit</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/de/lessons/advanced/metaprogramming/" title="Metaprogrammierung">Metaprogrammierung →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong >de</strong>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/otp-supervisors/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/otp-supervisors/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/otp-supervisors/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/otp-supervisors/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/otp-supervisors/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/otp-supervisors/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/otp-supervisors/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/otp-supervisors/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/otp-supervisors/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/otp-supervisors/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/otp-supervisors/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/otp-supervisors/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Übungen zur Programmiersprache Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/de/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Grundlagen</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/de/lessons/basics/basics/">1. Grundlagen</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/enum/">3. Enums</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/control-structures/">5. Kontrollstrukturen</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/functions/">6. Funktionen</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/modules/">8. Module</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/documentation/">11. Dokumentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/testing/">12. Testen</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/iex-helpers/">17. IEx Hilfsfunktionen</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Erweitert</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/erlang/">1. Erlang-Interoperabilität</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/error-handling/">2. Fehlerbehandlung</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/escripts/">3. Ausführbare Dateien</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/concurrency/">4. Nebenläufigkeit</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/otp-concurrency/">5. OTP Nebenläufigkeit</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. OTP Supervisors</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/metaprogramming/">8. Metaprogrammierung</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/umbrella-projects/">9. Umbrella-Projekte</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/typespec/">10. Spezifikationen und Typen</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Einzelheiten</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/de/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/de/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

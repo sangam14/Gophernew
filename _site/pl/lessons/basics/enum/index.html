@@ -1,0 +1,1056 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="pl">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lekcje programowania w języku Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/pl/lessons/basics/enum/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="pl">
+  <meta property="og:description" content="Lekcje programowania w języku Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/enum/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ta" href="/ta/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/enum/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/enum/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/pl/lessons/basics/enum/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Enum &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/pl/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/pl/lessons/basics/enum/&title=Enum&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/pl/lessons/basics/enum/&via=elixirschool&text=ElixirSchool: Enum&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/pl/lessons/basics/enum/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/pl/lessons/basics/enum/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Enum" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/pl/lessons/basics/enum/&title=ElixirSchool: Enum&description=Check out 'Enum' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Enum&body=Check out 'Enum' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/pl/lessons/basics/enum/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Enum
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      Od ostatniej aktualizacji wprowadzono wiele zmian i tłumaczenie może być nieaktualne.<br/>
+    
+
+    Od ostatniej aktualizacji wprowadzono kilka drobnych poprawek.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Algorytmy pomagające przetwarzać kolekcje.</p>
+
+<h2>Spis treści</h2>
+<div id="toc"></div>
+
+<h2 id="enum">Enum</h2>
+
+<p>Moduł <code class="highlighter-rouge">Enum</code> zawiera ponad siedemdziesiąt funkcji wspomagających pracę z kolekcjami, które omawialiśmy w <a href="./collections/">poprzedniej lekcji</a>. W tej lekcji przyjrzymy się tylko niektórym z funkcji. Innym sposobem na zapoznanie się z dostępnymi funkcjami jest wykorzystanie <code class="highlighter-rouge">iex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">__info__</span><span class="p">(</span><span class="ss">:functions</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="k">fn</span><span class="p">({</span><span class="n">function</span><span class="p">,</span> <span class="n">arity</span><span class="p">})</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>   <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">function</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">arity</span><span class="si">}</span><span class="s2">"</span>
+<span class="o">...&gt;</span> <span class="k">end</span><span class="p">)</span>
+<span class="n">all?</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">all?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">any?</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">any?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">at</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">at</span><span class="o">/</span><span class="mi">3</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>Mamy do dyspozycji ogromną ilość funkcji. Nie bez powodu. Programowanie funkcyjne opiera się na przetwarzaniu różnego typu kolekcji. W połączeniu z innymi funkcjonalnościami Elixira, jak wykonywalna dokumentacja, otrzymujemy jako programiści bardzo efektywne narzędzia.</p>
+
+<p>Pełna lista jest dostępna w dokumentacji modułu <a href="https://hexdocs.pm/elixir/Enum.html"><code class="highlighter-rouge">Enum</code></a>. Do leniwego przetwarzania kolekcji służy moduł <a href="https://hexdocs.pm/elixir/Stream.html"><code class="highlighter-rouge">Stream</code></a>.</p>
+
+<h3 id="all">all?</h3>
+
+<p>Gdy chcemy użyć funkcji <code class="highlighter-rouge">all?</code>, jak i wielu innych z modułu <code class="highlighter-rouge">Enum</code>, musimy jako parametr przekazać funkcję, którą wywołamy na elementach kolekcji. Funkcja <code class="highlighter-rouge">all?</code> zwróci <code class="highlighter-rouge">true</code>, jeżeli dla wszystkich elementów nasza funkcja zwróci prawdę, w przeciwnym wypadku otrzymamy <code class="highlighter-rouge">false</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">false</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<h3 id="any">any?</h3>
+
+<p>W przeciwieństwie do poprzedniej funkcja <code class="highlighter-rouge">any?</code> zwróci <code class="highlighter-rouge">true</code>, jeżeli choć dla jednego elementu nasza funkcja zwróci<code class="highlighter-rouge">true</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">any?</span><span class="p">([</span><span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<h3 id="chunk_every2">chunk_every/2</h3>
+
+<p>Jeżeli chcesz podzielić kolekcję na mniejsze grupy to <code class="highlighter-rouge">chunk_every/2</code> jest funkcją, której zapewne szukasz:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_every</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p>Jest dostępne kilka wersji <code class="highlighter-rouge">chunk_every/2</code>, ale nie będziemy ich zgłębiać. By dowiedzieć się więcej, zajrzyj do oficjalnej dokumentacji <a href="https://hexdocs.pm/elixir/Enum.html#chunk_every/4"><code class="highlighter-rouge">chunk_every/4</code></a>.</p>
+
+<h3 id="chunk_by">chunk_by</h3>
+
+<p>Jeżeli chcemy pogrupować elementy kolekcji inaczej niż po wielkości, możemy użyć funkcji <code class="highlighter-rouge">chunk_by</code>. Jako argumenty przyjmuje ona kolekcję oraz funkcję. Grupy tworzone są na podstawie wyniku działania funkcji. Jeżeli wynik zmienia się, to tworzona jest nowa grupa, nawet jeżeli wcześniej istniała grupa dla danego wyniku funkcji:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_by</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">,</span> <span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[[</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"three"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">]]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">chunk_by</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">,</span> <span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">,</span> <span class="s2">"six"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[[</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"three"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"four"</span><span class="p">,</span> <span class="s2">"five"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"six"</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<h3 id="map_every">map_every</h3>
+
+<p>Czasami grupowanie elementów kolekcji nie jest dokładnie tym, o co nam chodzi. W takim przypadku funkcja <code class="highlighter-rouge">map_every/3</code> pozwoli nam na pracę z konkretnymi elementami kolekcji. Jeżeli nasza kolekcja jest w jakiś sposób uporządkowana, to funkcja ta może być bardzo przydatna:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Funkcja zostanie wywołana dla co trzeciego elementu</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map_every</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="k">fn</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1000</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1001</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1004</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1007</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="each">each</h3>
+
+<p>Jeżeli chcemy przejść przez kolekcję bez zwracania nowej wartości, to używamy funkcji <code class="highlighter-rouge">each/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">([</span><span class="s2">"one"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="s2">"three"</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="n">one</span>
+<span class="n">two</span>
+<span class="n">three</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p><strong>Uwaga</strong>: Funkcja <code class="highlighter-rouge">each/2</code> zwraca atom <code class="highlighter-rouge">:ok</code>.</p>
+
+<h3 id="map">map</h3>
+
+<p>By wywołać naszą funkcję na każdym elemencie kolekcji i uzyskać nową kolekcję używamy funkcji <code class="highlighter-rouge">map/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="min">min</h3>
+
+<p>Funkcja <code class="highlighter-rouge">min/1</code> znajduje najmniejszą wartość w kolekcji:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>Funkcja <code class="highlighter-rouge">min/2</code> robi dokładnie to samo, ale jako drugi argument przyjmuje funkcję anonimową zwracającą wartość domyślną dla <code class="highlighter-rouge">Enum</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">min</span><span class="p">([],</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="ss">:foo</span> <span class="k">end</span><span class="p">)</span>
+<span class="ss">:foo</span>  
+</code></pre></div></div>
+
+<h3 id="max">max</h3>
+
+<p>Funkcja <code class="highlighter-rouge">max/1</code> znajduje największą wartość w kolekcji:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="mi">5</span>
+</code></pre></div></div>
+
+<p>Funkcja <code class="highlighter-rouge">max/2</code> działa na tej samej zasadzie co <code class="highlighter-rouge">min/2</code>, czyli jako drugi argument przyjmuje funkcję anonimową, która zwróci wartość domyślną:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">max</span><span class="p">([],</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="ss">:bar</span> <span class="k">end</span><span class="p">)</span>
+<span class="ss">:bar</span>  
+</code></pre></div></div>
+
+<h3 id="reduce">reduce</h3>
+
+<p>Funkcja <code class="highlighter-rouge">reduce</code> pozwala na zredukowanie kolekcji do pojedynczej wartości. By tego dokonać, możemy opcjonalnie podać akumulator (przykładowo <code class="highlighter-rouge">10</code>), by został przekazany do naszej funkcji. Jeżeli nie podamy akumulatora, to zostanie zastąpiony przez pierwszy element kolekcji:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">10</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="mi">16</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="mi">6</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span><span class="s2">"b"</span><span class="p">,</span><span class="s2">"c"</span><span class="p">],</span> <span class="s2">"1"</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">acc</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">x</span> <span class="o">&lt;&gt;</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="s2">"cba1"</span>
+</code></pre></div></div>
+
+<h3 id="sort">sort</h3>
+
+<p>Sortowanie kolekcji jest bardzo proste dzięki nie jednej a dwóm funkcjom <code class="highlighter-rouge">sort/1</code>.  Pierwsza z nich porządkuje elementy zgodnie ze specyfikacją Elixira:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([</span><span class="ss">:foo</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">,</span> <span class="no">Enum</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="no">Enum</span><span class="p">,</span> <span class="ss">:foo</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Druga pozwala na przekazanie jako parametr funkcji określającej kolejność:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># z naszą funkcją</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([%{</span><span class="ss">:val</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">:val</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">[</span><span class="ss">:val</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">[</span><span class="ss">:val</span><span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[%{</span><span class="ss">val:</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">val:</span> <span class="mi">1</span><span class="p">}]</span>
+
+<span class="c1"># bez naszej funkcji</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">([%{</span><span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">},</span> <span class="p">%{</span><span class="ss">:count</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}])</span>
+<span class="p">[%{</span><span class="ss">count:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">%{</span><span class="ss">count:</span> <span class="mi">4</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<h3 id="uniq_by">uniq_by</h3>
+
+<p>Jeżeli chcemy usunąć duplikaty z kolekcji możemy użyć funkcji <code class="highlighter-rouge">uniq_by/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">uniq_by</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="k">fn</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="k">end</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/pl/lessons/basics/enum.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pl/lessons/basics/collections/" title="Kolekcje">← Kolekcje</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pl/lessons/basics/pattern-matching/" title="Dopasowanie wzorców">Dopasowanie wzorców →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/enum/" >bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/enum/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/enum/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/enum/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/enum/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/enum/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/enum/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/enum/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/enum/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/enum/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/enum/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/enum/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/enum/" >no</a>
+        
+      
+        
+        
+
+        
+          <strong >pl</strong>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/enum/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/enum/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/enum/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/ta/lessons/basics/enum/" >ta</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/enum/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/enum/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/enum/" >uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/enum/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/enum/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/enum/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lekcje programowania w języku Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/pl/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Podstawy</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/basics/">1. Podstawy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/collections/">2. Kolekcje</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">3. Enum</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/pattern-matching/">4. Dopasowanie wzorców</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/control-structures/">5. Struktury sterujące</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/functions/">6. Funkcje</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/pipe-operator/">7. Operator Potoku</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/modules/">8. Organizacja kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/sigils/">10. Sigile</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/documentation/">11. Dokumentowanie kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/testing/">12. Testowanie kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/comprehensions/">13. Składanie kolekcji</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/strings/">14. Ciągi znaków</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/mix-tasks/">16. Własne funkcje Mix'a</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/iex-helpers/">17. Powłoka IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Zaawansowane</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/erlang/">1. Współpraca z Erlangiem</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/error-handling/">2. Wyjątki i błędy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/escripts/">3. Uruchamianie programów</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/concurrency/">4. Współbieżność</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/otp-concurrency/">5. Współbieżność z OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/otp-supervisors/">6. Nadzorcy OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/metaprogramming/">8. Metaprogramowanie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/umbrella-projects/">9. Projekty zbiorcze</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/typespec/">10. Specyfikacje i typy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/behaviours/">11. Zachowania</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specyficzne</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Biblioteki</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/libraries/guardian/">1. Guardian (Podstawy)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/pl/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

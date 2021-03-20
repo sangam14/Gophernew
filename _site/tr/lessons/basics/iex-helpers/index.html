@@ -1,0 +1,855 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="tr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir programlama dili dersleri">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/tr/lessons/basics/iex-helpers/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="tr">
+  <meta property="og:description" content="Elixir programlama dili dersleri">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/iex-helpers/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/iex-helpers/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/tr/lessons/basics/iex-helpers/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>IEx Yardımcıları &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/tr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/tr/lessons/basics/iex-helpers/&title=IEx Yardımcıları&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/tr/lessons/basics/iex-helpers/&via=elixirschool&text=ElixirSchool: IEx Yardımcıları&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tr/lessons/basics/iex-helpers/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/tr/lessons/basics/iex-helpers/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: IEx Yardımcıları" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/tr/lessons/basics/iex-helpers/&title=ElixirSchool: IEx Yardımcıları&description=Check out 'IEx Yardımcıları' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: IEx Yardımcıları&body=Check out 'IEx Yardımcıları' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/tr/lessons/basics/iex-helpers/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  IEx Yardımcıları
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      Some contents of this translation may be outdated.<br/>
+    
+
+    Several patches were applied to the original lesson since the last update.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <h2>İçerik</h2>
+<div id="toc"></div>
+
+<h2 id="genel-bakış">Genel Bakış</h2>
+
+<p>Elixir kullanmaya başladığınızda, IEx en yakın arkadaşınız olacaktır.
+Bu bir REPL(Read–Eval–Print Loop)’olarak geçer, ancak yeni kodu keşfederken veya kendi işinizi geliştirirken hayatınızı kolaylaştıracak birçok gelişmiş özelliğe sahip olmanızı sağlar
+Bu derste üzerinden geçeceğimiz bir takım yerleşik(built-in) yardımcılar var.</p>
+
+<h3 id="otomatik-tamamlama">Otomatik tamamlama</h3>
+
+<p>Komut satırında çalışırken, çoğu zaman kendinizi bilmediğiniz yeni bir modül kullanırken bulacaksınız.
+Kullanabileceğiniz şeylerin bazılarını anlamak için otomatik tamamlama özelliğini kullanabilirsiniz.
+Sadece bir modül adını yazıp ardından <code class="highlighter-rouge">.</code> yazdıktan sonra <code class="highlighter-rouge">Tab</code> tuşuna basmanız yeterlidir:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span> <span class="c1"># press Tab</span>
+<span class="n">delete</span><span class="o">/</span><span class="mi">2</span>             <span class="n">drop</span><span class="o">/</span><span class="mi">2</span>               <span class="n">equal?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">fetch!</span><span class="o">/</span><span class="mi">2</span>             <span class="n">fetch</span><span class="o">/</span><span class="mi">2</span>              <span class="n">from_struct</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">get</span><span class="o">/</span><span class="mi">2</span>                <span class="n">get</span><span class="o">/</span><span class="mi">3</span>                <span class="n">get_and_update!</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">get_and_update</span><span class="o">/</span><span class="mi">3</span>     <span class="n">get_lazy</span><span class="o">/</span><span class="mi">3</span>           <span class="n">has_key?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">keys</span><span class="o">/</span><span class="mi">1</span>               <span class="n">merge</span><span class="o">/</span><span class="mi">2</span>              <span class="n">merge</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">new</span><span class="o">/</span><span class="mi">0</span>                <span class="n">new</span><span class="o">/</span><span class="mi">1</span>                <span class="n">new</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">pop</span><span class="o">/</span><span class="mi">2</span>                <span class="n">pop</span><span class="o">/</span><span class="mi">3</span>                <span class="n">pop_lazy</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">put</span><span class="o">/</span><span class="mi">3</span>                <span class="n">put_new</span><span class="o">/</span><span class="mi">3</span>            <span class="n">put_new_lazy</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">replace!</span><span class="o">/</span><span class="mi">3</span>           <span class="n">replace</span><span class="o">/</span><span class="mi">3</span>            <span class="n">split</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">take</span><span class="o">/</span><span class="mi">2</span>               <span class="n">to_list</span><span class="o">/</span><span class="mi">1</span>            <span class="n">update!</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">update</span><span class="o">/</span><span class="mi">4</span>             <span class="n">values</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div></div>
+<p>Ve şimdi sahip olduğumuz function’ları ve onların gerekliliklerini biliyoruz!</p>
+
+<h3 id="iexexs"><code class="highlighter-rouge">.iex.exs</code></h3>
+
+<p>IEx her başlatıldığında bir <code class="highlighter-rouge">.iex.exs</code> yapılandırma dosyası arar. Geçerli dizinde yoksa kullanıcının ana dizininde bulunan (~/.iex.exs) yedek olarak kullanılacaktır.</p>
+
+<p>Bu dosyada tanımlanan yapılandırma seçenekleri ve kod IEx kabuğu başlatıldığında kullanılabilir. Örneğin, IEx’de bazı yardımcı fonksiyonları kullanmak istersek, <code class="highlighter-rouge">.iex.exs</code> dosyasını açıp bazı değişiklikler yapabiliriz.</p>
+
+<p>Birkaç yardımcı işlev içeren bir modül ekleyerek başlayalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">IExHelpers</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_nil</span><span class="p">(</span><span class="n">term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Nil"</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Binary"</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_boolean</span><span class="p">(</span><span class="n">term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Boolean"</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_atom</span><span class="p">(</span><span class="n">term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Atom"</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">_term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Unknown"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Artık IEx’i çalıştırdığımızda baştan beri IExHelpers modülümüzü kullanacağız. IEx’i açın ve yeni oluşturduğumuz programlarımızı deneyelim:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">iex</span>
+<span class="mf">22.0</span> <span class="p">[</span><span class="mf">10.5</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span> <span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="p">[</span><span class="mi">64</span><span class="o">-</span><span class="n">bit</span><span class="p">]</span> <span class="p">[</span><span class="ss">smp:</span><span class="mi">8</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="p">[</span><span class="n">async</span><span class="o">-</span><span class="ss">threads:</span><span class="mi">10</span><span class="p">]</span> <span class="p">[</span><span class="n">hipe</span><span class="p">]</span> <span class="p">[</span><span class="n">kernel</span><span class="o">-</span><span class="ss">poll:</span><span class="no">false</span><span class="p">]</span> <span class="p">[</span><span class="n">dtrace</span><span class="p">]</span>
+
+<span class="no">Interactive</span> <span class="no">Elixir</span> <span class="p">(</span><span class="mf">1.10</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">press</span> <span class="no">Ctrl</span><span class="o">+</span><span class="no">C</span> <span class="n">to</span> <span class="k">exit</span> <span class="p">(</span><span class="n">type</span> <span class="n">h</span><span class="p">()</span> <span class="no">ENTER</span> <span class="n">for</span> <span class="n">help</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">IExHelpers</span><span class="o">.</span><span class="n">whats_this?</span><span class="p">(</span><span class="s2">"a string"</span><span class="p">)</span>
+<span class="s2">"Type: Binary"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">IExHelpers</span><span class="o">.</span><span class="n">whats_this?</span><span class="p">(%{})</span>
+<span class="s2">"Type: Unknown"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">IExHelpers</span><span class="o">.</span><span class="n">whats_this?</span><span class="p">(</span><span class="ss">:test</span><span class="p">)</span>
+<span class="s2">"Type: Atom"</span>
+</code></pre></div></div>
+
+<p>Görebildiğimiz gibi, helpers modüllerimizi çağırmak veya import etmek için özel bir şeyler yapmak zorunda değiliz, IEx bunu bizim için zaten halledecektir.</p>
+
+<h3 id="h"><code class="highlighter-rouge">h</code></h3>
+
+<p><code class="highlighter-rouge">h</code>, Elixir komut satırının bize verdiği en faydalı araçlardan biridir.
+Dilin dokümantasyonu için muhteşem birinci sınıf desteği sayesinde, herhangi bir kodun dokümanlarına bu yardımcı araç kullanılarak ulaşılabilir.
+Nasıl çalıştığına bakalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">h</span> <span class="no">Enum</span>
+                                      <span class="no">Enum</span>
+
+<span class="no">Provides</span> <span class="n">a</span> <span class="n">set</span> <span class="n">of</span> <span class="n">algorithms</span> <span class="n">that</span> <span class="n">enumerate</span> <span class="n">over</span> <span class="n">enumerables</span> <span class="n">according</span> <span class="n">to</span> <span class="n">the</span>
+<span class="no">Enumerable</span> <span class="n">protocol</span><span class="o">.</span>
+
+<span class="err">┃</span> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
+<span class="err">┃</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="no">Some</span> <span class="n">particular</span> <span class="n">types</span><span class="p">,</span> <span class="n">like</span> <span class="n">maps</span><span class="p">,</span> <span class="n">yield</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">format</span> <span class="n">on</span> <span class="n">enumeration</span><span class="o">.</span> <span class="no">For</span>
+<span class="n">example</span><span class="p">,</span> <span class="n">the</span> <span class="n">argument</span> <span class="n">is</span> <span class="n">always</span> <span class="n">a</span> <span class="p">{</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">}</span> <span class="n">tuple</span> <span class="n">for</span> <span class="ss">maps:</span>
+
+<span class="err">┃</span> <span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="err">┃</span> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="k">fn</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span> <span class="k">end</span><span class="p">)</span>
+<span class="err">┃</span> <span class="p">[</span><span class="ss">a:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="no">Note</span> <span class="n">that</span> <span class="n">the</span> <span class="n">functions</span> <span class="ow">in</span> <span class="n">the</span> <span class="no">Enum</span> <span class="n">module</span> <span class="n">are</span> <span class="ss">eager:</span> <span class="n">they</span> <span class="n">always</span> <span class="n">start</span> <span class="n">the</span>
+<span class="n">enumeration</span> <span class="n">of</span> <span class="n">the</span> <span class="n">given</span> <span class="n">enumerable</span><span class="o">.</span> <span class="no">The</span> <span class="no">Stream</span> <span class="n">module</span> <span class="n">allows</span> <span class="n">lazy</span> <span class="n">enumeration</span>
+<span class="n">of</span> <span class="n">enumerables</span> <span class="ow">and</span> <span class="n">provides</span> <span class="n">infinite</span> <span class="n">streams</span><span class="o">.</span>
+
+<span class="no">Since</span> <span class="n">the</span> <span class="n">majority</span> <span class="n">of</span> <span class="n">the</span> <span class="n">functions</span> <span class="ow">in</span> <span class="no">Enum</span> <span class="n">enumerate</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">enumerable</span> <span class="ow">and</span>
+<span class="n">return</span> <span class="n">a</span> <span class="n">list</span> <span class="n">as</span> <span class="n">result</span><span class="p">,</span> <span class="n">infinite</span> <span class="n">streams</span> <span class="n">need</span> <span class="n">to</span> <span class="n">be</span> <span class="n">carefully</span> <span class="n">used</span> <span class="n">with</span> <span class="n">such</span>
+<span class="n">functions</span><span class="p">,</span> <span class="n">as</span> <span class="n">they</span> <span class="n">can</span> <span class="n">potentially</span> <span class="n">run</span> <span class="n">forever</span><span class="o">.</span> <span class="no">For</span> <span class="ss">example:</span>
+
+<span class="err">┃</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span> <span class="no">Stream</span><span class="o">.</span><span class="n">cycle</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="o">&amp;</span><span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Ve şimdi bunu komut satırımızda otomatik tamamlama özellikleri ile birleştirebiliriz.
+Map’i ilk kez kullandığınızı düşünün:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">h</span> <span class="no">Map</span>
+                                      <span class="no">Map</span>
+
+<span class="no">A</span> <span class="n">set</span> <span class="n">of</span> <span class="n">functions</span> <span class="n">for</span> <span class="n">working</span> <span class="n">with</span> <span class="n">maps</span><span class="o">.</span>
+
+<span class="no">Maps</span> <span class="n">are</span> <span class="n">key</span><span class="o">-</span><span class="n">value</span> <span class="n">stores</span> <span class="n">where</span> <span class="n">keys</span> <span class="n">can</span> <span class="n">be</span> <span class="n">any</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">are</span> <span class="n">compared</span> <span class="n">using</span>
+<span class="n">the</span> <span class="n">match</span> <span class="n">operator</span> <span class="p">(</span><span class="o">===</span><span class="p">)</span><span class="o">.</span> <span class="no">Maps</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="n">with</span> <span class="n">the</span> <span class="p">%{}</span> <span class="n">special</span> <span class="n">form</span> <span class="n">defined</span>
+<span class="ow">in</span> <span class="n">the</span> <span class="no">Kernel</span><span class="o">.</span><span class="no">SpecialForms</span> <span class="n">module</span><span class="o">.</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span>
+<span class="n">delete</span><span class="o">/</span><span class="mi">2</span>             <span class="n">drop</span><span class="o">/</span><span class="mi">2</span>               <span class="n">equal?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">fetch!</span><span class="o">/</span><span class="mi">2</span>             <span class="n">fetch</span><span class="o">/</span><span class="mi">2</span>              <span class="n">from_struct</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">get</span><span class="o">/</span><span class="mi">2</span>                <span class="n">get</span><span class="o">/</span><span class="mi">3</span>                <span class="n">get_and_update!</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">get_and_update</span><span class="o">/</span><span class="mi">3</span>     <span class="n">get_lazy</span><span class="o">/</span><span class="mi">3</span>           <span class="n">has_key?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">keys</span><span class="o">/</span><span class="mi">1</span>               <span class="n">merge</span><span class="o">/</span><span class="mi">2</span>              <span class="n">merge</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">new</span><span class="o">/</span><span class="mi">0</span>                <span class="n">new</span><span class="o">/</span><span class="mi">1</span>                <span class="n">new</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">pop</span><span class="o">/</span><span class="mi">2</span>                <span class="n">pop</span><span class="o">/</span><span class="mi">3</span>                <span class="n">pop_lazy</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">put</span><span class="o">/</span><span class="mi">3</span>                <span class="n">put_new</span><span class="o">/</span><span class="mi">3</span>            <span class="n">put_new_lazy</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">split</span><span class="o">/</span><span class="mi">2</span>              <span class="n">take</span><span class="o">/</span><span class="mi">2</span>               <span class="n">to_list</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">update!</span><span class="o">/</span><span class="mi">3</span>            <span class="n">update</span><span class="o">/</span><span class="mi">4</span>             <span class="n">values</span><span class="o">/</span><span class="mi">1</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">h</span> <span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="o">/</span><span class="mi">2</span>
+                             <span class="k">def</span> <span class="n">merge</span><span class="p">(</span><span class="n">map1</span><span class="p">,</span> <span class="n">map2</span><span class="p">)</span>
+
+<span class="no">Merges</span> <span class="n">two</span> <span class="n">maps</span> <span class="n">into</span> <span class="n">one</span><span class="o">.</span>
+
+<span class="no">All</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">map2</span> <span class="n">will</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span> <span class="n">map1</span><span class="p">,</span> <span class="n">overriding</span> <span class="n">any</span> <span class="n">existing</span> <span class="n">one</span><span class="o">.</span>
+
+<span class="no">If</span> <span class="n">you</span> <span class="n">have</span> <span class="n">a</span> <span class="n">struct</span> <span class="ow">and</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="n">merge</span> <span class="n">a</span> <span class="n">set</span> <span class="n">of</span> <span class="n">keys</span> <span class="n">into</span> <span class="n">the</span> <span class="n">struct</span><span class="p">,</span>
+<span class="k">do</span> <span class="ow">not</span> <span class="kn">use</span> <span class="n">this</span> <span class="n">function</span><span class="p">,</span> <span class="n">as</span> <span class="n">it</span> <span class="n">would</span> <span class="n">merge</span> <span class="n">all</span> <span class="n">keys</span> <span class="n">on</span> <span class="n">the</span> <span class="n">right</span> <span class="n">side</span> <span class="n">into</span> <span class="n">the</span>
+<span class="n">struct</span><span class="p">,</span> <span class="n">even</span> <span class="k">if</span> <span class="n">the</span> <span class="n">key</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">struct</span><span class="o">.</span> <span class="no">Instead</span><span class="p">,</span> <span class="kn">use</span>
+<span class="no">Kernel</span><span class="o">.</span><span class="n">struct</span><span class="o">/</span><span class="mi">2</span><span class="o">.</span>
+
+<span class="no">Examples</span>
+
+<span class="err">┃</span> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="p">(%{</span><span class="ss">a:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">2</span><span class="p">},</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">d:</span> <span class="mi">4</span><span class="p">})</span>
+<span class="err">┃</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">d:</span> <span class="mi">4</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Gördüğünüz gibi modülün bir parçası olarak hangi fonksiyonların mevcut olduğunu bulamadık, ancak birçoğunda gördük ki örnek kullanımı içeren fonksiyon belgeleri var.</p>
+
+<h3 id="i"><code class="highlighter-rouge">i</code></h3>
+
+<p>Yeni kullanacağımız <code class="highlighter-rouge">i</code> yardımcı aracı hakkında biraz daha fazla bilgi sahibi olabilmek için <code class="highlighter-rouge">h</code> aracını kullanalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">h</span> <span class="n">i</span>
+
+                                  <span class="k">def</span> <span class="n">i</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+
+<span class="no">Prints</span> <span class="n">information</span> <span class="n">about</span> <span class="n">the</span> <span class="n">given</span> <span class="n">data</span> <span class="n">type</span><span class="o">.</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">i</span> <span class="no">Map</span>
+<span class="no">Term</span>
+  <span class="no">Map</span>
+<span class="no">Data</span> <span class="n">type</span>
+  <span class="no">Atom</span>
+<span class="no">Module</span> <span class="n">bytecode</span>
+  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="no">Cellar</span><span class="o">/</span><span class="n">elixir</span><span class="o">/</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">bin</span><span class="o">/../</span><span class="n">lib</span><span class="o">/</span><span class="n">elixir</span><span class="o">/</span><span class="n">ebin</span><span class="o">/</span><span class="no">Elixir</span><span class="o">.</span><span class="no">Map</span><span class="o">.</span><span class="n">beam</span>
+<span class="no">Source</span>
+  <span class="o">/</span><span class="n">private</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">elixir</span><span class="o">-</span><span class="mi">20160918</span><span class="o">-</span><span class="mi">33925</span><span class="o">-</span><span class="err">1</span><span class="n">ki46ng</span><span class="o">/</span><span class="n">elixir</span><span class="o">-</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">elixir</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">map</span><span class="o">.</span><span class="n">ex</span>
+<span class="no">Version</span>
+  <span class="p">[</span><span class="mi">9651177287794427227743899018880159024</span><span class="p">]</span>
+<span class="no">Compile</span> <span class="n">time</span>
+  <span class="n">no</span> <span class="n">value</span> <span class="n">found</span>
+<span class="no">Compile</span> <span class="n">options</span>
+  <span class="p">[</span><span class="ss">:debug_info</span><span class="p">]</span>
+<span class="no">Description</span>
+  <span class="no">Use</span> <span class="n">h</span><span class="p">(</span><span class="no">Map</span><span class="p">)</span> <span class="n">to</span> <span class="n">access</span> <span class="n">its</span> <span class="n">documentation</span><span class="o">.</span>
+  <span class="no">Call</span> <span class="no">Map</span><span class="o">.</span><span class="n">module_info</span><span class="p">()</span> <span class="n">to</span> <span class="n">access</span> <span class="n">metadata</span><span class="o">.</span>
+<span class="no">Raw</span> <span class="n">representation</span>
+  <span class="ss">:"Elixir.Map"</span>
+<span class="no">Reference</span> <span class="n">modules</span>
+  <span class="no">Module</span><span class="p">,</span> <span class="no">Atom</span>
+</code></pre></div></div>
+
+<p>Şimdi, kaynağın nerede tutulduğunu ve nereye referans sağladığını, modüller de dahil olmak üzere <code class="highlighter-rouge">maps</code> hakkında bir sürü bilgiye erişebiliriz. Özel ve farklı veri türlerini ve yeni fonksiyonları keyfetmek işimize oldukça yarayacaktır</p>
+
+<p>Belli başlı konular şu şekildedir:</p>
+
+<ul>
+  <li>Bir atom veri tipi</li>
+  <li>Kaynak kod nerede</li>
+  <li>Sürüm ve derleme seçenekleri</li>
+  <li>Genel bir açıklama</li>
+  <li>Nasıl erişilir?</li>
+  <li>Hangi diğer modülleri referans gösteriyor?</li>
+</ul>
+
+<p>Bu size çok çalışmanızı sağlasa da kör olmaktan kurtarır.</p>
+
+<h3 id="r"><code class="highlighter-rouge">r</code></h3>
+
+<p>Belli bir modülü yeniden derlemek istersek <code class="highlighter-rouge">r</code> yardımcı aracını kullanabiliriz. Diyelim ki, bazı kodları değiştirdik ve eklediğimiz yeni bir fonksiyonu çalıştırmak istedik. Bunu yapmak için değişikliklerimizi kaydettirip r ile yeniden derlemeliyiz:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">r</span> <span class="no">MyProject</span>
+<span class="ss">warning:</span> <span class="n">redefining</span> <span class="n">module</span> <span class="no">MyProject</span> <span class="p">(</span><span class="n">current</span> <span class="n">version</span> <span class="n">loaded</span> <span class="n">from</span> <span class="n">_build</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">my_project</span><span class="o">/</span><span class="n">ebin</span><span class="o">/</span><span class="no">Elixir</span><span class="o">.</span><span class="no">MyProject</span><span class="o">.</span><span class="n">beam</span><span class="p">)</span>
+  <span class="n">lib</span><span class="o">/</span><span class="n">my_project</span><span class="o">.</span><span class="ss">ex:</span><span class="mi">1</span>
+
+<span class="p">{</span><span class="ss">:reloaded</span><span class="p">,</span> <span class="no">MyProject</span><span class="p">,</span> <span class="p">[</span><span class="no">MyProject</span><span class="p">]}</span>
+</code></pre></div></div>
+
+<h3 id="s"><code class="highlighter-rouge">s</code></h3>
+
+<p><code class="highlighter-rouge">s</code> ile, bir modül veya fonksiyon için tip özellikleri bilgisini alabiliriz. Bunu, ne beklediğini bilmek için kullanabiliriz:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">s</span> <span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="o">/</span><span class="mi">2</span>
+<span class="nv">@spec</span> <span class="n">merge</span><span class="p">(</span><span class="n">map</span><span class="p">(),</span> <span class="n">map</span><span class="p">())</span> <span class="p">::</span> <span class="n">map</span><span class="p">()</span>
+
+<span class="c1"># it also works on entire modules</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">s</span> <span class="no">Map</span>
+<span class="nv">@spec</span> <span class="n">get</span><span class="p">(</span><span class="n">map</span><span class="p">(),</span> <span class="n">key</span><span class="p">(),</span> <span class="n">value</span><span class="p">())</span> <span class="p">::</span> <span class="n">value</span><span class="p">()</span>
+<span class="nv">@spec</span> <span class="n">put</span><span class="p">(</span><span class="n">map</span><span class="p">(),</span> <span class="n">key</span><span class="p">(),</span> <span class="n">value</span><span class="p">())</span> <span class="p">::</span> <span class="n">map</span><span class="p">()</span>
+<span class="c1"># ...</span>
+<span class="nv">@spec</span> <span class="n">get</span><span class="p">(</span><span class="n">map</span><span class="p">(),</span> <span class="n">key</span><span class="p">())</span> <span class="p">::</span> <span class="n">value</span><span class="p">()</span>
+<span class="nv">@spec</span> <span class="n">get_and_update!</span><span class="p">(</span><span class="n">map</span><span class="p">(),</span> <span class="n">key</span><span class="p">(),</span> <span class="p">(</span><span class="n">value</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">get</span><span class="p">,</span> <span class="n">value</span><span class="p">()}))</span> <span class="p">::</span> <span class="p">{</span><span class="n">get</span><span class="p">,</span> <span class="n">map</span><span class="p">()}</span> <span class="o">|</span> <span class="n">no_return</span><span class="p">()</span> <span class="ow">when</span> <span class="ss">get:</span> <span class="n">term</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="t"><code class="highlighter-rouge">t</code></h3>
+
+<p><code class="highlighter-rouge">t</code> yardımcı aracı, belirli bir modülde kullanılabilen tipleri hakkında bilgi verir:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">t</span> <span class="no">Map</span>
+<span class="nv">@type</span> <span class="n">key</span><span class="p">()</span> <span class="p">::</span> <span class="n">any</span><span class="p">()</span>
+<span class="nv">@type</span> <span class="n">value</span><span class="p">()</span> <span class="p">::</span> <span class="n">any</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Ve şimdi biz biliyoruz ki <code class="highlighter-rouge">Map</code>, uygulanmasında anahtar ve değer tipleri tanımlıyor.
+Gidip <code class="highlighter-rouge">Maps</code> kaynağına bakarsak:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Map</span> <span class="k">do</span>
+<span class="c1"># ...</span>
+  <span class="nv">@type</span> <span class="n">key</span> <span class="p">::</span> <span class="n">any</span>
+  <span class="nv">@type</span> <span class="n">value</span> <span class="p">::</span> <span class="n">any</span>
+<span class="c1"># ...</span>
+</code></pre></div></div>
+
+<p>Bu en basit örnektir, uygulama başına anahtar ve değerlerin herhangi bir tip olabileceğini belirtir, gerektiği zaman tiplerin ne olduğunu bilmek işimize yarayacaktır.</p>
+
+<p>Tüm bu yerleşik özelliklerden yararlanarak kodu kolayca keşfedebilir ve işlerin nasıl yürüdüğü konusunda daha fazla bilgi edinebiliriz. IEx, geliştiricileri güçlendiren çok güçlü ve sağlam bir yardımcı araçtır. Araç kutusu(toolbox) içerisindeki bu araçlar sayesinde yeni şeyler keşfetmek ve üretmek daha da eğlenceli olabilir!</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/tr/lessons/basics/iex-helpers.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/tr/lessons/basics/mix-tasks/" title="Özel Mix Görevleri">← Özel Mix Görevleri</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/tr/lessons/advanced/erlang/" title="Erlang'ın Çalışabilirliği">Erlang'ın Çalışabilirliği →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/iex-helpers/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/iex-helpers/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/iex-helpers/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/iex-helpers/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/iex-helpers/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/iex-helpers/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/iex-helpers/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/iex-helpers/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/iex-helpers/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/iex-helpers/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/iex-helpers/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/iex-helpers/" >sk</a>
+        
+      
+        
+        
+
+        
+          <strong >tr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/iex-helpers/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/iex-helpers/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir programlama dili dersleri</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/tr/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Temeller</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/basics/">1. Temeller</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/collections/">2. Koleksiyonlar</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/pattern-matching/">4. Ornegini Bulma</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/control-structures/">5. Kontrol Yapilari</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/functions/">6. Fonksiyonlar</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/pipe-operator/">7. Pipe Operatörü</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/modules/">8. Modüller</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/sigils/">10. İşaretler (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/documentation/">11. Belgelendirme</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/testing/">12. Test Yapmak</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/comprehensions/">13. Comprehensions(Kavramlar)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/strings/">14. Stringler (Dizeler)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/mix-tasks/">16. Özel Mix Görevleri</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">17. IEx Yardımcıları</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Gelişmiş</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/erlang/">1. Erlang'ın Çalışabilirliği</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/error-handling/">2. Hata işleme</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/escripts/">3. Yürütüle bilirlik</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/behaviours/">11. Davranışlar</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/tr/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

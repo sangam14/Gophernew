@@ -1,0 +1,1156 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/advanced/otp-distribution/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/otp-distribution/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/otp-distribution/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/advanced/otp-distribution/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>OTPディストリビューション &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/advanced/otp-distribution/&title=OTPディストリビューション&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/advanced/otp-distribution/&via=elixirschool&text=ElixirSchool: OTPディストリビューション&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/advanced/otp-distribution/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/advanced/otp-distribution/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: OTPディストリビューション" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/advanced/otp-distribution/&title=ElixirSchool: OTPディストリビューション&description=Check out 'OTPディストリビューション' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: OTPディストリビューション&body=Check out 'OTPディストリビューション' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/advanced/otp-distribution/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  OTPディストリビューション
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    この和訳は最新です。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <h2 id="ディストリビューションへの入門">ディストリビューションへの入門</h2>
+
+<p>Elixirアプリは、単体のホストや複数のホストにまたがって分散された(distributed)一連の異なるノードで実行することができます。
+Elixirは、このレッスンで概説するいくつかの異なるメカニズムを通して、それらのノード間で通信をすることが可能です。</p>
+
+<h2>目次</h2>
+<div id="toc"></div>
+
+<h2 id="ノード間通信">ノード間通信</h2>
+
+<p>ElixirはErlang VMで動作しますが、これはErlangの強力な <a href="http://erlang.org/doc/reference_manual/distributed.html">分散機能</a> へアクセス可能であることを意味します。</p>
+
+<blockquote>
+  <p>分散されたErlangシステムは互いに通信するいくつものErlangランタイムシステムを含んでいます。
+これらのそれぞれのランタイムはノードと呼ばれます。</p>
+</blockquote>
+
+<p>ノードは名前が与えられた任意のErlangランタイムシステムです。
+名前を与えて <code class="highlighter-rouge">iex</code> セッションを起動することで、ノードを開始できます:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost
+iex<span class="o">(</span>alex@localhost<span class="o">)&gt;</span>
+</code></pre></div></div>
+
+<p>別のターミナルウィンドウで、もう一つのノードを起動してみましょう:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost
+iex<span class="o">(</span>kate@localhost<span class="o">)&gt;</span>
+</code></pre></div></div>
+
+<p>これら2つのノードは <code class="highlighter-rouge">Node.spawn_link/2</code> を使うことで相手にメッセージを送ることができます。</p>
+
+<h3 id="nodespawn_link2-による通信"><code class="highlighter-rouge">Node.spawn_link/2</code> による通信</h3>
+
+<p>この関数は2つの引数を取ります:</p>
+
+<ul>
+  <li>接続したいノードの名前</li>
+  <li>そのノードで動作しているリモートプロセスによって実行させる関数</li>
+</ul>
+
+<p>これはリモートノードとの間で通信を確立して、ノード上で与えられた関数を実行し、リンクされたプロセスのPIDを返します。</p>
+
+<p>Kateさんを紹介する <code class="highlighter-rouge">Kate</code> というモジュールを、 <code class="highlighter-rouge">kate</code> ノードの中に定義しましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">defmodule</span> <span class="no">Kate</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">def</span> <span class="n">say_name</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>     <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hi, my name is Kate"</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">end</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="メッセージの送信">メッセージの送信</h4>
+
+<p>これで <a href="https://hexdocs.pm/elixir/Node.html#spawn_link/2"><code class="highlighter-rouge">Node.spawn_link/2</code></a> を使うと、 <code class="highlighter-rouge">alex</code> ノードは <code class="highlighter-rouge">kate</code> ノードに対して <code class="highlighter-rouge">say_name/0</code> 関数を呼ばせることができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Node</span><span class="o">.</span><span class="n">spawn_link</span><span class="p">(</span><span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">Kate</span><span class="o">.</span><span class="n">say_name</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">Hi</span><span class="p">,</span> <span class="n">my</span> <span class="n">name</span> <span class="n">is</span> <span class="no">Kate</span>
+<span class="c1">#PID&lt;10507.132.0&gt;</span>
+</code></pre></div></div>
+
+<h4 id="入出力とノードに関する注意">入出力とノードに関する注意</h4>
+
+<p>注意が必要なのは、 <code class="highlighter-rouge">Kate.say_name/0</code> がリモートノードで実行されたとはいえ、 <code class="highlighter-rouge">IO.puts</code> の結果を受け取るのはローカル、つまり呼び出し側のノードだという点です。
+これは、ローカルノードが <strong>グループリーダー</strong> であるためです。
+Erlang VMはプロセスを通してI/Oを管理します。
+これによって <code class="highlighter-rouge">IO.puts</code> のようなI/Oタスクを分散されたノード間で実行することができます。
+これらの分散されたプロセスは、I/Oプロセスグループリーダーによって管理されます。
+このグループリーダーは常にプロセスを生産するノードとなります。
+そのため、 <code class="highlighter-rouge">alex</code> ノードは <code class="highlighter-rouge">spawn_link/2</code> から呼び出されているので、そのノードがグループリーダーとなり、 <code class="highlighter-rouge">IO.puts</code> の出力はそのノードの標準出力ストリームへと向けられます。</p>
+
+<h4 id="メッセージへの返信">メッセージへの返信</h4>
+
+<p>受信したノードから送信側に対して何らかの <em>返信</em> を返したい場合はどうしましょう？ これは、単に <code class="highlighter-rouge">receive/1</code> と <a href="https://hexdocs.pm/elixir/Process.html#send/3"><code class="highlighter-rouge">send/3</code></a> を使うことで実現できます。</p>
+
+<p><code class="highlighter-rouge">alex</code> ノードに <code class="highlighter-rouge">kate</code> ノードへのリンクを作らせて、 <code class="highlighter-rouge">kate</code> ノードに匿名関数を実行させます。
+その匿名関数は、メッセージと <code class="highlighter-rouge">alex</code> ノードのPIDを記述する特定のタプルの受信を待ちます。
+<code class="highlighter-rouge">alex</code> ノードのPIDにメッセージを送り(<code class="highlighter-rouge">send</code>)返すことで、そのメッセージに応答します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">pid</span> <span class="o">=</span> <span class="no">Node</span><span class="o">.</span><span class="n">spawn_link</span> <span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">receive</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>     <span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="n">alex_node_pid</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">send</span> <span class="n">alex_node_pid</span><span class="p">,</span> <span class="ss">:sup?</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">end</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">end</span>
+<span class="c1">#PID&lt;10467.112.0&gt;</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">pid</span>
+<span class="c1">#PID&lt;10467.112.0&gt;</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">send</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="n">self</span><span class="p">()})</span>
+<span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="c1">#PID&lt;0.106.0&gt;}</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">flush</span><span class="p">()</span>
+<span class="ss">:sup?</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<h4 id="異なるネットワークでのノード間通信における注意">異なるネットワークでのノード間通信における注意</h4>
+
+<p>異なるネットワークにおけるノード間でメッセージ送信をしたい場合、共通cookieで名前を与えられたノードを起動する必要があります:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">--cookie</span> secret_token
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">--cookie</span> secret_token
+</code></pre></div></div>
+
+<p>同一の <code class="highlighter-rouge">cookie</code> で開始されたノード同士のみがお互いに接続することができます。</p>
+
+<h4 id="nodespawn_link2-の制限"><code class="highlighter-rouge">Node.spawn_link/2</code> の制限</h4>
+
+<p><code class="highlighter-rouge">Node.spawn_link/2</code> は、ノード間の関係とメッセージ送信を可能にする方法を示す一方で、実際には分散ノードをまたいで動作するアプリケーションに対しては正しい選択では <em>ありません</em> 。
+<code class="highlighter-rouge">Node.spawn_link/2</code> は単独でプロセスを生成します。
+つまり、そのプロセスは監視されていません。
+<em>ノード間で</em> 監視された非同期プロセスを生成する方法があれば…</p>
+
+<h2 id="分散タスク">分散タスク</h2>
+
+<p><a href="https://hexdocs.pm/elixir/master/Task.html#module-distributed-tasks">分散タスク</a> によって、監視されたタスクをノードをまたいで生成することができます。
+ここでは分散タスクを利用し、分散されたノードをまたいで <code class="highlighter-rouge">iex</code> セッションを通じたユーザー間のチャットを可能にするシンプルなスーパーバイザアプリケーションを作ります。</p>
+
+<h3 id="スーパーバイザアプリケーションの定義">スーパーバイザアプリケーションの定義</h3>
+
+<p>次のコマンドでアプリを生成します:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix new chat --sup
+</code></pre></div></div>
+
+<h3 id="スーパービジョンツリーへのタスクスーパーバイザの追加">スーパービジョンツリーへのタスクスーパーバイザの追加</h3>
+
+<p>タスクスーパーバイザはタスクを動的に監視します。
+これは子が無い状態で開始され、大抵は自分を監視するスーバーバイザの <em>下に</em> あり、後に任意の数のタスクの監視に使用することができます。</p>
+
+<p>ここでは、タスクスーパーバイザをアプリのスーパービジョンツリーに追加し、 <code class="highlighter-rouge">Chat.TaskSupervisor</code> と名前をつけます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat/application.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="no">false</span>
+
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Chat</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>これでアプリケーションが指定されたどこのノードで開始されても、 <code class="highlighter-rouge">Chat.Supervisor</code> が開始されてタスクを監視する準備ができたのがわかります。</p>
+
+<h3 id="監視されたタスクへのメッセージ送信">監視されたタスクへのメッセージ送信</h3>
+
+<p><a href="https://hexdocs.pm/elixir/master/Task.Supervisor.html#async/5"><code class="highlighter-rouge">Task.Supervisor.async/5</code></a> 関数で監視されたタスクを開始します。</p>
+
+<p>この関数は4つの引数を受け取らなければいけません:</p>
+
+<ul>
+  <li>タスクを監視するために使用したいスーパーバイザ。
+これはリモートノードでタスクを監視するために <code class="highlighter-rouge">{SupervisorName, remote_node_name}</code> のタプルで渡すことができます。</li>
+  <li>関数を実行したいモジュールの名前</li>
+  <li>実行したい関数の名前</li>
+  <li>関数に渡たす必要がある引数</li>
+</ul>
+
+<p>シャットダウンオプションに関する5番目の引数を渡すこともできます。
+ただし、ここでは特に気にしません。</p>
+
+<p>チャットアプリケーションはとてもシンプルです。
+これはリモートノードにメッセージを送り、リモートノードは <code class="highlighter-rouge">IO.puts</code> でそれらのメッセージをリモートノードの標準出力に出力することで応答します。</p>
+
+<p>はじめに、リモートノードでタスクを実行させたい <code class="highlighter-rouge">Chat.receive_message/1</code> を定義しましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">receive_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="n">message</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>次に、 <code class="highlighter-rouge">Chat</code> モジュールに監視されたタスクを使ってどのようにリモートノードへとメッセージを送るかを教えましょう。
+このプロセスを成立させるメソッド <code class="highlighter-rouge">Chat.send_message/2</code> を定義します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span> <span class="k">do</span>
+  <span class="o">...</span>
+
+  <span class="k">def</span> <span class="n">send_message</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">spawn_task</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:receive_message</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="p">[</span><span class="n">message</span><span class="p">])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">spawn_task</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">recipient</span>
+    <span class="o">|&gt;</span> <span class="n">remote_supervisor</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>それでは、実際に見てみましょう。</p>
+
+<p>1つ目のターミナルウィンドウにて、名前をつけた <code class="highlighter-rouge">iex</code> セッションの中でチャットアプリを起動します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>もう1つのターミナルウィンドウを開いて、別の名前をつけたノードでアプリを起動します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>これで、 <code class="highlighter-rouge">alex</code> ノードから <code class="highlighter-rouge">kate</code> ノードへメッセージを送ることができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">kate</code> ウィンドウに切り替えると、次のようなメッセージが見えるはずです:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">kate</code> ノードは <code class="highlighter-rouge">alex</code> ノードに返信を返すことができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+<span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:alex</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"how are you?"</span><span class="p">)</span>
+<span class="ss">:ok</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>すると <code class="highlighter-rouge">alex</code> ノードの <code class="highlighter-rouge">iex</code> セッションでこのメッセージが表示されます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">how</span> <span class="n">are</span> <span class="n">you?</span>
+</code></pre></div></div>
+
+<p>コードに戻って詳しく見てみましょう。</p>
+
+<p>監視されたタスクを実行したいリモートノードの名前と、そのノードに送信したいメッセージを受け取る <code class="highlighter-rouge">Chat.send_message/2</code> 関数を持っています。</p>
+
+<p>この関数は <code class="highlighter-rouge">spawn_task/4</code> 関数を呼び出し、指定された名前のリモートノード上で非同期タスクを実行して、 <code class="highlighter-rouge">Chat.TaskSupervisor</code> によってリモートノードで監視されます。
+そのノード <em>も</em> チャットアプリケーションのインスタンスを実行しているので、 <code class="highlighter-rouge">Chat.TaskSupervisor</code> がチャットアプリのスーパービジョンツリーの一部として開始されているため、 <code class="highlighter-rouge">Chat.TaskSupervisor</code> という名前でタスクスーパーバイザがそのノードで実行されていることがわかります。</p>
+
+<p><code class="highlighter-rouge">Chat.TaskSupervisor</code> には、 <code class="highlighter-rouge">send_message/2</code> から <code class="highlighter-rouge">spawn_task/4</code> に渡されるメッセージの引数とともに <code class="highlighter-rouge">Chat.receive_message</code> 関数を実行するタスクを監視するように指示しています。</p>
+
+<p>そのため、 <code class="highlighter-rouge">Chat.receive_message("hi")</code> はリモードノードの <code class="highlighter-rouge">kate</code> で呼び出され、 <code class="highlighter-rouge">"hi"</code> というメッセージをそのノードの標準出力ストリームへと流します。
+この場合、タスクはリモートノード上で監視されているので、そのノードがこのI/Oプロセスのグループマネージャになります。</p>
+
+<h3 id="リモートノードのメッセージへの返信">リモートノードのメッセージへの返信</h3>
+
+<p>チャットアプリをもう少し賢くしてみましょう。
+今のところ、任意の数のユーザーが名前のついた <code class="highlighter-rouge">iex</code> セッションでアプリケーションを実行してチャットを開始できます。
+ですが、チャットを離れたくないMoebiという名前の中型の白い犬がいるとしましょう。
+Moebiはチャットアプリに参加していたいですが、彼は犬なので悲しいことにどうやってタイプするかわかりません。
+なので、私たちは <code class="highlighter-rouge">Chat</code> モジュールに対し、Moebiに代わる <code class="highlighter-rouge">moebi@localhost</code> というノードに対して送られたどのようなメッセージに対しても返信するよう教えます。
+彼の唯一の望みはチキンを食べることなので、Moebiに対して何を言おうと彼は <code class="highlighter-rouge">"chicken?"</code> と返答します。</p>
+
+<p><code class="highlighter-rouge">recipient</code> 引数をパターンマッチする別のバージョンの <code class="highlighter-rouge">send_message/2</code> 関数を定義します。
+もしrecipientが <code class="highlighter-rouge">:moebi@localhost</code> であれば</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Node.self()</code> を使って現在のノードの名前を取得します</li>
+  <li>現在のノード、つまり
+送信側の名前を、新しい関数 <code class="highlighter-rouge">receive_message_for_moebi/2</code> に渡して、メッセージをそのノードに送り <em>返す</em> ことができるようにします</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="o">...</span>
+<span class="k">def</span> <span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">spawn_task</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:receive_message_for_moebi</span><span class="p">,</span> <span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="p">[</span><span class="n">message</span><span class="p">,</span> <span class="no">Node</span><span class="o">.</span><span class="n">self</span><span class="p">()])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>次に、 <code class="highlighter-rouge">IO.puts</code> で <code class="highlighter-rouge">moebi</code> ノードの標準出力に出力し、 <em>そして</em> メッセージを送信側に送り返す <code class="highlighter-rouge">receive_message_for_moebi/2</code> 関数を定義します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="o">...</span>
+<span class="k">def</span> <span class="n">receive_message_for_moebi</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">from</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="n">message</span>
+  <span class="n">send_message</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="s2">"chicken?"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>オリジナルのメッセージを送信したノードの名前 (“送信ノード”) を指定して <code class="highlighter-rouge">send_message/2</code> を呼ぶことで、 <em>リモート</em> ノードに対して監視されたタスクを送信ノードに戻すように指示します。</p>
+
+<p>実際に見てみましょう。
+3つの異なるターミナルウィンドウで、別々の名前のノードを開始します:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> moebi@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">alex</code> に <code class="highlighter-rouge">moebi</code> へとメッセージを送らせましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span>
+<span class="n">chicken?</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">alex</code> ノードは <code class="highlighter-rouge">"chicken?"</code> という返信を受け取ったことがわかります。
+<code class="highlighter-rouge">kate</code> ノードを確認すると、 <code class="highlighter-rouge">alex</code> も <code class="highlighter-rouge">moebi</code> も何も送っていないので、メッセージが来ていないことがわかります(ごめんね <code class="highlighter-rouge">kate</code>)。
+<code class="highlighter-rouge">moebi</code> ノードのターミナルウィンドウを開くと、 <code class="highlighter-rouge">alex</code> が送ったメッセージが確認できます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">moebi</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+</code></pre></div></div>
+
+<h2 id="分散コードのテスト">分散コードのテスト</h2>
+
+<p><code class="highlighter-rouge">send_message</code> 関数の簡単なテストを書いてみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># test/chat_test.ex</span>
+<span class="k">defmodule</span> <span class="no">ChatTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span><span class="p">,</span> <span class="ss">async:</span> <span class="no">true</span>
+  <span class="n">doctest</span> <span class="no">Chat</span>
+
+  <span class="n">test</span> <span class="s2">"send_message"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span> <span class="o">==</span> <span class="ss">:ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">mix test</code> でテストを実行すると、以下のエラーで失敗することがわかります:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">**</span> <span class="p">(</span><span class="k">exit</span><span class="p">)</span> <span class="n">exited</span> <span class="ow">in</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">({</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">},</span> <span class="p">{</span><span class="ss">:start_task</span><span class="p">,</span> <span class="p">[</span><span class="c1">#PID&lt;0.158.0&gt;, :monitor, {:sophie@localhost, #PID&lt;0.158.0&gt;}, {Chat, :receive_message_for_moebi, ["hi", :sophie@localhost]}], :temporary, nil}, :infinity)</span>
+         <span class="o">**</span> <span class="p">(</span><span class="no">EXIT</span><span class="p">)</span> <span class="n">no</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">moebi</span><span class="nv">@localhost</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">moebi@localhost</code> という名前のノードは実行されていないために接続することができないので、このエラーは当然です。</p>
+
+<p>いくつかのステップを実行することで、このテストをパスさせることができます:</p>
+
+<ul>
+  <li>もう1つのターミナルウィンドウを開いて、名前つきノードを開始します: <code class="highlighter-rouge">iex --sname moebi@localhost -S mix</code></li>
+  <li>最初のターミナルで名前付きノードを通してテストを実行し、 <code class="highlighter-rouge">iex</code> セッションの中でmixテストを実行します: <code class="highlighter-rouge">iex --sname sophie@localhost -S mix test</code></li>
+</ul>
+
+<p>これは作業が多く、自動化されたテストプロセスとはとても考えられません。</p>
+
+<p>ここでは2つの異なるアプローチを取ることができます:</p>
+
+<p>1.
+必要なノードが実行されていない場合、分散ノードを必要とするテストを条件分岐で除外する。</p>
+
+<p>2.
+テスト環境ではリモートノード上でのタスク生成をしないようにアプリケーションを構成する。</p>
+
+<p>1つ目のアプローチについて見てみましょう。</p>
+
+<h3 id="タグによるテストの条件付き除外">タグによるテストの条件付き除外</h3>
+
+<p>このテストに <code class="highlighter-rouge">ExUnit</code> タグを追加します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#test/chat_test.ex</span>
+<span class="k">defmodule</span> <span class="no">ChatTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span><span class="p">,</span> <span class="ss">async:</span> <span class="no">true</span>
+  <span class="n">doctest</span> <span class="no">Chat</span>
+
+  <span class="nv">@tag</span> <span class="ss">:distributed</span>
+  <span class="n">test</span> <span class="s2">"send_message"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span> <span class="o">==</span> <span class="ss">:ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>そして、テストが名前付きノードで実行 <em>されていない</em> 場合にそのタグを持つテストを除外するため、条件分岐ロジックをテストヘルパーに追加します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">exclude</span> <span class="o">=</span>
+  <span class="k">if</span> <span class="no">Node</span><span class="o">.</span><span class="n">alive?</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="p">[],</span> <span class="k">else</span><span class="p">:</span> <span class="p">[</span><span class="ss">distributed:</span> <span class="no">true</span><span class="p">]</span>
+
+<span class="no">ExUnit</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="ss">exclude:</span> <span class="n">exclude</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>ここではノードが生きているかどうか、つまり、
+<a href="https://hexdocs.pm/elixir/Node.html#alive?/0"><code class="highlighter-rouge">Node.alive?</code></a> でノードが分散システムの一部であるかどうかをチェックします。
+もし生きていなければ、 <code class="highlighter-rouge">ExUnit</code> に <code class="highlighter-rouge">distributed: true</code> タグを持つ全てのテストをスキップするよう伝えます。
+そうではない場合、どのテストも除外しないように指示します。</p>
+
+<p>さて、以前の <code class="highlighter-rouge">mix test</code> を実行すると、次のようになります:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix <span class="nb">test
+</span>Excluding tags: <span class="o">[</span>distributed: <span class="nb">true</span><span class="o">]</span>
+
+Finished <span class="k">in </span>0.02 seconds
+1 <span class="nb">test</span>, 0 failures, 1 excluded
+</code></pre></div></div>
+
+<p>そして、分散テストを実行したい場合には、単に前のセクションで述べたステップを実行する必要があります: <code class="highlighter-rouge">moebi@localhost</code> ノードを開始し、 <em>さらに</em> <code class="highlighter-rouge">iex</code> を通して名前付きノードでテストを実行します。</p>
+
+<p>他のテストアプローチ、つまり異なる環境では異なる振る舞いとなるアプリケーションの設定について見てみましょう。</p>
+
+<h3 id="環境固有のアプリケーション構成">環境固有のアプリケーション構成</h3>
+
+<p><code class="highlighter-rouge">Task.Supervisor</code> にリモートノードで監視されたタスクの開始を指示するコードの一部は次の通りです:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># app/chat.ex</span>
+<span class="k">def</span> <span class="n">spawn_task</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">recipient</span>
+  <span class="o">|&gt;</span> <span class="n">remote_supervisor</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">()</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Task.Supervisor.async/5</code> は1つ目の引数に使用したいスーパーバイザを取ります。
+<code class="highlighter-rouge">{SupervisorName, location}</code> というタプルを渡すと、指定されたノードで指定されたスーパーバイザを開始します。
+しかし、 <code class="highlighter-rouge">Task.Supervisor</code> の1つ目の引数にスーパーバイザの名前だけを渡すと、ローカルでタスクを監視するためにスーパーバイザを使用します。</p>
+
+<p><code class="highlighter-rouge">remote_supervisor/1</code> 関数を環境に応じて設定可能となるようにしましょう。
+開発環境では、これは <code class="highlighter-rouge">{Chat.TaskSupervisor, recipient}</code> を返し、テスト環境では <code class="highlighter-rouge">Chat.TaskSupervisor</code> を返します。</p>
+
+<p>アプリケーション変数を通してこれを行います。</p>
+
+<p><code class="highlighter-rouge">config/dev.exs</code> ファイルを作成し、以下を追加します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config/dev.exs</span>
+<span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+<span class="n">config</span> <span class="ss">:chat</span><span class="p">,</span> <span class="ss">remote_supervisor:</span> <span class="k">fn</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">config/test.exs</code> を作成し、以下を追加します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config/test.exs</span>
+<span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+<span class="n">config</span> <span class="ss">:chat</span><span class="p">,</span> <span class="ss">remote_supervisor:</span> <span class="k">fn</span><span class="p">(</span><span class="n">_recipient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">config/config.exs</code> で、この行のコメントを外すことを忘れないでください:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import_config</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="p">()</span><span class="si">}</span><span class="s2">.exs"</span>
+</code></pre></div></div>
+
+<p>最後に、 <code class="highlighter-rouge">Chat.remote_supervisor/1</code> 関数を更新して、新しいアプリケーション変数に格納された値を見るようにします:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:chat</span><span class="p">,</span> <span class="ss">:remote_supervisor</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="最後に">最後に</h2>
+
+<p>Erlang VMの力で持っているElixirのネイティブの分散機能は、それを強力なツールにする機能の1つです。
+Elixirが持つ分散コンピューティングの処理能力を利用して、並行なバックグラウンドジョブの実行や、高性能アプリケーションのサポートなどを想像することができます。</p>
+
+<p>このレッスンでは、Elixirの分散の概念についての基本的な紹介と、分散アプリケーションの構築を始めるために必要なツールを紹介しました。
+監視付きタスクを使用することで、分散アプリケーションのさまざまなノードにメッセージを送信できます。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/advanced/otp-distribution.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/advanced/otp-supervisors/" title="OTPスーパバイザ">← OTPスーパバイザ</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/advanced/metaprogramming/" title="メタプログラミング">メタプログラミング →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/otp-distribution/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/otp-distribution/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/otp-distribution/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/otp-distribution/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/collections/">2. コレクション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/modules/">8. モジュール</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">7. OTPディストリビューション</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/changesets/">2. チェンジセット</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/querying/">4. クエリ</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

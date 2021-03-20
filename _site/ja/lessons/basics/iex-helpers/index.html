@@ -1,0 +1,1063 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/basics/iex-helpers/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/iex-helpers/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/iex-helpers/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/iex-helpers/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/basics/iex-helpers/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>IEx Helpers &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/basics/iex-helpers/&title=IEx Helpers&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/basics/iex-helpers/&via=elixirschool&text=ElixirSchool: IEx Helpers&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/basics/iex-helpers/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/basics/iex-helpers/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: IEx Helpers" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/basics/iex-helpers/&title=ElixirSchool: IEx Helpers&description=Check out 'IEx Helpers' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: IEx Helpers&body=Check out 'IEx Helpers' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/basics/iex-helpers/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-patch"></span>
+  IEx Helpers
+</h1>
+<div class="version-info version-info-patch">
+  <span>
+    
+      和訳が古くなっている可能性があります。<br/>
+    
+
+    いくつかの軽微な変更が翻訳元の文書に適用されています。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <h2>目次</h2>
+<div id="toc"></div>
+
+<h2 id="概要">概要</h2>
+
+<p>Elixirを始めるとき、IExはあなたの開発の強力な手助けになるでしょう。
+IExはREPLでありながら、コードの探索やあなたのコードの開発をよりかんたんにするための多くの機能を備えています。</p>
+
+<p>IExにはたくさんの内蔵のヘルパーがあります。このレッスンでそれぞれ説明していきます。</p>
+
+<h3 id="オートコンプリート">オートコンプリート</h3>
+
+<p>シェルで作業をしていると、あなたは自力でよく知らない、新しいモジュールを発見できるでしょう。
+利用できる機能の中でもオートコンプリート機能は素晴らしい機能です。
+モジュール名の後に <code class="highlighter-rouge">.</code> を入力し、続いて <code class="highlighter-rouge">Tab</code> を押してみてください。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span> <span class="c1"># press Tab</span>
+<span class="n">delete</span><span class="o">/</span><span class="mi">2</span>             <span class="n">drop</span><span class="o">/</span><span class="mi">2</span>               <span class="n">equal?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">fetch!</span><span class="o">/</span><span class="mi">2</span>             <span class="n">fetch</span><span class="o">/</span><span class="mi">2</span>              <span class="n">from_struct</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">get</span><span class="o">/</span><span class="mi">2</span>                <span class="n">get</span><span class="o">/</span><span class="mi">3</span>                <span class="n">get_and_update!</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">get_and_update</span><span class="o">/</span><span class="mi">3</span>     <span class="n">get_lazy</span><span class="o">/</span><span class="mi">3</span>           <span class="n">has_key?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">keys</span><span class="o">/</span><span class="mi">1</span>               <span class="n">merge</span><span class="o">/</span><span class="mi">2</span>              <span class="n">merge</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">new</span><span class="o">/</span><span class="mi">0</span>                <span class="n">new</span><span class="o">/</span><span class="mi">1</span>                <span class="n">new</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">pop</span><span class="o">/</span><span class="mi">2</span>                <span class="n">pop</span><span class="o">/</span><span class="mi">3</span>                <span class="n">pop_lazy</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">put</span><span class="o">/</span><span class="mi">3</span>                <span class="n">put_new</span><span class="o">/</span><span class="mi">3</span>            <span class="n">put_new_lazy</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">replace!</span><span class="o">/</span><span class="mi">3</span>           <span class="n">replace</span><span class="o">/</span><span class="mi">3</span>            <span class="n">split</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">take</span><span class="o">/</span><span class="mi">2</span>               <span class="n">to_list</span><span class="o">/</span><span class="mi">1</span>            <span class="n">update!</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">update</span><span class="o">/</span><span class="mi">4</span>             <span class="n">values</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>これで、モジュールが持つ関数及びその引数を知ることができます。</p>
+
+<h3 id="iexexs"><code class="highlighter-rouge">.iex.exs</code></h3>
+
+<p>IExを起動するとき、毎回 <code class="highlighter-rouge">.iex.exs</code> という設定ファイルを参照しています。もしそのファイルがカレントディレクトリに存在しない場合はユーザーのホームディレクトリの(<code class="highlighter-rouge">~/.iex.exs</code>)がフォールバック先として参照されます。</p>
+
+<p>オプションやコードをこのファイルに設定するとIEx上で利用可能になります。たとえば、新しくIEx上で利用したいヘルパー関数がある場合は <code class="highlighter-rouge">.iex.exs</code> を変更します。</p>
+
+<p>幾つかヘルパー関数を用意してみましょう</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">IExHelpers</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_nil</span><span class="p">(</span><span class="n">term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Nil"</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Binary"</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_boolean</span><span class="p">(</span><span class="n">term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Boolean"</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_atom</span><span class="p">(</span><span class="n">term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Atom"</span>
+  <span class="k">def</span> <span class="n">whats_this?</span><span class="p">(</span><span class="n">_term</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Type: Unknown"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>IExを起動すると、 <code class="highlighter-rouge">IExHelpers</code> モジュールが利用可能になっています。実際に試してみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">iex</span>
+<span class="mf">22.0</span> <span class="p">[</span><span class="mf">10.5</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span> <span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="p">[</span><span class="mi">64</span><span class="o">-</span><span class="n">bit</span><span class="p">]</span> <span class="p">[</span><span class="ss">smp:</span><span class="mi">8</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="p">[</span><span class="n">async</span><span class="o">-</span><span class="ss">threads:</span><span class="mi">10</span><span class="p">]</span> <span class="p">[</span><span class="n">hipe</span><span class="p">]</span> <span class="p">[</span><span class="n">kernel</span><span class="o">-</span><span class="ss">poll:</span><span class="no">false</span><span class="p">]</span> <span class="p">[</span><span class="n">dtrace</span><span class="p">]</span>
+
+<span class="no">Interactive</span> <span class="no">Elixir</span> <span class="p">(</span><span class="mf">1.10</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">press</span> <span class="no">Ctrl</span><span class="o">+</span><span class="no">C</span> <span class="n">to</span> <span class="k">exit</span> <span class="p">(</span><span class="n">type</span> <span class="n">h</span><span class="p">()</span> <span class="no">ENTER</span> <span class="n">for</span> <span class="n">help</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">IExHelpers</span><span class="o">.</span><span class="n">whats_this?</span><span class="p">(</span><span class="s2">"a string"</span><span class="p">)</span>
+<span class="s2">"Type: Binary"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">IExHelpers</span><span class="o">.</span><span class="n">whats_this?</span><span class="p">(%{})</span>
+<span class="s2">"Type: Unknown"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">IExHelpers</span><span class="o">.</span><span class="n">whats_this?</span><span class="p">(</span><span class="ss">:test</span><span class="p">)</span>
+<span class="s2">"Type: Atom"</span>
+</code></pre></div></div>
+
+<p>このようにヘルパーを利用するためになにか特別な処理を記述する必要が無いことがわかります。</p>
+
+<h3 id="h"><code class="highlighter-rouge">h</code></h3>
+
+<p><code class="highlighter-rouge">h</code> はもっとも便利なツールの一つです。
+このヘルパーを使って、言語機能によって提供された素晴らしいドキュメンテーションに到達することができます。</p>
+
+<p>次のようにシンプルに利用できます</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">h</span> <span class="no">Enum</span>
+                                      <span class="no">Enum</span>
+
+<span class="no">Provides</span> <span class="n">a</span> <span class="n">set</span> <span class="n">of</span> <span class="n">algorithms</span> <span class="n">that</span> <span class="n">enumerate</span> <span class="n">over</span> <span class="n">enumerables</span> <span class="n">according</span> <span class="n">to</span> <span class="n">the</span>
+<span class="no">Enumerable</span> <span class="n">protocol</span><span class="o">.</span>
+
+<span class="err">┃</span> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
+<span class="err">┃</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="no">Some</span> <span class="n">particular</span> <span class="n">types</span><span class="p">,</span> <span class="n">like</span> <span class="n">maps</span><span class="p">,</span> <span class="n">yield</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">format</span> <span class="n">on</span> <span class="n">enumeration</span><span class="o">.</span> <span class="no">For</span>
+<span class="n">example</span><span class="p">,</span> <span class="n">the</span> <span class="n">argument</span> <span class="n">is</span> <span class="n">always</span> <span class="n">a</span> <span class="p">{</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">}</span> <span class="n">tuple</span> <span class="n">for</span> <span class="ss">maps:</span>
+
+<span class="err">┃</span> <span class="n">iex</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="err">┃</span> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="k">fn</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span> <span class="k">end</span><span class="p">)</span>
+<span class="err">┃</span> <span class="p">[</span><span class="ss">a:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="no">Note</span> <span class="n">that</span> <span class="n">the</span> <span class="n">functions</span> <span class="ow">in</span> <span class="n">the</span> <span class="no">Enum</span> <span class="n">module</span> <span class="n">are</span> <span class="ss">eager:</span> <span class="n">they</span> <span class="n">always</span> <span class="n">start</span> <span class="n">the</span>
+<span class="n">enumeration</span> <span class="n">of</span> <span class="n">the</span> <span class="n">given</span> <span class="n">enumerable</span><span class="o">.</span> <span class="no">The</span> <span class="no">Stream</span> <span class="n">module</span> <span class="n">allows</span> <span class="n">lazy</span> <span class="n">enumeration</span>
+<span class="n">of</span> <span class="n">enumerables</span> <span class="ow">and</span> <span class="n">provides</span> <span class="n">infinite</span> <span class="n">streams</span><span class="o">.</span>
+
+<span class="no">Since</span> <span class="n">the</span> <span class="n">majority</span> <span class="n">of</span> <span class="n">the</span> <span class="n">functions</span> <span class="ow">in</span> <span class="no">Enum</span> <span class="n">enumerate</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">enumerable</span> <span class="ow">and</span>
+<span class="n">return</span> <span class="n">a</span> <span class="n">list</span> <span class="n">as</span> <span class="n">result</span><span class="p">,</span> <span class="n">infinite</span> <span class="n">streams</span> <span class="n">need</span> <span class="n">to</span> <span class="n">be</span> <span class="n">carefully</span> <span class="n">used</span> <span class="n">with</span> <span class="n">such</span>
+<span class="n">functions</span><span class="p">,</span> <span class="n">as</span> <span class="n">they</span> <span class="n">can</span> <span class="n">potentially</span> <span class="n">run</span> <span class="n">forever</span><span class="o">.</span> <span class="no">For</span> <span class="ss">example:</span>
+
+<span class="err">┃</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span> <span class="no">Stream</span><span class="o">.</span><span class="n">cycle</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="o">&amp;</span><span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>さらに、オートコンプリート機能と組み合わせて利用することもできます。
+最初にMapを探索してみます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">h</span> <span class="no">Map</span>
+                                      <span class="no">Map</span>
+
+<span class="no">A</span> <span class="n">set</span> <span class="n">of</span> <span class="n">functions</span> <span class="n">for</span> <span class="n">working</span> <span class="n">with</span> <span class="n">maps</span><span class="o">.</span>
+
+<span class="no">Maps</span> <span class="n">are</span> <span class="n">key</span><span class="o">-</span><span class="n">value</span> <span class="n">stores</span> <span class="n">where</span> <span class="n">keys</span> <span class="n">can</span> <span class="n">be</span> <span class="n">any</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">are</span> <span class="n">compared</span> <span class="n">using</span>
+<span class="n">the</span> <span class="n">match</span> <span class="n">operator</span> <span class="p">(</span><span class="o">===</span><span class="p">)</span><span class="o">.</span> <span class="no">Maps</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="n">with</span> <span class="n">the</span> <span class="p">%{}</span> <span class="n">special</span> <span class="n">form</span> <span class="n">defined</span>
+<span class="ow">in</span> <span class="n">the</span> <span class="no">Kernel</span><span class="o">.</span><span class="no">SpecialForms</span> <span class="n">module</span><span class="o">.</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span>
+<span class="n">delete</span><span class="o">/</span><span class="mi">2</span>             <span class="n">drop</span><span class="o">/</span><span class="mi">2</span>               <span class="n">equal?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">fetch!</span><span class="o">/</span><span class="mi">2</span>             <span class="n">fetch</span><span class="o">/</span><span class="mi">2</span>              <span class="n">from_struct</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">get</span><span class="o">/</span><span class="mi">2</span>                <span class="n">get</span><span class="o">/</span><span class="mi">3</span>                <span class="n">get_and_update!</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">get_and_update</span><span class="o">/</span><span class="mi">3</span>     <span class="n">get_lazy</span><span class="o">/</span><span class="mi">3</span>           <span class="n">has_key?</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">keys</span><span class="o">/</span><span class="mi">1</span>               <span class="n">merge</span><span class="o">/</span><span class="mi">2</span>              <span class="n">merge</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">new</span><span class="o">/</span><span class="mi">0</span>                <span class="n">new</span><span class="o">/</span><span class="mi">1</span>                <span class="n">new</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">pop</span><span class="o">/</span><span class="mi">2</span>                <span class="n">pop</span><span class="o">/</span><span class="mi">3</span>                <span class="n">pop_lazy</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">put</span><span class="o">/</span><span class="mi">3</span>                <span class="n">put_new</span><span class="o">/</span><span class="mi">3</span>            <span class="n">put_new_lazy</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">split</span><span class="o">/</span><span class="mi">2</span>              <span class="n">take</span><span class="o">/</span><span class="mi">2</span>               <span class="n">to_list</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">update!</span><span class="o">/</span><span class="mi">3</span>            <span class="n">update</span><span class="o">/</span><span class="mi">4</span>             <span class="n">values</span><span class="o">/</span><span class="mi">1</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">h</span> <span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="o">/</span><span class="mi">2</span>
+                             <span class="k">def</span> <span class="n">merge</span><span class="p">(</span><span class="n">map1</span><span class="p">,</span> <span class="n">map2</span><span class="p">)</span>
+
+<span class="no">Merges</span> <span class="n">two</span> <span class="n">maps</span> <span class="n">into</span> <span class="n">one</span><span class="o">.</span>
+
+<span class="no">All</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">map2</span> <span class="n">will</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span> <span class="n">map1</span><span class="p">,</span> <span class="n">overriding</span> <span class="n">any</span> <span class="n">existing</span> <span class="n">one</span><span class="o">.</span>
+
+<span class="no">If</span> <span class="n">you</span> <span class="n">have</span> <span class="n">a</span> <span class="n">struct</span> <span class="ow">and</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="n">merge</span> <span class="n">a</span> <span class="n">set</span> <span class="n">of</span> <span class="n">keys</span> <span class="n">into</span> <span class="n">the</span> <span class="n">struct</span><span class="p">,</span>
+<span class="k">do</span> <span class="ow">not</span> <span class="kn">use</span> <span class="n">this</span> <span class="n">function</span><span class="p">,</span> <span class="n">as</span> <span class="n">it</span> <span class="n">would</span> <span class="n">merge</span> <span class="n">all</span> <span class="n">keys</span> <span class="n">on</span> <span class="n">the</span> <span class="n">right</span> <span class="n">side</span> <span class="n">into</span> <span class="n">the</span>
+<span class="n">struct</span><span class="p">,</span> <span class="n">even</span> <span class="k">if</span> <span class="n">the</span> <span class="n">key</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">struct</span><span class="o">.</span> <span class="no">Instead</span><span class="p">,</span> <span class="kn">use</span>
+<span class="no">Kernel</span><span class="o">.</span><span class="n">struct</span><span class="o">/</span><span class="mi">2</span><span class="o">.</span>
+
+<span class="no">Examples</span>
+
+<span class="err">┃</span> <span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="p">(%{</span><span class="ss">a:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">2</span><span class="p">},</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">d:</span> <span class="mi">4</span><span class="p">})</span>
+<span class="err">┃</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">d:</span> <span class="mi">4</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>このようにモジュールのどの関数が利用可能かということだけでなく、それぞれの関数のドキュメンテーションやたくさんの利用例を見ることができます。</p>
+
+<h3 id="i"><code class="highlighter-rouge">i</code></h3>
+
+<p>さて、前の項で学んだ <code class="highlighter-rouge">h</code> ヘルパーを利用して、 <code class="highlighter-rouge">i</code> というヘルパーについて学んでいきましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">h</span> <span class="n">i</span>
+
+                                  <span class="k">def</span> <span class="n">i</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+
+<span class="no">Prints</span> <span class="n">information</span> <span class="n">about</span> <span class="n">the</span> <span class="n">given</span> <span class="n">data</span> <span class="n">type</span><span class="o">.</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">i</span> <span class="no">Map</span>
+<span class="no">Term</span>
+  <span class="no">Map</span>
+<span class="no">Data</span> <span class="n">type</span>
+  <span class="no">Atom</span>
+<span class="no">Module</span> <span class="n">bytecode</span>
+  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="no">Cellar</span><span class="o">/</span><span class="n">elixir</span><span class="o">/</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">bin</span><span class="o">/../</span><span class="n">lib</span><span class="o">/</span><span class="n">elixir</span><span class="o">/</span><span class="n">ebin</span><span class="o">/</span><span class="no">Elixir</span><span class="o">.</span><span class="no">Map</span><span class="o">.</span><span class="n">beam</span>
+<span class="no">Source</span>
+  <span class="o">/</span><span class="n">private</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">elixir</span><span class="o">-</span><span class="mi">20160918</span><span class="o">-</span><span class="mi">33925</span><span class="o">-</span><span class="err">1</span><span class="n">ki46ng</span><span class="o">/</span><span class="n">elixir</span><span class="o">-</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">elixir</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">map</span><span class="o">.</span><span class="n">ex</span>
+<span class="no">Version</span>
+  <span class="p">[</span><span class="mi">9651177287794427227743899018880159024</span><span class="p">]</span>
+<span class="no">Compile</span> <span class="n">time</span>
+  <span class="n">no</span> <span class="n">value</span> <span class="n">found</span>
+<span class="no">Compile</span> <span class="n">options</span>
+  <span class="p">[</span><span class="ss">:debug_info</span><span class="p">]</span>
+<span class="no">Description</span>
+  <span class="no">Use</span> <span class="n">h</span><span class="p">(</span><span class="no">Map</span><span class="p">)</span> <span class="n">to</span> <span class="n">access</span> <span class="n">its</span> <span class="n">documentation</span><span class="o">.</span>
+  <span class="no">Call</span> <span class="no">Map</span><span class="o">.</span><span class="n">module_info</span><span class="p">()</span> <span class="n">to</span> <span class="n">access</span> <span class="n">metadata</span><span class="o">.</span>
+<span class="no">Raw</span> <span class="n">representation</span>
+  <span class="ss">:"Elixir.Map"</span>
+<span class="no">Reference</span> <span class="n">modules</span>
+  <span class="no">Module</span><span class="p">,</span> <span class="no">Atom</span>
+</code></pre></div></div>
+
+<p>こうして <code class="highlighter-rouge">Map</code> に関するソースコードの所在や関連するモジュールなどの情報を見ることができます。この機能によって簡単に慣習や外部データ型や新しい関数について調べる事ができます。</p>
+
+<p>それぞれの見出しは密である可能性がありますが、高い水準で関連する情報を集めています。</p>
+
+<ul>
+  <li>MapはAtom型である</li>
+  <li>ソースコードがどこにあるか</li>
+  <li>そのバージョンとコンパイルオプション</li>
+  <li>一般的な説明分</li>
+  <li>Mapにアクセスする方法</li>
+  <li>他にどのモジュールを参照しているか</li>
+</ul>
+
+<p>この機能は私たちにより多く働きかけ、有意義にできます。</p>
+
+<h3 id="r"><code class="highlighter-rouge">r</code></h3>
+
+<p>モジュール単位など、部分的に再コンパイルをしたいときは <code class="highlighter-rouge">r</code> ヘルパーを使います。コードを変更し変更したときや新しい関数を再コンパイルしたいときに使ってみましょう。今回は変更を加えたコードを <code class="highlighter-rouge">r</code> ヘルパーによってを再コンパイルしてみます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">r</span> <span class="no">MyProject</span>
+<span class="ss">warning:</span> <span class="n">redefining</span> <span class="n">module</span> <span class="no">MyProject</span> <span class="p">(</span><span class="n">current</span> <span class="n">version</span> <span class="n">loaded</span> <span class="n">from</span> <span class="n">_build</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">my_project</span><span class="o">/</span><span class="n">ebin</span><span class="o">/</span><span class="no">Elixir</span><span class="o">.</span><span class="no">MyProject</span><span class="o">.</span><span class="n">beam</span><span class="p">)</span>
+  <span class="n">lib</span><span class="o">/</span><span class="n">my_project</span><span class="o">.</span><span class="ss">ex:</span><span class="mi">1</span>
+
+<span class="p">{</span><span class="ss">:reloaded</span><span class="p">,</span> <span class="no">MyProject</span><span class="p">,</span> <span class="p">[</span><span class="no">MyProject</span><span class="p">]}</span>
+</code></pre></div></div>
+
+<h3 id="t"><code class="highlighter-rouge">t</code></h3>
+
+<p><code class="highlighter-rouge">t</code> ヘルパーは引数に渡したモジュールの利用可能な型を見ることができます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">t</span> <span class="no">Map</span>
+<span class="nv">@type</span> <span class="n">key</span><span class="p">()</span> <span class="p">::</span> <span class="n">any</span><span class="p">()</span>
+<span class="nv">@type</span> <span class="n">value</span><span class="p">()</span> <span class="p">::</span> <span class="n">any</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>このように <code class="highlighter-rouge">Map</code> モジュールがkeyとvalueに定義している型が分かります。
+<code class="highlighter-rouge">Map</code> のソースを読んで確認してみます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Map</span> <span class="k">do</span>
+<span class="c1"># ...</span>
+  <span class="nv">@type</span> <span class="n">key</span> <span class="p">::</span> <span class="n">any</span>
+  <span class="nv">@type</span> <span class="n">value</span> <span class="p">::</span> <span class="n">any</span>
+<span class="c1"># ...</span>
+</code></pre></div></div>
+
+<p>これは簡単な例であり、keyやvalueの値はどのような型でも構いませんが知っておくと便利です。</p>
+
+<p>これらすべての内蔵機能を活用することで、簡単にコードを探索したりどのように実行されるか学ぶことができます。IExは開発者にとって協力なツールです。このようなツール郡を使いこなすことでより開発を楽しめるようになるでしょう！</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/basics/iex-helpers.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/basics/mix-tasks/" title="カスタムMixタスク">← カスタムMixタスク</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/advanced/erlang/" title="Erlangとの相互運用">Erlangとの相互運用 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/iex-helpers/" title="ベンガル語">bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/iex-helpers/" title="ドイツ語">de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/iex-helpers/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/iex-helpers/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/iex-helpers/" title="ギリシャ語">gr</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/iex-helpers/" title="韓国語">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/iex-helpers/" title="ノルウェー語">no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/iex-helpers/" title="ポーランド語">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/iex-helpers/" title="ポルトガル語">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/iex-helpers/" title="ロシア語 / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/iex-helpers/" title="スロバキア語">sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/iex-helpers/" title="トルコ語">tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/iex-helpers/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/iex-helpers/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/collections/">2. コレクション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/modules/">8. モジュール</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">17. IEx Helpers</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-distribution/">7. OTPディストリビューション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/changesets/">2. チェンジセット</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/querying/">4. クエリ</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

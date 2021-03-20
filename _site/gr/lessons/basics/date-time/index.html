@@ -1,0 +1,827 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="gr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/gr/lessons/basics/date-time/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="gr">
+  <meta property="og:description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/date-time/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/date-time/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/date-time/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/date-time/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/date-time/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/date-time/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/date-time/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/date-time/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/date-time/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/gr/lessons/basics/date-time/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Ημερομηνία και Ώρα &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/gr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/gr/lessons/basics/date-time/&title=Ημερομηνία και Ώρα&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/gr/lessons/basics/date-time/&via=elixirschool&text=ElixirSchool: Ημερομηνία και Ώρα&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/gr/lessons/basics/date-time/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/gr/lessons/basics/date-time/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Ημερομηνία και Ώρα" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/gr/lessons/basics/date-time/&title=ElixirSchool: Ημερομηνία και Ώρα&description=Check out 'Ημερομηνία και Ώρα' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Ημερομηνία και Ώρα&body=Check out 'Ημερομηνία και Ώρα' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/gr/lessons/basics/date-time/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Ημερομηνία και Ώρα
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Αυτή η μετάφραση είναι πλήρως ενημερωμένη.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Πως δουλεύουμε με την ώρα στην Elixir</p>
+
+<h2>Πίνακας περιεχομένων</h2>
+<div id="toc"></div>
+
+<h2 id="time">Time</h2>
+
+<p>Η Elixir έχει μερικές ενότητες για την εργασία με την ώρα.
+Ας ξεκινήσουμε λαμβάνοντας την τρέχουσα ώρα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">utc_now</span>
+<span class="sx">~T[19:39:31.056226]</span>
+</code></pre></div></div>
+
+<p>Σημειώστε ότι έχουμε ένα σύμβολο το οποίο μπορεί να χρησιμοπιηθεί για να δημιουργήσουμε μια δομή <code class="highlighter-rouge">Time</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~T[19:39:31.056226]</span>
+<span class="sx">~T[19:39:31.056226]</span>
+</code></pre></div></div>
+
+<p>Μπορείτε να μάθετε περισσότερα για τα σύμβολα στο <a href="../sigils">σχετικό μάθημα</a>.
+Η πρόσβαση σε μέρη της δομής αυτής είναι εύκολη:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="sx">~T[19:39:31.056226]</span>
+<span class="sx">~T[19:39:31.056226]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">hour</span>
+<span class="mi">19</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">minute</span>
+<span class="mi">39</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">day</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">KeyError</span><span class="p">)</span> <span class="n">key</span> <span class="ss">:day</span> <span class="ow">not</span> <span class="n">found</span> <span class="ow">in</span><span class="p">:</span> <span class="sx">~T[19:39:31.056226]</span>
+</code></pre></div></div>
+
+<p>Όμως υπάρχει μια παγίδα: όπως θα παρατηρήσατε, αυτή η δομή περιέχει μόνο την ώρα μέσα σε μια ημέρα, δεν υπάρχουν δεδομένα σχετικά με την ημέρα, το μήνα ή το χρόνο.</p>
+
+<h2 id="date">Date</h2>
+
+<p>Σε αντίθεση με την <code class="highlighter-rouge">Time</code>, μια δομή <code class="highlighter-rouge">Date</code> έχει πληροφορίες για την τρέχουσα ημερομηνία, χωρίς καμμία πληροφορία για την τρέχουσα ώρα.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">utc_today</span>
+<span class="sx">~D[2028-10-21]</span>
+</code></pre></div></div>
+
+<p>Και επίσης έχει μερικές χρήσιμες συναρτήσεις για να δουλέψει με τις ημερομηνίες:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">date</span><span class="p">}</span> <span class="o">=</span> <span class="no">Date</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="sx">~D[2020-12-12]</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">day_of_week</span> <span class="n">date</span>
+<span class="mi">6</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">leap_year?</span> <span class="n">date</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<p>Η <code class="highlighter-rouge">day_of_week/1</code> υπολογίζει ποιά μέρα της εβδομάδας είναι μια συγκεκριμένη ημέρα.
+Σε αυτή την περίπτωση είναι Σάββατο.
+Η <code class="highlighter-rouge">leap_year?/1</code> ελέγχει αν αυτό το έτος είναι δίσεκτο.
+Άλλες συναρτήσεις μπορείτε να βρείτε στην <a href="https://hexdocs.pm/elixir/Date.html">τεκμηρίωση</a>.</p>
+
+<h2 id="naivedatetime">NaiveDateTime</h2>
+
+<p>Υπάρχουν δύο δομές στην Elixir οι οποίες περιέχουν ημερομηνία και ώρα μαζί.
+Η πρώτη είναι η <code class="highlighter-rouge">NaiveDateTime</code>.
+Το μειονέκτημά της είναι η έλειψη υποστήριξης για ζώνες ώρας:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">NaiveDateTime</span><span class="o">.</span><span class="n">utc_now</span>
+<span class="sx">~N[2029-01-21 19:55:10.008965]</span>
+</code></pre></div></div>
+
+<p>Αλλά έχει ταυτόχρονα την τρέχουσα ημερομηνία και ώρα, έτσι μπορείτε να παίξετε με την προσθήκη ώρας, για παράδειγμα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">NaiveDateTime</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="sx">~N[2018-10-01 00:00:14]</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="sx">~N[2018-10-01 00:00:44]</span>
+</code></pre></div></div>
+
+<h2 id="datetime">DateTime</h2>
+
+<p>Η δεύτερη, όπως μπορείτε να μαντέψετε από τον τίτλο αυτής της ενότητας, είναι η <code class="highlighter-rouge">DateTime</code>.
+Δεν έχει τα μειονεκτήματα που έχει η <code class="highlighter-rouge">NaiveDateTime</code>: έχει ταυτόχρονα ημερομηνία και ώρα και υποστηρίζει ζώνες ώρας.
+Αλλά προσέξτε τις ζώνες ώρας. Η επίσημη τεκμηρίωση γράφει:</p>
+
+<blockquote>
+  <p>Many functions in this module require a time zone database. By default, it uses the default time zone database returned by <code class="highlighter-rouge">Calendar.get_time_zone_database/0</code>, which defaults to <code class="highlighter-rouge">Calendar.UTCOnlyTimeZoneDatabase</code> which only handles “Etc/UTC” datetimes and returns <code class="highlighter-rouge">{:error, :utc_only_time_zone_database}</code> for any other time zone.</p>
+</blockquote>
+
+<p>Σημειώστε επίσης ότι μπορείτε να δημιουργήσετε μια δομή DateTime από μια NaiveDateTime, προσθέτοντας την ζώνη ώρας:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; DateTime.from_naive(~N[2016-05-24 13:26:08.003], "Etc/UTC")
+{:ok, #DateTime&lt;2016-05-24 13:26:08.003Z&gt;}
+</code></pre></div></div>
+
+<h2 id="δουλεύοντας-με-ζώνες-ώρας">Δουλεύοντας με ζώνες ώρας</h2>
+
+<p>Οπως έχουμε σημειώσει στο προηγούμενο κεφάλαιο, η Elixir δεν έχει προκαθορισμένα δεδομένα ζώνης ώρας.
+Για να λύσουμε αυτό το πρόβλημα, χρειάζεται να εγκαταστήσουμε το πακέτο <a href="https://github.com/lau/tzdata">tzdata</a>.
+Μετά την εγκατάσταση θα πρέπει να ρυθμίσετε την Elixir καθολικά να χρησιμοποιήσει τη Tzdata σαν βάση δεδομένων ζωνών ώρας:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+</code></pre></div></div>
+
+<p>Ας προσπαθήσουμε τώρα να δημιουργήσουμε μια ώρα στη ζώνη ώρας του Παρισίου και να το μετατρέψουμε σε ώρα Νέας Υόρκης:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; paris_datetime = DateTime.from_naive!(~N[2019-01-01 12:00:00], "Europe/Paris")
+#DateTime&lt;2019-01-01 12:00:00+01:00 CET Europe/Paris&gt;
+iex&gt; {:ok, ny_datetime} = DateTime.shift_zone(paris_datetime, "America/New_York")
+{:ok, #DateTime&lt;2019-01-01 06:00:00-05:00 EST America/New_York&gt;}
+iex&gt; ny_datetime
+#DateTime&lt;2019-01-01 06:00:00-05:00 EST America/New_York&gt;
+</code></pre></div></div>
+
+<p>Οπως μπορείτε να δείτε, η ώρα άλλαξε από 12:00 ώρα Παρισίου, σε 6:00, το οποίο είναι σωστό - η διαφορά μεταξύ των δύο πόλεων είναι 6 ώρες.</p>
+
+<p>Αυτό ήταν! Αν θέλετε να δουλέψετε με άλλες πιο προχωρημένες συναρτήσεις, θα πρέπει να κοιτάξετε στην επίσημη τεκμηρίωση για τις ενότητες <a href="https://hexdocs.pm/elixir/Time.html">Time</a>, <a href="https://hexdocs.pm/elixir/Date.html">Date</a>, <a href="https://hexdocs.pm/elixir/DateTime.html">DateTime</a> και <a href="https://hexdocs.pm/elixir/NaiveDateTime.html">NaiveDateTime</a>.
+Θα πρέπει επίσης να λάβετε υπόψιν σας τις <a href="https://github.com/bitwalker/timex">Timex</a> και <a href="https://github.com/lau/calendar">Calendar</a> οι οποίες είναι πολύ δυνατές βιβλιοθήκες της Elixir σχετικά με το χρόνο.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/gr/lessons/basics/date-time.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/basics/strings/" title="Αλφαριθμητικά">← Αλφαριθμητικά</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/basics/mix-tasks/" title="Ειδικές Εργασίες Mix">Ειδικές Εργασίες Mix →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/date-time/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/date-time/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <strong >gr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/date-time/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/date-time/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/date-time/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/date-time/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/date-time/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Μαθήματα προγραμματισμού της γλώσσας Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/gr/" class="">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active">Βασικά</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/basics/">1. Βασικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/collections/">2. Συλλογές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pattern-matching/">4. Αντιπαραβολές Προτύπων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/control-structures/">5. Δομές Ελέγχου</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/functions/">6. Συναρτήσεις</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pipe-operator/">7. Τελεστής Σωλήνα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/modules/">8. Ενότητες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/sigils/">10. Σφραγίδες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/documentation/">11. Τεκμηρίωση</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/testing/">12. Δοκιμές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/comprehensions/">13. Ανάγνωση Λιστών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/strings/">14. Αλφαριθμητικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">15. Ημερομηνία και Ώρα</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix-tasks/">16. Ειδικές Εργασίες Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/iex-helpers/">17. Βοηθοί IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Προχωρημένα</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/erlang/">1. Διαλειτουργικότητα με την Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/error-handling/">2. Διαχείριση Σφαλμάτων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/escripts/">3. Εκτελέσιμα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/concurrency/">4. Συγχρονισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-concurrency/">5. Συγχρονισμός OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-supervisors/">6. Επιτηρητές OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/metaprogramming/">8. Μεταπρογραμματισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/umbrella-projects/">9. Projects Ομπρέλας</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/typespec/">10. Προδιαγραφές και τύποι</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/behaviours/">11. Συμπεριφορές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/protocols/">13. Πρωτόκολλα</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/changesets/">2. Σετ Αλλαγών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/associations/">3. Συσχετισμοί</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ιδιαιτερότητες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/eex/">2. Ένθετη Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βιβλιοθήκες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/guardian/">1. Guardian (Βασικά)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class="">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/gr/report/" class="">Αναφορά Μετάφρασης</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class="">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

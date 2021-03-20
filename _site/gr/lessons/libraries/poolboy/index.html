@@ -1,0 +1,892 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="gr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/gr/lessons/libraries/poolboy/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="gr">
+  <meta property="og:description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/poolboy/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/poolboy/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/poolboy/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/gr/lessons/libraries/poolboy/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Poolboy &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/gr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/gr/lessons/libraries/poolboy/&title=Poolboy&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/gr/lessons/libraries/poolboy/&via=elixirschool&text=ElixirSchool: Poolboy&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/gr/lessons/libraries/poolboy/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/gr/lessons/libraries/poolboy/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Poolboy" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/gr/lessons/libraries/poolboy/&title=ElixirSchool: Poolboy&description=Check out 'Poolboy' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Poolboy&body=Check out 'Poolboy' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/gr/lessons/libraries/poolboy/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Poolboy
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Αυτή η μετάφραση είναι πλήρως ενημερωμένη.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Μπορείτε πολύ εύκολα να εξαντλήσετε τους πόρους τους συστήματός σας αν δεν περιορίσετε τον μέγιστο αριθμό ταυτόχρονων διεργασιών που μπορεί να ξεκινήσει το πρόγραμμά σας.  Το <a href="https://github.com/devinus/poolboy">Poolboy</a> είναι μια ευρέως διαδεδομένη, ελαφριά βιβλιοθήκη δημιουργίας σετ για την Erlang η οποία αντιμετωπίζει αυτό το ζήτημα.</p>
+
+<h2>Πίνακας περιεχομένων</h2>
+<div id="toc"></div>
+
+<h2 id="γιατί-να-χρησιμοποιήσουμε-το-poolboy">Γιατί να χρησιμοποιήσουμε το Poolboy;</h2>
+
+<p>Ας δούμε ένα συγκεκριμμένο παράδειγμα για λίγο.  Σας έχει ανατεθεί να χτίσετε μια εφαρμογή αποθήκευσης πληροφοριών προφίλ σε μια βάση δεδομένων. Αν έχετε δημιουργήσει μια διεργασία για κάθε εγγραφή χρήστη, θα χρησιμοποιούσατε απεριόριστο αριθμό συνδέσεων.  Σε κάποιο σημείο αυτές οι συνδέσεις μπορούν να ξεπεράσουν τους διαθέσιμους πόρους του διακομιστή της βάσης δεδομένων. Τελικά η εφαρμογή σας μπορεί να αρχίσει να εμφανίζει σφάλματα ορίου χρόνου και διάφορες εξαιρέσεις.</p>
+
+<p>Η λύση σε αυτό το πρόβλημα είναι η χρήση ενός σετ εργατών (διεργασίες) για να περιορίσουμε τον αριθμό συνδέσεων αντί να δημιουργούμε μια διεργασία για κάθε εγγραφή χρήστη. Τότε μπορείτε εύκολα να αποτρέψετε την εξάντληση των πόρων του συστήματος σας.</p>
+
+<p>Εδώ έρχεται το Poolboy.  Σας επιτρέπει να δημιουργήσετε εύκολα μια λίστα εργατών που διαχειρίζονται από έναν <code class="highlighter-rouge">Supervisor</code> χωρίς μεγάλη προσπάθεια από μέρους σας. Υπάρχουν πολλές βιβλιοθήκες που χρησιμοποιούν το Poolboy στο εσωτερικό τους. Για παράδειγμα: η λίστα συνδέσεων της <code class="highlighter-rouge">postgrex</code> <em>(η οποία με τη σειρά της αξιοποιείται από την Ecto όταν χρησιμοποιούμε την PostgreSQL)</em> και η <code class="highlighter-rouge">redis_poolex</code> <em>(Λίστα συνδέσεων Redis)</em> είναι μερικές από τις πιο δημοφιλείς βιβλιοθήκες που χρησιμοποιούν το Poolboy.</p>
+
+<h2 id="εγκατάσταση">Εγκατάσταση</h2>
+
+<p>Η εγκατάσταση είναι πανεύκολη με το mix. Το μόνο που πρέπει να κάνουμε είναι να προσθέσουμε το Poolboy σαν εξάρτηση στο <code class="highlighter-rouge">mix.exs</code> μας.</p>
+
+<p>Ας δημιουργήσουμε μια εφαρμογή πρώτα:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new poolboy_app <span class="nt">--sup</span>
+</code></pre></div></div>
+
+<p>Ας προσθέσουμε το Poolboy σαν εξάρτηση στο <code class="highlighter-rouge">mix.exs</code> μας.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:poolboy</span><span class="p">,</span> <span class="s2">"~&gt; 1.5.1"</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Τότε ας κατεβάσουμε τις εξαρτήσεις, συμπεριλαμβανομένου του Poolboy:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+</code></pre></div></div>
+
+<h2 id="οι-επιλογές-ρύθμισης">Οι επιλογές ρύθμισης</h2>
+
+<p>Πρέπει να γνωρίζουμε μερικά πράγματα για τις διάφορες επιλογές ρύθμισης ώστε να ξεκινήσουμε να χρησιμοποιούμε το Poolboy.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">:name</code>: το όνομα της λίστας. Το πεδίο δράσης μπορεί να είναι <code class="highlighter-rouge">:local</code>, <code class="highlighter-rouge">:global</code> ή <code class="highlighter-rouge">:via</code>.</li>
+  <li><code class="highlighter-rouge">:worker_module</code>: η ενότητα που αναπαριστά τον εργάτη.</li>
+  <li><code class="highlighter-rouge">:size</code>: το μέγιστο μέγεθος της λίστας.</li>
+  <li><code class="highlighter-rouge">:max_overflow</code>: ο μέγιστος αριθμός εργατών που δημιουργούνται αν η λίστα είναι άδεια. (προεραιτικό)</li>
+  <li><code class="highlighter-rouge">:strategy</code>: <code class="highlighter-rouge">:lifo</code> ή <code class="highlighter-rouge">:fifo</code>, ορίζουν αν οι ελεγχόμενοι εργάτες ορίζονται πρώτοι ή τελευταίοι στη σειρά των διαθέσιμων εργατών. Η προεπιλογή είναι <code class="highlighter-rouge">:lifo</code>. (προαιρετικό)</li>
+</ul>
+
+<h2 id="ρυθμίζοντας-το-poolboy">Ρυθμίζοντας το Poolboy</h2>
+
+<p>Για αυτό το παράδειγμα, θα δημιουργήσουμε μια λίστα εργατών που είναι υπέυθυνοι για το χειρισμό αιτήσεων υπολογισμού της τετραγωνικής ρίζας ενός αριθμού. Θα διατηρήσουμε το παράδειγμά μας απλό ώστε να εστιάσουμε στο Poolboy.</p>
+
+<p>Ας ορίσουμε τις επιλογές ρύθμισης του Poolboy και ας το προσθέσουμε σαν εργάτης παιδί μέρος της εκκίνησης της εφαρμογής μας. Αλλάξτε το <code class="highlighter-rouge">lib/poolboy_app/application.ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="no">false</span>
+
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">defp</span> <span class="n">poolboy_config</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="ss">name:</span> <span class="p">{</span><span class="ss">:local</span><span class="p">,</span> <span class="ss">:worker</span><span class="p">},</span>
+      <span class="ss">worker_module:</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Worker</span><span class="p">,</span>
+      <span class="ss">size:</span> <span class="mi">5</span><span class="p">,</span>
+      <span class="ss">max_overflow:</span> <span class="mi">2</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="ss">:poolboy</span><span class="o">.</span><span class="n">child_spec</span><span class="p">(</span><span class="ss">:worker</span><span class="p">,</span> <span class="n">poolboy_config</span><span class="p">())</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Το πρώτο πράγμα που ορίσαμε είναι οι επιλογές ρυθμίσεων για τη λίστα.  Ονομάσαμε τη λίστα μας <code class="highlighter-rouge">:worker</code> και ορίσαμε το πεδίο δράσης σε <code class="highlighter-rouge">:local</code>. Στη συνέχεια προσδιορίσαμε την ενότητα <code class="highlighter-rouge">PoolboyApp.Worker</code> σαν την <code class="highlighter-rouge">:worker_module</code> που θα χρησιμοποιεί αυτή η λίστα.  Επίσης ορίσαμε το <code class="highlighter-rouge">:size</code> της λίστας να είναι <code class="highlighter-rouge">5</code> εργάτες. Επίσης, σε περίπτωση που όλοι οι εργάτες είναι απασχολημένοι, ρυθμίζουμε τη δημιουργία δύο επιπλέον εργατών για να βοηθήσουν με το φόρτο, χρησιμοποιώντας την επιλογή <code class="highlighter-rouge">:max_overflow</code>. <em>(οι <code class="highlighter-rouge">overflow</code> εργάτες παύουν να υπάρχουν μόλις ολοκληρώσουν την εργασία τους.)</em></p>
+
+<p>Στη συνέχεια, προσθέσαμε τη συνάρτηση <code class="highlighter-rouge">poolboy.child_spec/2</code> στον πίνακα των παιδιών ώστε η λίστα εργατών να ξεκινάει με την εκκίνηση της εφαρμογής. Δέχεται δύο ορίσματα: το όνομα της λίστας και τις ρυθμίσεις της.</p>
+
+<h2 id="δημιουργία-εργάτη">Δημιουργία Εργάτη</h2>
+
+<p>Η ενότητα εργάτη θα είναι ένας απλός GenServer υπολογισμού της τετραγωνικής ρίζας ενός αριθμού, που κοιμάται για ένα δευτερόλεπτο και τυπώνει το pid του εργάτη. Δημιουργήστε το <code class="highlighter-rouge">lib/poolboy_app/worker_ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Worker</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="no">nil</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="no">nil</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:square_root</span><span class="p">,</span> <span class="n">x</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"process </span><span class="si">#{</span><span class="n">inspect</span><span class="p">(</span><span class="n">self</span><span class="p">())</span><span class="si">}</span><span class="s2"> calculating square root of </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="no">Process</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="χρήση-του-poolboy">Χρήση του Poolboy</h2>
+
+<p>Τώρα που έχουμε τον <code class="highlighter-rouge">PoolboyApp.Worker</code> μας, ας δοκιμάσουμε το Poolboy. Ας γράψουμε μια απλή ενότητα που δημιουργεί ταυτόχρονες διεργασίες χρησιμοποιώντας το Poolboy.  Η <code class="highlighter-rouge">:poolboy.transaction/3</code> είναι η συνάρτηση που μπορείτε να χρησιμοποιείτε για τη διεπαφή με τη λίστα εργατών.  Δημιουργήστε το <code class="highlighter-rouge">lib/poolboy_app/test.ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Test</span> <span class="k">do</span>
+  <span class="nv">@timeout</span> <span class="mi">60000</span>
+
+  <span class="k">def</span> <span class="n">start</span> <span class="k">do</span>
+    <span class="mi">1</span><span class="o">..</span><span class="mi">20</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">async_call_square_root</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="k">fn</span> <span class="n">task</span> <span class="o">-&gt;</span> <span class="n">await_and_inspect</span><span class="p">(</span><span class="n">task</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">async_call_square_root</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Task</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span>
+      <span class="ss">:poolboy</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span>
+        <span class="ss">:worker</span><span class="p">,</span>
+        <span class="k">fn</span> <span class="n">pid</span> <span class="o">-&gt;</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:square_root</span><span class="p">,</span> <span class="n">i</span><span class="p">})</span> <span class="k">end</span><span class="p">,</span>
+        <span class="nv">@timeout</span>
+      <span class="p">)</span>
+    <span class="k">end</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">await_and_inspect</span><span class="p">(</span><span class="n">task</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">task</span> <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">(</span><span class="nv">@timeout</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Τρέξτε τη δοκιμαστική συνάρτηση για να δείτε το αποτέλεσμα.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">PoolboyApp</span><span class="o">.</span><span class="no">Test</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.182.0&gt; calculating square root of 7</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.181.0&gt; calculating square root of 6</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.157.0&gt; calculating square root of 2</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.155.0&gt; calculating square root of 4</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.154.0&gt; calculating square root of 5</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.158.0&gt; calculating square root of 1</span>
+<span class="n">process</span> <span class="c1">#PID&lt;0.156.0&gt; calculating square root of 3</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>Αν δεν υπάρχει διαθέσιμος εργάτης στη λίστα, το Poolboy θα έχει μια λήξη ορίου χρόνου μετά το τέλος της περιόδου λήξης ορίου χρόνου (πέντε δευτερόλεπτα) και δεν θα δέχεται νέες αιτήσεις. Στο παράδειγμά μας, αυξήσαμε το προκαθορισμένο όριο λήξης χρόνου στο ένα λεπτό ώστε να επιδείξουμε πως μπορούμε να αλλάξουμε την προκαθορισμένη τιμή λήξης ορίου χρόνου.  Στην περίπτωση αυτής της εφαρμογής, μπορείτε να δείτε το σφάλμα αλλάζοντας την τιμή της <code class="highlighter-rouge">@timeout</code> σε λιγότερο από 1000.</p>
+
+<p>Παρόλο που προσπαθούμε να δημιουργήσουμε πολλαπλές διεργασίες <em>(είκοσι στο σύνολό τους στο παραπάνω παράδειγμα)</em>, η συνάρτηση <code class="highlighter-rouge">:poolboy.transaction/2</code> θα περιορίσει το σύνολο των δημιουργημένων διεργασιών σε πέντε <em>(συν δύο εργάτες υπερχείλισης αν απαιτούνται)</em> όπως το ορίσαμε στις ρυθμίσεις μας. Όλες οι αιτήσεις θα χειριστούν από τη λίστα εργατών αντί να δημιουργείται μια νέα διεργασία για κάθε μια αίτηση.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/gr/lessons/libraries/poolboy.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/libraries/guardian/" title="Guardian (Βασικά)">← Guardian (Βασικά)</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/libraries/benchee/" title="Benchee">Benchee →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/poolboy/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/libraries/poolboy/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <strong >gr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/libraries/poolboy/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/libraries/poolboy/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/libraries/poolboy/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/libraries/poolboy/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/libraries/poolboy/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/poolboy/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/poolboy/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Μαθήματα προγραμματισμού της γλώσσας Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/gr/" class="">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βασικά</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/basics/">1. Βασικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/collections/">2. Συλλογές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pattern-matching/">4. Αντιπαραβολές Προτύπων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/control-structures/">5. Δομές Ελέγχου</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/functions/">6. Συναρτήσεις</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pipe-operator/">7. Τελεστής Σωλήνα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/modules/">8. Ενότητες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/sigils/">10. Σφραγίδες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/documentation/">11. Τεκμηρίωση</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/testing/">12. Δοκιμές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/comprehensions/">13. Ανάγνωση Λιστών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/strings/">14. Αλφαριθμητικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/date-time/">15. Ημερομηνία και Ώρα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix-tasks/">16. Ειδικές Εργασίες Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/iex-helpers/">17. Βοηθοί IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Προχωρημένα</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/erlang/">1. Διαλειτουργικότητα με την Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/error-handling/">2. Διαχείριση Σφαλμάτων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/escripts/">3. Εκτελέσιμα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/concurrency/">4. Συγχρονισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-concurrency/">5. Συγχρονισμός OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-supervisors/">6. Επιτηρητές OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/metaprogramming/">8. Μεταπρογραμματισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/umbrella-projects/">9. Projects Ομπρέλας</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/typespec/">10. Προδιαγραφές και τύποι</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/behaviours/">11. Συμπεριφορές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/protocols/">13. Πρωτόκολλα</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/changesets/">2. Σετ Αλλαγών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/associations/">3. Συσχετισμοί</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ιδιαιτερότητες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/eex/">2. Ένθετη Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active">Βιβλιοθήκες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/guardian/">1. Guardian (Βασικά)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">2. Poolboy</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class="">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/gr/report/" class="">Αναφορά Μετάφρασης</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class="">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

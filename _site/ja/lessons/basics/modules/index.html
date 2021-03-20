@@ -1,0 +1,1211 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/basics/modules/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/modules/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/modules/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/basics/modules/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>モジュール &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/basics/modules/&title=モジュール&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/basics/modules/&via=elixirschool&text=ElixirSchool: モジュール&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/basics/modules/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/basics/modules/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: モジュール" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/basics/modules/&title=ElixirSchool: モジュール&description=Check out 'モジュール' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: モジュール&body=Check out 'モジュール' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/basics/modules/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  モジュール
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    この和訳は最新です。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>私たちは経験的に、全ての関数を1つの同じファイルとスコープに持つと手に負えないことを知っています。
+このレッスンでは関数をまとめ、構造体として知られる特別なマップを定義することで、コードをより効率のよい形に組織化する方法を取り上げます。</p>
+
+<h2>目次</h2>
+<div id="toc"></div>
+
+<h2 id="モジュール">モジュール</h2>
+
+<p>モジュールは関数群を名前空間へと組織する最良の方法です。
+関数をまとめることに加えて、<a href="../functions/">関数</a>のレッスンで取り上げた名前付き関数やプライベート関数を定義できます。</p>
+
+<p>基本的な例を見てみましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Hello </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">."</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">greeting</span> <span class="s2">"Sean"</span>
+<span class="s2">"Hello Sean."</span>
+</code></pre></div></div>
+
+<p>Elixirではモジュールをネストすることが可能で、機能ごとにさらなる名前空間をつけることができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Greetings</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">morning</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Good morning </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">."</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">evening</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Good night </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">."</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="no">Greetings</span><span class="o">.</span><span class="n">morning</span> <span class="s2">"Sean"</span>
+<span class="s2">"Good morning Sean."</span>
+</code></pre></div></div>
+
+<h3 id="モジュールの属性">モジュールの属性</h3>
+
+<p>モジュール属性はElixirでは一般に定数として用いられることがほとんどです。
+単純な例を見てみましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="nv">@greeting</span> <span class="s2">"Hello"</span>
+
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="sx">~s(#{@greeting} #{name}.)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>重要なので言及しておきますと、Elixirには予約されている属性があります。
+もっとも一般的なのは以下の3つです:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">moduledoc</code> — 現在のモジュールにドキュメントを付けます。</li>
+  <li><code class="highlighter-rouge">doc</code> — 関数やマクロについてのドキュメント管理。</li>
+  <li><code class="highlighter-rouge">behaviour</code> — OTPまたはユーザが定義した振る舞い(ビヘイビア)に用います。</li>
+</ul>
+
+<h2 id="構造体">構造体</h2>
+
+<p>構造体は定義済みのキーの一群とデフォルト値を持つ特殊なマップです。
+モジュール内部で定義されなくてはならず、そのモジュールから名前をとります。
+構造体にとっては、モジュール内部で自身しか定義されていないというのもありふれたことです。</p>
+
+<p>構造体を定義するには <code class="highlighter-rouge">defstruct</code> を用い、フィールドとデフォルト値のキーワードリストを添えます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="k">defstruct</span> <span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>いくつか構造体を作ってみましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[],</span> <span class="o">...&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[],</span> <span class="o">...&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="ss">:manager</span><span class="p">]}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="ss">:manager</span><span class="p">]</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>構造体はあたかもマップのように更新することができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">steve</span> <span class="o">=</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">sean</span> <span class="o">=</span> <span class="p">%{</span><span class="n">steve</span> <span class="o">|</span> <span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+</code></pre></div></div>
+
+<p>最も重要なことですが、構造体はマップに対してマッチすることができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">}</span> <span class="o">=</span> <span class="n">sean</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+</code></pre></div></div>
+
+<p>Elixir 1.8以降、構造体にカスタムイントロスペクション機能が追加されました。</p>
+
+<p>カスタムイントロスペクションがどのように使われるのかを理解するため、 <code class="highlighter-rouge">sean</code> の中身を見てみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">sean</span><span class="p">)</span>
+<span class="s2">"%Example.User&lt;name: </span><span class="se">\"</span><span class="s2">Sean</span><span class="se">\"</span><span class="s2">, roles: [...], ...&gt;"</span>
+</code></pre></div></div>
+
+<p>この例では全てのフィールドが出力対象になっていますが、出力したくない項目がある場合、どのようにしたら良いでしょうか？
+この場合、 <code class="highlighter-rouge">@derive</code> を利用することで実現することができます！
+<code class="highlighter-rouge">roles</code> を出力から除外したい場合、以下のように記述します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="nv">@derive</span> <span class="p">{</span><span class="no">Inspect</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:name</span><span class="p">]}</span>
+  <span class="k">defstruct</span> <span class="ss">name:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><strong>注記</strong>： <code class="highlighter-rouge">@derive {Inspect, except: [:roles]}</code> でも実現することができます。</p>
+
+<p>モジュールを更新したら、 <code class="highlighter-rouge">iex</code> で確認してみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">sean</span> <span class="o">=</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="o">...&gt;</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">sean</span><span class="p">)</span>
+<span class="s2">"%Example.User&lt;name: </span><span class="se">\"</span><span class="s2">Sean</span><span class="se">\"</span><span class="s2">, ...&gt;"</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">roles</code> が出力から除外されました!</p>
+
+<h2 id="コンポジションcomposition">コンポジション(Composition)</h2>
+
+<p>さて、モジュールと構造体の作り方がわかったので、コンポジションを用いてモジュールや構造体に既存の機能を追加する方法を学びましょう。
+Elixirは他のモジュールと連携する様々な方法を用意しています。</p>
+
+<h3 id="alias"><code class="highlighter-rouge">alias</code></h3>
+
+<p>モジュール名をエイリアスすることができます。Elixirのコードでは頻繁に使われます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span>
+
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Greetings</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># aliasを使わない場合</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>2つのエイリアス間で衝突があったり、全体を別名でエイリアスしたい場合には、 <code class="highlighter-rouge">:as</code> オプションを使います:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span><span class="p">,</span> <span class="ss">as:</span> <span class="no">Hi</span>
+
+  <span class="k">def</span> <span class="n">print_message</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Hi</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>複数のモジュールを一度にエイリアスすることも可能です:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="p">{</span><span class="no">Greetings</span><span class="p">,</span> <span class="no">Farewells</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="import"><code class="highlighter-rouge">import</code></h3>
+
+<p>モジュールをエイリアスするよりも、関数を取り込みたいという場合には、 <code class="highlighter-rouge">import</code> を使います:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">9</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">last</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<h4 id="フィルタリング">フィルタリング</h4>
+
+<p>デフォルトでは全ての関数とマクロが取り込まれますが、 <code class="highlighter-rouge">:only</code> や <code class="highlighter-rouge">:except</code> オプションを使うことでフィルタすることができます。</p>
+
+<p>特定の関数やマクロを取り込むには、名前/アリティのペアを <code class="highlighter-rouge">:only</code> や <code class="highlighter-rouge">:except</code> に渡す必要があります。
+<code class="highlighter-rouge">last/1</code> で最後の関数のみを取り込んでみましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">last:</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">first</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">13</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">first</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">last/1</code> で指定された関数以外を全て取り込むには、同じ関数で試してみましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">except:</span> <span class="p">[</span><span class="ss">last:</span> <span class="mi">1</span><span class="p">]</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">first</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">3</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">last</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>名前/アリティのペアに加えて、 <code class="highlighter-rouge">:functions</code> と <code class="highlighter-rouge">:macros</code> という2つの特別なアトムもあります。これらはそれぞれ関数とマクロのみを取り込みます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:functions</span>
+<span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:macros</span>
+</code></pre></div></div>
+
+<h3 id="require"><code class="highlighter-rouge">require</code></h3>
+
+<p>他のモジュールのマクロを使用することをElixirに伝えるために <code class="highlighter-rouge">require</code> を使うことができます。
+<code class="highlighter-rouge">import</code> とのわずかな違いは、関数ではなくマクロを使用可能とすることです。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">require</span> <span class="no">SuperMacros</span>
+
+  <span class="no">SuperMacros</span><span class="o">.</span><span class="n">do_stuff</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>まだロードされていないマクロを呼びだそうとすると、Elixirはエラーを発生させます。</p>
+
+<h3 id="use"><code class="highlighter-rouge">use</code></h3>
+
+<p><code class="highlighter-rouge">use</code> マクロを用いることで他のモジュールを利用して現在のモジュールの定義を変更することができます。
+コード上で <code class="highlighter-rouge">use</code> を呼び出すと、実際には提供されたモジュールに定義されている <code class="highlighter-rouge">__using__/1</code> コールバックを呼び出します。
+<code class="highlighter-rouge">__using__/1</code> マクロの結果はモジュールの定義の一部になります。
+この動作に対する理解を深めるために簡単な例を見ましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Hello</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">__using__</span><span class="p">(</span><span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>ここでは <code class="highlighter-rouge">hello/1</code> 関数を定義する <code class="highlighter-rouge">__using__/1</code> コールバックを定義した <code class="highlighter-rouge">Hello</code> モジュールを作りました。
+この新しいコードを試すために新しいモジュールを作ります:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Hello</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>IExでこのコードを試して見ると <code class="highlighter-rouge">Example</code> モジュールで <code class="highlighter-rouge">hello/1</code> を使えるのがわかります。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hi, Sean"</span>
+</code></pre></div></div>
+
+<p>ここで <code class="highlighter-rouge">use</code> が <code class="highlighter-rouge">Hello</code> の <code class="highlighter-rouge">__using__/1</code> コールバックを呼び出して、結果のコードをモジュールに追加します。
+基本的な例を見せたので、ここからはこのコードを変更して <code class="highlighter-rouge">__using__/1</code> にオプションをサポートする方法を見てみましょう。
+<code class="highlighter-rouge">greeting</code> オプションを追加します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Hello</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">__using__</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">greeting</span> <span class="o">=</span> <span class="no">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="ss">:greeting</span><span class="p">,</span> <span class="s2">"Hi"</span><span class="p">)</span>
+
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s2">", "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>新しく作った <code class="highlighter-rouge">greeting</code> オプションを含むために <code class="highlighter-rouge">Example</code> モジュールを更新します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Hello</span><span class="p">,</span> <span class="ss">greeting:</span> <span class="s2">"Hola"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>IExで試して見ると挨拶が変わるのを確認できます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; Example.hello("Sean")
+"Hola, Sean"
+</code></pre></div></div>
+
+<p>これらは <code class="highlighter-rouge">use</code> がどうやって動作するのかを説明する簡単な例でしたが、これはElixirのツールボックスで信じられないほどに強力なツールです。
+Elixirを学び続けたら <code class="highlighter-rouge">use</code> をあっちこっちで見ることになるでしょう。かならず見ることになりそうな例をひとつあげれば、 <code class="highlighter-rouge">use ExUnit.Case, async: true</code> です。</p>
+
+<p><strong>注意</strong>: <code class="highlighter-rouge">quote</code> 、 <code class="highlighter-rouge">alias</code> 、 <code class="highlighter-rouge">use</code> 、 <code class="highlighter-rouge">require</code> は<a href="../../advanced/metaprogramming">メタプログラミング</a>で使用してたマクロです。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/basics/modules.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/basics/pipe-operator/" title="パイプライン演算子">← パイプライン演算子</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/basics/mix/" title="Mix">Mix →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/modules/" title="ベンガル語">bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/modules/" title="ドイツ語">de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/modules/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/modules/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/modules/" title="フランス語 / Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/modules/" title="ギリシャ語">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/modules/" title="インドネシア語 / Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/modules/" title="イタリア語">it</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/modules/" title="韓国語">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/modules/" title="マレーシア語">ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/modules/" title="ノルウェー語">no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/modules/" title="ポーランド語">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/modules/" title="ポルトガル語">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/modules/" title="ロシア語 / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/modules/" title="スロバキア語">sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/modules/" title="トルコ語">tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/modules/" title="ウクライナ語">uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/modules/" title="ベトナム語">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/modules/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/modules/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/collections/">2. コレクション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">8. モジュール</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-distribution/">7. OTPディストリビューション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/changesets/">2. チェンジセット</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/querying/">4. クエリ</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

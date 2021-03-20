@@ -1,0 +1,1075 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="The premier destination for learning and mastering Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/en/lessons/advanced/gen-stage/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="en">
+  <meta property="og:description" content="The premier destination for learning and mastering Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/gen-stage/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/gen-stage/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/gen-stage/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/en/lessons/advanced/gen-stage/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>GenStage &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/en/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/en/lessons/advanced/gen-stage/&title=GenStage&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/en/lessons/advanced/gen-stage/&via=elixirschool&text=ElixirSchool: GenStage&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/en/lessons/advanced/gen-stage/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/en/lessons/advanced/gen-stage/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: GenStage" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/en/lessons/advanced/gen-stage/&title=ElixirSchool: GenStage&description=Check out 'GenStage' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: GenStage&body=Check out 'GenStage' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/en/lessons/advanced/gen-stage/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+      <h1>GenStage</h1>
+    
+  </header>
+  <div class="content">
+    <p>In this lesson we’re going to take a closer look at the GenStage, what role it serves, and how we can leverage it in our applications.</p>
+
+<h2>Table of Contents</h2>
+<div id="toc"></div>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>So what is GenStage?  From the official documentation, it is a “specification and computational flow for Elixir”, but what does that mean to us?</p>
+
+<p>What it means is that GenStage provides a way for us to define a pipeline of work to be carried out by independent steps (or stages) in a separate processes; if you’ve worked with pipelines before then some of these concepts should be familiar.</p>
+
+<p>To better understand how this works, let’s visualize a simple producer-consumer flow:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[A] -&gt; [B] -&gt; [C]
+</code></pre></div></div>
+
+<p>In this example we have three stages: <code class="highlighter-rouge">A</code> a producer, <code class="highlighter-rouge">B</code> a producer-consumer, and <code class="highlighter-rouge">C</code> a consumer.
+<code class="highlighter-rouge">A</code> produces a value which is consumed by <code class="highlighter-rouge">B</code>, <code class="highlighter-rouge">B</code> performs some work and returns a new value which is received by our consumer <code class="highlighter-rouge">C</code>; the role of our stage is important as we’ll see in the next section.</p>
+
+<p>While our example is 1-to-1 producer-to-consumer it’s possible to both have multiple producers and multiple consumers at any given stage.</p>
+
+<p>To better illustrate these concepts we’ll be constructing a pipeline with GenStage but first let’s explore the roles that GenStage relies upon a bit further.</p>
+
+<h2 id="consumers-and-producers">Consumers and Producers</h2>
+
+<p>As we’ve read, the role we give our stage is important.
+The GenStage specification recognizes three roles:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">:producer</code> — A source.
+Producers wait for demand from consumers and respond with the requested events.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">:producer_consumer</code> — Both a source and a sink.
+Producer-consumers can respond to demand from other consumers as well as request events from producers.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">:consumer</code> — A sink.
+A consumer requests and receives data from producers.</p>
+  </li>
+</ul>
+
+<p>Notice that our producers <strong>wait</strong> for demand?  With GenStage our consumers send demand upstream and process the data from our producer.
+This facilitates a mechanism known as back-pressure.
+Back-pressure puts the onus on the producer to not over-pressure when consumers are busy.</p>
+
+<p>Now that we’ve covered the roles within GenStage let’s start on our application.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>In this example we’ll be constructing a GenStage application that emits numbers, sorts out the even numbers, and finally prints them.</p>
+
+<p>For our application we’ll use all three GenStage roles.
+Our producer will be responsible for counting and emitting numbers.
+We’ll use a producer-consumer to filter out only the even numbers and later respond to demand from downstream.
+Last we’ll build a consumer to display the remaining numbers for us.</p>
+
+<p>We’ll begin by generating a project with a supervision tree:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new genstage_example <span class="nt">--sup</span>
+<span class="nv">$ </span><span class="nb">cd </span>genstage_example
+</code></pre></div></div>
+
+<p>Let’s update our dependencies in <code class="highlighter-rouge">mix.exs</code> to include <code class="highlighter-rouge">gen_stage</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:gen_stage</span><span class="p">,</span> <span class="s2">"~&gt; 1.0.0"</span><span class="p">},</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We should fetch our dependencies and compile before going much further:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix <span class="k">do </span>deps.get, compile
+</code></pre></div></div>
+
+<p>Now we’re ready to build our producer!</p>
+
+<h2 id="producer">Producer</h2>
+
+<p>The first step of our GenStage application is creating our producer.
+As we discussed before, we want to create a producer that emits a constant stream of numbers.
+Let’s create our producer file:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">touch </span>lib/genstage_example/producer.ex
+</code></pre></div></div>
+
+<p>Now we can add the code:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">GenstageExample</span><span class="o">.</span><span class="no">Producer</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenStage</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">initial</span> <span class="p">\\</span> <span class="mi">0</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenStage</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">initial</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">counter</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:producer</span><span class="p">,</span> <span class="n">counter</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">handle_demand</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="no">Enum</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="n">state</span><span class="o">..</span><span class="p">(</span><span class="n">state</span> <span class="o">+</span> <span class="n">demand</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">state</span> <span class="o">+</span> <span class="n">demand</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The two most important parts to take note of here are <code class="highlighter-rouge">init/1</code> and <code class="highlighter-rouge">handle_demand/2</code>.
+In <code class="highlighter-rouge">init/1</code> we set the initial state as we’ve done in our GenServers, but more importantly we label ourselves as a producer.
+The response from our <code class="highlighter-rouge">init/1</code> function is what GenStage relies upon to classify our process.</p>
+
+<p>The <code class="highlighter-rouge">handle_demand/2</code> function is where the majority of our producer is defined.
+It must be implemented by all GenStage producers.
+Here we return the set of numbers demanded by our consumers and increment our counter.
+The demand from consumers, <code class="highlighter-rouge">demand</code> in our code above, is represented as an integer corresponding to the number of events they can handle; it defaults to 1000.</p>
+
+<h2 id="producer-consumer">Producer Consumer</h2>
+
+<p>Now that we have a number-generating producer, let’s move on to our producer-consumer.
+We’ll want to request numbers from our producer, filter out the odd one, and respond to demand.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">touch </span>lib/genstage_example/producer_consumer.ex
+</code></pre></div></div>
+
+<p>Let’s update our file to look like the example code:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">GenstageExample</span><span class="o">.</span><span class="no">ProducerConsumer</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenStage</span>
+
+  <span class="kn">require</span> <span class="no">Integer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_initial</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenStage</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:state_doesnt_matter</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:producer_consumer</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">subscribe_to:</span> <span class="p">[</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Producer</span><span class="p">]}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">numbers</span> <span class="o">=</span>
+      <span class="n">events</span>
+      <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">&amp;</span><span class="no">Integer</span><span class="o">.</span><span class="n">is_even</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">numbers</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>You may have noticed with our producer-consumer we’ve introduced a new option in <code class="highlighter-rouge">init/1</code> and a new function: <code class="highlighter-rouge">handle_events/3</code>.
+With the <code class="highlighter-rouge">subscribe_to</code> option, we instruct GenStage to put us into communication with a specific producer.</p>
+
+<p>The <code class="highlighter-rouge">handle_events/3</code> function is our workhorse, where we receive our incoming events, process them, and return our transformed set.
+As we’ll see consumers are implemented in much the same way, but the important difference is what our <code class="highlighter-rouge">handle_events/3</code> function returns and how it’s used.
+ When we label our process a producer_consumer, the second argument of our tuple — <code class="highlighter-rouge">numbers</code> in our case — is used to meet the demand of consumers downstream.
+In consumers this value is discarded.</p>
+
+<h2 id="consumer">Consumer</h2>
+
+<p>Last but not least we have our consumer.
+Let’s get started:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">touch </span>lib/genstage_example/consumer.ex
+</code></pre></div></div>
+
+<p>Since consumers and producer-consumers are so similar our code won’t look much different:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">GenstageExample</span><span class="o">.</span><span class="no">Consumer</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenStage</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_initial</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenStage</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:state_doesnt_matter</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:consumer</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">subscribe_to:</span> <span class="p">[</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">ProducerConsumer</span><span class="p">]}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">for</span> <span class="n">event</span> <span class="o">&lt;-</span> <span class="n">events</span> <span class="k">do</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">({</span><span class="n">self</span><span class="p">(),</span> <span class="n">event</span><span class="p">,</span> <span class="n">state</span><span class="p">})</span>
+    <span class="k">end</span>
+
+    <span class="c1"># As a consumer we never emit events</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="p">[],</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>As we covered in the previous section, our consumer does not emit events, so the second value in our tuple will be discarded.</p>
+
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+
+<p>Now that we have our producer, producer-consumer, and consumer built, we’re ready to wire everything together.</p>
+
+<p>Let’s start by opening <code class="highlighter-rouge">lib/genstage_example/application.ex</code> and adding our new processes to the supervisor tree:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+  <span class="kn">import</span> <span class="no">Supervisor</span><span class="o">.</span><span class="no">Spec</span><span class="p">,</span> <span class="ss">warn:</span> <span class="no">false</span>
+
+  <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Producer</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">ProducerConsumer</span><span class="p">,</span> <span class="p">[]},</span>
+    <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Consumer</span><span class="p">,</span> <span class="p">[]}</span>
+  <span class="p">]</span>
+
+  <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">GenstageExample</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+  <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>If things are all correct, we can run our project and we should see everything working:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix run <span class="nt">--no-halt</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 0, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 2, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 4, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 6, :state_doesnt_matter}</span>
+...
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 229062, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 229064, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.109.0&gt;, 229066, :state_doesnt_matter}</span>
+</code></pre></div></div>
+
+<p>We did it!  As we expected our application only omits even numbers and it does so <strong>quickly</strong>.</p>
+
+<p>At this point we have a working pipeline.
+There is a producer emitting numbers, a producer-consumer discarding odd numbers, and a consumer displaying all of this and continuing the flow.</p>
+
+<h2 id="multiple-producers-or-consumers">Multiple Producers or Consumers</h2>
+
+<p>We mentioned in the introduction that it was possible to have more than one producer or consumer.
+Let’s take a look at just that.</p>
+
+<p>If we examine the <code class="highlighter-rouge">IO.inspect/1</code> output from our example we see that every event is handled by a single PID.
+Let’s make some adjustments for multiple workers by modifying <code class="highlighter-rouge">lib/genstage_example/application.ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Producer</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>
+  <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">ProducerConsumer</span><span class="p">,</span> <span class="p">[]},</span>
+  <span class="p">%{</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">start:</span> <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Consumer</span><span class="p">,</span> <span class="ss">:start_link</span><span class="p">,</span> <span class="p">[[]]}</span>
+  <span class="p">},</span>
+  <span class="p">%{</span>
+    <span class="ss">id:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="ss">start:</span> <span class="p">{</span><span class="no">GenstageExample</span><span class="o">.</span><span class="no">Consumer</span><span class="p">,</span> <span class="ss">:start_link</span><span class="p">,</span> <span class="p">[[]]}</span>
+  <span class="p">},</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Now that we’ve configured two consumers, let’s see what we get if we run our application now:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix run <span class="nt">--no-halt</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 0, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 2, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 4, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 6, :state_doesnt_matter}</span>
+...
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 86478, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.121.0&gt;, 87338, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 86480, :state_doesnt_matter}</span>
+<span class="o">{</span><span class="c">#PID&lt;0.120.0&gt;, 86482, :state_doesnt_matter}</span>
+</code></pre></div></div>
+
+<p>As you can see we now have multiple PIDs, simply by adding a line of code and giving our consumers IDs.</p>
+
+<h2 id="use-cases">Use Cases</h2>
+
+<p>Now that we’ve covered GenStage and built our first example application, what are some of the <em>real</em> use cases for GenStage?</p>
+
+<ul>
+  <li>
+    <p>Data Transformation Pipeline — Producers don’t have to be simple number generators.
+We could produce events from a database or even another source like Apache’s Kafka.
+With a combination of producer-consumers and consumers, we could process, sort, catalog, and store metrics as they become available.</p>
+  </li>
+  <li>
+    <p>Work Queue — Since events can be anything, we could produce units of work to be completed by a series of consumers.</p>
+  </li>
+  <li>
+    <p>Event Processing — Similar to a data pipeline, we could receive, process, sort, and take action on events emitted in real time from our sources.</p>
+  </li>
+</ul>
+
+<p>These are just a <strong>few</strong> of the possibilities for GenStage.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/en/lessons/advanced/gen-stage.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/advanced/behaviours/" title="Behaviours">← Behaviours</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/advanced/protocols/" title="Protocols">Protocols →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong title="English">en</strong>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/gen-stage/" title="Spanish / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/gen-stage/" title="Greek">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/gen-stage/" title="Japanese / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/gen-stage/" title="Korean">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/gen-stage/" title="Polish">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/gen-stage/" title="Portuguese">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/gen-stage/" title="Russian / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/gen-stage/" title="Vietnamese">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/gen-stage/" title="Chinese">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/gen-stage/" title="Traditional Chinese">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/en/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">12. GenStage</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

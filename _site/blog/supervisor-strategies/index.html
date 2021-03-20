@@ -1,0 +1,992 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/supervisor-strategies/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/supervisor-strategies/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Elixir Supervisor Strategies &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/supervisor-strategies/&title=Elixir Supervisor Strategies&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/supervisor-strategies/&via=elixirschool&text=ElixirSchool: Elixir Supervisor Strategies&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/supervisor-strategies/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/supervisor-strategies/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Elixir Supervisor Strategies" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/supervisor-strategies/&title=ElixirSchool: Elixir Supervisor Strategies&description=Check out 'Elixir Supervisor Strategies' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Elixir Supervisor Strategies&body=Check out 'Elixir Supervisor Strategies' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/supervisor-strategies/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Elixir Supervisor Strategies</h1>
+    <p><a href="/blog/years/2019/">21 Feb 2019</a> · by 
+
+    <a href="https://github.com/notactuallypagemcconnell" target="_blank" rel="nofollow noopener">Bobby Grayson</a></p>
+  </header>
+  <div class="content">
+    <p>One of the things that makes OTP and Elixir unique is the model of supervisor behaviour that applications can take with different processes they start.
+In this post we will examine each of the three available in Elixir by making a supervised app.</p>
+
+<p>To start, we make a supervised application:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix new counter --sup
+cd counter
+</code></pre></div></div>
+
+<p>Now that we have an app, we are going to create 3 modules.
+They will all be GenServers that are started with the application who send themselves a message every second to increment their state by one.
+One will always work, one will fail every 6 messages, and one will fail every 20 messages.
+To start, it will have the default supervisory strategy of <code class="highlighter-rouge">one_for_one</code> in <code class="highlighter-rouge">application.ex</code>.
+This strategy says that if one process dies, its siblings should stay working unaffected.</p>
+
+<p><strong>Note: No matter your supervisory strategy, if the children in your app do not succeed on <code class="highlighter-rouge">start_link</code> and return an <code class="highlighter-rouge">{:ok, pid}</code> tuple, the application as a whole will not start and your supervisory strategy does not matter at all.</strong></p>
+
+<p>We will stick with that in the beginning.</p>
+
+<p>Let’s start with the first module in <code class="highlighter-rouge">lib/counter/one.ex</code>.
+It will fail if its state is 22.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Counter</span><span class="o">.</span><span class="no">One</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_state</span> <span class="p">\\</span> <span class="mi">0</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"starting"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.One"</span><span class="p">)</span>
+    <span class="n">success</span> <span class="o">=</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"started"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.One"</span><span class="p">)</span>
+    <span class="n">success</span> 
+  <span class="k">end</span>
+
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="c1"># Schedule work to be performed on start</span>
+    <span class="n">schedule_work</span><span class="p">()</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="ss">:work</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="c1"># Reschedule once more</span>
+    <span class="n">schedule_work</span><span class="p">()</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">schedule_work</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">Process</span><span class="o">.</span><span class="n">send_after</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="ss">:work</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="n">state</span> <span class="k">do</span>
+      <span class="mi">22</span> <span class="o">-&gt;</span> <span class="k">raise</span> <span class="s2">"I'm Counter.One and I'm gonna error now"</span>
+      <span class="n">_</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"working and my state is </span><span class="si">#{</span><span class="n">state</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.One"</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Note:
+This is slight modification of a <a href="https://hexdocs.pm/elixir/GenServer.html#module-receiving-regular-messages">great example from the GenServer docs</a>.
+Also see <a href="http://elixirschool.com/blog/til-send-after/">this past Elixir School blog post</a> for more on <code class="highlighter-rouge">Process.send_after/3</code>.</p>
+
+<p>Now, if we open <code class="highlighter-rouge">lib/counter/application.ex</code> and add it to children, we can get it to start with our app:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Counter</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="c1"># See https://hexdocs.pm/elixir/Application.html</span>
+  <span class="c1"># for more information on OTP Applications</span>
+  <span class="nv">@moduledoc</span> <span class="no">false</span>
+
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># List all child processes to be supervised</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">One</span>
+    <span class="p">]</span>
+
+    <span class="c1"># See https://hexdocs.pm/elixir/Supervisor.html</span>
+    <span class="c1"># for other strategies and supported options</span>
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Counter</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now if we start the app, we will see it begin to work and fail at 22:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Counter.One: "working and my state is 18"
+Counter.One: "working and my state is 19"
+Counter.One: "working and my state is 20"
+Counter.One: "working and my state is 21"
+Counter.One: "starting"
+Counter.One: "working and my state is 0"
+Counter.One: "started"
+
+18:27:42.566 [error] GenServer #PID&lt;0.119.0&gt; terminating
+** (RuntimeError) I'm Counter.One and I'm gonna error now
+    (one) lib/counter/one.ex:33: Counter.One.work/1
+    (one) lib/counter/one.ex:21: Counter.One.handle_info/2
+    (stdlib) gen_server.erl:616: :gen_server.try_dispatch/4
+    (stdlib) gen_server.erl:686: :gen_server.handle_msg/6
+    (stdlib) proc_lib.erl:247: :proc_lib.init_p_do_apply/3
+Last message: :work
+State: 22
+Counter.One: "working and my state is 0"
+Counter.One: "working and my state is 1"
+</code></pre></div></div>
+<p>This fails because we made a specific clause to coerce failure by raising an error when the state reached <code class="highlighter-rouge">22</code> in our counter.
+It is restarted with a state 0 (the default) after this failure.</p>
+
+<p>Now lets make another module that will never fail:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Counter</span><span class="o">.</span><span class="no">Two</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_state</span> <span class="p">\\</span> <span class="mi">0</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"starting"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.Two"</span><span class="p">)</span>
+    <span class="n">success</span> <span class="o">=</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"started"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.Two"</span><span class="p">)</span>
+    <span class="n">success</span> 
+  <span class="k">end</span>
+
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="c1"># Schedule work to be performed on start</span>
+    <span class="n">schedule_work</span><span class="p">()</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="ss">:work</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="c1"># Reschedule once more</span>
+    <span class="n">schedule_work</span><span class="p">()</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">schedule_work</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">Process</span><span class="o">.</span><span class="n">send_after</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="ss">:work</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"working and my state is </span><span class="si">#{</span><span class="n">state</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.Two"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We can add it to <code class="highlighter-rouge">lib/counter/application.ex</code> as well.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1"># ...</span>
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># List all child processes to be supervised</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">One</span><span class="p">,</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">Two</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+  <span class="c1"># ...</span>
+</code></pre></div></div>
+
+<p>Now, for our third and final module that will fail if state is <code class="highlighter-rouge">5</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Counter</span><span class="o">.</span><span class="no">Three</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">_state</span> <span class="p">\\</span> <span class="mi">0</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"starting"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.Three"</span><span class="p">)</span>
+    <span class="n">success</span> <span class="o">=</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"started"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.Three"</span><span class="p">)</span>
+    <span class="n">success</span> 
+  <span class="k">end</span>
+
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="c1"># Schedule work to be performed on start</span>
+    <span class="n">schedule_work</span><span class="p">()</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="ss">:work</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="c1"># Reschedule once more</span>
+    <span class="n">schedule_work</span><span class="p">()</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">schedule_work</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">Process</span><span class="o">.</span><span class="n">send_after</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="ss">:work</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">work</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="n">state</span> <span class="k">do</span>
+      <span class="mi">5</span> <span class="o">-&gt;</span> <span class="k">raise</span> <span class="s2">"I'm Counter.Three and I'm gonna error now"</span>
+      <span class="n">_</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="s2">"working and my state is </span><span class="si">#{</span><span class="n">state</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="ss">label:</span> <span class="s2">"Counter.Three"</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We can add it to <code class="highlighter-rouge">lib/counter/application.ex</code> in the list of children, last after the other two:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1"># ...</span>
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># List all child processes to be supervised</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">One</span><span class="p">,</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">Two</span><span class="p">,</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">Three</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+  <span class="c1"># ...</span>
+</code></pre></div></div>
+
+<h2 id="one-for-one">One For One</h2>
+<p>Now, let’s start our application and see the failure behaviour and state for each GenServer.
+These logs are truncated to just the interesting parts.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Counter.One: "working and my state is 4"
+Counter.Two: "working and my state is 4"
+Counter.Three: "working and my state is 4"
+Counter.One: "working and my state is 5"
+Counter.Two: "working and my state is 5"
+Counter.Three: "starting"
+Counter.Three: "working and my state is 0"
+Counter.Three: "started"
+
+18:11:37.495 [error] GenServer #PID&lt;0.130.0&gt; terminating
+** (RuntimeError) I'm Counter.Three and I'm gonna error now
+    (counter) lib/counter/three.ex:33: Counter.Three.work/1
+    (counter) lib/counter/three.ex:21: Counter.Three.handle_info/2
+    (stdlib) gen_server.erl:616: :gen_server.try_dispatch/4
+    (stdlib) gen_server.erl:686: :gen_server.handle_msg/6
+    (stdlib) proc_lib.erl:247: :proc_lib.init_p_do_apply/3
+Last message: :work
+State: 5
+Counter.One: "working and my state is 6"
+Counter.Two: "working and my state is 6"
+Counter.Three: "working and my state is 0"
+Counter.One: "working and my state is 7"
+Counter.Two: "working and my state is 7"
+Counter.Three: "working and my state is 1"
+</code></pre></div></div>
+
+<p>So, we can see our first crash.
+The process for <code class="highlighter-rouge">Counter.Three</code> failed with our raised error, and was restarted.
+Because our default strategy in Elixir is <code class="highlighter-rouge">one_for_one</code>, this is expected.
+In the default configuration, we dont want one child processes failure to effect any others.</p>
+
+<p>If we let it continue to 22 with <code class="highlighter-rouge">Counter.One</code>, we would see the same behaviour (allow a crash without impacting any siblings, as its one for one).</p>
+
+<h2 id="rest-for-one">Rest For One</h2>
+<p>Now let’s try it with <code class="highlighter-rouge">rest_for_one</code>.
+Rest for one as a strategy starts the children in sequence, and if an earlier child fails the ones after it do too.
+We want to change our line assigning <code class="highlighter-rouge">opts</code> in <code class="highlighter-rouge">lib/counter/application.ex</code> to state that.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">One</span><span class="p">,</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">Two</span><span class="p">,</span>
+      <span class="no">Counter</span><span class="o">.</span><span class="no">Three</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:rest_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Counter</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+<span class="c1"># ...</span>
+</code></pre></div></div>
+
+<p>Now, let’s start up again.
+These logs are also truncated to the interesting part</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Counter.One: "working and my state is 3"
+Counter.Two: "working and my state is 3"
+Counter.Three: "working and my state is 3"
+Counter.One: "working and my state is 4"
+Counter.Two: "working and my state is 4"
+Counter.Three: "working and my state is 4"
+Counter.One: "working and my state is 5"
+Counter.Two: "working and my state is 5"
+Counter.Three: "starting"
+
+18:30:56.925 [error] GenServer #PID&lt;0.134.0&gt; terminating
+** (RuntimeError) I'm Counter.Three and I'm gonna error now
+    (counter) lib/counter/three.ex:33: Counter.Three.work/1
+    (counter) lib/counter/three.ex:21: Counter.Three.handle_info/2
+    (stdlib) gen_server.erl:616: :gen_server.try_dispatch/4
+    (stdlib) gen_server.erl:686: :gen_server.handle_msg/6
+    (stdlib) proc_lib.erl:247: :proc_lib.init_p_do_apply/3
+Last message: :work
+State: 5
+Counter.Three: "working and my state is 0"
+Counter.Three: "started"
+Counter.One: "working and my state is 6"
+Counter.Two: "working and my state is 6"
+Counter.Three: "working and my state is 0"
+Counter.One: "working and my state is 7"
+Counter.Two: "working and my state is 7"
+</code></pre></div></div>
+
+<p>The key takeaway here is <em>order matters</em>.
+Because <code class="highlighter-rouge">Counter.One</code> doesn’t fail until <code class="highlighter-rouge">22</code> is its state, and <code class="highlighter-rouge">Counter.Three</code> fails with a state of <code class="highlighter-rouge">5</code>, <code class="highlighter-rouge">Counter.One</code> will force a restart of all 3 children since its first, but <code class="highlighter-rouge">Counter.Three</code>’s failures have no effect on its siblings.</p>
+
+<h2 id="one-for-all">One For All</h2>
+<p>Now let’s enable it with <code class="highlighter-rouge">one_for_all</code>.
+In this supervisory model if one child fails, all must be restarted.
+To do this lets change <code class="highlighter-rouge">lib/counter/application.ex</code> again.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_all</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Counter</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>If we start our app again with <code class="highlighter-rouge">iex -S mix</code> we can see the behaviour as soon as <code class="highlighter-rouge">Counter.Three</code> reaches a state of 5, but it again will confirm that it works the same again when we reach 22.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Counter.Two: "working and my state is 4"
+Counter.One: "working and my state is 5"
+Counter.Two: "working and my state is 5"
+Counter.One: "starting"
+Counter.One: "working and my state is 0"
+Counter.One: "started"
+Counter.Two: "starting"
+Counter.Two: "working and my state is 0"
+Counter.Two: "started"
+Counter.Three: "starting"
+Counter.Three: "working and my state is 0"
+Counter.Three: "started"
+
+18:34:56.122 [error] GenServer #PID&lt;0.121.0&gt; terminating
+** (RuntimeError) I'm Counter.Three and I'm gonna error now
+    (counter) lib/counter/three.ex:33: Counter.Three.work/1
+    (counter) lib/counter/three.ex:21: Counter.Three.handle_info/2
+    (stdlib) gen_server.erl:616: :gen_server.try_dispatch/4
+    (stdlib) gen_server.erl:686: :gen_server.handle_msg/6
+    (stdlib) proc_lib.erl:247: :proc_lib.init_p_do_apply/3
+Last message: :work
+State: 5
+Counter.One: "working and my state is 0"
+Counter.Two: "working and my state is 0"
+Counter.Three: "working and my state is 0"
+</code></pre></div></div>
+
+<p>We could also change the order in the <code class="highlighter-rouge">children</code> variable match, and the same thing would happen.</p>
+
+<p>That was a lot to take in, but hopefully the supervisory strategies of Elixir applications are a bit clearer now!</p>
+
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-02-21-supervisor-strategies.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/til-genserver-handle-continue/" title="TIL GenServer's `handle_continue/2`" rel="prev">&laquo; TIL GenServer's `handle_continue/2`</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/phoenix-live-view/" title="Walk-Through of Phoenix LiveView" rel="next">Walk-Through of Phoenix LiveView &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/notactuallypagemcconnell.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/notactuallypagemcconnell">Bobby Grayson</a>
+    
+    </h2>
+    <p class="content"></p>
+    <ul class="icons">
+      
+      
+      <li><a href="https://twitter.com/yburyug" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/notactuallypagemcconnell" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

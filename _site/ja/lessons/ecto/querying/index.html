@@ -1,0 +1,1114 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/ecto/querying/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/querying/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/querying/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/querying/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/querying/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/querying/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/querying/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/querying/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/querying/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/ecto/querying/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>クエリ &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/ecto/querying/&title=クエリ&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/ecto/querying/&via=elixirschool&text=ElixirSchool: クエリ&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/ecto/querying/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/ecto/querying/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: クエリ" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/ecto/querying/&title=ElixirSchool: クエリ&description=Check out 'クエリ' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: クエリ&body=Check out 'クエリ' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/ecto/querying/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  クエリ
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    この和訳は最新です。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <h2>目次</h2>
+<div id="toc"></div>
+
+<p>このレッスンでは、 <code class="highlighter-rouge">Friends</code> アプリと <a href="./associations">前のレッスン</a> で設定した映画ドメインを引き続き作成します。</p>
+
+<h2 id="ectorepo-によるレコードのフェッチ"><code class="highlighter-rouge">Ecto.Repo</code> によるレコードのフェッチ</h2>
+
+<p>Postgresデータベースのようなデータストアに対してマップするEctoの “レポジトリ” を思い出してください。
+データベースに対する全てのコミュニケーションは、このレポジトリを使用して行われます。</p>
+
+<p>いくつかの関数の助けを借りることで、 <code class="highlighter-rouge">Friends.Repo</code> に対してシンプルなクエリを直接実行することができます。</p>
+
+<h3 id="idによるレコードのフェッチ">IDによるレコードのフェッチ</h3>
+
+<p><code class="highlighter-rouge">Repo.get/3</code> 関数を使って与えられたIDを持つレコードをデータベースからフェッチすることができます。この関数には2つの引数が必要です。 “クエリ可能な” データ構造体とデータベースから取得するレコードのIDです。これは、レコードを見つけた場合、そのレコードを表す構造体を返します。レコードが見つからない場合には <code class="highlighter-rouge">nil</code> を返します。</p>
+
+<p>例を見てみましょう。下のコードは、1のIDを持つ映画(movie)を取得します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">alias</span> <span class="no">Friends</span><span class="o">.</span><span class="p">{</span><span class="no">Repo</span><span class="p">,</span> <span class="no">Movie</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Movie</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:actors</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Repo.get/3</code> に渡した1つ目の引数は <code class="highlighter-rouge">Movie</code> モジュールです。 <code class="highlighter-rouge">Movie</code> は <code class="highlighter-rouge">Ecto.Schema</code> モジュールを使い、自身のデータ構造体のためにスキーマを定義しているので “クエリ可能” です。これによって <code class="highlighter-rouge">Movie</code> は <code class="highlighter-rouge">Ecto.Queryable</code> プロトコルにアクセスすることができます。このプロトコルはデータ構造体を <code class="highlighter-rouge">Ecto.Query</code> へと変換します。Ectoクエリはレポジトリからデータを取得するために使用されます。クエリの詳細は後に説明します。</p>
+
+<h3 id="属性によるレコードのフェッチ">属性によるレコードのフェッチ</h3>
+
+<p><code class="highlighter-rouge">Repo.get_by/3</code> 関数で与えられた条件を満たすレコードをフェッチすることもできます。この関数は2つの引数を必要とします。 “クエリ可能な” データ構造体とクエリをしたい条件です。 <code class="highlighter-rouge">Repo.get_by/3</code> はレポジトリから1つの結果を返します。例を見てみましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get_by</span><span class="p">(</span><span class="no">Movie</span><span class="p">,</span> <span class="ss">title:</span> <span class="s2">"Ready Player One"</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:actors</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>より複雑なクエリを書きたい、あるいは特定の条件を満たす <em>全ての</em> レコードを取得したい場合は、 <code class="highlighter-rouge">Ecto.Query</code> が必要です。</p>
+
+<h2 id="ectoquery-によるクエリの作成"><code class="highlighter-rouge">Ecto.Query</code> によるクエリの作成</h2>
+
+<p><code class="highlighter-rouge">Ecto.Query</code> モジュールはクエリDSLを提供しており、これによってアプリケーションのレポジトリからデータを取り出すクエリを書くことができます。</p>
+
+<h3 id="ectoqueryfrom2-を使用したkeyword-basedクエリの作成"><code class="highlighter-rouge">Ecto.Query.from/2</code> を使用したKeyword-basedクエリの作成</h3>
+
+<p><code class="highlighter-rouge">Ecto.Query.from/2</code> マクロを使用してクエリを作ることができます。この関数は2つの引数を取ります。式と任意のキーワードリストです。レポジトリから全ての映画を選択する最も簡単なクエリを作ってみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">from</span><span class="p">(</span><span class="no">Movie</span><span class="p">)</span>
+<span class="c1">#Ecto.Query&lt;from m0 in Friends.Movie&gt;</span>
+</code></pre></div></div>
+
+<p>クエリを実行するためには、 <code class="highlighter-rouge">Repo.all/2</code> 関数を使用します。この関数はEctoクエリの必須の引数を取り、クエリの条件を満たす全てのレコードを返します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+<span class="mi">14</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mf">03.187</span> <span class="p">[</span><span class="n">debug</span><span class="p">]</span> <span class="no">QUERY</span> <span class="no">OK</span> <span class="n">source</span><span class="o">=</span><span class="s2">"movies"</span> <span class="n">db</span><span class="o">=</span><span class="mi">1</span><span class="o">.</span><span class="err">7</span><span class="n">ms</span> <span class="n">decode</span><span class="o">=</span><span class="mi">4</span><span class="o">.</span><span class="err">2</span><span class="n">ms</span>
+<span class="p">[</span>
+  <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">actors:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:actors</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+    <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h4 id="from-によるbindinglessなクエリの作成"><code class="highlighter-rouge">from</code> によるBindinglessなクエリの作成</h4>
+
+<p>上の例では、SQLステートメントの最も楽しい部分がありません。特定のフィールドのみを参照したり、何らかの条件でレコードをフィルタリングしたりすることがよくあります。タイトルが <code class="highlighter-rouge">"Ready Player One"</code> である全ての映画の <code class="highlighter-rouge">title</code> と <code class="highlighter-rouge">tagline</code> を取得してみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">from</span><span class="p">(</span><span class="no">Movie</span><span class="p">,</span> <span class="ss">where:</span> <span class="p">[</span><span class="ss">title:</span> <span class="s2">"Ready Player One"</span><span class="p">],</span> <span class="ss">select:</span> <span class="p">[</span><span class="ss">:title</span><span class="p">,</span> <span class="ss">:tagline</span><span class="p">])</span>
+<span class="c1">#Ecto.Query&lt;from m0 in Friends.Movie, where: m0.title == "Ready Player One",</span>
+ <span class="ss">select:</span> <span class="p">[</span><span class="ss">:title</span><span class="p">,</span> <span class="ss">:tagline</span><span class="p">]</span><span class="o">&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="no">SELECT</span> <span class="n">m0</span><span class="o">.</span><span class="s2">"title"</span><span class="p">,</span> <span class="n">m0</span><span class="o">.</span><span class="s2">"tagline"</span> <span class="no">FROM</span> <span class="s2">"movies"</span> <span class="no">AS</span> <span class="n">m0</span> <span class="no">WHERE</span> <span class="p">(</span><span class="n">m0</span><span class="o">.</span><span class="s2">"title"</span> <span class="o">=</span> <span class="s1">'Ready Player One'</span><span class="p">)</span> <span class="p">[]</span>
+<span class="p">[</span>
+  <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">actors:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:actors</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="no">nil</span><span class="p">,</span>
+    <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+    <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>返ってくる構造体には <code class="highlighter-rouge">tagline</code> と <code class="highlighter-rouge">title</code> フィールドのみが設定されていることに注意してください - これは <code class="highlighter-rouge">select:</code> の結果です。</p>
+
+<p>このようなクエリは、bindingを必要としないほど単純であるため、 <em>bindingless</em> と呼ばれます。</p>
+
+<h4 id="クエリでのbinding">クエリでのBinding</h4>
+
+<p>これまで、 <code class="highlighter-rouge">from</code> マクロの最初の引数として <code class="highlighter-rouge">Ecto.Queryable</code> プロトコル（例： <code class="highlighter-rouge">Movie</code>）を実装するモジュールを使用しました。しかしながら、このような <code class="highlighter-rouge">in</code> 式も利用することができます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">from</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">)</span>           
+<span class="c1">#Ecto.Query&lt;from m0 in Friends.Movie&gt;</span>
+</code></pre></div></div>
+
+<p>このような場合には、 <code class="highlighter-rouge">m</code> を <em>binding</em> と呼びます。クエリの他の部分からモジュールが参照できるため、Bindingは非常に便利です。 <code class="highlighter-rouge">id</code> が <code class="highlighter-rouge">2</code> より小さい全ての映画のタイトルを選択してみましょう:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">from</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span> <span class="ss">where:</span> <span class="n">m</span><span class="o">.</span><span class="n">id</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">select:</span> <span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="c1">#Ecto.Query&lt;from m0 in Friends.Movie, where: m0.id &lt; 2, select: m0.title&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="no">SELECT</span> <span class="n">m0</span><span class="o">.</span><span class="s2">"title"</span> <span class="no">FROM</span> <span class="s2">"movies"</span> <span class="no">AS</span> <span class="n">m0</span> <span class="no">WHERE</span> <span class="p">(</span><span class="n">m0</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">[]</span>
+<span class="p">[</span><span class="s2">"Ready Player One"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>ここで非常に重要なことは、クエリの出力がどのように変化したかです。<code class="highlighter-rouge">select:</code> 部分のbindingで <em>式</em> を使用すると、選択したフィールドが返される方法を正確に指定できます。例えば、タプルを指定できます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">from</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span> <span class="ss">where:</span> <span class="n">m</span><span class="o">.</span><span class="n">id</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">select:</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="p">})</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="p">[{</span><span class="s2">"Ready Player One"</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>データ構造を参照する必要がある場合は、常に単純なbindinglessクエリから始めて、bindingを導入することをお勧めします。クエリのbindingの詳細については、<a href="https://hexdocs.pm/ecto/Ecto.Query.html#module-query-expressions">Ecto documentation</a> を参照してください。</p>
+
+<h3 id="マクロクエリ">マクロクエリ</h3>
+
+<p>上記の例では、 <code class="highlighter-rouge">from</code> マクロ内でキーワード <code class="highlighter-rouge">select:</code> と <code class="highlighter-rouge">where:</code> を使用してクエリを作成しました。これらは、<em>keyword-basedのクエリ</em> と呼ばれます。ただし、クエリを作成する別の方法もあります。マクロベースのクエリです。Ectoは、<code class="highlighter-rouge">select/3</code> や <code class="highlighter-rouge">where/3</code> のような全てのキーワードに対してマクロを提供します。各マクロは、<em>queryable</em> な値、<em>明示的なbindingのリスト</em>、およびアナログなキーワードに提供するのと同じ式を受け入れます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="no">Movie</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="c1">#Ecto.Query&lt;from m0 in Friends.Movie, select: m0.title&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="no">SELECT</span> <span class="n">m0</span><span class="o">.</span><span class="s2">"title"</span> <span class="no">FROM</span> <span class="s2">"movies"</span> <span class="no">AS</span> <span class="n">m0</span> <span class="p">[]</span>
+<span class="p">[</span><span class="s2">"Ready Player One"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>マクロの良いところは、パイプで非常にうまく機能することです。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Movie</span> <span class="p">\</span>
+<span class="o">...&gt;</span>  <span class="o">|&gt;</span> <span class="n">where</span><span class="p">([</span><span class="n">m</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">id</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">\</span>
+<span class="o">...&gt;</span>  <span class="o">|&gt;</span> <span class="n">select</span><span class="p">([</span><span class="n">m</span><span class="p">],</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="p">})</span> <span class="p">\</span>
+<span class="o">...&gt;</span>  <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span>
+<span class="p">[{</span><span class="s2">"Ready Player One"</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>改行後も書き込みを続けるには、 <code class="highlighter-rouge">\</code> を使用することに注意してください。</p>
+
+<h3 id="埋め込み値による-where-の使用">埋め込み値による <code class="highlighter-rouge">where</code> の使用</h3>
+
+<p>where句において埋め込み値やElixirの式を使うためには、 <code class="highlighter-rouge">^</code> 、つまりピン演算子を使う必要があります。これによって値を再束縛するのではなく、変数に値を <em>固定する</em> ことで、その固定された値を参照することが可能になります。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">"Ready Player One"</span>
+<span class="s2">"Ready Player One"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">from</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span> <span class="ss">where:</span> <span class="n">m</span><span class="o">.</span><span class="n">title</span> <span class="o">==</span> <span class="o">^</span><span class="n">title</span><span class="p">,</span> <span class="ss">select:</span> <span class="n">m</span><span class="o">.</span><span class="n">tagline</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span><span class="o">&lt;</span><span class="n">from</span> <span class="n">m</span> <span class="ow">in</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">,</span> <span class="ss">where:</span> <span class="n">m</span><span class="o">.</span><span class="n">title</span> <span class="o">==</span> <span class="o">^</span><span class="s2">"Ready Player One"</span><span class="p">,</span>
+ <span class="ss">select:</span> <span class="n">m</span><span class="o">.</span><span class="n">tagline</span><span class="o">&gt;</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+<span class="mi">15</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mf">46.809</span> <span class="p">[</span><span class="n">debug</span><span class="p">]</span> <span class="no">QUERY</span> <span class="no">OK</span> <span class="n">source</span><span class="o">=</span><span class="s2">"movies"</span> <span class="n">db</span><span class="o">=</span><span class="mi">3</span><span class="o">.</span><span class="err">8</span><span class="n">ms</span>
+<span class="p">[</span><span class="s2">"Something about video games"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="最初と最後のレコードの取得">最初と最後のレコードの取得</h3>
+
+<p><code class="highlighter-rouge">Ecto.Query.first/2</code> と <code class="highlighter-rouge">Ecto.Query.last/2</code> 関数を使って、レポジトリの最初と最後のレコードをフェッチすることができます。</p>
+
+<p>まずは、 <code class="highlighter-rouge">first/2</code> 関数を使ったクエリ式を書いてみます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">first</span><span class="p">(</span><span class="no">Movie</span><span class="p">)</span>
+<span class="c1">#Ecto.Query&lt;from m0 in Friends.Movie, order_by: [asc: m0.id], limit: 1&gt;</span>
+</code></pre></div></div>
+
+<p>次に、そのクエリを <code class="highlighter-rouge">Repo.one/2</code> 関数に渡して結果を取得します:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Movie</span> <span class="o">|&gt;</span> <span class="n">first</span><span class="p">()</span> <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+
+<span class="no">SELECT</span> <span class="n">m0</span><span class="o">.</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">m0</span><span class="o">.</span><span class="s2">"title"</span><span class="p">,</span> <span class="n">m0</span><span class="o">.</span><span class="s2">"tagline"</span> <span class="no">FROM</span> <span class="s2">"movies"</span> <span class="no">AS</span> <span class="n">m0</span> <span class="no">ORDER</span> <span class="no">BY</span> <span class="n">m0</span><span class="o">.</span><span class="s2">"id"</span> <span class="no">LIMIT</span> <span class="mi">1</span> <span class="p">[]</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="c1">#Ecto.Schema.Metadata&lt;:loaded, "movies"&gt;,</span>
+  <span class="ss">actors:</span> <span class="c1">#Ecto.Association.NotLoaded&lt;association :actors is not loaded&gt;,</span>
+  <span class="ss">characters:</span> <span class="c1">#Ecto.Association.NotLoaded&lt;association :characters is not loaded&gt;,</span>
+  <span class="ss">distributor:</span> <span class="c1">#Ecto.Association.NotLoaded&lt;association :distributor is not loaded&gt;,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Ecto.Query.last/2</code> 関数も同じように使います:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Movie</span> <span class="o">|&gt;</span> <span class="n">last</span><span class="p">()</span> <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="関連したデータのクエリ">関連したデータのクエリ</h2>
+
+<h3 id="プリロード">プリロード</h3>
+
+<p><code class="highlighter-rouge">belongs_to</code> 、 <code class="highlighter-rouge">has_many</code> 、そして <code class="highlighter-rouge">has_one</code> マクロからの公開する関連レコードにアクセスできるようにするために、関連したスキーマを <em>プリロード</em> する必要があります。</p>
+
+<p>関連する俳優を映画に問い合わせるとどうなるかを見てみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Movie</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span><span class="o">.</span><span class="n">actors</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:actors</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>プリロードしない限り、それらの関連したデータにアクセスすることはできません。Ectoを使ってレコードをプリロードするにはいくつかの方法があります。</p>
+
+<h4 id="2つのクエリによるプリロード">2つのクエリによるプリロード</h4>
+
+<p>次のクエリは <em>独立した</em> クエリで関連したレコードをプリロードします。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span>
+<span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">from</span> <span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span> <span class="ss">preload:</span> <span class="p">[</span><span class="ss">:actors</span><span class="p">])</span>
+<span class="p">[</span>
+  <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">actors:</span> <span class="p">[</span>
+      <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+        <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+      <span class="p">},</span>
+      <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+        <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="ss">id:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="ss">name:</span> <span class="s2">"Gary"</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+    <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>上のコードでは_2つの_データベースクエリが実行されることがわかります。1つは全ての映画を、もう1つは全ての俳優を映画IDとともに取得しています。</p>
+
+<h4 id="1つのクエリによるプリロード">1つのクエリによるプリロード</h4>
+
+<p>私たちは次のようにデータベースクエリを削減することができます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">from</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span> <span class="ss">join:</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">assoc</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="ss">:actors</span><span class="p">),</span> <span class="ss">preload:</span> <span class="p">[</span><span class="ss">actors:</span> <span class="n">a</span><span class="p">])</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="p">[</span>
+  <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">actors:</span> <span class="p">[</span>
+      <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+        <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+      <span class="p">},</span>
+      <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+        <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="ss">id:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="ss">name:</span> <span class="s2">"Gary"</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+    <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>これによって、データベースへの問い合わせを1回にすることができます。また、同じクエリで映画と関連する俳優の両方を選択してフィルタ処理できるという利点もあります。例えば次のように、このアプローチによって <code class="highlighter-rouge">join</code> ステートメントを使用して特定の条件を満たす俳優を持つ全ての映画を取得することができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Repo</span><span class="o">.</span><span class="n">all</span> <span class="n">from</span> <span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span>
+  <span class="ss">join:</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">assoc</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="ss">:actors</span><span class="p">),</span>
+  <span class="ss">where:</span> <span class="n">a</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"John Wayne"</span><span class="p">,</span>
+  <span class="ss">preload:</span> <span class="p">[</span><span class="ss">actors:</span> <span class="n">a</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>joinステートメントについて、もっと詳細を見てみましょう。</p>
+
+<h4 id="フェッチされたレコードのプリロード">フェッチされたレコードのプリロード</h4>
+
+<p>データベースから取得したレコードの関連スキーマをプリロードすることもできます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Movie</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:actors</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span> <span class="c1"># actors are NOT LOADED!!</span>
+  <span class="ss">characters:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:characters</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span> <span class="o">=</span> <span class="no">Repo</span><span class="o">.</span><span class="n">preload</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="ss">:actors</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Movie</span><span class="p">{</span>
+  <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"movies"</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">actors:</span> <span class="p">[</span>
+    <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+    <span class="p">},</span>
+    <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+      <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">id:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="s2">"Gary"</span>
+    <span class="p">}</span>
+  <span class="p">],</span> <span class="c1"># actors are LOADED!!</span>
+  <span class="ss">characters:</span> <span class="p">[],</span>
+  <span class="ss">distributor:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:distributor</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">tagline:</span> <span class="s2">"Something about video games"</span><span class="p">,</span>
+  <span class="ss">title:</span> <span class="s2">"Ready Player One"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>これで映画の俳優を参照することができます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">movie</span><span class="o">.</span><span class="n">actors</span>
+<span class="p">[</span>
+  <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">name:</span> <span class="s2">"Tyler Sheridan"</span>
+  <span class="p">},</span>
+  <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Actor</span><span class="p">{</span>
+    <span class="ss">__meta__:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span><span class="o">.</span><span class="no">Metadata</span><span class="o">&lt;</span><span class="ss">:loaded</span><span class="p">,</span> <span class="s2">"actors"</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">id:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="ss">movies:</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Association</span><span class="o">.</span><span class="no">NotLoaded</span><span class="o">&lt;</span><span class="n">association</span> <span class="ss">:movies</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">loaded</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="ss">name:</span> <span class="s2">"Gary"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="joinステートメントの使用">joinステートメントの使用</h3>
+
+<p><code class="highlighter-rouge">Ecto.Query.join/5</code> 関数によってjoinステートメントを含むクエリを実行することができます。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">alias</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Character</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">from</span> <span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span>
+              <span class="ss">join:</span> <span class="n">c</span> <span class="ow">in</span> <span class="no">Character</span><span class="p">,</span>
+              <span class="ss">on:</span> <span class="n">m</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">c</span><span class="o">.</span><span class="n">movie_id</span><span class="p">,</span>
+              <span class="ss">where:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"Wade Watts"</span><span class="p">,</span>
+              <span class="ss">select:</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="mi">15</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mf">23.756</span> <span class="p">[</span><span class="n">debug</span><span class="p">]</span> <span class="no">QUERY</span> <span class="no">OK</span> <span class="n">source</span><span class="o">=</span><span class="s2">"movies"</span> <span class="n">db</span><span class="o">=</span><span class="mi">5</span><span class="o">.</span><span class="err">5</span><span class="n">ms</span>
+<span class="p">[{</span><span class="s2">"Ready Player One"</span><span class="p">,</span> <span class="s2">"Wade Watts"</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">on</code> 式にはキーワードリストを使うこともできます:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">from</span> <span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span>
+  <span class="ss">join:</span> <span class="n">c</span> <span class="ow">in</span> <span class="no">Character</span><span class="p">,</span>
+  <span class="ss">on:</span> <span class="p">[</span><span class="ss">id:</span> <span class="n">c</span><span class="o">.</span><span class="n">movie_id</span><span class="p">],</span> <span class="c1"># keyword list</span>
+  <span class="ss">where:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"Wade Watts"</span><span class="p">,</span>
+  <span class="ss">select:</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>上の例では、Ectoスキーマを <code class="highlighter-rouge">m in Movie</code> で結合しています。また、Ectoクエリについても結合することができます。映画テーブルが、1から5の範囲の評価を格納するカラム <code class="highlighter-rouge">stars</code> を持っているとしましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">movies</span> <span class="o">=</span> <span class="n">from</span> <span class="n">m</span> <span class="ow">in</span> <span class="no">Movie</span><span class="p">,</span> <span class="ss">where:</span> <span class="p">[</span><span class="ss">stars:</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">from</span> <span class="n">c</span> <span class="ow">in</span> <span class="no">Character</span><span class="p">,</span>
+  <span class="ss">join:</span> <span class="o">^</span><span class="n">movies</span><span class="p">,</span>
+  <span class="ss">on:</span> <span class="p">[</span><span class="ss">id:</span> <span class="n">c</span><span class="o">.</span><span class="n">movie_id</span><span class="p">],</span> <span class="c1"># keyword list</span>
+  <span class="ss">where:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"Wade Watts"</span><span class="p">,</span>
+  <span class="ss">select:</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>EctoクエリDSLは、複雑なデータベースクエリを作るために必要な全てを提供する強力なツールです。このイントロダクションでは、クエリを始めるための基本的な構成要素を提供しています。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/ecto/querying.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/ecto/associations/" title="アソシエーション">← アソシエーション</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/specifics/plug/" title="Plug">Plug →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/ecto/querying/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/querying/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/querying/" title="ポルトガル語">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/querying/" title="ロシア語 / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/querying/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/ecto/querying/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/collections/">2. コレクション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/modules/">8. モジュール</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-distribution/">7. OTPディストリビューション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/changesets/">2. チェンジセット</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">4. クエリ</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

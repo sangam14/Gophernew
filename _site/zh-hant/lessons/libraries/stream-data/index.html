@@ -1,0 +1,1165 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/libraries/stream-data/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/stream-data/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/stream-data/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/stream-data/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/stream-data/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/stream-data/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/stream-data/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/libraries/stream-data/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>StreamData &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/libraries/stream-data/&title=StreamData&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/libraries/stream-data/&via=elixirschool&text=ElixirSchool: StreamData&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/libraries/stream-data/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/libraries/stream-data/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: StreamData" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/libraries/stream-data/&title=ElixirSchool: StreamData&description=Check out 'StreamData' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: StreamData&body=Check out 'StreamData' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/libraries/stream-data/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  StreamData
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    翻譯內文為最新版本。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>基於案例（example-based）的單元測試函式庫，例如 <a href="https://hexdocs.pm/ex_unit/ExUnit.html">ExUnit</a>，是個極佳的工具來協助驗證程式碼是否以如你預期的方式工作。
+但是，基於案例的單元測試有一些缺點：</p>
+
+<ul>
+  <li>由於並非測試所有輸入情境，因此容易遺漏邊界案例。</li>
+  <li>可以編寫這些測試案例而無需仔細考慮需求。</li>
+  <li>想以多個案例測試單一函數時，這些測試可能會非常冗長。</li>
+</ul>
+
+<p>在本課程中，將探討 <a href="https://github.com/whatyouhide/stream_data">StreamData</a> 如何幫助我們克服上述一些缺點。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="什麼是-streamdata">什麼是 StreamData?</h2>
+
+<p><a href="https://github.com/whatyouhide/stream_data">StreamData</a> 是一個基於屬性（property-based）執行無狀態測試的函式庫。</p>
+
+<p>StreamData 函式庫將執行每個測試 <a href="https://hexdocs.pm/stream_data/ExUnitProperties.html#check/1-options">預設情況下 100 次</a>，每次都使用隨機資料。
+如果測試失敗，則 StreamData 會嘗試將輸入<a href="https://hexdocs.pm/stream_data/StreamData.html#module-shrinking">縮小</a>到導致測試失敗的最小值。
+當需要除錯程式碼時，這會很有用的！
+如果包含 50 個元素的串列導致函數中斷，並並僅僅其中一個串列元素存在問題，則 StreamData 可以協助辦識有問題的元素。</p>
+
+<p>這個測式函式庫有兩個主要模組。
+<a href="https://hexdocs.pm/stream_data/StreamData.html"><code class="highlighter-rouge">StreamData</code></a> 產生隨機資料流；而 
+<a href="https://hexdocs.pm/stream_data/ExUnitProperties.html"><code class="highlighter-rouge">ExUnitProperties</code></a> 可以讓你使用產生的資料作為輸入來針對函數執行測試。</p>
+
+<p>你可能會問，不知道實際的輸入內容時，該如何斷定函數的測試是有意義的。繼續往下讀！</p>
+
+<h2 id="安裝-streamdata">安裝 StreamData</h2>
+
+<p>首先，建立一個新的 Mix 專案
+如果需要一些協助，請參考 <a href="https://elixirschool.com/en/lessons/basics/mix/#new-projects">新專案</a>。</p>
+
+<p>再來，將 StreamData 作為相依性加進 <code class="highlighter-rouge">mix.exs</code> 檔案中：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:stream_data</span><span class="p">,</span> <span class="s2">"~&gt; x.y"</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:test</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>只需用該函式庫 <a href="https://github.com/whatyouhide/stream_data#installation">安裝指示</a> 中顯示的 StreamData 版本替換 <code class="highlighter-rouge">x</code> 和 <code class="highlighter-rouge">y</code>。</p>
+
+<p>最後，從終端機的命令列執行以下指令：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix deps.get
+</code></pre></div></div>
+
+<h2 id="使用-streamdata">使用 StreamData</h2>
+
+<p>為了說明 StreamData 的功能，將編寫一些會不斷重複值的簡單公用函數。
+假設想要一個類似 <a href="https://hexdocs.pm/elixir/String.html#duplicate/2"><code class="highlighter-rouge">String.duplicate/2</code></a>的函數，只是這個函數能夠複製字串、串列或元組。</p>
+
+<h3 id="字串">字串</h3>
+
+<p>首先，來編寫一個複製字串的函數。
+我們對該函數有哪些需求？</p>
+
+<ol>
+  <li>第一個引數應該是一個字串。
+這是一個拿來複製用的字串。</li>
+  <li>第二個引數應該是一個非負值整數。
+它顯示將會複製第一個引數多少次。</li>
+  <li>函數應該回傳一個字串。
+新字串只會是不重覆或是重覆多次的原始字串。</li>
+  <li>如果原始字串是空字串，那傳回的字串應該也是空字串。</li>
+  <li>如果第二個引數是 <code class="highlighter-rouge">0</code>，那傳回的字串應該也是空字串。</li>
+</ol>
+
+<p>當執行函數時，會希望它看起來像這樣：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="c1"># "aaaa"</span>
+</code></pre></div></div>
+
+<p>Elixir 有個函數 <code class="highlighter-rouge">String.duplicate/2</code>，它可以幫忙處理。
+新的 <code class="highlighter-rouge">duplicate/2</code> 將只會委派給這個函數</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Repeater</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">String</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>正常情境（happy path）應該很容易用 <a href="https://hexdocs.pm/ex_unit/ExUnit.html">ExUnit</a> 進行測試。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">test</span> <span class="s2">"creates a new string, with the first argument duplicated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="s2">"aaaa"</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>但是，這並不是一個全面的測試。
+當第二個引數是 <code class="highlighter-rouge">0</code> 時應該會發生什麼？
+當第一個引數為空字串時，輸出又應該是什麼？
+甚至重複一個空字串代表著什麼？
+函數應如何使用 UTF-8 字元？
+輸入大型字串時函數仍然可以用嗎？</p>
+
+<p>我們還可以編寫更多範例來測試邊界案例和大型字串。
+但是，來看看是否能夠用 StreamData 在沒有更多程式碼的情況下更嚴格地測試該函數。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new string, with the first argument duplicated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">str</span> <span class="o">&lt;-</span> <span class="n">string</span><span class="p">(</span><span class="ss">:printable</span><span class="p">),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+
+        <span class="n">assert</span> <span class="sx">??</span><span class="err">?</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>以上程式碼做了什麼？</p>
+
+<ul>
+  <li>以 <a href="https://github.com/whatyouhide/stream_data/blob/v0.4.2/lib/ex_unit_properties.ex#L109"><code class="highlighter-rouge">property</code></a> 取代了 <code class="highlighter-rouge">test</code>。
+這可以記錄正在測試的屬性。</li>
+  <li><a href="https://hexdocs.pm/stream_data/ExUnitProperties.html#check/1"><code class="highlighter-rouge">check/1</code></a> 是一個巨集，它可以設定在測試中使用的資料。</li>
+  <li><a href="https://hexdocs.pm/stream_data/StreamData.html#string/2"><code class="highlighter-rouge">StreamData.string/2</code></a> 產生隨機字串。
+可以在呼用 <code class="highlighter-rouge">string/2</code> 時省略模組名稱，因為 <code class="highlighter-rouge">use ExUnitProperties</code> 會 <a href="https://github.com/whatyouhide/stream_data/blob/v0.4.2/lib/ex_unit_properties.ex#L109">導入 StreamData 函數</a>。</li>
+  <li><code class="highlighter-rouge">StreamData.integer/0</code> 產生隨機整數。</li>
+  <li><code class="highlighter-rouge">times &gt;= 0</code> 有點像監視子句。
+它可以確保在測試中使用的隨機整數大於或等於零。
+<a href="https://hexdocs.pm/stream_data/StreamData.html#positive_integer/0"><code class="highlighter-rouge">SreamData.positive_integer/0</code></a> 存在，但這並不是我們想要的，因為 <code class="highlighter-rouge">0</code> 是函數中可接受的值。</li>
+</ul>
+
+<p>而 <code class="highlighter-rouge">???</code> 只是一些虛擬碼。
+那到底應該要斷言什麼？
+我們 <em>能夠</em> 這樣寫：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assert</span> <span class="no">String</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+</code></pre></div></div>
+<p>…但這只是使用實際函數的實現，不是很有用。
+還是可以藉由僅驗證字串的長度來放寬斷言條件：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">expected_length</span> <span class="o">=</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+<span class="n">actual_length</span> <span class="o">=</span>
+  <span class="n">str</span>
+  <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+
+<span class="n">assert</span> <span class="n">actual_length</span> <span class="o">==</span> <span class="n">expected_length</span>
+</code></pre></div></div>
+
+<p>但這樣做總比什麼都沒有好，雖然並不理想。
+如果函數產生長度正確的隨機字串，則測試仍會通過。</p>
+
+<p>而有兩個情境是我們確實想驗證的：</p>
+
+<ol>
+  <li>函數產生正確長度的字串。</li>
+  <li>最終輸出的字串內容是一遍又一遍地重複的原始字串。</li>
+</ol>
+
+<p>這只是 <a href="https://www.propertesting.com/book_what_is_a_property.html#_alternate_wording_of_properties">重新定義屬性</a> 的另一種方法。
+現在已經有一些程式碼來驗證情境 1。
+為了要驗證情境 2，現在將最終輸出的字串除以原始字串，並確認在串列中剩餘的是零個或多個的空字串。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span> <span class="o">=</span>
+  <span class="n">str</span>
+  <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+
+<span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="s2">""</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>接著來合併這些斷言：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new string, with the first argument duplicated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">str</span> <span class="o">&lt;-</span> <span class="n">string</span><span class="p">(</span><span class="ss">:printable</span><span class="p">),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">new_string</span> <span class="o">=</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">new_string</span><span class="p">)</span> <span class="o">==</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+        <span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">new_string</span><span class="p">,</span> <span class="n">str</span><span class="p">),</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="s2">""</span><span class="p">))</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>當將它與原始測試進行比較時，發現 StreamData 版本的長度是原本的兩倍。
+但是，當更多測試案例加入到原始測試中時…</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicating a string"</span> <span class="k">do</span>
+    <span class="n">test</span> <span class="s2">"duplicates the first argument a number of times equal to the second argument"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="s2">"aaaa"</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"returns an empty string if the first argument is an empty string"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="s2">""</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"returns an empty string if the second argument is zero"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="s2">""</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"works with longer strings"</span> <span class="k">do</span>
+      <span class="n">alphabet</span> <span class="o">=</span> <span class="s2">"abcdefghijklmnopqrstuvwxyz"</span>
+
+      <span class="n">assert</span> <span class="s2">"</span><span class="si">#{</span><span class="n">alphabet</span><span class="si">}#{</span><span class="n">alphabet</span><span class="si">}</span><span class="s2">"</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">alphabet</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>…實際上會發現，StreamData 版本是比較短的。
+而且 StreamData 還涵蓋了開發者可能忘記測試的邊界案例。</p>
+
+<h3 id="串例">串例</h3>
+
+<p>現在，來設計一個重複串例的函數。
+並希望函數像這樣運作：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># [1, 2, 3, 1, 2, 3, 1, 2, 3]</span>
+</code></pre></div></div>
+
+<p>以下是一個正確的但效率不高的實作：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Repeater</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">[]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">list</span> <span class="o">++</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>在 StreamData 中的測試可能像下面這樣：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new list, with the elements of the original list repeated a specified number or times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">list</span> <span class="o">&lt;-</span> <span class="n">list_of</span><span class="p">(</span><span class="n">term</span><span class="p">()),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">new_list</span> <span class="o">=</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="n">length</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+
+        <span class="k">if</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">do</span>
+          <span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="no">Enum</span><span class="o">.</span><span class="n">chunk_every</span><span class="p">(</span><span class="n">new_list</span><span class="p">,</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)),</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="n">list</span><span class="p">))</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>使用 <code class="highlighter-rouge">StreamData.list_of/1</code> 和 <code class="highlighter-rouge">StreamData.term/0</code> 建立隨機長度的串列，其元素可以是任何型別。</p>
+
+<p>像基於屬性的重複字串測試一樣，將新串列的長度與來源串列與其 <code class="highlighter-rouge">times</code> 的乘積進行比較。
+第二個斷言需要解釋一下：</p>
+
+<ol>
+  <li>我們將新串列分為多個串列，每個串列與 <code class="highlighter-rouge">list</code> 具有相同數量的元素。</li>
+  <li>然後，驗證每段串列是否等於 <code class="highlighter-rouge">list</code>。</li>
+</ol>
+
+<p>換句話說，我們確保原始串列以正確的次數出現在最終輸出的串列中，並且沒有 <em>其它</em> 元素出現在最終輸出串列中。</p>
+
+<p>為什麼使用條件式？
+第一個斷言和條件組合告訴我們原始串列和最終串列都是空的，因此無需進行任何串列比較。
+此外，<code class="highlighter-rouge">Enum.chunk_every/2</code> 要求第二個引數為正數。</p>
+
+<h3 id="元組">元組</h3>
+
+<p>最後，來實作一個重複元組元素的函數。
+該函數應該像這樣運作：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">({</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">,</span> <span class="ss">:c</span><span class="p">},</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># {:a, :b, :c, :a, :b, :c, :a, :b, :c}</span>
+</code></pre></div></div>
+
+<p>一種可以採用的方法是將元組轉換為串列，複製串列，然後將資料結構轉換回元組。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Repeater</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">tuple</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_tuple</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">tuple</span>
+    <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">()</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>那將如何測試呢？
+與之前的相比，現在的解決方案會有點不同。
+對於字串和串列，可以斷言與最終資料有關長度的部分，同時也斷言有關資料內容的部分。
+可以對元組嘗試相同的方法，但是測試用的程式碼也許無法這麼直接地編寫。</p>
+
+<p>思考可以對元組執行的兩種序列操作：</p>
+
+<ol>
+  <li>在元組上呼用 <code class="highlighter-rouge">Repeater.duplicate/2</code> 並將結果轉換為串列。</li>
+  <li>將元組轉換為串列，然後將串列傳給 <code class="highlighter-rouge">Repeater.duplicate/2</code>。</li>
+</ol>
+
+<p>這是 Scott Wlaschin 稱為<a href="https://fsharpforfunandprofit.com/posts/property-based-testing-2/#different-paths-same-destination">「不同路徑，相同終點」</a> 模式的應用。
+預期這兩種序列的操作都能產生相同的結果。
+現在在測試中使用該方法。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new tuple, with the elements of the original tuple repeated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">t</span> <span class="o">&lt;-</span> <span class="n">tuple</span><span class="p">({</span><span class="n">term</span><span class="p">()}),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">result_1</span> <span class="o">=</span>
+          <span class="n">t</span>
+          <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+        <span class="n">result_2</span> <span class="o">=</span>
+          <span class="n">t</span>
+          <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+          <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="n">result_1</span> <span class="o">==</span> <span class="n">result_2</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="總結">總結</h2>
+
+<p>現在，有了三個函數子句，它們重複字串、串列元素和元組元素。
+擁有這些基於屬性的測試，這些測試給我們實作是正確的高度信心。</p>
+
+<p>以下是最終應用程式內的程式碼：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Repeater</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">String</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">[]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">list</span> <span class="o">++</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">tuple</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_tuple</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">tuple</span>
+    <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">()</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>而這邊是基於屬性的測試：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new string, with the first argument duplicated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">str</span> <span class="o">&lt;-</span> <span class="n">string</span><span class="p">(</span><span class="ss">:printable</span><span class="p">),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">new_string</span> <span class="o">=</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">new_string</span><span class="p">)</span> <span class="o">==</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+        <span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">new_string</span><span class="p">,</span> <span class="n">str</span><span class="p">),</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="s2">""</span><span class="p">))</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">property</span> <span class="s2">"creates a new list, with the elements of the original list repeated a specified number or times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">list</span> <span class="o">&lt;-</span> <span class="n">list_of</span><span class="p">(</span><span class="n">term</span><span class="p">()),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">new_list</span> <span class="o">=</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="n">length</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+
+        <span class="k">if</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">do</span>
+          <span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="no">Enum</span><span class="o">.</span><span class="n">chunk_every</span><span class="p">(</span><span class="n">new_list</span><span class="p">,</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)),</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="n">list</span><span class="p">))</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">property</span> <span class="s2">"creates a new tuple, with the elements of the original tuple repeated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">t</span> <span class="o">&lt;-</span> <span class="n">tuple</span><span class="p">({</span><span class="n">term</span><span class="p">()}),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">result_1</span> <span class="o">=</span>
+          <span class="n">t</span>
+          <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+        <span class="n">result_2</span> <span class="o">=</span>
+          <span class="n">t</span>
+          <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+          <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="n">result_1</span> <span class="o">==</span> <span class="n">result_2</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>可以藉由在終端機的命令列中輸入以下內容來執行測試：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix test
+</code></pre></div></div>
+
+<p>請記住，預設情況下，每個所編寫的 StreamData 測試會執行 100 次。
+此外，某些 StreamData 產生所需要隨機資料的時間會比其他資料更久。
+這些累積而成的影響是，這種類型的測試會比基於案例的單元測試執行得更慢。</p>
+
+<p>即使如此，基於屬性的測試仍是對基於案例的單元測試很好的配套。
+它使我們能夠編寫涵蓋各種輸入的簡練測試。
+如果不需要在測試執行之間維持狀態，則 StreamData 提供了一種不錯的語法來編寫基於屬性的測試。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/libraries/stream-data.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/libraries/distillery/" title="Distillery（基礎）">← Distillery（基礎）</a>
+    </div>
+    
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/stream-data/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/libraries/stream-data/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/libraries/stream-data/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/stream-data/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. StreamData</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

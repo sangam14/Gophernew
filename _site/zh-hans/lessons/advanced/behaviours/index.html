@@ -1,0 +1,929 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hans">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 编程语言教程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hans/lessons/advanced/behaviours/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hans">
+  <meta property="og:description" content="Elixir 编程语言教程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/behaviours/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/behaviours/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hans/lessons/advanced/behaviours/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>行为 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hans/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hans/lessons/advanced/behaviours/&title=行为&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hans/lessons/advanced/behaviours/&via=elixirschool&text=ElixirSchool: 行为&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hans/lessons/advanced/behaviours/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hans/lessons/advanced/behaviours/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 行为" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hans/lessons/advanced/behaviours/&title=ElixirSchool: 行为&description=Check out '行为' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 行为&body=Check out '行为' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hans/lessons/advanced/behaviours/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  行为
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    This translation is up to date.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>我们在前面的课程学习了类型和 specification。那么，这一章我们将学习如何引用一个模块来实现那些 specification。在 Elixir 里，这个功能被称之为行为。</p>
+
+<h2>目录</h2>
+<div id="toc"></div>
+
+<h2 id="使用场景">使用场景</h2>
+
+<p>有时候，你希望一些模块能够分享一个开放的 API 接口，在 Elixir 里的解决方案就是行为。行为承担了两大角色：</p>
+
+<ul>
+  <li>定义一组需要被实现的函数</li>
+  <li>检查这组函数是否真的被实现</li>
+</ul>
+
+<p>Elixir 预定义了好一些行为，例如 <code class="highlighter-rouge">GenServer</code>，但是，本次课程我们的重点是创建我们自己的行为。</p>
+
+<h2 id="定义一个行为">定义一个行为</h2>
+
+<p>为了更好的理解行为，让我们为 worker 模块来具体实现一组行为。这些 workers 都应该实现两个函数：<code class="highlighter-rouge">init/1</code> 和 <code class="highlighter-rouge">perform/2</code>。</p>
+
+<p>实现的方式是，我们要使用和 <code class="highlighter-rouge">@spec</code> 语法类似的 <code class="highlighter-rouge">@callback</code> 注解。这个注解定义了 <strong>required</strong> 函数；对于宏来说，我们可以使用 <code class="highlighter-rouge">@macrocallback</code>。让我们看看 <code class="highlighter-rouge">init/1</code> 和 <code class="highlighter-rouge">perform/2</code> 在 workers 里怎么定义：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Worker</span> <span class="k">do</span>
+  <span class="nv">@callback</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span> <span class="p">::</span> <span class="n">term</span><span class="p">)</span> <span class="p">::</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">new_state</span> <span class="p">::</span> <span class="n">term</span><span class="p">}</span> <span class="o">|</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span> <span class="p">::</span> <span class="n">term</span><span class="p">}</span>
+  <span class="nv">@callback</span> <span class="n">perform</span><span class="p">(</span><span class="n">args</span> <span class="p">::</span> <span class="n">term</span><span class="p">,</span> <span class="n">state</span> <span class="p">::</span> <span class="n">term</span><span class="p">)</span> <span class="p">::</span>
+              <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span> <span class="p">::</span> <span class="n">term</span><span class="p">,</span> <span class="n">new_state</span> <span class="p">::</span> <span class="n">term</span><span class="p">}</span>
+              <span class="o">|</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span> <span class="p">::</span> <span class="n">term</span><span class="p">,</span> <span class="n">new_state</span> <span class="p">::</span> <span class="n">term</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>这里我们定义了 <code class="highlighter-rouge">init/1</code> 作为一个接收任何参数，并返回一个 值为 <code class="highlighter-rouge">{:ok, state}</code> 或 <code class="highlighter-rouge">{:error, reason}</code> 的 Tuple（元组）。这是一个很典型的初始化方式。<code class="highlighter-rouge">perform/2</code> 函数则接收一些参数，以及初始化后的状态。<code class="highlighter-rouge">perform/2</code> 的返回值则是 <code class="highlighter-rouge">{:ok, result, state}</code> 或者 <code class="highlighter-rouge">{:error, reason, state}</code>，很像 GenServers。</p>
+
+<h2 id="实现使用行为">实现使用行为</h2>
+
+<p>既然已经定义好我们的行为，下一步我们也就可以使用它们来创建一些拥有同样的开放的 API 接口的模块了。在模块中添加行为非常简单，我们只需要使用 <code class="highlighter-rouge">@behaviour</code> 属性。</p>
+
+<p>让我们来创建一个使用了这些新行为的模块，它的功能是可以把远端的一个文件下载到本地：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Downloader</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Example</span><span class="o">.</span><span class="no">Worker</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">perform</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">url</span>
+    <span class="o">|&gt;</span> <span class="no">HTTPoison</span><span class="o">.</span><span class="n">get!</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:body</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">write_file</span><span class="p">(</span><span class="n">opts</span><span class="p">[</span><span class="ss">:path</span><span class="p">])</span>
+    <span class="o">|&gt;</span> <span class="n">respond</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">write_file</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:missing_body</span><span class="p">}</span>
+
+  <span class="k">defp</span> <span class="n">write_file</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">contents</span><span class="p">},</span> <span class="n">path</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">path</span>
+    <span class="o">|&gt;</span> <span class="no">Path</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">File</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">(</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:path</span><span class="p">],</span> <span class="n">opts</span><span class="p">}</span>
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>或者，一个能压缩一个数组的文件的 worker？这也是可行的：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Compressor</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Example</span><span class="o">.</span><span class="no">Worker</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">perform</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">payload</span>
+    <span class="o">|&gt;</span> <span class="n">compress</span>
+    <span class="o">|&gt;</span> <span class="n">respond</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">compress</span><span class="p">({</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="ss">:zip</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">path</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>虽然它们的功能很不一样，但是这些开放的 API 接口却是相同的。任何使用了这些模块的代码，都能非常确定这些模块的行为和返回和期望是一致的。这使得我们可以创建任何数量的 worker，即便各自执行不同的任务，但是仍然符合一致的开放 API 接口。</p>
+
+<p>如果我们添加了某个行为，但是没有把所有的函数都实现，代码在编译期就会给出一个警告。我们马上修改一下 <code class="highlighter-rouge">Example.Compressor</code>，删除 <code class="highlighter-rouge">init/1</code> 函数，看看情况会是怎么样：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Compressor</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Example</span><span class="o">.</span><span class="no">Worker</span>
+
+  <span class="k">def</span> <span class="n">perform</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">payload</span>
+    <span class="o">|&gt;</span> <span class="n">compress</span>
+    <span class="o">|&gt;</span> <span class="n">respond</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">compress</span><span class="p">({</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="ss">:zip</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">path</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>我们现在编译代码的话，应该会出现这样的警告：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lib/example/compressor.ex:1: warning: undefined behaviour <span class="k">function </span>init/1 <span class="o">(</span><span class="k">for </span>behaviour Example.Worker<span class="o">)</span>
+Compiled lib/example/compressor.ex
+</code></pre></div></div>
+
+<p>大功告成！现在我们已经有能力制定和分享行为给其他人了。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hans/lessons/advanced/behaviours.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/advanced/typespec/" title="Specifications and types">← Specifications and types</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/advanced/gen-stage/" title="GenStage">GenStage →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/behaviours/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/behaviours/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/behaviours/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/behaviours/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/behaviours/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/behaviours/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/behaviours/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/behaviours/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/advanced/behaviours/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/behaviours/" >vi</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hans</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/behaviours/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 编程语言教程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hans/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基础</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/basics/">1. 基础</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/enum/">3. Enum 模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pattern-matching/">4. 模式匹配</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/control-structures/">5. 控制语句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/functions/">6. 函数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pipe-operator/">7. 管道操作符</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/modules/">8. 模块（Module）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/sigils/">10. 魔符(Sigil)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/documentation/">11. 文档模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/testing/">12. 测试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/comprehensions/">13. 推导</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/strings/">14. 字符串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/date-time/">15. 日期和时间</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix-tasks/">16. 自定义 Mix 任务</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/iex-helpers/">17. IEx 辅助函数</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">高级</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/erlang/">1. 和 Erlang 互操作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/error-handling/">2. 错误处理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/escripts/">3. 可执行文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/concurrency/">4. 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-concurrency/">5. OTP 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-distribution/">7. OTP 分布式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/metaprogramming/">8. 元编程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">11. 行为</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/protocols/">13. 协议</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/associations/">3. 关联关系</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/querying/">4. 查询</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">专题</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/eex/">2. 嵌入的 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/ets/">3. Erlang 项式存储 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/mnesia/">4. Mnesia 数据库</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/debugging/">5. 调试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">程序库</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/guardian/">1. Guardian（基础）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/distillery/">5. Distillery (基础)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hans/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

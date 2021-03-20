@@ -1,0 +1,1069 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="pt">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lições sobre a linguagem de programação Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/pt/lessons/specifics/debugging/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="pt">
+  <meta property="og:description" content="Lições sobre a linguagem de programação Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/debugging/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/debugging/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/pt/lessons/specifics/debugging/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Depuração &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/pt/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/pt/lessons/specifics/debugging/&title=Depuração&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/pt/lessons/specifics/debugging/&via=elixirschool&text=ElixirSchool: Depuração&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/pt/lessons/specifics/debugging/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/pt/lessons/specifics/debugging/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Depuração" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/pt/lessons/specifics/debugging/&title=ElixirSchool: Depuração&description=Check out 'Depuração' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Depuração&body=Check out 'Depuração' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/pt/lessons/specifics/debugging/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Depuração
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Esta tradução está atualizada.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Bugs são problemas comuns em qualquer projeto, é por isso que precisamos da depuração.</p>
+
+<p>Nesta sessão vamos aprender sobre como fazer depuração no código Elixir, bem como ferramentas de análises estáticas para ajudar a encontrar possíveis bugs.</p>
+
+<h2>Sumário</h2>
+<div id="toc"></div>
+
+<h2 id="iex">IEx</h2>
+
+<p>A ferramenta mais direta que nós temos para depurar código Elixir é o IEx</p>
+
+<p>Mas não se deixa enganar por sua simplicidade - você pode resolver a maioria dos problemas da sua aplicação com ele.</p>
+
+<p>IEx significa <code class="highlighter-rouge">Elixir's Interactive Shell</code>.</p>
+
+<p>Você pode já ter visto o IEx em uma das lições anteriores como <a href="../../basisc/basics">Básicos</a> onde nós executamos código interativo no shell.</p>
+
+<p>A ideia aqui é simples.</p>
+
+<p>Você inicia o shell interativo no contexto do local que deseja depurar.</p>
+
+<p>Vamos tentar.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">TestMod</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">sum</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span> <span class="k">do</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="no">TestMod</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="mi">34</span><span class="p">,</span> <span class="mi">65</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<p>E se você executar isso - você receberá uma saída aparente de ‘34’:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>elixir test.exs
+warning: variable <span class="s2">"b"</span> is unused <span class="o">(</span><span class="k">if </span>the variable is not meant to be used, prefix it with an underscore<span class="o">)</span>
+ test.exs:2
+
+34
+</code></pre></div></div>
+
+<p>Mas agora vamos para a parte empolgante - a depuração.</p>
+
+<p>Insira <code class="highlighter-rouge">require IEx; IEx.pry</code> depois da linha com <code class="highlighter-rouge">b = 0</code> e vamos tentar executar o código novamente.</p>
+
+<p>Você vai receber algo assim:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>elixir test.exs
+warning: variable <span class="s2">"b"</span> is unused <span class="o">(</span><span class="k">if </span>the variable is not meant to be used, prefix it with an underscore<span class="o">)</span>
+  test.exs:2
+
+Cannot pry <span class="c">#PID&lt;0.92.0&gt; at TestMod.sum/1 (test.exs:5). Is an IEx shell running?</span>
+34
+</code></pre></div></div>
+
+<p>Você deve perceber aquela mensagem crucial.</p>
+
+<p>Quando estiver executando uma aplicação, como sempre, o IEx gera essa mensagem em vez de bloquear a execução do programa.</p>
+
+<p>Para executar ela apropriadamente você precisa prefixar seu comando com <code class="highlighter-rouge">iex -S</code>.</p>
+
+<p>O que isso faz é executar <code class="highlighter-rouge">mix</code> dentro do comando <code class="highlighter-rouge">iex</code>, fazendo com que a aplicação seja executada em um modo especial, de tal jeito que chame <code class="highlighter-rouge">IEx.pry</code> para parar a execução da aplicação.</p>
+
+<p>Por exemplo, use <code class="highlighter-rouge">iex -S mix phx.server</code> para depurar sua aplicação Phoenix. No nosso caso será <code class="highlighter-rouge">iex -r test.exs</code> para requerir o arquivo:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iex -r test.exs
+Erlang/OTP 21 [erts-10.3.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+Request to pry #PID&lt;0.107.0&gt; at TestMod.sum/1 (test.exs:5)
+
+    3:     b = 0
+    4:
+    5:     require IEx; IEx.pry
+    6:
+    7:     a + b
+
+Allow? [Yn]
+</code></pre></div></div>
+
+<p>Depois de responder a confirmação com <code class="highlighter-rouge">y</code> ou pressionar Enter, você vai entrar no modo interativo.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ iex -r test.exs
+Erlang/OTP 21 [erts-10.3.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+Request to pry #PID&lt;0.107.0&gt; at TestMod.sum/1 (test.exs:5)
+
+    3:     b = 0
+    4:
+    5:     require IEx; IEx.pry
+    6:
+    7:     a + b
+
+Allow? [Yn] y
+Interactive Elixir (1.8.1) - press Ctrl+C to exit (type h() ENTER for help)
+pry(1)&gt; a
+34
+pry(2)&gt; b
+0
+pry(3)&gt; a + b
+34
+pry(4)&gt; continue
+34
+
+Interactive Elixir (1.8.1) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)&gt;
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+</code></pre></div></div>
+<p>Para sair do IEx, você pode pressionar <code class="highlighter-rouge">Ctrl + C</code> duas vezes para sair do aplicativo ou digitar <code class="highlighter-rouge">continue</code> para seguir para o próximo breakpoint.</p>
+
+<p>Como você pode ver, é possivel executar qualquer código Elixir.</p>
+
+<p>Entretato, a limitação é que você não pode modificar nenhuma variável do código existente, devido a imutabilidade da linguagem.</p>
+
+<p>Apesar disso, você pode obter todos os valores das variáveis e executar qualquer computação.</p>
+
+<p>Nesse caso, o bug seria em <code class="highlighter-rouge">b</code> sendo reatribuído para 0, e a função <code class="highlighter-rouge">sum</code> sendo afetada como resultado.</p>
+
+<p>Claro, a linguagem já capturou esse bug até mesmo na primeira execução, mas isso é um exemplo!</p>
+
+<h3 id="iexhelpers">IEx.Helpers</h3>
+
+<p>Uma das partes mais chatas de trabalhar com o IEx é que ele não tem nenhum histórico de comandos que você usou em execuções anteriores.</p>
+
+<p>Para resolver esse problema, existe uma subseção na <a href="https://hexdocs.pm/iex/IEx.html#module-shell-history">Documentação do IEx</a>, onde você pode achar a solução de acordo com sua plataforma.</p>
+
+<p>Você também pode checar a lista com o resto dos utilitários disponíveis na <a href="https://hexdocs.pm/iex/IEx.Helpers.html">Documentação de Helpers do IEx</a>.</p>
+
+<h2 id="dialyxir-e-dialyzer">Dialyxir e Dialyzer</h2>
+
+<p>O <a href="http://erlang.org/doc/man/dialyzer.html">Dialyzer</a> (<strong>DI</strong>screpancy <strong>A</strong>na<strong>LYZ</strong>er for <strong>ER</strong>lang), é uma ferramenta para análise de
+código estático. 
+Em outras palavras eles <em>leem</em> e analisam mas não <em>rodam</em> o código. Exemplo: 
+procurando por alguns bugs, códigos mortos, desnecessários ou inacessíveis.</p>
+
+<p>O <a href="https://github.com/jeremyjh/dialyxir">Dialyxir</a> é uma tarefa mix para simplificar o uso do Dialyzer em Elixir.</p>
+
+<p>Ferramentas de especificação como o Dialyzer ajudam a entender melhor o código.
+Ao contrário da documentação, que é legível por humanos (se apenas existe e é bem escrito), <code class="highlighter-rouge">@spec</code> usa uma sintaxe mais formal e que pode ser entendida pela máquina.</p>
+
+<p>Vamos adicionar Dialyxir ao nosso projeto.
+A maneira mais simples é adicionar dependência ao arquivo <code class="highlighter-rouge">mix.exs</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:dialyxir</span><span class="p">,</span> <span class="s2">"~&gt; 0.4"</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:dev</span><span class="p">]}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Então, nós chamamos:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+...
+<span class="nv">$ </span>mix deps.compile
+</code></pre></div></div>
+
+<p>O primeiro comando vai fazer o download e instalar o Dialyxir.
+Você pode ser solicitado a instalar o Hex juntamente com ele. 
+O segundo vai compilar a aplicação Dialyxir. Se você deseja instalar o Dialyxir globalmente, por favor leia esta <a href="https://github.com/jeremyjh/dialyxir#installation">documentação</a>.</p>
+
+<p>O último passo é rodar o Dialyzer para reconstruir o PLT (Persistent Lookup Table).
+Você precisa fazer isso toda vez após a instalação de uma nova versão do Erlang ou Elixir.
+Felizmente, o Dialyzer não tentará analisar a biblioteca padrão toda vez que você tentar usá-lo.
+Demora alguns minutos para que o download seja concluído.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer <span class="nt">--plt</span>
+Starting PLT Core Build ... this will take awhile
+dialyzer <span class="nt">--build_plt</span> <span class="nt">--output_plt</span> /.dialyxir_core_18_1.3.2.plt <span class="nt">--apps</span> erts kernel stdlib crypto public_key <span class="nt">-r</span> /Elixir/lib/elixir/../eex/ebin /Elixir/lib/elixir/../elixir/ebin /Elixir/lib/elixir/../ex_unit/ebin /Elixir/lib/elixir/../iex/ebin /Elixir/lib/elixir/../logger/ebin /Elixir/lib/elixir/../mix/ebin
+  Creating PLT /.dialyxir_core_18_1.3.2.plt ...
+...
+ <span class="k">done in </span>5m14.67s
+<span class="k">done</span> <span class="o">(</span>warnings were emitted<span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="análise-estática-de-código">Análise estática de código</h3>
+
+<p>Agora nós vamos usar o Dialyxir:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+examples.ex:3: Invalid <span class="nb">type </span>specification <span class="k">for function</span> <span class="s1">'Elixir.Examples'</span>:sum_times/1. 
+The success typing is <span class="o">(</span>_<span class="o">)</span> -&gt; number<span class="o">()</span>
+...
+</code></pre></div></div>
+
+<p>A mensagem do Dialyzer é clara: o tipo de retorno da nossa função <code class="highlighter-rouge">sum_times/1</code> é diferente do declarado.
+Isso ocorre porque <code class="highlighter-rouge">Enum.sum/1</code> retorna um <code class="highlighter-rouge">number</code> e não um <code class="highlighter-rouge">integer</code>, mas o tipo de retorno de <code class="highlighter-rouge">sum_times/1</code> é <code class="highlighter-rouge">integer</code>.</p>
+
+<p>Como <code class="highlighter-rouge">number</code> não é <code class="highlighter-rouge">integer</code>, obtemos um erro.
+Como podemos consertar isso? Precisamos usar a função <code class="highlighter-rouge">round/1</code> para mudar nosso <code class="highlighter-rouge">number</code> para <code class="highlighter-rouge">integer</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">round</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Finalmente:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+  Proceeding with analysis...
+<span class="k">done in </span>0m0.95s
+<span class="k">done</span> <span class="o">(</span>passed successfully<span class="o">)</span>
+</code></pre></div></div>
+
+<p>O uso de especificações com ferramentas para realizar a análise de código estático nos ajuda a fazer com que o código seja auto-testado e contenha menos bugs.</p>
+
+<h2 id="depuração">Depuração</h2>
+
+<p>Às vezes, a análise estática de código não é suficiente.
+Pode ser necessário entender o fluxo de execução para encontrar bugs.
+A maneira mais simples é colocar as instruções de saída em nosso código como <code class="highlighter-rouge">IO.puts/2</code> para rastrear valores e fluxo de código, mas essa técnica é primitiva e tem limitações.
+Felizmente para nós, podemos usar o Erlang debugger para depurar nosso código Elixir.</p>
+
+<p>Vejamos um módulo básico:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">cpu_burns</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="mi">5</span>
+
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Então rodamos o <code class="highlighter-rouge">iex</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>E rodamos o debugger:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:debugger</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.307.0&gt;}</span>
+</code></pre></div></div>
+
+<p>O modulo <code class="highlighter-rouge">:debugger</code> do Erlang fornece acesso ao depurador.
+Podemos usar a função <code class="highlighter-rouge">start/1</code> para configurá-lo:</p>
+
+<ul>
+  <li>Um arquivo de configuração externo pode ser usado passando o caminho do arquivo.</li>
+  <li>Se o argumento for <code class="highlighter-rouge">:local</code> ou <code class="highlighter-rouge">:global</code>, o depurador vai:
+    <ul>
+      <li><code class="highlighter-rouge">:global</code> – o depurador irá interpretar o código em todos os nós conhecidos.
+  Esse é o valor padrão.</li>
+      <li><code class="highlighter-rouge">:local</code> – o depurador irá interpretar o código somente no nó atual.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>O próximo passo é anexar nosso módulo ao depurador:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">ni</span><span class="p">(</span><span class="no">Example</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:module</span><span class="p">,</span> <span class="no">Example</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>O modulo <code class="highlighter-rouge">:int</code> é um intérprete que nos dá a capacidade de criar pontos de interrupção e passo através da execução do código.</p>
+
+<p>Quando você inicia o depurador, você verá uma nova janela como esta:</p>
+
+<p><img src="/assets/debugger_1-98405f919dea64207148bd2434268c300ce63a4de05b3c242aea8216a001eff9.png" alt="Debugger Screenshot 1" /></p>
+
+<p>Depois de ter anexado o nosso módulo para o depurador estará disponível no menu à esquerda:</p>
+
+<p><img src="/assets/debugger_2-bbb5ca6bc547fbdf1a87021e6f0ab830b03edbc5a3ea3627da6ec869a5f6e9e1.png" alt="Debugger Screenshot 2" /></p>
+
+<h3 id="criando-breakpoints">Criando breakpoints</h3>
+
+<p>Um breakpoint é um ponto no código onde a execução será interrompida.
+Temos duas maneiras de criar breakpoint:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">:int.break/2</code> em nosso código</li>
+  <li>O IU do depurador</li>
+</ul>
+
+<p>Vamos tentar criar um breakpoint em IEx:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Isso define um breakpoint na linha 8 do módulo <code class="highlighter-rouge">Example</code>.
+Agora, quando chamamos nossa função:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">cpu_burns</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>A execução será pausada no IEx e a janela do depurador deverá ter esta aparência:</p>
+
+<p><img src="/assets/debugger_3-a102cae7d61b9a645424defbbb3a74af29f37c5739b0635c12d81efc567e85f0.png" alt="Debugger Screenshot 3" /></p>
+
+<p>Aparecerá uma janela adicional com o nosso código fonte:</p>
+
+<p><img src="/assets/debugger_4-4083df8f049c34f813d3bbbe173d49324498f3be96616d11e94f82d5de8b5ff1.png" alt="Debugger Screenshot 4" /></p>
+
+<p>Nesta janela, podemos procurar o valor das variáveis, avançar para a próxima linha ou avaliar expressões.
+<code class="highlighter-rouge">:int.disable_break/2</code> pode ser chamado para desabilitar um breakpoint:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">disable_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Para reativar um breakpoint, podemos chamar <code class="highlighter-rouge">:int.enable_break/2</code> ou podemos remover um breakpoint como este exemplo:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">delete_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>As mesmas operações estão disponíveis na janela do depurador. No menu superior, <strong>Break</strong>, nós podemos selecionar  <strong>Line Break</strong> e configurar o breakpoint. Se selecionarmos uma linha que não contenha código, os pontos de interrupção serão ignorados, mas ele aparecerá na janela do depurador. Existem três tipos de breakpoint:</p>
+
+<ul>
+  <li>Breakpoint de linha - o depurador suspende a execução quando chegamos à linha, com a configuração <code class="highlighter-rouge">:int.break/2</code></li>
+  <li>Breakpoint condicional — semelhante ao breakpoint de linha, mas o depurador suspende somente quando a condição especificada for atingida, estes são configurados usando <code class="highlighter-rouge">:int.get_binding/2</code></li>
+  <li>Breakpoint da função - o depurador irá suspender na primeira linha de uma função, configurada usando <code class="highlighter-rouge">:int.break_in/3</code></li>
+</ul>
+
+<p>Isso é tudo! E um feliz debugging!</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/pt/lessons/specifics/debugging.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pt/lessons/specifics/mnesia/" title="Mnesia">← Mnesia</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pt/lessons/libraries/guardian/" title="Guardian (Basics)">Guardian (Basics) →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/debugging/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/specifics/debugging/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/debugging/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/debugging/" >ko</a>
+        
+      
+        
+        
+
+        
+          <strong >pt</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/specifics/debugging/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/debugging/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/debugging/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lições sobre a linguagem de programação Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/pt/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Básico</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/basics/">1. Básico</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/collections/">2. Coleções</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/control-structures/">5. Estruturas de Controle</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/functions/">6. Funções</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/pipe-operator/">7. Operador Pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/modules/">8. Módulos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/documentation/">11. Documentação</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/testing/">12. Testando</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/date-time/">15. Data e Tempo</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/mix-tasks/">16. Tarefas Mix Customizadas</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Avançado</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/erlang/">1. Interoperabilidade com Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/error-handling/">2. Tratamento de Erros</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/escripts/">3. Executáveis</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/concurrency/">4. Concorrência</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/otp-concurrency/">5. Concorrência OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/otp-supervisors/">6. Supervisores OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/metaprogramming/">8. Metaprogramação</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/umbrella-projects/">9. Projetos Guarda-chuva</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/typespec/">10. Especificações e tipos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/behaviours/">11. Comportamentos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/ecto/basics/">1. Básico</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/ecto/associations/">3. Associações</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/ecto/querying/">4. Consultas</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Específico</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/eex/">2. Elixir embutido (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. Depuração</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Bibliotecas</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/distillery/">5. Distillery (Básico)</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/pt/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

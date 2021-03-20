@@ -1,0 +1,1073 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/libraries/guardian/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/guardian/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/guardian/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/libraries/guardian/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Guardian (Basics) &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/libraries/guardian/&title=Guardian (Basics)&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/libraries/guardian/&via=elixirschool&text=ElixirSchool: Guardian (Basics)&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/libraries/guardian/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/libraries/guardian/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Guardian (Basics)" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/libraries/guardian/&title=ElixirSchool: Guardian (Basics)&description=Check out 'Guardian (Basics)' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Guardian (Basics)&body=Check out 'Guardian (Basics)' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/libraries/guardian/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Guardian (Basics)
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    この和訳は最新です。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p><a href="https://github.com/ueberauth/guardian">Guardian</a>は、<a href="https://jwt.io/">JWT</a>（JSON Web Tokens）に基づく、広く使用されている認証ライブラリです。</p>
+
+<h2>目次</h2>
+<div id="toc"></div>
+
+<h2 id="jwt">JWT</h2>
+
+<p>JWTは認証用の豊富なトークンを提供できます。
+多くの認証システムがリソースへのsubject identifierだけへのアクセスを提供しますが、JWTはそれに加えてこれらの情報を提供します。</p>
+
+<ul>
+  <li>誰がトークンを発行したか</li>
+  <li>誰のためのトークンなのか</li>
+  <li>どのシステムで使うトークンなのか</li>
+  <li>いつ発行されたか</li>
+  <li>いつ有効期限切れになるか</li>
+</ul>
+
+<p>これらの項目に加えて、Guardianは機能追加を容易にするために、これらのフィールドを提供します。</p>
+
+<ul>
+  <li>トークンのタイプ</li>
+  <li>所有者の権限</li>
+</ul>
+
+<p>これらはJWTの基本的な項目にすぎません。
+アプリケーションに必要な追加情報を自由に追加できます。
+JWTはHTTPヘッダーに収まる必要があるため、短くすることを忘れないでください。</p>
+
+<p>この情報の豊富さは、完全な認証情報として、JWTをシステムに渡すことができることを意味します。</p>
+
+<h3 id="どこで使うか">どこで使うか</h3>
+
+<p>JWTトークンを利用して、アプリケーションのあらゆる部分を認証することができます。</p>
+
+<ul>
+  <li>シングルページアプリケーション</li>
+  <li>Controllers (ブラウザセッション経由)</li>
+  <li>Controllers (APIの認証ヘッダ経由)</li>
+  <li>Phoenix Channels</li>
+  <li>サービス間通信</li>
+  <li>プロセス間通信</li>
+  <li>第三者アクセス (OAuth)</li>
+  <li>ログインしたままにする</li>
+  <li>その他 - raw TCP, UDP, CLI, etc</li>
+</ul>
+
+<p>JWTトークンは、認証を提供する必要があるアプリケーションのあらゆる場所で使用することができます。</p>
+
+<h3 id="データベースを使う必要がありますか">データベースを使う必要がありますか？</h3>
+
+<p>データベースを介してJWTを追跡する必要はありません。
+アクセスを制御するために、発行済みのタイムスタンプと有効期限のタイムスタンプを使用することができます。
+多くの場合、データベースを使用してユーザーリソースを検索することになりますが、JWT自体はそれを要求しません。
+たとえば、UDPソケットで通信を認証するためにJWTを使用しようとしているのであれば、おそらくデータベースを使用しないでしょう。
+あなたがトークンを発行するとき、あなたが必要とするすべての情報を直接トークンにエンコードします。
+(正しく署名されているのか調べることで)有効なのか確認したのであれば、トークンの発行は完了です。</p>
+
+<p>ただし、JWTを追跡するためにデータベースを使用することは <strong>可能</strong> です。
+そうすれば、トークンがまだ有効であるー失効してないーことが確認できます。
+または、データベース内のレコードを使用して、すべてのトークンを強制的にログアウトさせることもできます。
+これは、<a href="https://github.com/hassox/guardian_db">GuardianDb</a>を使用して、Guardianで簡単に行えます。
+GuardianDbは、Guardianの <code class="highlighter-rouge">Hooks</code> を使用して検証を行い、保存およびデータベースからの削除を行います。
+これについては後で説明します。</p>
+
+<h2 id="セットアップ">セットアップ</h2>
+
+<p>Guardianをセットアップするための多くのオプションがあります。設定は色々ありますが、簡単な設定から始めましょう。</p>
+
+<h3 id="最小限のセットアップ">最小限のセットアップ</h3>
+
+<p>セットアップを始めるために、あなたが必要とするものがいくつかあります。</p>
+
+<h4 id="設定">設定</h4>
+
+<p><code class="highlighter-rouge">mix.exs</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="ss">mod:</span> <span class="p">{</span><span class="no">MyApp</span><span class="p">,</span> <span class="p">[]},</span>
+    <span class="ss">applications:</span> <span class="p">[</span><span class="ss">:guardian</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">guardian:</span> <span class="s2">"~&gt; x.x"</span><span class="p">},</span>
+    <span class="o">...</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">config/config.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># in each environment config file you should overwrite this if it's external</span>
+<span class="n">config</span> <span class="ss">:guardian</span><span class="p">,</span> <span class="no">Guardian</span><span class="p">,</span>
+  <span class="ss">issuer:</span> <span class="s2">"MyAppId"</span><span class="p">,</span>
+  <span class="ss">secret_key:</span> <span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="p">(),</span>
+  <span class="ss">serializer:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">GuardianSerializer</span>
+</code></pre></div></div>
+
+<p>これは、Guardianが動作するために必要最低限の情報です。
+あなたの秘密鍵をトップレベルの設定に直接エンコードしてはいけません。
+代わりに、各環境が秘密鍵を持つべきです。
+devとtestは、機密保持のためにMix環境を使うのが一般的です。
+ただし、ステージングと本番では、機密保持をより強力にする必要があります。
+(例
+<code class="highlighter-rouge">mix phoenix.gen.secret</code> で機密情報を生成)</p>
+
+<p><code class="highlighter-rouge">lib/my_app/guardian_serializer.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">GuardianSerializer</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Serializer</span>
+
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Repo</span>
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">User</span>
+
+  <span class="k">def</span> <span class="n">for_token</span><span class="p">(</span><span class="n">user</span> <span class="o">=</span> <span class="p">%</span><span class="no">User</span><span class="p">{}),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"User:</span><span class="si">#{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span>
+  <span class="k">def</span> <span class="n">for_token</span><span class="p">(</span><span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"Unknown resource type"</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">from_token</span><span class="p">(</span><span class="s2">"User:"</span> <span class="o">&lt;&gt;</span> <span class="n">id</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="n">id</span><span class="p">)}</span>
+  <span class="k">def</span> <span class="n">from_token</span><span class="p">(</span><span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"Unknown resource type"</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>あなたのSerializerは <code class="highlighter-rouge">sub</code> （件名）フィールドで識別されるリソースを見つける責務があります。
+これはデータベース、API、あるいは単純な文字列からの検索です。
+それはまたリソースを <code class="highlighter-rouge">sub</code> フィールドにシリアライズする役割も果たします。</p>
+
+<p>これで最小構成は終わりです。
+必要であれば他にも設定は可能ですが、始めるにはこれで十分です。</p>
+
+<h4 id="アプリケーションでの利用">アプリケーションでの利用</h4>
+
+<p>Guardianを使用するための構成が整ったので、それをアプリケーションで利用できるようにする必要があります。
+これが最小の設定なので、まずHTTPリクエストを考えましょう。</p>
+
+<h2 id="httpリクエスト">HTTPリクエスト</h2>
+
+<p>Guardianは、HTTPリクエストとの連携を容易にするために多数のPlugを提供しています。
+Plugについては <a href="../../specifics/plug/">別レッスン</a> で学ぶことができます。</p>
+
+<p>GuardianはPhoenixを必要としませんが、以下の例でPhoenixを使用するのが、最も簡単に試すことができます。</p>
+
+<p>HTTPと連携する最も簡単な方法はrouter経由です。
+GuardianのHTTPとの連携は全てPlugに基づいているため、Plugを使用できるところならどこでもこれらを使用できます。</p>
+
+<p>Guardian Plugの一般的な流れは次のとおりです。</p>
+
+<ol>
+  <li>リクエストのどこかにあるトークンを見つけてそれを検証します： <code class="highlighter-rouge">Verify*</code> Plug</li>
+  <li>オプションで、トークンで識別されたリソースをロードします： <code class="highlighter-rouge">LoadResource</code> Plug</li>
+  <li>リクエストのための有効なトークンがあることを確認し、そうでない場合はアクセスを拒否します： <code class="highlighter-rouge">EnsureAuthenticated</code> Plug</li>
+</ol>
+
+<p>アプリケーション開発者のすべてのニーズを満たすために、Guardianはこれらのフェーズを別々に実装します。
+トークンを見つけるには <code class="highlighter-rouge">Verify*</code> Plugを使います。</p>
+
+<p>pipelineをいくつか作成しましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipeline</span> <span class="ss">:maybe_browser_auth</span> <span class="k">do</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">VerifySession</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">VerifyHeader</span><span class="p">,</span> <span class="ss">realm:</span> <span class="s2">"Bearer"</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">LoadResource</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">pipeline</span> <span class="ss">:ensure_authed_access</span> <span class="k">do</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">EnsureAuthenticated</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"typ"</span> <span class="o">=&gt;</span> <span class="s2">"access"</span><span class="p">,</span> <span class="ss">handler:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">HttpErrorHandler</span><span class="p">})</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>これらのpipelineを使用して、さまざまな認証要件を構成することができます。
+最初のpipelineは、セッション内で最初にトークンを見つけ、見つからなかった場合はヘッダーを確認します。
+トークンが見つかった場合は、リソースが読み込まれます。</p>
+
+<p>2番目のpipelineでは、有効で検証済みのトークンが存在し、それのタイプが “access” であることが必要です。
+これらのPlugを使用するには、それらを自分のscopeに追加します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scope</span> <span class="s2">"/"</span><span class="p">,</span> <span class="no">MyApp</span> <span class="k">do</span>
+  <span class="n">pipe_through</span><span class="p">([</span><span class="ss">:browser</span><span class="p">,</span> <span class="ss">:maybe_browser_auth</span><span class="p">])</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:new</span><span class="p">)</span>
+  <span class="n">post</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:create</span><span class="p">)</span>
+  <span class="n">delete</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:delete</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">scope</span> <span class="s2">"/"</span><span class="p">,</span> <span class="no">MyApp</span> <span class="k">do</span>
+  <span class="n">pipe_through</span><span class="p">([</span><span class="ss">:browser</span><span class="p">,</span> <span class="ss">:maybe_browser_auth</span><span class="p">,</span> <span class="ss">:ensure_authed_access</span><span class="p">])</span>
+
+  <span class="n">resource</span><span class="p">(</span><span class="s2">"/protected/things"</span><span class="p">,</span> <span class="no">ProtectedController</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>上記のloginのrouteは、認証されたユーザーであれば利用することができます。
+2番目のscopeは、すべてのアクションに、有効なトークンが渡されるようにします。
+あなたはPlugをpipelineに入れる必要は <em>ありません</em> 。あなたは非常に柔軟なカスタマイズのためにコントローラーにPlugを入れることができますが、我々は最小限のセットアップをしています。</p>
+
+<p>やり残していることが一つあります。
+エラーハンドラは <code class="highlighter-rouge">EnsureAuthenticated</code> Plugに追加しました。
+これは以下に対応する非常に単純なモジュールです。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">unauthenticated/2</code></li>
+  <li><code class="highlighter-rouge">unauthorized/2</code></li>
+</ul>
+
+<p>これらの関数は両方ともPlug.Connの構造体と、Mapのparamsを受け取り、それぞれのエラーを処理します。</p>
+
+<p>Phoenix controllerを使うこともできます！</p>
+
+<h4 id="controller">Controller</h4>
+
+<p>コントローラの内部には、現在ログインしているユーザ情報にアクセスする方法について、いくつかの選択肢があります。
+最も簡単なものからやってみましょう。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">MyController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Web</span><span class="p">,</span> <span class="ss">:controller</span>
+  <span class="kn">use</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Phoenix</span><span class="o">.</span><span class="no">Controller</span>
+
+  <span class="k">def</span> <span class="n">some_action</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">claims</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># do stuff</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Guardian.Phoenix.Controller</code> モジュールを使うことで、あなたのアクションはパターンマッチできる2つの追加の引数を受け取ります。
+もしあなたが <code class="highlighter-rouge">VerifyAuthenticated</code> を使っていなかったら、あなたはnilユーザを持っているかもしれないことを忘れないでください。</p>
+
+<p>もう1つの - より柔軟で冗長なバージョン - はPlugヘルパーを使うことです。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">MyController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Web</span><span class="p">,</span> <span class="ss">:controller</span>
+
+  <span class="k">def</span> <span class="n">some_action</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">authenticated?</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">current_resource</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="c1"># No user</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="loginlogout">Login/Logout</h4>
+
+<p>ブラウザセッションへのログインとログアウトはとても簡単です。
+ログインコントローラで：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="n">find_the_user_and_verify_them_from_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="c1"># Use access tokens.</span>
+      <span class="c1"># Other tokens can be used, like :refresh etc</span>
+      <span class="n">conn</span>
+      <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:access</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">()</span>
+
+    <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="no">nil</span>
+      <span class="c1"># handle not verifying the user's credentials</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">delete</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">conn</span>
+  <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_out</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>APIのログインを使用する場合、セッションがなく、生のトークンをクライアントに返す必要があるため、少し異なります。
+APIのログインの場合、おそらくあなたのアプリケーションにトークンを提供するために <code class="highlighter-rouge">Authorization</code> ヘッダを使うでしょう。
+この方法は、セッションを使用しない場合に便利です。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="n">find_the_user_and_verify_them_from_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">jwt</span><span class="p">,</span> <span class="n">_claims</span><span class="p">}</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="n">encode_and_sign</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:access</span><span class="p">)</span>
+      <span class="n">conn</span> <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">(%{</span><span class="ss">token:</span> <span class="n">jwt</span><span class="p">})</span>
+
+    <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="c1"># handle not verifying the user's credentials</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">delete</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">jwt</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">current_token</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+  <span class="no">Guardian</span><span class="o">.</span><span class="n">revoke!</span><span class="p">(</span><span class="n">jwt</span><span class="p">)</span>
+  <span class="n">respond_somehow</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>ブラウザセッションのログインは内部的に <code class="highlighter-rouge">encode_and_sign</code> を呼び出すので、同じように使うことができます。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/libraries/guardian.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/specifics/nerves/" title="Nerves">← Nerves</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/libraries/poolboy/" title="Poolboy">Poolboy →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/guardian/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/libraries/guardian/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/libraries/guardian/" title="ギリシャ語">gr</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/libraries/guardian/" title="韓国語">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/libraries/guardian/" title="ポーランド語">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/libraries/guardian/" title="ポルトガル語">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/libraries/guardian/" title="ロシア語 / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/libraries/guardian/" title="ベトナム語">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/guardian/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/guardian/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/collections/">2. コレクション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/modules/">8. モジュール</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-distribution/">7. OTPディストリビューション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/changesets/">2. チェンジセット</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/querying/">4. クエリ</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <span class="active">1. Guardian (Basics)</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

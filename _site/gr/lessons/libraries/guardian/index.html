@@ -1,0 +1,1012 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="gr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/gr/lessons/libraries/guardian/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="gr">
+  <meta property="og:description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/guardian/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/guardian/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/gr/lessons/libraries/guardian/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Guardian (Βασικά) &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/gr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/gr/lessons/libraries/guardian/&title=Guardian (Βασικά)&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/gr/lessons/libraries/guardian/&via=elixirschool&text=ElixirSchool: Guardian (Βασικά)&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/gr/lessons/libraries/guardian/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/gr/lessons/libraries/guardian/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Guardian (Βασικά)" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/gr/lessons/libraries/guardian/&title=ElixirSchool: Guardian (Βασικά)&description=Check out 'Guardian (Βασικά)' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Guardian (Βασικά)&body=Check out 'Guardian (Βασικά)' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/gr/lessons/libraries/guardian/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Guardian (Βασικά)
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Αυτή η μετάφραση είναι πλήρως ενημερωμένη.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Η <a href="https://github.com/ueberauth/guardian">Guardian</a> είναι μια ευρέως διαδεδομένη βιβλιοθήκη πιστοποίησης βασισμένη στο <a href="https://jwt.io/">JWT</a> (JSON Web Token).</p>
+
+<h2>Πίνακας περιεχομένων</h2>
+<div id="toc"></div>
+
+<h2 id="jwt">JWT</h2>
+
+<p>Ένα JWT μπορεί να παρέχει ένα πλούσιο κέρμα για πιστοποίηση. Εκεί που πολλά συστήματα πιστοποίησης παρέχουν πρόσβαση μόνο σε ένα αναγνωριστικό αντικειμένου για τον πόρο, τα JWT παρέχουν αυτό μαζί με άλλες πληροφορίες όπως:</p>
+
+<ul>
+  <li>Ποιός εξέδωσε το κέρμα</li>
+  <li>Για ποιόν είναι το κέρμα</li>
+  <li>Ποιό σύστημα θα πρέπει να χρησιμοποιήσει το κέρμα</li>
+  <li>Τι ώρα εκδόθηκε</li>
+  <li>Τι ώρα λήγει το κέρμα</li>
+</ul>
+
+<p>Επιπρόσθετα σε αυτά τα πεδία η Guardian παρέχει μερικά άλλα πεδία για να διευκολύνει επιπρόσθετες λειτουργίες:</p>
+
+<ul>
+  <li>Τι τύπος είναι το κέρμα</li>
+  <li>Τι άδειες έχει ο κομιστής</li>
+</ul>
+
+<p>Αυτά είναι μόνο τα βασικά πεδία σε ένα JWT. Έχετε τη δυνατότητα να προσθέσετε επιπρόσθετες πληροφορίες που χρειάζεται η εφαρμογή σας. Να θυμάστε μόνο να διατηρείτε τη συντομία τους, καθώς το JWT πρέπει να τις προσθέτει στην κεφαλίδα HTTP.</p>
+
+<p>Αυτός ο πλουραλισμός σημαίνει ότι μπορείτε να μεταφέρετε JWT στο σύστημά σας σαν ένα πλήρες σύστημα πιστοποιητικών.</p>
+
+<h3 id="που-να-τα-χρησιμοποιείτε">Που να τα χρησιμοποιείτε</h3>
+
+<p>Τα JWT κέρματα μπορούν να χρησιμοποιηθούν για την πιστοποιήση οποιουδήποτε μέρους της εφαρμογής σας.</p>
+
+<ul>
+  <li>Εφαρμογές μιας σελίδας</li>
+  <li>Controllers (διαμέσω συνόδου του browser)</li>
+  <li>Controllers (μέσω κεφαλίδων πιστοποίησης - API)</li>
+  <li>Κανάλια Phoenix</li>
+  <li>Αιτήματα Υπηρεσίας προς Υπηρεσία</li>
+  <li>Ενδο-διεργασίας</li>
+  <li>Πρόσβαση 3ων (OAuth)</li>
+  <li>Λειτουργικότητα μνήμης επισκέπτη</li>
+  <li>Άλλες διεπαφές - ακατέργαστο TCP, UDP, CLI κλπ</li>
+</ul>
+
+<p>Τα κέρματα JWT μπορούν να χρησιμοποιηθούν οπουδήποτε στην εφαρμογή σας χρειάζεται να παρέχετε εξακριβωμένη πιστοποίηση.</p>
+
+<h3 id="χρειάζεται-να-χρησιμοποιήσω-βάση-δεδομένων">Χρειάζεται να χρησιμοποιήσω βάση δεδομένων;</h3>
+
+<p>Δεν χρειάζεται να παρακολουθείτε τα JWT με μια βάση δεδομένων. Μπορείτε απλά να στηριχθείτε στις χρονοσημάνσεις έκδοσης και λήξης για να χειριστείτε την πρόσβαση. Συχνά θα καταλήξετε να χρησιμοποιείτε βάση δεδομένων για να βρείτε τον πόρο χρήστη αλλά το ίδιο το JWT δεν το απαιτεί.</p>
+
+<p>Για παράδειγμα, αν έπρεπε να χρησιμοποιήσετε ένα JWT για να πιστοποιήσετε την επικοινωνία σε μια υποδοχή (socket) UDP πιθανότατα δεν θα χρησιμοποιούσατε μια βάση δεδομένων. Κωδικοποιήστε όλες τις πληροφορίες που χρειάζεστε απευθείας στο κέρμα όταν το εκδώσετε. Όταν το επικυρώσετε (ελέγξτε ότι έχει υπογραφεί σωστά) είστε καλυμμένοι.</p>
+
+<p><em>Μπορείτε</em> πάντως να χρησιμοποιήσετε μια βάση δεδομένων για να παρακολουθήσετε ένα JWT. Αν το κάνετε, αποκτάτε την ικανότητα να επικυρώνετε ότι το κέρμα είναι ακόμα έγκυρο - δηλαδή - ότι δεν έχει ανακαλεστεί. Η θα μπορούσατε να χρησιμοποιήσετε τις εγγραφές στη βάση δεδομένων για να εξαναγκάσετε μια έξοδο όλων των κερμάτων για το χρήστη. Αυτό γίνεται εύκολο στην Guardian με τη χρήση της <a href="https://github.com/hassox/guardian_db">GuardianDb</a>. Η GuardiadDb χρησιμοποιεί τα ‘Hooks’ της Guardian για να κάνει ελέγχους επικύρωσης, να αποθηκεύσει και να διαγράψει από τη βάση δεδομένων. Θα το δούμε αυτό αργότερα.</p>
+
+<h2 id="εγκατάσταση">Εγκατάσταση</h2>
+
+<p>Υπάρχουν πολλές επιλογές για την εγκατάσταση της Guardian. Θα τις δούμε όλες κάποια στιγμή αλλά ας ξεκινήσουμε με μια απλή εγκατάσταση.</p>
+
+<h3 id="μινιμαλιστική-εγκατάσταση">Μινιμαλιστική Εγκατάσταση</h3>
+
+<p>Για να ξεκινήσετε υπάρχει μια πλειάδα πραγμάτων που θα χρειαστείτε.</p>
+
+<h4 id="ρυθμίσεις">Ρυθμίσεις</h4>
+
+<p><code class="highlighter-rouge">mix.exs</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="ss">mod:</span> <span class="p">{</span><span class="no">MyApp</span><span class="p">,</span> <span class="p">[]},</span>
+    <span class="ss">applications:</span> <span class="p">[</span><span class="ss">:guardian</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">guardian:</span> <span class="s2">"~&gt; x.x"</span><span class="p">},</span>
+    <span class="o">...</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">config/config.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:guardian</span><span class="p">,</span> <span class="no">Guardian</span><span class="p">,</span>
+  <span class="ss">issuer:</span> <span class="s2">"MyAppId"</span><span class="p">,</span>
+  <span class="ss">secret_key:</span> <span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="c1"># σε κάθε αρχείο ρυθμίσεων περιβάλλοντος θα πρέπει να το αντικαταστήσετε αυτό αν είναι εξωτερικό</span>
+  <span class="ss">serializer:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">GuardianSerializer</span>
+</code></pre></div></div>
+
+<p>Αυτό είναι το ελάχιστο σετ πληροφοριών που χρειάζεται να δώσετε στην Guardian για να λειτουργήσει. Δεν θα πρέπει να κωδικοποιήσετε το μυστικό κλειδί σας κατευθείαν στο αρχείο ρυθμίσεων κορυφαίου επιπέδου. Αντίθετα, κάθε περιβάλλον πρέπει να έχει το δικό του κλειδί. Είναι συχνό να χρησιμοποιείτε την Mix.env για μυστικά κλειδιά στα περιβάλλοντα dev και test. Στα Staging και Production όμως, πρέπει να χρησιμοποιείτε μυστικά κλειδιά που έχουν παραχθεί με την <code class="highlighter-rouge">mix phoenix.gen.secret</code>.</p>
+
+<p><code class="highlighter-rouge">lib/my_app/guardian_serializer.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">GuardianSerializer</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Serializer</span>
+
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Repo</span>
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">User</span>
+
+  <span class="k">def</span> <span class="n">for_token</span><span class="p">(</span><span class="n">user</span> <span class="o">=</span> <span class="p">%</span><span class="no">User</span><span class="p">{}),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"User:</span><span class="si">#{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span>
+  <span class="k">def</span> <span class="n">for_token</span><span class="p">(</span><span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"Unknown resource type"</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">from_token</span><span class="p">(</span><span class="s2">"User:"</span> <span class="o">&lt;&gt;</span> <span class="n">id</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="n">id</span><span class="p">)}</span>
+  <span class="k">def</span> <span class="n">from_token</span><span class="p">(</span><span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"Unknown resource type"</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Ο serializer σας είναι υπέυθυνος για την έυρεση της πηγής που ορίζεται στο πεδίο <code class="highlighter-rouge">sub</code> (υποκείμενο). Αυτό θα μπορεί να είναι μια αναζήτηση στη βάση δεδομένων, ένα API, ή ακόμα ένα απλό αλφαριθμητικό.
+Είναι επίσης υπεύθυνος για την γραμμικοποίηση ενός πόρου στο πεδίο <code class="highlighter-rouge">sub</code>.</p>
+
+<p>Αυτό ήταν όλο για την ελάχιστη ρύθμιση. Υπάρχουν πολλά ακόμα που μπορείτε να κάνετε, αν τα χρειάζεστε, αλλά αυτά αρκούν για να ξεκινήσετε.</p>
+
+<h4 id="χρήση-εφαρμογής">Χρήση Εφαρμογής</h4>
+
+<p>Τώρα που έχουμε τις ρυθμίσεις στη θέση τους για να χρησιμοποιήσουμε την Guardian, πρέπει να την ενσωματώσουμε στην εφαρμογή. Από τη στιγμή που αυτή είναι η ελάχιστη ρύθμιση, ας αναλογιστούμε πρώτα τις αιτήσεις HTTP.</p>
+
+<h2 id="αιτήσεις-http">Αιτήσεις HTTP</h2>
+
+<p>Η Guardian παρέχει ένα σύνολο Plugs για να διευκολύνει την ενσωμάτωση σε αιτήσεις HTTP. Μπορείτε να μάθετε για το Plug σε ένα <a href="../../specifics/plug/">άλλο μάθημα</a>. Η Guardian δεν χρειάζεται την Phoenix, αλλά η χρήση της Phoenix κάνει ευκολότερη την παρουσίαση των ακόλουθων παραδειγμάτων.</p>
+
+<p>Ο πιο εύκολος τρόπος να ενσωματώσετε στο HTTP είναι μέσω του δρομολογητή (router). Από τη στιγμή που οι ενσωματώσεις της Guardian στο HTTP είναι όλες βασισμένες σε plugs, μπορείτε να τις χρησιμοποιήσετε οπουδήποτε μπορεί να χρησιμοποιηθεί ένα plug.</p>
+
+<p>Η γενική ροή ενός plug της Guardian είναι:</p>
+
+<ol>
+  <li>Εύρεση ενός κέρματος στην αίτηση (κάπου) και επικύρωσή του: ‘Verify*’ plugs</li>
+  <li>Προεραιτικά φόρτωση του πόρου που ορίζεται στο κέρμα: <code class="highlighter-rouge">LoadResource</code> plug</li>
+  <li>Βεβαίωση ότι υπάρχει ένα έγκυρο κέρμα για την αίτηση και αρνήση πρόσβασης αν όχι: <code class="highlighter-rouge">EnsureAuthenticated</code> plug</li>
+</ol>
+
+<p>Για να καλυφθούν όλες οι ανάγκες των προγραμματιστών εφαρμογών, η Guardian υλοποιεί αυτές τις φάσεις ξεχωριστά. Για να βρείτε το κέρμα χρησιμοποιείστε τα plugs <code class="highlighter-rouge">Verify*</code>.</p>
+
+<p>Ας δημιουργήσουμε μερικούς αγωγούς.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipeline</span> <span class="ss">:maybe_browser_auth</span> <span class="k">do</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">VerifySession</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">VerifyHeader</span><span class="p">,</span> <span class="ss">realm:</span> <span class="s2">"Bearer"</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">LoadResource</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">pipeline</span> <span class="ss">:ensure_authed_access</span> <span class="k">do</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">EnsureAuthenticated</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"typ"</span> <span class="o">=&gt;</span> <span class="s2">"access"</span><span class="p">,</span> <span class="ss">handler:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">HttpErrorHandler</span><span class="p">})</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Αυτοί οι αγωγοί μπορούν να χρησιμοποιηθούν για να συνθέσουν διαφορετικές απαιτήσεις πιστοποίησης. Ο πρώτος αγωγός προσπαθεί να βρει ένα κέρμα πρώτα στη συνεδρία και στη συνέχεια οπισθοχωρεί σε μια κεφαλίδα. Αν βρει ένα, τότε σας φορτώνει τον πόρο.</p>
+
+<p>Ο δεύτερος αγωγός απαιτεί ότι υπάρχει ένα έγκυρο, επικυρωμένο κέρμα και ότι είναι τύπου “access”. Για να τα χρησιμοποιήσετε, προσθέστε τα στο πεδίο δράσης σας.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scope</span> <span class="s2">"/"</span><span class="p">,</span> <span class="no">MyApp</span> <span class="k">do</span>
+  <span class="n">pipe_through</span><span class="p">([</span><span class="ss">:browser</span><span class="p">,</span> <span class="ss">:maybe_browser_auth</span><span class="p">])</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:new</span><span class="p">)</span>
+  <span class="n">post</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:create</span><span class="p">)</span>
+  <span class="n">delete</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:delete</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">scope</span> <span class="s2">"/"</span><span class="p">,</span> <span class="no">MyApp</span> <span class="k">do</span>
+  <span class="n">pipe_through</span><span class="p">([</span><span class="ss">:browser</span><span class="p">,</span> <span class="ss">:maybe_browser_auth</span><span class="p">,</span> <span class="ss">:ensure_authed_access</span><span class="p">])</span>
+
+  <span class="n">resource</span><span class="p">(</span><span class="s2">"/protected/things"</span><span class="p">,</span> <span class="no">ProtectedController</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Οι δρομολογητές εισόδου παραπάνω θα έχουν τον πιστοποιημένο χρήστη αν υπάρχει. Το δεύτερο πεδίο δράσης βεβαιώνει ότι ένα έγκυρο κέρμα περνάει σε όλες τις λειτουργίες.
+Δεν <em>χρειάζεται</em> να τις βάλετε στους αγωγούς, θα μπορούσατε να τις βάλετε στους controlllers σας για περισσότερο ευλύγιστη παραμετροποίηση αλλά εδώ φτάχνουμε μια μινιμαλιστική εγκατάσταση.</p>
+
+<p>Μας λείπει ένα κομμάτι ως τώρα. Ο χειριστής σφαλμάτων που προσθέσαμε στο plug <code class="highlighter-rouge">EnsureAuthenticated</code>. Αυτή είναι μια πολύ απλή ενότητα που απαντάει στα</p>
+
+<ul>
+  <li><code class="highlighter-rouge">unauthenticated/2</code></li>
+  <li><code class="highlighter-rouge">unauthorized/2</code></li>
+</ul>
+
+<p>Και οι δύο αυτές συναρτήσεις λαμβάνουν μια δομή Plug.Conn και ένα χάρτη παραμέτρων και θα πρέπει να χειριστούν τα επιμέρους σφάλματά τους. Μπορείτε ακόμα να χρησιμοποιήσετε έναν Phoenix controller!</p>
+
+<h4 id="στον-controller">Στον controller</h4>
+
+<p>Μέσα στον controller, υπάρχουν μερικές επιλογές για το πως θα έχετε πρόσβαση στον τρέχοντα εισηγμένο χρήστη. Ας αρχίσουμε με τον απλούστερο.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">MyController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Web</span><span class="p">,</span> <span class="ss">:controller</span>
+  <span class="kn">use</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Phoenix</span><span class="o">.</span><span class="no">Controller</span>
+
+  <span class="k">def</span> <span class="n">some_action</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">claims</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># Κάντε διάφορα</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Χρησιμοποιώντας την ενότητα <code class="highlighter-rouge">Guardian.Phoenix.Controller</code>, οι λειτουργίες σας θα λαμβάνουν δύο περαιτέρω ορίσματα στα οποία μπορείτε να αντιπαραβληθείτε. Θυμηθείτε, αν δεν βεβαιωθήκατε για την πιστοποίηση μπορεί να έχετε έναν κενό χρήστη και αξιώσεις.</p>
+
+<p>Η άλλη - η περισσότερο ευέλικτη έκδοση - είναι να χρησιμοποιήσετε τις βοηθητικές plugs της Guardian.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">MyController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Web</span><span class="p">,</span> <span class="ss">:controller</span>
+
+  <span class="k">def</span> <span class="n">some_action</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">authenticated?</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">current_resource</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="c1"># Κανένας χρήστης</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="είσοδοςέξοδος">Είσοδος/Έξοδος</h4>
+
+<p>Η είσοδος και η έξοδος μιας συνόδου browser είναι πολύ απλή. Στον controller εισόδου σας:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="n">find_the_user_and_verify_them_from_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="c1"># Χρησιμοποιήστε κέρματα πρόσβασης. </span>
+      <span class="c1"># Άλλα κέρματα μπορούν να χρησιμοποιηθούν, όπως τα :refresh κ.α.</span>
+      <span class="n">conn</span>
+      <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:access</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">()</span>
+
+    <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="no">nil</span>
+
+      <span class="c1"># χειριστείτε την μη επικύρωση των διαπιστευτηρίων του χρήστη.</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">delete</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">conn</span>
+  <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_out</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Όταν χρησιμοποιείτε το API εισόδου, είναι ελαφρώς διαφορετικό καθώς δεν υπάρχει σύνοδος και πρέπει να παρέχετε το μη επεξεργασμένο κέρμα πίσω στον πελάτη.
+Για είσοδο API μάλλον θα χρησιμοποιείτε την κεφαλίδα <code class="highlighter-rouge">Authorization</code> για να παρέχετε το κέρμα στην εφαρμογή σας. Αυτή η μέθοδος είναι χρήσιμη όταν δεν σκοπεύετε να χρησιμοποιήσετε μια σύνοδο.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="n">find_the_user_and_verify_them_from_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">jwt</span><span class="p">,</span> <span class="n">_claims</span><span class="p">}</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="n">encode_and_sign</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:access</span><span class="p">)</span>
+
+      <span class="n">conn</span> <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">(%{</span><span class="ss">token:</span> <span class="n">jwt</span><span class="p">})</span>
+
+    <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="c1"># χειριστείτε την μη επικύρωση των διαπιστευτηρίων του χρήστη</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">delete</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">jwt</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">current_token</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+  <span class="no">Guardian</span><span class="o">.</span><span class="n">revoke!</span><span class="p">(</span><span class="n">jwt</span><span class="p">)</span>
+  <span class="n">respond_somehow</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Η είσοδος συνόδου browser καλεί την <code class="highlighter-rouge">encode_and_sign</code> κάτω από το καπώ έτσι ώστε να μπορείτε να τις χρησιμοποιήσετε με τον ίδιο τρόπο.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/gr/lessons/libraries/guardian.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/specifics/debugging/" title="Debugging">← Debugging</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/libraries/poolboy/" title="Poolboy">Poolboy →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/guardian/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/libraries/guardian/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <strong >gr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/libraries/guardian/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/libraries/guardian/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/libraries/guardian/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/libraries/guardian/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/libraries/guardian/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/libraries/guardian/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/guardian/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/guardian/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Μαθήματα προγραμματισμού της γλώσσας Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/gr/" class="">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βασικά</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/basics/">1. Βασικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/collections/">2. Συλλογές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pattern-matching/">4. Αντιπαραβολές Προτύπων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/control-structures/">5. Δομές Ελέγχου</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/functions/">6. Συναρτήσεις</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pipe-operator/">7. Τελεστής Σωλήνα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/modules/">8. Ενότητες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/sigils/">10. Σφραγίδες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/documentation/">11. Τεκμηρίωση</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/testing/">12. Δοκιμές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/comprehensions/">13. Ανάγνωση Λιστών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/strings/">14. Αλφαριθμητικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/date-time/">15. Ημερομηνία και Ώρα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix-tasks/">16. Ειδικές Εργασίες Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/iex-helpers/">17. Βοηθοί IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Προχωρημένα</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/erlang/">1. Διαλειτουργικότητα με την Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/error-handling/">2. Διαχείριση Σφαλμάτων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/escripts/">3. Εκτελέσιμα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/concurrency/">4. Συγχρονισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-concurrency/">5. Συγχρονισμός OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-supervisors/">6. Επιτηρητές OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/metaprogramming/">8. Μεταπρογραμματισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/umbrella-projects/">9. Projects Ομπρέλας</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/typespec/">10. Προδιαγραφές και τύποι</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/behaviours/">11. Συμπεριφορές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/protocols/">13. Πρωτόκολλα</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/changesets/">2. Σετ Αλλαγών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/associations/">3. Συσχετισμοί</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ιδιαιτερότητες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/eex/">2. Ένθετη Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active">Βιβλιοθήκες</span>
+          <ul>
+        
+            <li>
+              
+              <span class="active">1. Guardian (Βασικά)</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class="">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/gr/report/" class="">Αναφορά Μετάφρασης</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class="">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,1038 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/live-view-live-component/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/live-view-live-component/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>LiveView Design Patterns - LiveComponent and the Single Responsibility Principle &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/live-view-live-component/&title=LiveView Design Patterns - LiveComponent and the Single Responsibility Principle&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/live-view-live-component/&via=elixirschool&text=ElixirSchool: LiveView Design Patterns - LiveComponent and the Single Responsibility Principle&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/live-view-live-component/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/live-view-live-component/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: LiveView Design Patterns - LiveComponent and the Single Responsibility Principle" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/live-view-live-component/&title=ElixirSchool: LiveView Design Patterns - LiveComponent and the Single Responsibility Principle&description=Check out 'LiveView Design Patterns - LiveComponent and the Single Responsibility Principle' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: LiveView Design Patterns - LiveComponent and the Single Responsibility Principle&body=Check out 'LiveView Design Patterns - LiveComponent and the Single Responsibility Principle' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/live-view-live-component/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">LiveView Design Patterns - LiveComponent and the Single Responsibility Principle</h1>
+    <p><a href="/blog/years/2019/">29 Dec 2019</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <h2 id="liveview-can-get-messy">LiveView Can Get Messy</h2>
+
+<p>As LiveView becomes a more established technology, we naturally find ourselves using it to back more and more complex features. If we’re not careful, this can lead to “fat controller syndrome”––live views that are jam packed with complex business logic and disparate responsibilities, just like the classic “fat Rails controller”.</p>
+
+<p>How can we write live views that are easy to reason about and maintain while adhering to common design principles like SRP?</p>
+
+<p>One way to achieve this goal is to leverage the <code class="highlighter-rouge">Phoenix.LiveComponent</code> behaviour.</p>
+
+<h2 id="introducing-phoenixlivecomponent">Introducing <code class="highlighter-rouge">Phoenix.LiveComponent</code></h2>
+
+<p>Components are modules that use the <code class="highlighter-rouge">Phoenix.LiveComponent</code> behaviour. This behaviour provides</p>
+
+<blockquote>
+  <p>…a mechanism to compartmentalize state, markup, and events in LiveView. ––<a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html">docs</a></p>
+</blockquote>
+
+<p>Components are run inside a parent live view process via a call to <code class="highlighter-rouge">Phoenix.LiveView.live_component/3</code>. Since they share a process with their parent live view, communication between the two is simple (more on that later).</p>
+
+<p>Components can be stateless or stateful. While stateless components don’t do much more than render a particular <code class="highlighter-rouge">leex</code> template, stateful components implement a <code class="highlighter-rouge">handle_event/3</code> function that allow us to update the component’s own state. This makes components a great way to peel off responsibilities from an overly complex live view.</p>
+
+<p>Let’s take a look at how we can use components to refactor some complicated LiveView code in an existing application.</p>
+
+<h2 id="the-app">The App</h2>
+
+<p>Let’s say we have an application that uses a message broker like RabbitMQ to publish and consume messages between systems. Our app persists these messages in the DB and exposes a UI for users to list and search such persisted messages.</p>
+
+<p><img src="/assets/live-view-messages-index-cfb8d1e20fe495a1ccb66afa03b7e7a3e7ab6404ab6debd99ab631c1a69b31f6.png" alt="live view messages index" /></p>
+
+<p>We’re using LiveView to enact the search functionality, pagination and maintain which messages are currently being displayed in state. Our live view module responds to search form events and maintains the state of the search form, handles the search form submission <em>and</em> renders the template with various search and pagination params.</p>
+
+<h3 id="the-code">The Code</h3>
+
+<p>A simplified version of our live view looks something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RailwayUiWeb</span><span class="o">.</span><span class="no">MessageLive</span><span class="o">.</span><span class="no">Index</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+   <span class="no">Phoenix</span><span class="o">.</span><span class="no">View</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="no">RailwayUiWeb</span><span class="o">.</span><span class="no">MessageView</span><span class="p">,</span> <span class="s2">"index.html"</span><span class="p">,</span> <span class="n">assigns</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+   <span class="n">socket</span> <span class="o">=</span>
+     <span class="n">socket</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:page</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:search</span><span class="p">,</span> <span class="p">%</span><span class="no">Search</span><span class="p">{</span><span class="ss">query:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">value:</span> <span class="no">nil</span><span class="p">})</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:messages</span><span class="p">,</span> <span class="n">load_messages</span><span class="p">())</span>
+
+   <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_params</span><span class="p">(</span>
+       <span class="p">%{</span><span class="s2">"page"</span> <span class="o">=&gt;</span> <span class="n">page_num</span><span class="p">,</span> <span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"query"</span> <span class="o">=&gt;</span> <span class="n">query</span><span class="p">,</span> <span class="s2">"value"</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">}},</span>
+       <span class="n">_uri</span><span class="p">,</span>
+       <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+     <span class="p">)</span> <span class="k">do</span>
+   <span class="n">socket</span> <span class="o">=</span>
+     <span class="n">socket</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:page</span><span class="p">,</span> <span class="n">page_num</span><span class="p">)</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:search</span><span class="p">,</span> <span class="no">Search</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:messages</span><span class="p">,</span> <span class="n">messages_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">page_num</span><span class="p">))</span>
+
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_params</span><span class="p">(</span>
+       <span class="p">%{</span><span class="s2">"page"</span> <span class="o">=&gt;</span> <span class="n">page_num</span><span class="p">},</span>
+       <span class="n">_uri</span><span class="p">,</span>
+       <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">state:</span> <span class="n">state</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+     <span class="p">)</span> <span class="k">do</span>
+   <span class="n">socket</span> <span class="o">=</span>
+     <span class="n">socket</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:page</span><span class="p">,</span> <span class="n">page_num</span><span class="p">)</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:messages</span><span class="p">,</span> <span class="n">messages_page</span><span class="p">(</span><span class="n">page_num</span><span class="p">))</span>
+
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_params</span><span class="p">(</span>
+       <span class="p">%{</span><span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"query"</span> <span class="o">=&gt;</span> <span class="n">query</span><span class="p">,</span> <span class="s2">"value"</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">}},</span>
+       <span class="n">_</span><span class="p">,</span>
+       <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+     <span class="p">)</span> <span class="k">do</span>
+   <span class="n">socket</span> <span class="o">=</span>
+     <span class="n">socket</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:search</span><span class="p">,</span> <span class="p">%</span><span class="no">Search</span><span class="p">{</span><span class="ss">query:</span> <span class="n">query</span><span class="p">,</span> <span class="ss">value:</span> <span class="n">value</span><span class="p">})</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:messages</span><span class="p">,</span> <span class="n">messages_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_params</span><span class="p">(</span><span class="n">_params</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="s2">"search"</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span>
+    <span class="n">live_redirect</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span>
+      <span class="ss">to:</span> <span class="no">Routes</span><span class="o">.</span><span class="n">live_path</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span>
+       <span class="s2">"search_form_change"</span><span class="p">,</span>
+       <span class="p">%{</span><span class="s2">"_target"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"search"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">],</span> <span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"value"</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">}},</span>
+       <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+     <span class="p">)</span> <span class="k">do</span>
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:search</span><span class="p">,</span> <span class="p">%</span><span class="no">Search</span><span class="p">{</span><span class="ss">query:</span> <span class="n">search</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="ss">value:</span> <span class="n">value</span><span class="p">})}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span>
+       <span class="s2">"search_form_change"</span><span class="p">,</span>
+       <span class="p">%{</span><span class="s2">"_target"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"search"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">],</span> <span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"query"</span> <span class="o">=&gt;</span> <span class="n">query</span><span class="p">}},</span>
+       <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+     <span class="p">)</span> <span class="k">do</span>
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:search</span><span class="p">,</span> <span class="p">%</span><span class="no">Search</span><span class="p">{</span><span class="ss">query:</span> <span class="n">query</span><span class="p">,</span> <span class="ss">value:</span> <span class="n">search</span><span class="o">.</span><span class="n">value</span><span class="p">})}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span>
+       <span class="s2">"search_form_change"</span><span class="p">,</span>
+       <span class="p">%{</span><span class="s2">"_target"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"search"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">],</span> <span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"value"</span> <span class="o">=&gt;</span> <span class="n">_value</span><span class="p">}},</span>
+       <span class="n">socket</span>
+     <span class="p">)</span> <span class="k">do</span>
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Maintaining a representation of the search form’s selected query and inputed value in state allows us to ensure that the correct search query radio button is selected and allows us to update the placeholder text of the search form input field:</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6Ta2Au-PcQI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>Maintaining the search form state also ensures that users can navigate directly to the <code class="highlighter-rouge">/consumed_messages</code> route with a set of query params and see not just the correctly populated messages but also the correctly configured search form:</p>
+
+<p><img src="/assets/live-component-search-form-query-params-ffb0e6908b686be4cc42356f0ce94e5332d745442d1adf2556d093cdd090da7e.png" alt="live component search form query params" /></p>
+
+<h3 id="the-problem">The Problem</h3>
+
+<p>Its clear that we need to maintain the state of our search form but the LiveView code above is too lengthy to maintain and reason about. It manages search form state, implements a set of <code class="highlighter-rouge">handle_params/3</code> callbacks to enact search queries and pagination and maintains a set of messages in state. This is a lot of work and it violates the Single Responsibility Principle. Our live view, plainly put, does too many jobs.</p>
+
+<p>Let’s refactor the search form state maintenance into its very own stateful component!</p>
+
+<h2 id="the-solution-the-search-form-component">The Solution: The Search Form Component</h2>
+
+<p>Our search form component will get its initial search form state from the parent live view. This will ensure that a user can navigate directly to a route like <code class="highlighter-rouge">/consumed_messages?search[query]=uuid&amp;search[value]=0af71c6a-aeec-431f-83d0-ae779358b055</code> and see the search form correctly configured from the params.</p>
+
+<p>However, our search component will go on to maintain the search form state independently of the parent, only forwarding messages up to the live view when the form is submitted.</p>
+
+<p>This way, we can move the search form change event handling and its subsequent impact on search form state out of the live view. This will leave us with a cleaner live view with fewer responsibilities.</p>
+
+<h3 id="defining-the-component">Defining the Component</h3>
+<h4 id="setting-initial-state-from-liveview">Setting Initial State From LiveView</h4>
+
+<p>We’ll begin by defining our component, <code class="highlighter-rouge">RailwayUiWeb.MessageLive.SearchComponent</code>, and rendering it with an initial search from state from the parent live view.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RailwayUiWeb</span><span class="o">.</span><span class="no">MessageLive</span><span class="o">.</span><span class="no">SearchComponent</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveComponent</span>
+
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Phoenix</span><span class="o">.</span><span class="no">View</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="no">RailwayUiWeb</span><span class="o">.</span><span class="no">MessageView</span><span class="p">,</span> <span class="s2">"search_component.html"</span><span class="p">,</span> <span class="n">assigns</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>At this point, our component is simple. It uses the <code class="highlighter-rouge">Phoenix.LiveComponent</code> behaviour and implements a <code class="highlighter-rouge">render/1</code> function. This function renders our <code class="highlighter-rouge">search_component.html.leex</code> template (which we’ll take a look at in a moment), passing through the <code class="highlighter-rouge">assigns</code> established when the parent live view calls <code class="highlighter-rouge">live_component/3</code>.</p>
+
+<p>Let’s take a look at that call now. In the parent live view’s template, we invoke:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="err">%=</span> <span class="na">live_component</span> <span class="err">@</span><span class="na">socket</span><span class="err">,</span> <span class="na">RailwayUiWeb</span><span class="err">.</span><span class="na">MessageLive</span><span class="err">.</span><span class="na">SearchComponent</span><span class="err">,</span> <span class="na">search:</span> <span class="err">@</span><span class="na">search</span><span class="err">,</span> <span class="na">id:</span> <span class="na">:search</span> <span class="err">%</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>There are two important things to call out here. First, its important to note that we are passing in the <code class="highlighter-rouge">:id</code> attribute and setting it to a value of the <code class="highlighter-rouge">:search</code> atom. Components are made stateful by the setting of the <code class="highlighter-rouge">:id</code> attribute. Without this, we would not be able to implement the <code class="highlighter-rouge">handle_event/2</code> callbacks</p>
+
+<p>Second, we are populating the component’s <code class="highlighter-rouge">assigns</code> with the <code class="highlighter-rouge">@search</code> value. The component’s <code class="highlighter-rouge">assigns</code> at this point looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>And the search struct from the parent live view’s <code class="highlighter-rouge">socket.assigns</code> will be available in the component’s own template as <code class="highlighter-rouge">@search</code>.</p>
+
+<p>This allows us to leverage the <code class="highlighter-rouge">handle_params/3</code> callback in the parent live view to establish the search state and then pass that search state into the component. Let’s take a closer look at how this works:</p>
+
+<ol>
+  <li>User visit <code class="highlighter-rouge">/consumed_messages?search[query]=uuid&amp;search[value]=0af71c6a-aeec-431f-83d0-ae779358b055</code></li>
+  <li>The <code class="highlighter-rouge">MessageLive.Index</code> live view’s <code class="highlighter-rouge">handle_params/3</code> function is called:</li>
+</ol>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">handle_params</span><span class="p">(</span>
+      <span class="p">%{</span><span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"query"</span> <span class="o">=&gt;</span> <span class="n">query</span><span class="p">,</span> <span class="s2">"value"</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">}},</span>
+      <span class="n">_</span><span class="p">,</span>
+      <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+    <span class="p">)</span> <span class="k">do</span>
+  <span class="n">socket</span> <span class="o">=</span>
+    <span class="n">socket</span>
+    <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:search</span><span class="p">,</span> <span class="p">%</span><span class="no">Search</span><span class="p">{</span><span class="ss">query:</span> <span class="n">query</span><span class="p">,</span> <span class="ss">value:</span> <span class="n">value</span><span class="p">})</span>
+    <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:messages</span><span class="p">,</span> <span class="n">messages_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ol>
+  <li>The <code class="highlighter-rouge">MessageLive.Index</code> live view’s template renders with the <code class="highlighter-rouge">@search</code> assignment</li>
+  <li>The <code class="highlighter-rouge">MessageLive.Index</code>’s template calls <code class="highlighter-rouge">live_component/3</code>, passing through the <code class="highlighter-rouge">@search</code> assignment</li>
+  <li>The <code class="highlighter-rouge">MessageLive.SearchComponent</code>’s template renders with the  <code class="highlighter-rouge">@search</code> assignment, correctly rendering the search form to reflect any selected search query type and input.</li>
+</ol>
+
+<p>Let’s take a look at the component’s template now in order to understand how it uses the information in the search form’s state to render appropriately.</p>
+
+<h4 id="building-the-search-form-template">Building The Search Form Template</h4>
+
+<p>The search component’s template uses the query and value attributes of the <code class="highlighter-rouge">@search</code> assignment to ensure that the correct radio button is selected and that the search form input is correctly populated with a value if one is present.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- styling removed for brevity --&gt;</span>
+<span class="nt">&lt;form&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;div&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"search[query]"</span> <span class="na">value=</span><span class="s">"uuid"</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="err">&lt;%=</span> <span class="na">if</span> <span class="err">@</span><span class="na">search.query =</span><span class="s">=</span> <span class="err">"</span><span class="na">uuid</span><span class="err">",</span> <span class="na">do:</span> <span class="err">"</span><span class="na">checked</span><span class="err">"</span> <span class="err">%</span><span class="nt">&gt;</span>&gt;
+      <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-check-label"</span><span class="nt">&gt;</span>message UUID<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"search[query]"</span> <span class="na">value=</span><span class="s">"correlation_id"</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="err">&lt;%=</span> <span class="na">if</span> <span class="err">@</span><span class="na">search.query =</span><span class="s">=</span> <span class="err">"</span><span class="na">correlation_id</span><span class="err">",</span> <span class="na">do:</span> <span class="err">"</span><span class="na">checked</span><span class="err">"</span> <span class="err">%</span><span class="nt">&gt;</span>&gt;
+      <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-check-label"</span><span class="nt">&gt;</span>correlation ID<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"search[query]"</span> <span class="na">value=</span><span class="s">"message_type"</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="err">&lt;%=</span> <span class="na">if</span> <span class="err">@</span><span class="na">search.query =</span><span class="s">=</span> <span class="err">"</span><span class="na">message_type</span><span class="err">",</span> <span class="na">do:</span> <span class="err">"</span><span class="na">checked</span><span class="err">"</span> <span class="err">%</span><span class="nt">&gt;</span>&gt;
+      <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-check-label"</span><span class="nt">&gt;</span>message type<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"search[value]"</span> <span class="na">value=</span><span class="s">"&lt;%= @search.value %&gt;"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"&lt;%= "</span><span class="na">search</span> <span class="na">by</span> <span class="na">#</span><span class="err">{@</span><span class="na">search</span><span class="err">.</span><span class="na">query</span><span class="err">}"</span>  <span class="err">%</span><span class="nt">&gt;</span>"&gt;
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>A few things to note here:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">if</code> conditions, like the one below, are responsible for ensuring the correct radio button is selected:</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="nv">@search</span><span class="o">.</span><span class="n">query</span> <span class="o">==</span> <span class="s2">"message_type"</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"checked"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The <code class="highlighter-rouge">value</code> of the search form’s input field is populated by the <code class="highlighter-rouge">@search</code> assignment’s <code class="highlighter-rouge">value</code> attribute:</li>
+</ul>
+
+<p>Now that we’ve seen how our component is rendered with its initial search form state, let’s take a look at how our component will handle search form events.</p>
+
+<h4 id="handling-form-change-events">Handling Form Change Events</h4>
+
+<p>We need to update the component’s <code class="highlighter-rouge">socket.assigns</code> to reflect changes to search form state under two conditions:</p>
+
+<ul>
+  <li>The user selects a given search query (“message UUID”, “correlation ID”, “message type”)</li>
+  <li>The user types a value into the search form input field</li>
+</ul>
+
+<p>We’ll add a <code class="highlighter-rouge">phx-change</code> event to our form to capture these interactions and define the corresponding <code class="highlighter-rouge">handle_event/3</code> callbacks in our component.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">phx-change=</span><span class="s">"search_form_change"</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>We’ll add the following <code class="highlighter-rouge">handle_event/3</code> callbacks:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RailwayUiWeb</span><span class="o">.</span><span class="no">MessageLive</span><span class="o">.</span><span class="no">SearchComponent</span> <span class="k">do</span>
+  <span class="o">...</span>
+
+  <span class="c1"># update search state when user inputs a search value</span>
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span>
+      <span class="s2">"search_form_change"</span><span class="p">,</span>
+      <span class="p">%{</span><span class="s2">"_target"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"search"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">],</span> <span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"value"</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">}},</span>
+      <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+    <span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:search</span><span class="p">,</span> <span class="p">%</span><span class="no">Search</span><span class="p">{</span><span class="ss">query:</span> <span class="n">search</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="ss">value:</span> <span class="n">value</span><span class="p">})}</span>
+  <span class="k">end</span>
+
+  <span class="c1"># update search state when user selects a query type radio button</span>
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span>
+        <span class="s2">"search_form_change"</span><span class="p">,</span>
+        <span class="p">%{</span><span class="s2">"_target"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"search"</span><span class="p">,</span> <span class="s2">"query"</span><span class="p">],</span> <span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"query"</span> <span class="o">=&gt;</span> <span class="n">query</span><span class="p">}},</span>
+        <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+      <span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:search</span><span class="p">,</span> <span class="p">%</span><span class="no">Search</span><span class="p">{</span><span class="ss">query:</span> <span class="n">query</span><span class="p">,</span> <span class="ss">value:</span> <span class="n">search</span><span class="o">.</span><span class="n">value</span><span class="p">})}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>These callbacks ensure two things for us:</p>
+
+<ul>
+  <li>The correct radio button is marked as “selected” when a user chooses a new search query type option.</li>
+  <li>The search form input’s <code class="highlighter-rouge">placeholder</code> attribute is correctly updated to reflect the selected query type:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"search[value]"</span> <span class="na">value=</span><span class="s">"&lt;%= @search.value %&gt;"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"&lt;%= "</span><span class="na">search</span> <span class="na">by</span> <span class="na">#</span><span class="err">{@</span><span class="na">search</span><span class="err">.</span><span class="na">query</span><span class="err">}"</span>  <span class="err">%</span><span class="nt">&gt;</span>"&gt;
+</code></pre></div></div>
+
+<h4 id="handling-form-submission">Handling Form Submission</h4>
+
+<p>Now that our form component’s state properly updates in response to the user’s interactions, let’s talk about what needs to happen when a user submits the form.</p>
+
+<p>The feature we’re designing requires us to populate the URI’s query params in the browser’s URL bar when the user submits the search form. This allows users to share a link with the results of a particular search.</p>
+
+<p>In order to achieve this, we can reach for the <code class="highlighter-rouge">live_redirect/2</code> function. This will take advantage of the browser’s <code class="highlighter-rouge">pushState</code> API to change the page navigation without actually sending a web request. Instead, our live view’s <code class="highlighter-rouge">handle_params/3</code> callback function will be invoked, allowing us to respond by searching for the appropriate messages and updating the live view socket’s state with those messages.</p>
+
+<p>But wait! The <code class="highlighter-rouge">live_redirect/2</code> function is sadly not available from within component since the <code class="highlighter-rouge">Phoenix.LiveComponent</code> behaviour does not implement a <code class="highlighter-rouge">handle_params/3</code> function. Luckily for us, however, the parent live view and the component share a process. That means that calling <code class="highlighter-rouge">self()</code> from within the component returns a PID that <em>is the same PID as that parent live view process</em>. So, from within our component we can <code class="highlighter-rouge">send</code> a message to <code class="highlighter-rouge">self()</code> and handle that message in the parent live view.</p>
+
+<p>We’ll take advantage of this functionality to have our component handle search from submission events by sending a message to the parent live view instructing that live view to enact a live redirect.</p>
+
+<p>We’ll start by adding a <code class="highlighter-rouge">phx-submit</code> event binding to our search form in the component’s template:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">phx-submit=</span><span class="s">"search"</span> <span class="na">phx-change=</span><span class="s">"search_form_change"</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Then we’ll implement a <code class="highlighter-rouge">handle_event/3</code> function for this <code class="highlighter-rouge">"search"</code> event in the component:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RailwayUiWeb</span><span class="o">.</span><span class="no">MessageLive</span><span class="o">.</span><span class="no">SearchComponent</span> <span class="k">do</span>
+  <span class="o">...</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"search"</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">send</span> <span class="n">self</span><span class="p">(),</span> <span class="p">{</span><span class="ss">:search</span><span class="p">,</span> <span class="n">params</span><span class="p">}</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The important part of our function is this line:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">send</span> <span class="n">self</span><span class="p">(),</span> <span class="p">{</span><span class="ss">:search</span><span class="p">,</span> <span class="n">params</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here, we are sending a message <code class="highlighter-rouge">{:search, params}</code> that the parent live view can respond to.</p>
+
+<p>Lastly, we will implement a <code class="highlighter-rouge">handle_info/2</code> callback in the parent live view that will be responsible for enacting the live redirect with the params from the search form:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RailwayUiWeb</span><span class="o">.</span><span class="no">MessageLive</span><span class="o">.</span><span class="no">Index</span> <span class="k">do</span>
+  <span class="o">...</span>
+
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">({</span><span class="ss">:search</span><span class="p">,</span> <span class="n">params</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span>
+     <span class="n">live_redirect</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span>
+       <span class="ss">to:</span> <span class="no">Routes</span><span class="o">.</span><span class="n">live_path</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+     <span class="p">)}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This will in turn cause the live view’s <code class="highlighter-rouge">handle_params/3</code> callback to be invoked, resulting in the correct updates to the live view’s state:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RailwayUiWeb</span><span class="o">.</span><span class="no">MessageLive</span><span class="o">.</span><span class="no">Index</span> <span class="k">do</span>
+  <span class="o">...</span>
+
+  <span class="k">def</span> <span class="n">handle_params</span><span class="p">(</span>
+       <span class="p">%{</span><span class="s2">"search"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"query"</span> <span class="o">=&gt;</span> <span class="n">query</span><span class="p">,</span> <span class="s2">"value"</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">}},</span>
+       <span class="n">_</span><span class="p">,</span>
+       <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">search:</span> <span class="n">search</span><span class="p">}}</span> <span class="o">=</span> <span class="n">socket</span>
+     <span class="p">)</span> <span class="k">do</span>
+   <span class="n">socket</span> <span class="o">=</span>
+     <span class="n">socket</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:search</span><span class="p">,</span> <span class="p">%</span><span class="no">Search</span><span class="p">{</span><span class="ss">query:</span> <span class="n">query</span><span class="p">,</span> <span class="ss">value:</span> <span class="n">value</span><span class="p">})</span>
+     <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:messages</span><span class="p">,</span> <span class="n">messages_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+   <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>As a result of this refactoring, we have a cleaner live view module that is more adherent to the Single Responsibility Principle. Our live view can focus on setting up the correct state given a set of params. Meanwhile, the logic required to maintain the state of the search form and render search form attributes appropriately can be housed in a dedicated component.</p>
+
+<p>We did run into an obstacle when we found ourselves unable to use <code class="highlighter-rouge">live_redirect/2</code> from within our component. However, since the component and the live view share a process, we found it easy to enact communication between the two.</p>
+
+<p>Still, this approach doesn’t allow us to build a live view that is entirely agnostic of the state of the search form. In order to allow users to navigate directly to the route with query params, our parent live view does set up the initial state of the search form and pass it down into the component. Regardless of this drawback, reaching for components here has allowed us to write and maintain a slimmer live view.</p>
+
+<p>For a look at some of the other state, markup and event handling isolation options that LiveView offers, check out the docs <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-compartmentalizing-markup-and-events-with-render-live_render-and-live_component">here</a>.</p>
+
+    
+    <div class="tags">
+      <h4 class="title">Article tags</h4>
+      
+        <span class="tag"><a href="/blog/tags/live view/">live view</a></span>
+      
+      </div>
+    </p>
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-12-29-live-view-live-component.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/building-admissions/" title="Building Elixir School's Admissions portal" rel="prev">&laquo; Building Elixir School's Admissions portal</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/instrumenting-phoenix-with-telemetry-part-one/" title="Instrumenting Phoenix with Telemetry Part I: Telemetry Under The Hood" rel="next">Instrumenting Phoenix with Telemetry Part I: Te... &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

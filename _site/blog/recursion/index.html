@@ -1,0 +1,947 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/recursion/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/recursion/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Understanding Recursion with Elixir &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/recursion/&title=Understanding Recursion with Elixir&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/recursion/&via=elixirschool&text=ElixirSchool: Understanding Recursion with Elixir&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/recursion/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/recursion/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Understanding Recursion with Elixir" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/recursion/&title=ElixirSchool: Understanding Recursion with Elixir&description=Check out 'Understanding Recursion with Elixir' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Understanding Recursion with Elixir&body=Check out 'Understanding Recursion with Elixir' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/recursion/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Understanding Recursion with Elixir</h1>
+    <p><a href="/blog/years/2019/">19 Jan 2019</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <p>“Recursion” can be a scary word for those of us unfamiliar with its applications. In this post, we’ll de-mystify the concept of recursion and gain a deeper understanding of how and why to use it by writing our very own recursive function in Elixir.</p>
+
+<h2 id="what-is-recursion">What is Recursion</h2>
+
+<p>In short, “recursion” is when a function calls itself. First we’ll look at a contrived example. Later on in this post we’ll build a more practical recursive function.</p>
+
+<p>Below we’ve defined a function <code class="highlighter-rouge">RecursionPractice.hello_world/0</code>, that calls itself:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RecursionPractice</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello_world</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Hello, World!"</span><span class="p">)</span>
+    <span class="n">hello_world</span><span class="p">()</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>If you think that invoking our <code class="highlighter-rouge">RecursionPractice.hello_world/0</code> function would cause <code class="highlighter-rouge">"Hello, World!"</code> to get puts’d out to the terminal infinitely–you’re right! The <code class="highlighter-rouge">hello_world</code> function does two things:</p>
+
+<ol>
+  <li>Puts out “Hello, World!”</li>
+  <li>Call <code class="highlighter-rouge">hello_world/0</code> (again)</li>
+</ol>
+
+<p>When <code class="highlighter-rouge">hello_world/0</code> is invoked again, it will do two things:</p>
+
+<ol>
+  <li>Puts out “Hello, World!”</li>
+  <li>Call <code class="highlighter-rouge">hello_world/0</code> (again)</li>
+</ol>
+
+<p>And so on. While “a function that calls itself” is the basic definition of recursion, its <em>not</em> how we want to implement a recursive function.</p>
+
+<p>Any recursive function needs a way to <em>stop calling itself</em> under a certain condition. This condition is often referred to as the <strong>base case</strong>. Let’s create a base case for our <code class="highlighter-rouge">RecursionPractice.hello_world/0</code> function. We’ll count the number of times we call the function and stop calling it once we’ve reached 10.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">hello_world</span><span class="p">(</span><span class="n">count</span> <span class="p">\\</span> <span class="mi">0</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Hello, World!"</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="k">do</span>
+    <span class="n">new_count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">hello_world</span><span class="p">(</span><span class="n">new_count</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">if</code> condition controls our recursive function for us. <em>If</em> the count is less than 10, increment the count by 1 and call <code class="highlighter-rouge">hello_world/1</code> again. Otherwise, <em>don’t do anything</em>, i.e. stop calling the recursive function!</p>
+
+<p>We can refactor this code with the help of <a href="https://elixirschool.com/en/lessons/basics/functions/#guards">guard clauses</a>. Instead of writing an <code class="highlighter-rouge">if</code> condition inside of our function, we’ll define another version of the <code class="highlighter-rouge">RecursionPractice.hello_world/1</code> function to handle our base case. This version will run <em>when</em> the count is greater than or equal to 10.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RecursionPractice</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello_world</span><span class="p">(</span><span class="n">count</span> <span class="p">\\</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="k">def</span> <span class="n">hello_world</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="ow">when</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">nil</span>
+
+  <span class="k">def</span> <span class="n">hello_world</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Hello, World!"</span><span class="p">)</span>
+    <span class="n">new_count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">hello_world</span><span class="p">(</span><span class="n">new_count</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>Note that we’ve moved the default argument definition into a function head. If you’re defining a function with multiple clauses and a default value, the default value definition belongs in a function head. Learn more about default arguments, function heads and function clauses in <a href="https://elixirschool.com/en/lessons/basics/functions/#default-arguments">this Elixir School lesson.</a></em></p>
+
+<h2 id="why-is-it-useful">Why is it Useful?</h2>
+
+<p>Recursion is useful anytime we need to repeat an action under a certain condition. Anytime you want to use a <code class="highlighter-rouge">while</code> or <code class="highlighter-rouge">until</code> loop, you can probably implement your solution with recursion.</p>
+
+<p>How do you decide to use a recursive approach over an iterative approach like a <code class="highlighter-rouge">while</code> loop? Reach for recursion when writing a recursive function produces simpler, easier to read code than a looping approach. Be careful though, if you write a recursive function without a “base case”, or stopping point, you’ll end up with a stack overflow error–you’ll call the function <em>forever</em>!</p>
+
+<h2 id="building-a-recursive-function-with-elixir">Building a Recursive Function with Elixir</h2>
+
+<p>Now that we have a better understanding of what recursion is and how it works, let’s build a more practical recursive function.</p>
+
+<p>Elixir’s <code class="highlighter-rouge">List</code> module provides us with a number of handy functions for operating on lists, including a <code class="highlighter-rouge">List.delete/2</code> function that works like this:</p>
+
+<p>Given a list and an element in that list, return a new list that does not contain the <em>fist occurrence</em> of the given element. For example:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">List</span><span class="o">.</span><span class="n">delete</span><span class="p">([</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Pear"</span><span class="p">,</span> <span class="s2">"Grapefruit"</span><span class="p">],</span> <span class="s2">"Pear"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Grapefruit"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>However, we’ll see that if the given list contains more than one appearance of <code class="highlighter-rouge">"Pear"</code>, <code class="highlighter-rouge">List.delete/2</code> only removes the <em>first</em> <code class="highlighter-rouge">"Pear"</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">List</span><span class="o">.</span><span class="n">delete</span><span class="p">([</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Pear"</span><span class="p">,</span> <span class="s2">"Grapefruit"</span><span class="p">,</span> <span class="s2">"Pear"</span><span class="p">],</span> <span class="s2">"Pear"</span><span class="p">)</span>
+<span class="p">[</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Grapefruit"</span><span class="p">,</span> <span class="s2">"Pear"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>What if we want to remove <em>all</em> occurrences of a particular element from our list? The <code class="highlighter-rouge">List</code> module doesn’t implement such a function. Let’s build our own!</p>
+
+<p>Our desired behavior looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">List</span><span class="o">.</span><span class="n">delete</span><span class="p">([</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Pear"</span><span class="p">,</span> <span class="s2">"Grapefruit"</span><span class="p">,</span> <span class="s2">"Pear"</span><span class="p">],</span> <span class="s2">"Pear"</span><span class="p">)</span>
+<span class="p">[</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Grapefruit"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Before we start building our function, let’s take a look at how we can use recursion and pattern matching to operate on Elixir lists.</p>
+
+<h3 id="using-recursion-on-a-list">Using Recursion on a List</h3>
+<blockquote>
+  <p>Lists in Elixir are effectively linked lists, which means they are internally represented in pairs containing the head and the tail of a list. - Hex Docs</p>
+</blockquote>
+
+<p>This means we can use <a href="https://elixirschool.com/en/lessons/basics/pattern-matching/">pattern matching</a> to grab the first element, or the “head” of the list:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">head</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">tail</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Using this pattern matching approach, we can operate on each member of a list:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; list = [1,2,3,4]
+[1, 2, 3, 4]
+iex&gt; [head | tail] = list
+[1, 2, 3, 4]
+iex&gt; head
+1
+iex&gt; tail
+[2, 3, 4]
+iex&gt; [head | tail] = tail
+[2, 3, 4]
+iex&gt; head
+2
+iex&gt; tail
+[3, 4]
+iex&gt; [head | tail] = tail
+[3, 4]
+iex&gt; head
+3
+iex&gt; tail
+[4]
+iex&gt; [head | tail] = tail
+[4]
+iex&gt; head
+4
+iex&gt; tail
+[]
+</code></pre></div></div>
+
+<p>Using this approach, let’s define a custom function to recurse over each element in a list.
+Our function will grab the <code class="highlighter-rouge">head</code> of the list and <code class="highlighter-rouge">puts</code> it out to the terminal. Then, we’ll take the <code class="highlighter-rouge">tail</code> and split it up into its <em>own</em> <code class="highlighter-rouge">head</code> and <code class="highlighter-rouge">tail</code>. We’ll keep doing this until the list is empty.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyList</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">my_each</span><span class="p">([</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">])</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tail</span> <span class="o">!=</span> <span class="p">[]</span> <span class="k">do</span>
+      <span class="n">my_each</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Our <strong>base case</strong> occurs when the <code class="highlighter-rouge">tail</code> is empty, i.e. when there are no more elements in the list. We can leverage <a href="https://elixirschool.com/en/lessons/basics/functions/#functions-and-pattern-matching">Elixir’s ability to pattern match function arity</a> to clean this up a bit.</p>
+
+<p>Instead of implementing an <code class="highlighter-rouge">if</code> condition inside our recursive function, we’ll define another version of our function that will get run when <code class="highlighter-rouge">my_each</code> is called with an argument of an empty list. So, if <code class="highlighter-rouge">my_each</code> is called with an argument of a list that isn’t empty, the first version of the function will run. It will grab the <code class="highlighter-rouge">head</code> of the list and <code class="highlighter-rouge">puts</code> it out. Then it will call <code class="highlighter-rouge">my_each</code> <em>again</em> with an argument of the <code class="highlighter-rouge">tail</code> of the list. If and when the tail is empty, the second version of the function will run. In this case, we will <em>not</em> call <code class="highlighter-rouge">my_each</code> again.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyList</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">my_each</span><span class="p">([</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">])</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
+    <span class="n">my_each</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">my_each</span><span class="p">([]),</span> <span class="k">do</span><span class="p">:</span> <span class="no">nil</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Let’s see it in action:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">MyList</span><span class="o">.</span><span class="n">my_each</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+</code></pre></div></div>
+
+<p>Now that we have a handle on using recursion and pattern matching with Elixir lists, let’s get back to our recursive “delete all” function.</p>
+
+<h3 id="defining-a-recursive-delete_all2-function">Defining a Recursive <code class="highlighter-rouge">delete_all/2</code> Function</h3>
+
+<h4 id="desired-behavior">Desired Behavior</h4>
+
+<p>Before we start coding, let’s map out how our function needs to behave. Since Elixir is a functional language, we <em>won’t</em> be mutating the original list. Instead, we’ll build a new list comprised of all of the elements from the original list, <em>minus</em> all elements that match the element we want to exclude.</p>
+
+<p>Our approach will work something like this:</p>
+
+<ul>
+  <li>Look at the head of the list. If that element is equal to the value whose occurrences we want to remove, we will <em>not</em> grab the element to add to the new list.</li>
+  <li>If that element is <em>not</em> equal to the value we want to remove, we will add it to the new list.</li>
+  <li>In either case, we’ll grab the tail of the list and repeat the previous step.</li>
+  <li>Once the tail is empty, i.e. we’ve looked at every element in the list, stop recursing.</li>
+</ul>
+
+<h4 id="lets-build-it">Let’s Build It!</h4>
+
+<p>First, we’ll define a <code class="highlighter-rouge">MyList.delete_all/2</code> function that takes in two arguments: the original list and the element whose occurrences we want to delete.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyList</span>
+  <span class="k">def</span> <span class="n">delete_all</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">el</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># coming soon!</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>However, we need access to a new, empty list that we’ll populate with the elements of the original list we’re <em>not</em> deleting. So, we’ll define a version of <code class="highlighter-rouge">delete_all</code> that takes in <em>three</em> arguments: the original list, the element who occurrences we want to delete, and the new empty list.</p>
+
+<p><code class="highlighter-rouge">MyList.delete_all/2</code> will call the <code class="highlighter-rouge">MyList.delete_all/3</code> function. This saves the user from having to call <code class="highlighter-rouge">delete_all</code> with a third argument of an empty list and allows us to provide a nice tidy API.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyList</span>
+  <span class="k">def</span> <span class="n">delete_all</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">el</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">delete_all</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="p">[])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">delete_all</span><span class="p">([</span><span class="n">head</span> <span class="o">|</span> <span class="n">list</span><span class="p">],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">MyList.delete_all/3</code> function’s first job is to determine whether or not the first element in the current list, the <code class="highlighter-rouge">head</code> of the list, is the same value as the element we want to remove.</p>
+
+<p>If so, we <em>won’t</em> add it to our new list. Instead, we’ll call <code class="highlighter-rouge">MyList.delete_all/3</code> again with the remainder of the current list, the <code class="highlighter-rouge">tail</code>, and pass in our <code class="highlighter-rouge">new_list</code> unchanged. We can accomplish this with a guard clause:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">delete_all</span><span class="p">([</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="ow">when</span> <span class="n">head</span> <span class="o">===</span> <span class="n">el</span> <span class="k">do</span>
+  <span class="n">delete_all</span><span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>If the head of the current list is <em>not</em> equal to the value we want to remove, however, we <em>do</em> want to add it to our <code class="highlighter-rouge">new_list</code> before moving on.</p>
+
+<p>We’ll define another <code class="highlighter-rouge">delete_all/3</code> function, this time without a guard clause, to meet this condition:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">delete_all</span><span class="p">([</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">delete_all</span><span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="p">[</span><span class="n">head</span> <span class="o">|</span> <span class="n">new_list</span><span class="p">])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We add the current <code class="highlighter-rouge">head</code> to our new list like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span> <span class="n">head</span> <span class="o">|</span> <span class="n">new_list</span> <span class="p">]</span>
+</code></pre></div></div>
+
+<p>and we call <code class="highlighter-rouge">delete_all/3</code> again, passing it the remainder of the list (<code class="highlighter-rouge">tail</code>), the element to delete and the updated <code class="highlighter-rouge">new_list</code>.</p>
+
+<p>When should we stop recursing? In other words, what is the base case that will cause us to stop calling <code class="highlighter-rouge">delete_all/3</code>? When we’ve recursed over all of the elements in the original list, such that the <code class="highlighter-rouge">tail</code> is empty, we’ll <em>stop</em> calling <code class="highlighter-rouge">delete_all/3</code> and instead return the new list. Let’s define one final <code class="highlighter-rouge">delete_all/3</code> function to match this condition:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">delete_all</span><span class="p">([],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">new_list</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The only problem with this approach is that it builds and returns a new list in which all of the elements we kept from the original list are populated in reverse order. This is because by building out our new list like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span> <span class="n">head</span> <span class="o">|</span> <span class="n">new_list</span> <span class="p">]</span>
+</code></pre></div></div>
+
+<p>We are adding the element we want to keep to the <em>front</em> of our new list, instead of the end.</p>
+
+<p>We can fix this by using <code class="highlighter-rouge">Enum.reverse</code> on the <code class="highlighter-rouge">new_list</code> once we’ve reached our empty list base case:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">delete_all</span><span class="p">([],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Enum</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span>
+<span class="k">end</span>  
+</code></pre></div></div>
+
+<p>If we put it all together, we’ll have:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyList</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">delete_all</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">el</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">delete_all</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="p">[])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">delete_all</span><span class="p">([</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="ow">when</span> <span class="n">head</span> <span class="o">===</span> <span class="n">el</span> <span class="k">do</span>
+    <span class="n">delete_all</span><span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">delete_all</span><span class="p">([</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">delete_all</span><span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="p">[</span><span class="n">head</span> <span class="o">|</span> <span class="n">new_list</span><span class="p">])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">delete_all</span><span class="p">([],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Enum</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span>
+  <span class="k">end</span>  
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We can even take this one step further and replace our guard clause with Elixir’s ability to pattern match function arity. Instead of using the guard clause to run a certain version of our function when <code class="highlighter-rouge">head === el</code>, we can write the function like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">delete_all</span><span class="p">([</span><span class="n">el</span> <span class="o">|</span> <span class="n">tail</span><span class="p">],</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">delete_all</span><span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="n">new_list</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now we should be able to call our function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">MyList</span><span class="o">.</span><span class="n">delete_all</span><span class="p">([</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Pear"</span><span class="p">,</span> <span class="s2">"Grapefruit"</span><span class="p">,</span> <span class="s2">"Pear"</span><span class="p">],</span> <span class="s2">"Pear"</span><span class="p">)</span>
+<span class="p">[</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Grapefruit"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>And that’s it!</p>
+
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-01-15-recursion.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/elixir-kaffe-codealong/" title="Connecting Elixir to Kafka with Kaffe" rel="prev">&laquo; Connecting Elixir to Kafka with Kaffe</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/building-apps-with-plug-router/" title="Building web apps with Plug.Router" rel="next">Building web apps with Plug.Router &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

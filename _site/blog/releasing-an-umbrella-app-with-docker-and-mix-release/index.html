@@ -1,0 +1,1014 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/releasing-an-umbrella-app-with-docker-and-mix-release/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/releasing-an-umbrella-app-with-docker-and-mix-release/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Releasing an Umbrella App with Docker, Mix Release and Config &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/releasing-an-umbrella-app-with-docker-and-mix-release/&title=Releasing an Umbrella App with Docker, Mix Release and Config&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/releasing-an-umbrella-app-with-docker-and-mix-release/&via=elixirschool&text=ElixirSchool: Releasing an Umbrella App with Docker, Mix Release and Config&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/releasing-an-umbrella-app-with-docker-and-mix-release/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/releasing-an-umbrella-app-with-docker-and-mix-release/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Releasing an Umbrella App with Docker, Mix Release and Config" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/releasing-an-umbrella-app-with-docker-and-mix-release/&title=ElixirSchool: Releasing an Umbrella App with Docker, Mix Release and Config&description=Check out 'Releasing an Umbrella App with Docker, Mix Release and Config' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Releasing an Umbrella App with Docker, Mix Release and Config&body=Check out 'Releasing an Umbrella App with Docker, Mix Release and Config' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/releasing-an-umbrella-app-with-docker-and-mix-release/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Releasing an Umbrella App with Docker, Mix Release and Config</h1>
+    <p><a href="/blog/years/2019/">20 Sep 2019</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <p>The prelease of Elixir 1.9 earlier this year introduced some <a href="http://blog.plataformatec.com.br/2019/04/whats-new-in-elixir-apr-19/">powerful new tools</a>. <code class="highlighter-rouge">mix release</code> allows us to build a release without Distillery; configuration for our umbrella child apps has been moved to the parent application; the addition of the <code class="highlighter-rouge">Config</code> module deprecates <code class="highlighter-rouge">Mix.Config</code> and makes it easy to configure our releases, and configuration has been further simplified with the addition of functions like <code class="highlighter-rouge">System.fetch_env!</code>.</p>
+
+<p>Let’s take advantage of <em>all</em> of these new features in order to build a release of an Elixir umbrella app with the help of Docker.</p>
+
+<h2 id="background-our-build--deploy-process">Background: Our Build + Deploy Process</h2>
+
+<p>First, a little background on the build and deployment process for the app in question. At The Flatiron School, we maintain an app, Registrar, to handle our student admissions and billing. The Registrar app is an Elixir umbrella app that is built and deployed using a CI/CD pipeline managed by CircleCi and AWS Fargate. Registrar is built by circle and the resulting image is pushed to ECR (Elastic Container Repository). Fargate pulls down the image and runs the containerized release in ECS.</p>
+
+<p>If that setup is confusing or unfamiliar to you–no problem! The only thing you need to understand for the purposes of this blog post is that our applicaton’s environment variables are <em>not</em> available when we build our release but they <em>are</em> available at runtime.</p>
+
+<h2 id="initializing-the-release">Initializing the Release</h2>
+
+<p>Before we get started, we’ll run <code class="highlighter-rouge">mix release.init</code> from the root of our umbrella app. This will generate the following files:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">rel/env.sh</code></li>
+  <li><code class="highlighter-rouge">rel/env.bat</code></li>
+  <li><code class="highlighter-rouge">rel/vm.args</code></li>
+</ul>
+
+<p>More on these files later.</p>
+
+<h2 id="configuring-the-umbrella-app-with-the-config-module">Configuring the Umbrella App with the <code class="highlighter-rouge">Config</code> Module</h2>
+
+<p>The first thing we need to do is make sure our Elixir umbrella app’s children are properly configured with the new <code class="highlighter-rouge">Config</code> module.</p>
+
+<p>Where our umbrella app’s formerly help the configuration for each child in the <code class="highlighter-rouge">config/</code> subdirectory of that child app, we are now configuring each child application in the parent app directly. So, the config directory top-level app, <code class="highlighter-rouge">registrar_umbrella</code>, is where all the action happens.</p>
+
+<p>We’ll start by taking a look at the <code class="highlighter-rouge">registrar_umbrella/config/config.exs</code> file.</p>
+
+<p>Where we have an umbrella app, <code class="highlighter-rouge">registrar_umbrella</code>, with two children, <code class="highlighter-rouge">registrar</code> and <code class="highlighter-rouge">registrar_web</code>, our <code class="highlighter-rouge">config.exs</code> file might look something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># registrar_umbrella/config/config.exs</span>
+
+<span class="kn">import</span> <span class="no">Config</span>
+
+<span class="n">config</span> <span class="ss">:registrar</span><span class="p">,</span>
+  <span class="ss">stripe_api_base_url:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"STRIPE_BASE_URL"</span><span class="p">),</span>
+  <span class="ss">stripe_api_key:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"STRIPE_SECRET_KEY"</span><span class="p">),</span>
+  <span class="ss">accounts:</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Accounts</span><span class="p">,</span>
+  <span class="ss">billing:</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Billing</span>
+
+<span class="n">config</span> <span class="ss">:registrar_web</span><span class="p">,</span>
+  <span class="ss">learn_base_url:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"LEARN_OAUTH_BASE_URL"</span><span class="p">),</span>
+  <span class="ss">learn_client_id:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"LEARN_OAUTH_CLIENT_ID"</span><span class="p">),</span>
+  <span class="ss">learn_client_secret:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"LEARN_OAUTH_CLIENT_SECRET"</span><span class="p">),</span>
+  <span class="ss">learn_client:</span> <span class="no">RegistrarWeb</span><span class="o">.</span><span class="no">OAuth</span><span class="o">.</span><span class="no">LearnClient</span>
+
+<span class="c1"># Configures the endpoint</span>
+<span class="n">config</span> <span class="ss">:registrar_web</span><span class="p">,</span> <span class="no">RegistrarWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">server:</span> <span class="no">true</span><span class="p">,</span>
+  <span class="ss">url:</span> <span class="p">[</span><span class="ss">host:</span> <span class="s2">"localhost"</span><span class="p">],</span>
+  <span class="ss">secret_key_base:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"SECRET_KEY_BASE"</span><span class="p">),</span>
+  <span class="ss">render_errors:</span> <span class="p">[</span><span class="ss">view:</span> <span class="no">RegistrarWeb</span><span class="o">.</span><span class="no">ErrorView</span><span class="p">,</span> <span class="ss">accepts:</span> <span class="sx">~w(html json)</span><span class="p">],</span>
+  <span class="ss">pubsub:</span> <span class="p">[</span><span class="ss">name:</span> <span class="no">RegistrarWeb</span><span class="o">.</span><span class="no">PubSub</span><span class="p">,</span> <span class="ss">adapter:</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">PubSub</span><span class="o">.</span><span class="no">PG2</span><span class="p">]</span>
+
+<span class="o">...</span>
+
+<span class="n">import_config</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="si">}</span><span class="s2">.exs"</span>
+</code></pre></div></div>
+
+<p>Let’s break this down.</p>
+
+<h3 id="the-config-module">The <code class="highlighter-rouge">Config</code> Module</h3>
+
+<p>Note that we’ve included <code class="highlighter-rouge">import Config</code> at the top of the file. Elixir 1.9 soft-deprecates the usage of <code class="highlighter-rouge">use Mix.Config</code> and here’s why. Releases will have their own configuration, including a runtime configuration determined by the <code class="highlighter-rouge">config/releases.exs</code> file (more on that later). Mix, however, is a build tool. As such, it is not available in your release. So, we don’t want to rely on it and can instead use the (new!) native Elixir <code class="highlighter-rouge">Config</code> module for all of our configuration needs.</p>
+
+<h3 id="environment-specific-configuration">Environment-specific Configuration</h3>
+
+<p>We can continue to set environment-specific config in the <code class="highlighter-rouge">config/dev.exs</code>, <code class="highlighter-rouge">config/test.exs</code> and <code class="highlighter-rouge">config/prod.exs</code>. The <code class="highlighter-rouge">import_config "#{Mix.env}.exs"</code> line will import the appropriate configuration file at compile-time.</p>
+
+<h3 id="using-systemget_env1">Using <code class="highlighter-rouge">System.get_env/1</code></h3>
+
+<p>In our <code class="highlighter-rouge">config.exs</code> file, we’re using <code class="highlighter-rouge">System.get_env/1</code>. This will return the value of the given environment variable, <em>if it is present on the system at compile time</em>. Otherwise it will return <code class="highlighter-rouge">nil</code>. Using <code class="highlighter-rouge">System.get_env/1</code> will work for us just fine in the development and test environments, but it <em>won’t</em> fly in our production environment. This is because, for our particular app’s build and deployment pipeline, we are building the release in an environment whose system does <em>not</em> contain the environment variables our app needs, like <code class="highlighter-rouge">"STRIPE_SECRET_KEY"</code> for example. Our production release’s <em>runtime</em> environment will have those variables, however.</p>
+
+<p>Now that we’ve seen how to configure the child app’s of our umbrella with the help of the <code class="highlighter-rouge">Config</code> module and <code class="highlighter-rouge">System.get_env/1</code>, let’s take a look at our release configuration.</p>
+
+<h2 id="configuring-the-release">Configuring The Release</h2>
+
+<h3 id="defining-the-release-in-configmixexs">Defining The Release in <code class="highlighter-rouge">config/mix.exs</code></h3>
+
+<p>We’ll start by configuring our release in the top-level <code class="highlighter-rouge">mix.exs</code> file under the <code class="highlighter-rouge">:releases</code> key inside the <code class="highlighter-rouge">project/0</code> function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># registrar_umbrella/mix.exs</span>
+<span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">Umbrella</span><span class="o">.</span><span class="no">Mixfile</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Project</span>
+
+  <span class="k">def</span> <span class="n">project</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="ss">apps_path:</span> <span class="s2">"apps"</span><span class="p">,</span>
+      <span class="ss">start_permanent:</span> <span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="p">()</span> <span class="o">==</span> <span class="ss">:prod</span><span class="p">,</span>
+      <span class="ss">deps:</span> <span class="n">deps</span><span class="p">(),</span>
+      <span class="ss">version:</span> <span class="s2">"0.1.0"</span><span class="p">,</span>
+      <span class="ss">elixir:</span> <span class="s2">"~&gt; 1.9"</span><span class="p">,</span>
+      <span class="ss">releases:</span> <span class="p">[</span>
+        <span class="ss">registrar_umbrella:</span> <span class="p">[</span>
+          <span class="ss">applications:</span> <span class="p">[</span>
+            <span class="ss">registrar:</span> <span class="ss">:permanent</span><span class="p">,</span>
+            <span class="ss">registrar_web:</span> <span class="ss">:permanent</span>
+          <span class="p">]</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We can define multiple releases by adding subsequent keys under <code class="highlighter-rouge">:releases</code>––for example if we want to create a release that runs <em>just</em> the <code class="highlighter-rouge">registrar</code> application. For now, we’re defining just one release, <code class="highlighter-rouge">registrar_umbrella</code>. For an umbrella app’s release configuration, we <em>must</em> specify which child apps to start when the release starts. We do this by listing the child apps we want to start under the <code class="highlighter-rouge">:applications</code> key.</p>
+
+<p>There are a number of additional release configuration options that you can check out <a href="https://hexdocs.pm/mix/Mix.Tasks.Release.html#module-customization">here</a>, but we’ll keep our configuration pretty barebones for now.</p>
+
+<h3 id="runtime-configuration-with-configreleasesexs">Runtime Configuration with <code class="highlighter-rouge">config/releases.exs</code></h3>
+
+<p>Since our build and deployment pipeline requires that our app’s environment variables be present at <em>runtime</em>, rather than build time, we need our release to have runtime configuration. To enable runtime configuration for our release, we create a file, <code class="highlighter-rouge">config/releases.exs</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># registrar_umbrella/config/config.exs</span>
+
+<span class="kn">import</span> <span class="no">Config</span>
+
+<span class="n">config</span> <span class="ss">:registrar</span><span class="p">,</span>
+  <span class="ss">stripe_api_base_url:</span> <span class="no">System</span><span class="o">.</span><span class="n">fetch_env!</span><span class="p">(</span><span class="s2">"STRIPE_BASE_URL"</span><span class="p">),</span>
+  <span class="ss">stripe_api_key:</span> <span class="no">System</span><span class="o">.</span><span class="n">fetch_env!</span><span class="p">(</span><span class="s2">"STRIPE_SECRET_KEY"</span><span class="p">)</span>
+
+<span class="n">config</span> <span class="ss">:registrar_web</span><span class="p">,</span>
+  <span class="ss">learn_base_url:</span> <span class="no">System</span><span class="o">.</span><span class="n">fetch_env!</span><span class="p">(</span><span class="s2">"LEARN_OAUTH_BASE_URL"</span><span class="p">),</span>
+  <span class="ss">learn_client_id:</span> <span class="no">System</span><span class="o">.</span><span class="n">fetch_env!</span><span class="p">(</span><span class="s2">"LEARN_OAUTH_CLIENT_ID"</span><span class="p">),</span>
+  <span class="ss">learn_client_secret:</span> <span class="no">System</span><span class="o">.</span><span class="n">fetch_env!</span><span class="p">(</span><span class="s2">"LEARN_OAUTH_CLIENT_SECRET"</span><span class="p">)</span>
+
+<span class="c1"># Configures the endpoint</span>
+<span class="n">config</span> <span class="ss">:registrar_web</span><span class="p">,</span> <span class="no">RegistrarWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">secret_key_base:</span> <span class="no">System</span><span class="o">.</span><span class="n">fetch_env!</span><span class="p">(</span><span class="s2">"SECRET_KEY_BASE"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Here we’re configuring all of our runtime application environment variables with the help of <code class="highlighter-rouge">System.fetch_env!/1</code>. This function will raise an error if the given environment variable is not present in the system at runtime. We want this kind of validation in place so that our app fails to start up if its missing necessary environment variables–no silent failures downstream.</p>
+
+<p>Its important to understand that we are still leveraging a <code class="highlighter-rouge">config/prod.exs</code> file (not included here) to do things like configure our <code class="highlighter-rouge">ReigstrarWeb.Endpoint</code> for production. This file is specifically for our runtime release configuration.</p>
+
+<p>One last thing to point out before we move on.</p>
+
+<p>Let’s say we have the following application environment variable getting set in our release at runtime:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># registrar_umbrella/config/config.exs</span>
+
+<span class="kn">import</span> <span class="no">Config</span>
+
+<span class="n">config</span> <span class="ss">:registrar</span><span class="p">,</span>
+  <span class="ss">stripe_api_base_url:</span> <span class="no">System</span><span class="o">.</span><span class="n">fetch_env!</span><span class="p">(</span><span class="s2">"STRIPE_BASE_URL"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And we have a module, <code class="highlighter-rouge">Registrar.StripeApiClient</code> that uses a module attribute to look up and store the value of that application environment variable:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># registrar_umbrella/apps/registrar/lib/stripe_api_client.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">StripeApiClient</span> <span class="k">do</span>
+  <span class="nv">@stripe_api_base_url</span> <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:registrar</span><span class="p">,</span> <span class="ss">:stripe_api_base_url</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">HTTPoison</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nv">@stripe_api_base_url</span> <span class="o">&lt;&gt;</span> <span class="n">url</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>While developers often use user-defined module attributes as constants, its important to remember that <em>the value is read at compilation time and not at runtime.</em> Since the value of <code class="highlighter-rouge">Application.get_env(:registrar, :stripe_api_base_url)</code> (which comes from a system environment variable) is only present at <em>runtime</em>, using a module attribute here won’t work!</p>
+
+<p>Instead, we’ll use a function to dynamically look up the value at runtime:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># registrar_umbrella/apps/registrar/lib/stripe_api_client.ex</span>
+
+<span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">StripeApiClient</span> <span class="k">do</span>
+  <span class="k">defp</span> <span class="n">stripe_api_base_url</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:registrar</span><span class="p">,</span> <span class="ss">:stripe_api_base_url</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">HTTPoison</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">stripe_api_base_url</span><span class="p">()</span> <span class="o">&lt;&gt;</span> <span class="n">url</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now that we have our runtime configuration set up, we’re ready to build our release!</p>
+
+<h2 id="building-the-release-with-docker--mix-release">Building the Release with Docker + <code class="highlighter-rouge">mix release</code></h2>
+
+<p>We’re using Docker to build our release, since our app will run in a container within our ECS cluster.</p>
+
+<p>Our Dockerfile is pretty straightforward:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM bitwalker/alpine-elixir-phoenix:1.9.0 as releaser
+
+WORKDIR /app
+
+# Install Hex + Rebar
+RUN mix do local.hex --force, local.rebar --force
+
+COPY config/ /app/config/
+COPY mix.exs /app/
+COPY mix.* /app/
+
+COPY apps/registrar/mix.exs /app/apps/registrar/
+COPY apps/registrar_web/mix.exs /app/apps/registrar_web/
+
+ENV MIX_ENV=prod
+RUN mix do deps.get --only $MIX_ENV, deps.compile
+
+COPY . /app/
+
+
+WORKDIR /app/apps/registrar_web
+RUN MIX_ENV=prod mix compile
+RUN npm install --prefix ./assets
+RUN npm run deploy --prefix ./assets
+RUN mix phx.digest
+
+WORKDIR /app
+RUN MIX_ENV=prod mix release
+
+########################################################################
+
+FROM bitwalker/alpine-elixir-phoenix:1.9.0
+
+EXPOSE 4000
+ENV PORT=4000 \
+    MIX_ENV=prod \
+    SHELL=/bin/bash
+
+WORKDIR /app
+COPY --from=releaser app/_build/prod/rel/registrar_umbrella .
+COPY --from=releaser app/bin/ ./bin
+
+CMD ["./bin/start"]
+</code></pre></div></div>
+
+<p>Let’s take a closer look at the parts we really care about.</p>
+
+<p>First, we se the <code class="highlighter-rouge">MIX_ENV</code> to <code class="highlighter-rouge">prod</code> and get and compile our production dependencies:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ENV MIX_ENV=prod
+RUN mix do deps.get --only $MIX_ENV, deps.compile
+</code></pre></div></div>
+
+<p>Later, we build our production assets for the <code class="highlighter-rouge">registrar_web</code> child app:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WORKDIR /app/apps/registrar_web
+RUN MIX_ENV=prod mix compile
+RUN npm install --prefix ./assets
+RUN npm run deploy --prefix ./assets
+RUN mix phx.digest
+</code></pre></div></div>
+
+<p>Then we use <code class="highlighter-rouge">mix release</code> to build our release according to the configuration in the <code class="highlighter-rouge">:releases</code> key of the <code class="highlighter-rouge">project/0</code> function in our <code class="highlighter-rouge">mix.exs</code> file.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WORKDIR /app
+RUN MIX_ENV=prod mix release
+</code></pre></div></div>
+
+<p>This builds our release and places it in <code class="highlighter-rouge">_build/prod/rel/registrar_umbrella</code>.</p>
+
+<p>Finally, we copy the release into our container and specify that the start script is in <code class="highlighter-rouge">./bin/start</code>.</p>
+
+<p>Let’s talk about that start script now.</p>
+
+<h2 id="the-start-script">The Start Script</h2>
+
+<p>Starting our release is simple. Our <code class="highlighter-rouge">./bin/start</code> script looks like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nb">echo</span> <span class="s2">"Starting app..."</span>
+bin/registrar_umbrella start
+</code></pre></div></div>
+
+<p>At this point, you <em>might</em> be remembering that Distillery provides a “boot hook” feature that allows you to run certain commands/execute some code when the app starts up. You <em>might</em> be wondering how we can accomplish the same goal using <code class="highlighter-rouge">mix release</code>. How can we, for example, ensure that our migrations run whenever the release starts up? Keep reading to find out!</p>
+
+<h2 id="pre-start-scripts-with-relenvsh">Pre-Start Scripts with <code class="highlighter-rouge">rel/env.sh</code></h2>
+
+<p>The <code class="highlighter-rouge">rel/env.sh</code> file that was generated by <code class="highlighter-rouge">mix release.init</code> will run when the release starts. This is where we’ll call on our migration script.</p>
+
+<p>Assume we have a module, <code class="highlighter-rouge">Registrar.ReleaseTasks</code> with a function, <code class="highlighter-rouge">migrate/0</code> that starts up the application and executes the Ecto migrations:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Registrar</span><span class="o">.</span><span class="no">ReleaseTasks</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="no">false</span>
+
+  <span class="nv">@start_apps</span> <span class="p">[</span>
+    <span class="ss">:crypto</span><span class="p">,</span>
+    <span class="ss">:ssl</span><span class="p">,</span>
+    <span class="ss">:postgrex</span><span class="p">,</span>
+    <span class="ss">:ecto</span><span class="p">,</span>
+    <span class="ss">:ecto_sql</span>
+  <span class="p">]</span>
+
+  <span class="nv">@repos</span> <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:registrar</span><span class="p">,</span> <span class="ss">:ecto_repos</span><span class="p">,</span> <span class="p">[])</span>
+
+  <span class="k">def</span> <span class="n">migrate</span> <span class="k">do</span>
+    <span class="n">start_services</span><span class="p">()</span>
+    <span class="n">run_migrations</span><span class="p">()</span>
+    <span class="n">stop_services</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">start_services</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Starting dependencies.."</span><span class="p">)</span>
+    <span class="c1"># Start apps necessary for executing migrations</span>
+    <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="nv">@start_apps</span><span class="p">,</span> <span class="o">&amp;</span><span class="no">Application</span><span class="o">.</span><span class="n">ensure_all_started</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Start the Repo(s) for app</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Starting repos.."</span><span class="p">)</span>
+
+    <span class="c1"># Switch pool_size to 2 for ecto &gt; 3.0</span>
+    <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="nv">@repos</span><span class="p">,</span> <span class="o">&amp;</span> <span class="nv">&amp;1</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="ss">pool_size:</span> <span class="mi">2</span><span class="p">))</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">stop_services</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Success!"</span><span class="p">)</span>
+    <span class="ss">:init</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">run_migrations</span> <span class="k">do</span>
+    <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="nv">@repos</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">run_migrations_for</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We can execute this function in our release using <code class="highlighter-rouge">eval</code>. A call <code class="highlighter-rouge">bin/MY_RELEASE eval</code> will start up your release and execute whatever function you give as an argument to <code class="highlighter-rouge">eval</code>. To execute our migration function in our release:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/registrar_umbrella eval "Registrar.ReleaseTasks.migrate()"
+</code></pre></div></div>
+
+<p>Recall that we’re starting our release in <code class="highlighter-rouge">./bin/start</code> with that <code class="highlighter-rouge">start</code> command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/registrar_umbrella start
+</code></pre></div></div>
+
+<p>This will execute the <code class="highlighter-rouge">rel/env.sh</code> file in turn. This file should contain a script that does the following:</p>
+
+<ul>
+  <li>If the command given to the release was <code class="highlighter-rouge">start</code>, run the migrations using <code class="highlighter-rouge">eval</code>.</li>
+</ul>
+
+<p>Something like this should do the trick:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ "$RELEASE_COMMAND" = "start" ]; then
+ echo "Beginning migration script..."
+ bin/registrar_umbrella eval "Registrar.ReleaseTasks.migrate()"
+fi
+</code></pre></div></div>
+
+<p>And that’s it!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>With Elixir 1.9, we can build a release without the addition of any external dependencies––Elixir now natively provides us everything we need. We can configure multiple releases for our umbrella app, defining which child apps to start for a given release. We can configure runtime vs. build time environment variables <em>and</em> we can even define customized start up scripts to do things like run our migrations. All in all, <code class="highlighter-rouge">mix release</code> provides us with a comprehensive and powerful set of tools.</p>
+
+    
+    <div class="tags">
+      <h4 class="title">Article tags</h4>
+      
+        <span class="tag"><a href="/blog/tags/docker/">docker</a></span>
+      
+        <span class="tag"><a href="/blog/tags/mix release/">mix release</a></span>
+      
+        <span class="tag"><a href="/blog/tags/config/">config</a></span>
+      
+        <span class="tag"><a href="/blog/tags/umbrella apps/">umbrella apps</a></span>
+      
+      </div>
+    </p>
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-09-15-releasing-an-umbrella-app-with-docker-and-mix-release.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/elixirconf-2019-review/" title="Dispatch From ElixirConf 2019" rel="prev">&laquo; Dispatch From ElixirConf 2019</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/sorting-a-table-with-live-view-live-links/" title="Building a Table Sort UI with Live View's `live_link`" rel="next">Building a Table Sort UI with Live View's `live... &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

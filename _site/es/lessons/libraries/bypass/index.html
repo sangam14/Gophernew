@@ -1,0 +1,964 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="es">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lecciones acerca del lenguaje de programación Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/es/lessons/libraries/bypass/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="es">
+  <meta property="og:description" content="Lecciones acerca del lenguaje de programación Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/bypass/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/bypass/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/libraries/bypass/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/bypass/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/bypass/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/bypass/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/bypass/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/es/lessons/libraries/bypass/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Bypass &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/es/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/es/lessons/libraries/bypass/&title=Bypass&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/es/lessons/libraries/bypass/&via=elixirschool&text=ElixirSchool: Bypass&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/es/lessons/libraries/bypass/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/es/lessons/libraries/bypass/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Bypass" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/es/lessons/libraries/bypass/&title=ElixirSchool: Bypass&description=Check out 'Bypass' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Bypass&body=Check out 'Bypass' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/es/lessons/libraries/bypass/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Bypass
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Esta traducción está actualizada.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Cuando estamos probando nuestras aplicaciones, muchas veces necesitamos hacer requests a servicios externos. Incluso igual y queremos simular distintas situaciones como errores no esperados del servidor. Manejar estos casos de manera eficiente no es fácil en Elixir sin un poco de ayuda.</p>
+
+<p>En esta lección vamos a explorar cómo <a href="https://github.com/PSPDFKit-labs/bypass">bypass</a> nos puede ayudar a rápida y fácilmente manejar esos requests en nuestras pruebas.</p>
+
+<h2>Tabla de contenidos</h2>
+<div id="toc"></div>
+
+<h2 id="qué-es-bypass">¿Qué es Bypass?</h2>
+
+<p><a href="https://github.com/PSPDFKit-labs/bypass">Bypass</a> está descrito como “una manera rápida de crear un conector que puede ponerse en lugar de un servidor HTTP real que responda respuestas prehechas a requests de cliente.”</p>
+
+<p>¿Qué significa eso?
+Debajo del capó, Bypass es una aplicación OTP que se hace pasar por un servidor externo escuchando y respondiendo a requests.
+Al responder con respuestas pre-definidas podemos probar cualquier cantidad de posibilidades como cortes en servicio y errores, así como los escenarios que sí esperamos. Todo sin hacer un sólo request externo.</p>
+
+<h2 id="cómo-usar-bypass">Cómo usar Bypass</h2>
+
+<p>Para ilustrar mejor las funcionalidades de Bypass, construiremos una aplicación de utilería simple que haga ping a una lista de dominios para revisar que estén online.
+Para hacer esto, crearemos un nuevo proyecto supervisor y un GenServer para revisar los dominios en un intervalo configurable.
+Usando Bypass en nuestras pruebas podremos verificar que nuestra aplicación funcione en muchos escenarios diferentes.</p>
+
+<p><em>Nota</em>: Si quieres saltarte todo hasta el código final, ve al repo de Elixir School <a href="https://github.com/elixirschool/clinic">Clinic</a> y revísalo.</p>
+
+<p>En este punto deberíamos estar cómodos creando proyectos nuevos de Mix y agregando nuestras dependencias, así nos enfocaremos en los pedazos de código específico que estaremos probando.
+Si necesitas acordarte rápido de algo, ve a la sección de <a href="https://elixirschool.com/es/lessons/basics/mix#nuevo-proyecto">Nuevos Proyectos</a> de nuestra lección <a href="https://elixirschool.com/es/lessons/basics/mix">Mix</a>.</p>
+
+<p>Empecemos por crear un módulo nuevo que se encargará de hacer los requests a nuestros dominios.
+Creemos una función <code class="highlighter-rouge">ping/1</code> con <a href="https://github.com/edgurgel/httpoison">HTTPoison</a> que tome una URL y regrese <code class="highlighter-rouge">{:ok, body}</code> para requests HTTP 200 y <code class="highlighter-rouge">{:error, reason}</code> para cualquier otro:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Clinic</span><span class="o">.</span><span class="no">HealthCheck</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">ping</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">urls</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ping</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">ping</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">url</span>
+    <span class="o">|&gt;</span> <span class="no">HTTPoison</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="n">response</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">response</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">status_code:</span> <span class="mi">200</span><span class="p">,</span> <span class="ss">body:</span> <span class="n">body</span><span class="p">}}),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">body</span><span class="p">}</span>
+  <span class="k">defp</span> <span class="n">response</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">status_code:</span> <span class="n">status_code</span><span class="p">}}),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"HTTP Status </span><span class="si">#{</span><span class="n">status_code</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span>
+  <span class="k">defp</span> <span class="n">response</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="p">%{</span><span class="ss">reason:</span> <span class="n">reason</span><span class="p">}}),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Habrás notado que <em>no</em> estamos haciendo un GenServer y es por una buena razón:
+Al separar nuestra funcionalidad (y dependencias) del GenServer, podemos probar nuestro código sin la complejidad añadida de concurrencia.</p>
+
+<p>Ya con este código escrito, necesitamos empezar las pruebas.
+Antes de que podamos usar Bypass, tenemos que cerciorarnos de que esté corriendo.
+Para hacer eso, actualicemos <code class="highlighter-rouge">text/test_helper.exs</code> para que se vea así:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ExUnit</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="no">Application</span><span class="o">.</span><span class="n">ensure_all_started</span><span class="p">(</span><span class="ss">:bypass</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Ahora que sabemos que Bypass estará corriendo durante nuestras pruebas, vayamos a <code class="highlighter-rouge">test/clinic/health_check_test.exs</code> y terminemos el setup.
+Para preparar a Bypass a que acepte requests, necesitamos abrir la conección con <code class="highlighter-rouge">Bypass.open/1</code>, lo cual podemos hacer en nuestro setup de callbacks de pruebas:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Clinic</span><span class="o">.</span><span class="no">HealthCheckTests</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">setup</span> <span class="k">do</span>
+    <span class="n">bypass</span> <span class="o">=</span> <span class="no">Bypass</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="ss">bypass:</span> <span class="n">bypass</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Por ahora, nos apoyaremos en que Bypass use su puerto default, pero si necesitamos cambiarlo (que sí lo haremos en una sección más adelante), podemos pasar la opción <code class="highlighter-rouge">:port</code> a <code class="highlighter-rouge">Bypass.open/1</code> y un valor como <code class="highlighter-rouge">Bypass.open(port: 1337)</code>.
+Ahora estamos listos para poner a Bypass a trabajar.
+Empezaremos con un request exitoso primero:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Clinic</span><span class="o">.</span><span class="no">HealthCheckTests</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">alias</span> <span class="no">Clinic</span><span class="o">.</span><span class="no">HealthCheck</span>
+
+  <span class="n">setup</span> <span class="k">do</span>
+    <span class="n">bypass</span> <span class="o">=</span> <span class="no">Bypass</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="ss">bypass:</span> <span class="n">bypass</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">"request with HTTP 200 response"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">bypass:</span> <span class="n">bypass</span><span class="p">}</span> <span class="k">do</span>
+    <span class="no">Bypass</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">bypass</span><span class="p">,</span> <span class="k">fn</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+      <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="o">.</span><span class="n">resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"pong"</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">)</span>
+
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"pong"</span><span class="p">}</span> <span class="o">=</span> <span class="no">HealthCheck</span><span class="o">.</span><span class="n">ping</span><span class="p">(</span><span class="s2">"http://localhost:</span><span class="si">#{</span><span class="n">bypass</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Nuestra prueba es suficientemente simple y si la corremos veremos que sí pasa, pero revisemos y veamos qué hace cada pedazo.
+Lo primero que vemos en nuestra prueba es la función <code class="highlighter-rouge">Bypass.expect/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Bypass</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">bypass</span><span class="p">,</span> <span class="k">fn</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+  <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="o">.</span><span class="n">resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"pong"</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">Bypass.expect/2</code> toma nuestra conección de Bypass y una función de aridad singular que espera modificar una conección y regresarla. Esta es también una oportunidad para hacer aseveraciones sobre ese request para verificar que está como esperamos.
+Actualicemos nuestra url de pruebas para que incluya <code class="highlighter-rouge">/ping</code> y aseverar tanto la ruta del request como el método HTTP:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test</span> <span class="s2">"request with HTTP 200 response"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">bypass:</span> <span class="n">bypass</span><span class="p">}</span> <span class="k">do</span>
+  <span class="no">Bypass</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">bypass</span><span class="p">,</span> <span class="k">fn</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+    <span class="n">assert</span> <span class="s2">"GET"</span> <span class="o">==</span> <span class="n">conn</span><span class="o">.</span><span class="n">method</span>
+    <span class="n">assert</span> <span class="s2">"/ping"</span> <span class="o">==</span> <span class="n">conn</span><span class="o">.</span><span class="n">request_path</span>
+    <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="o">.</span><span class="n">resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"pong"</span><span class="p">)</span>
+  <span class="k">end</span><span class="p">)</span>
+
+  <span class="n">assert</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"pong"</span><span class="p">}</span> <span class="o">=</span> <span class="no">HealthCheck</span><span class="o">.</span><span class="n">ping</span><span class="p">(</span><span class="s2">"http://localhost:</span><span class="si">#{</span><span class="n">bypass</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">/ping"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>En la última parte de nuestra prueba usamos <code class="highlighter-rouge">HealthCheck.ping/1</code> y nos aseguramos que la respuesta sea como esperamos, pero ¿qué hace <code class="highlighter-rouge">bypass.port</code>?
+Bypass está escuchando un puerto local e interceptando esos requests y estamos usando <code class="highlighter-rouge">bypass.port</code> para encontrar el puerto default, ya que no pasamos uno en <code class="highlighter-rouge">Bypass.open/1</code>.</p>
+
+<p>Lo siguiente es agregar casos de prueba para errores.
+Podemos empezar con una prueba muy similar a la primera pero con algunos cambios menores: regresar un 500 como el código de estatus y aseverar que la tupla <code class="highlighter-rouge">{:error, reason}</code> fue regresada:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test</span> <span class="s2">"request with HTTP 500 response"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">bypass:</span> <span class="n">bypass</span><span class="p">}</span> <span class="k">do</span>
+  <span class="no">Bypass</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">bypass</span><span class="p">,</span> <span class="k">fn</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+    <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="o">.</span><span class="n">resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">"Server Error"</span><span class="p">)</span>
+  <span class="k">end</span><span class="p">)</span>
+
+  <span class="n">assert</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"HTTP Status 500"</span><span class="p">}</span> <span class="o">=</span> <span class="no">HealthCheck</span><span class="o">.</span><span class="n">ping</span><span class="p">(</span><span class="s2">"http://localhost:</span><span class="si">#{</span><span class="n">bypass</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Esta prueba no tiene nada de especial así que continuemos con la siguiente: caídas inesperadas del servidor. Estos son los requests que más nos interesan.
+Para lograr esto, no estaremos usando <code class="highlighter-rouge">Bypass.expect/2</code>, mejor nos vamos a apoyar en <code class="highlighter-rouge">Bypass.down/1</code> para apagar la conección:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test</span> <span class="s2">"request with unexpected outage"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">bypass:</span> <span class="n">bypass</span><span class="p">}</span> <span class="k">do</span>
+  <span class="no">Bypass</span><span class="o">.</span><span class="n">down</span><span class="p">(</span><span class="n">bypass</span><span class="p">)</span>
+
+  <span class="n">assert</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:econnrefused</span><span class="p">}</span> <span class="o">=</span> <span class="no">HealthCheck</span><span class="o">.</span><span class="n">ping</span><span class="p">(</span><span class="s2">"http://localhost:</span><span class="si">#{</span><span class="n">bypass</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Si corremos nuestras pruebas nuevas veremos que todo pasa, ¡tal como lo esperábamos!
+Con nuestro módulo <code class="highlighter-rouge">HealthCheck</code> probado, podemos avanzar a probarlo en conjunto con nuestro agendador basado en GenServer.</p>
+
+<h2 id="múltiples-hosts-externos">Múltiples hosts externos</h2>
+
+<p>Para nuestro proyecto, mantendremos el agendador muy escueto y dependeremos de <code class="highlighter-rouge">Process.send_after/3</code> para hacer nuestras revisiones periódicas. Para más información del módulo <code class="highlighter-rouge">Process</code>, échale un ojo a la <a href="https://hexdocs.pm/elixir/Process.html">documentación</a>.
+Nuestro agendador requiere tres parámetros: la colección de sitios, el intervalo de nuestras revisiones, y el módulo que implementa <code class="highlighter-rouge">ping/1</code>.
+Al pasar nuestro módulo como argumento, desacomplamos aún más la funcionalidad de nuestro GenServer, permitiéndonos probar mejor cada cosa en aislamiento:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">sites</span> <span class="o">=</span> <span class="no">Keyword</span><span class="o">.</span><span class="n">fetch!</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="ss">:sites</span><span class="p">)</span>
+  <span class="n">interval</span> <span class="o">=</span> <span class="no">Keyword</span><span class="o">.</span><span class="n">fetch!</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="ss">:interval</span><span class="p">)</span>
+  <span class="n">health_check</span> <span class="o">=</span> <span class="no">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="ss">:health_check</span><span class="p">,</span> <span class="no">HealthCheck</span><span class="p">)</span>
+
+  <span class="no">Process</span><span class="o">.</span><span class="n">send_after</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="ss">:check</span><span class="p">,</span> <span class="n">interval</span><span class="p">)</span>
+
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">{</span><span class="n">health_check</span><span class="p">,</span> <span class="n">sites</span><span class="p">}}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ahora tenemos que definir la función <code class="highlighter-rouge">handle_info/2</code> para el mensaje <code class="highlighter-rouge">:check</code> enviado por <code class="highlighter-rouge">send_after/2</code>.
+Para mantener esto simple, pasaremos nuestros sitios a <code class="highlighter-rouge">HealthCheck.ping/1</code> y registraremos los resultados a <code class="highlighter-rouge">Logger.info</code> ó a <code class="highlighter-rouge">Logger.error</code> en caso de errores.
+Montaremos nuestro código de tal manera que nos permita mejorar las capacidades de reporteo más adelante:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="ss">:check</span><span class="p">,</span> <span class="p">{</span><span class="n">health_check</span><span class="p">,</span> <span class="n">sites</span><span class="p">})</span> <span class="k">do</span>
+  <span class="n">sites</span>
+  <span class="o">|&gt;</span> <span class="n">health_check</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">report</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="p">{</span><span class="n">health_check</span><span class="p">,</span> <span class="n">sites</span><span class="p">}}</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">report</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">body</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+<span class="k">defp</span> <span class="n">report</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">})</span> <span class="k">do</span>
+  <span class="n">reason</span>
+  <span class="o">|&gt;</span> <span class="n">to_string</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="no">Logger</span><span class="o">.</span><span class="n">error</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Como dijimos antes, pasaremos los sitios a <code class="highlighter-rouge">HealthCheck.ping/1</code> y luego iteraremos los resultados con <code class="highlighter-rouge">Enum.each/2</code> y aplicaremos nuestra función <code class="highlighter-rouge">report/1</code> contra cada uno.
+Con estas funciones puestas, nuestro agendador está listo y nos podemos concentrar en probarlo.</p>
+
+<p>No nos enfocaremos mucho en pruebas unitaris para el agendador, ya que esas no requerirán Bypass. Así que nos podemos saltar al código final:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Clinic</span><span class="o">.</span><span class="no">SchedulerTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="kn">import</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">CaptureLog</span>
+
+  <span class="n">alias</span> <span class="no">Clinic</span><span class="o">.</span><span class="no">Scheduler</span>
+
+  <span class="k">defmodule</span> <span class="no">TestCheck</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="n">ping</span><span class="p">(</span><span class="n">_sites</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">[{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"pong"</span><span class="p">},</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"HTTP Status 404"</span><span class="p">}]</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">"health checks are run and results logged"</span> <span class="k">do</span>
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">health_check:</span> <span class="no">TestCheck</span><span class="p">,</span> <span class="ss">interval:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">sites:</span> <span class="p">[</span><span class="s2">"http://example.com"</span><span class="p">,</span> <span class="s2">"http://example.org"</span><span class="p">]]</span>
+
+    <span class="n">output</span> <span class="o">=</span>
+      <span class="n">capture_log</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span>
+        <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="no">Scheduler</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+        <span class="ss">:timer</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+      <span class="k">end</span><span class="p">)</span>
+
+    <span class="n">assert</span> <span class="n">output</span> <span class="o">=~</span> <span class="s2">"pong"</span>
+    <span class="n">assert</span> <span class="n">output</span> <span class="o">=~</span> <span class="s2">"HTTP Status 404"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Dependemos de una implementación de prueba de cada uno de nuestros chequeos de salud con <code class="highlighter-rouge">TestCheck</code> junto a <code class="highlighter-rouge">CaptureLog.capture_log/1</code> para aseverar que los mensajes apropiados fueron registrados.</p>
+
+<p>Ahora que tenemos módulos de <code class="highlighter-rouge">Scheduler</code> y <code class="highlighter-rouge">HealthCheck</code> funcionales, escribamos una prueba de integración que verifique que todo funciona bien.
+Necesitaremos Bypass para esta prueba y tendremos que manejar múltiples requests Bypass por prueba. Veamos cómo hacemos eso.</p>
+
+<p>Recuerdas el <code class="highlighter-rouge">bypass.port</code> de hace rato? Cuando necesitamos simular múltiples sitios, la opción <code class="highlighter-rouge">:port</code> es muy útil.
+Como probablemente adivinaste, podemos crear múltiples conecciones Bypass, cada una con un puerto diferente y así simularemos múltiples sitios independientes.
+Comenzaremos por revisar nuestro archivo actualizado de <code class="highlighter-rouge">test/clinic_test.exs</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ClinicTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="kn">import</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">CaptureLog</span>
+
+  <span class="n">alias</span> <span class="no">Clinic</span><span class="o">.</span><span class="no">Scheduler</span>
+
+  <span class="n">test</span> <span class="s2">"sites are checked and results logged"</span> <span class="k">do</span>
+    <span class="n">bypass_one</span> <span class="o">=</span> <span class="no">Bypass</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="ss">port:</span> <span class="mi">1234</span><span class="p">)</span>
+    <span class="n">bypass_two</span> <span class="o">=</span> <span class="no">Bypass</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="ss">port:</span> <span class="mi">1337</span><span class="p">)</span>
+
+    <span class="no">Bypass</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">bypass_one</span><span class="p">,</span> <span class="k">fn</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+      <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="o">.</span><span class="n">resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">"Server Error"</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">)</span>
+
+    <span class="no">Bypass</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">bypass_two</span><span class="p">,</span> <span class="k">fn</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+      <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="o">.</span><span class="n">resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"pong"</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">)</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">interval:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">sites:</span> <span class="p">[</span><span class="s2">"http://localhost:1234"</span><span class="p">,</span> <span class="s2">"http://localhost:1337"</span><span class="p">]]</span>
+
+    <span class="n">output</span> <span class="o">=</span>
+      <span class="n">capture_log</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span>
+        <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="no">Scheduler</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+        <span class="ss">:timer</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+      <span class="k">end</span><span class="p">)</span>
+
+    <span class="n">assert</span> <span class="n">output</span> <span class="o">=~</span> <span class="s2">"[info]  pong"</span>
+    <span class="n">assert</span> <span class="n">output</span> <span class="o">=~</span> <span class="s2">"[error] HTTP Status 500"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>No debería haber nada sorprendente en la prueba de arriba.
+En lugar de crear una sola conección en <code class="highlighter-rouge">setup</code>, creamos dos en nuestra prueba y especificamos sus puertos como 1234 y 1337.
+Después vemos nuestras llamadas <code class="highlighter-rouge">Bypass.expect/2</code> y finalmente el mismo código que tenemos en <code class="highlighter-rouge">SchedulerTest</code> para iniciar el agendador y aseverar que registramos los mensajes apropiados.</p>
+
+<p>¡Eso es todo! Hemos construido una utilería para mantenernos informados de si hay algún problema con nuestros dominios y hemos aprendido cómo usar Bypass para escribir mejores pruebas con servicios externos.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/es/lessons/libraries/bypass.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/es/lessons/libraries/poolboy/" title="Poolboy">← Poolboy</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/es/lessons/libraries/distillery/" title="Distillery (Básico)">Distillery (Básico) →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/bypass/" title="Inglés / English">en</a>
+        
+      
+        
+        
+
+        
+          <strong title="Español">es</strong>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/libraries/bypass/" title="Portugués">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/libraries/bypass/" title="Ruso / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/bypass/" title="Chino">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/bypass/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lecciones acerca del lenguaje de programación Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/es/" class=" up ">Inicio</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Básico</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/basics/basics/">1. Básico</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/collections/">2. Colecciones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/pattern-matching/">4. Coincidencia de Patrones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/control-structures/">5. Estructuras de control</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/functions/">6. Funciones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/pipe-operator/">7. Operador Pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/modules/">8. Composición</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/sigils/">10. Sigilos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/documentation/">11. Documentación</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/testing/">12. Pruebas</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/comprehensions/">13. Comprensiones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/strings/">14. Cadenas</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/date-time/">15. Fecha y Hora</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/mix-tasks/">16. Tareas de Mix personalizadas</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/basics/iex-helpers/">17. Ayudantes de IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Avanzado</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/erlang/">1. Interoperabilidad Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/error-handling/">2. Manejo de errores</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/escripts/">3. Ejecutables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/concurrency/">4. Concurrencia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/otp-concurrency/">5. Concurrencia en OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/otp-supervisors/">6. Supervisores OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/otp-distribution/">7. Distribución en OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/metaprogramming/">8. Metaprogramación</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/umbrella-projects/">9. Proyectos Umbrella</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/typespec/">10. Tipos y especificaciones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/behaviours/">11. Comportamientos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/advanced/protocols/">13. Protocolos</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/ecto/associations/">3. Asociaciones</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Específico</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/eex/">2. Elixir Embebido (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/ets/">3. Almacenamiento de términos de Erlang (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Librerías</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/es/lessons/libraries/guardian/">1. Guardian (Básico)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">4. Bypass</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/es/lessons/libraries/distillery/">5. Distillery (Básico)</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/es/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

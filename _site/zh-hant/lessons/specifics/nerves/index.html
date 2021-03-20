@@ -1,0 +1,969 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/specifics/nerves/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/nerves/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/nerves/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/specifics/nerves/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Nerves &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/specifics/nerves/&title=Nerves&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/specifics/nerves/&via=elixirschool&text=ElixirSchool: Nerves&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/specifics/nerves/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/specifics/nerves/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Nerves" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/specifics/nerves/&title=ElixirSchool: Nerves&description=Check out 'Nerves' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Nerves&body=Check out 'Nerves' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/specifics/nerves/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Nerves
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      翻譯內文可能已過時。<br/>
+    
+
+    自最近更新後，原始課程已進行些微變更。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <h2 id="簡介和硬體需求">簡介和硬體需求</h2>
+
+<p>在本課程中將討論 Nerves。 Nerves 專案是在嵌入式軟體開發中使用 Elixir 的框架。正如 Nerves 網站所說，它允許 “使用 Elixir 製作和部署高性能嵌入式軟體”。本課程將與其他 Elixir School 課程略有不同。Nerves 較難入門，因為它需要一些進階的系統設定和額外的硬體，因此可能不適合初學者。</p>
+
+<p>要使用 Nerves 編寫嵌入式程式碼，需要一個 <a href="https://hexdocs.pm/nerves/targets.html">支援的目標設備</a>，一個支援所選硬體記憶卡使用的讀卡機，以及能通過網路存取該設備的有線網絡連接。</p>
+
+<p>然而，我們建議使用樹莓派(Raspberry Pi)，因為它裝載具有可控制的 LED 。且建議有個連接到目標設備的螢幕，因為這樣可以簡化使用 IEx 除錯。</p>
+
+<h2 id="設定">設定</h2>
+
+<p>Nerves 專案本身有一個很好的 <a href="https://hexdocs.pm/nerves/getting-started.html">入門指南</a>，但對於一些使用者來說，其細節的數量可能難以消化。相反地，本教學將嘗試以 “更少文字，更多程式碼” 來展現。</p>
+
+<p>首先，需要一個環境設定。可以在 Nerves wiki 的 <a href="https://hexdocs.pm/nerves/installation.html">安裝</a> 部分找到該指南。請確保具有指南中所提到 OTP 和 Elixir 的相同版本。不使用正確的版本會導致安裝進行時出現問題。在本文撰寫時，任何 Elixir (使用 Erlang/OTP 21 編譯) 都應該可以使用。</p>
+
+<p>在設定完成後，應該準備好來建立第一個 Nerves 專案了！</p>
+
+<p>我們的目標是做到嵌入式開發的 “Hello world”：通過呼用簡單的 HTTP API 來控制閃爍的 LED。</p>
+
+<h2 id="建立專案">建立專案</h2>
+
+<p>要產生一個新專案，請執行 <code class="highlighter-rouge">mix nerves.new network_led</code> 並在提示是否提取和安裝依賴時回答 <code class="highlighter-rouge">Y</code>。</p>
+
+<p>應該會看到以下輸出：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Your Nerves project was created successfully.
+
+You should now pick a target. See https://hexdocs.pm/nerves/targets.html#content
+for supported targets. If your target is on the list, set `MIX_TARGET`
+to its tag name:
+
+For example, for the Raspberry Pi 3 you can either
+  $ export MIX_TARGET=rpi3
+Or prefix `mix` commands like the following:
+  $ MIX_TARGET=rpi3 mix firmware
+
+If you will be using a custom system, update the `mix.exs`
+dependencies to point to desired system's package.
+
+Now download the dependencies and build a firmware archive:
+  $ cd network_led
+  $ mix deps.get
+  $ mix firmware
+
+If your target boots up using an SDCard (like the Raspberry Pi 3),
+then insert an SDCard into a reader on your computer and run:
+  $ mix firmware.burn
+
+Plug the SDCard into the target and power it up. See target documentation
+above for more information and other targets.
+</code></pre></div></div>
+
+<p>專案已經產生完成，並準備好寫入到測試設備！現在來試試吧！</p>
+
+<p>對於 Raspberry Pi 3，可以設定 <code class="highlighter-rouge">MIX_TARGET=rpi3</code>，但可以根據目標硬體來更改此設定以符合你的硬體 (請參閱 <a href="https://hexdocs.pm/nerves/targets.html#content">Nerves 文件</a> 中的列表)</p>
+
+<p>現在先設定依賴關係：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ export MIX_TARGET=rpi3
+$ cd network_led
+$ mix deps.get
+
+....
+
+Nerves environment
+  MIX_TARGET:   rpi3
+  MIX_ENV:      dev
+Resolving Nerves artifacts...
+  Resolving nerves_system_rpi3
+  =&gt; Trying https://github.com/nerves-project/nerves_system_rpi3/releases/download/v1.7.0/nerves_system_rpi3-portable-1.7.0-17EA89A.tar.gz
+|==================================================| 100% (133 / 133) MB
+  =&gt; Success
+  Resolving nerves_toolchain_arm_unknown_linux_gnueabihf
+  =&gt; Trying https://github.com/nerves-project/toolchains/releases/download/v1.1.0/nerves_toolchain_arm_unknown_linux_gnueabihf-darwin_x86_64-1.1.0-2305AD8.tar.xz
+|==================================================| 100% (50 / 50) MB
+  =&gt; Success
+</code></pre></div></div>
+
+<p>註：確保在執行 <code class="highlighter-rouge">mix deps.get</code> 之前設定指定目標平台的環境變數，因為它將為指定平台下載相應的系統映像和工具鏈。</p>
+
+<h2 id="燒錄韌體">燒錄韌體</h2>
+
+<p>現在可以繼續寫入驅動程式。將記憶卡放入讀卡機，如果在前面步驟中正確設定了所有內容，在執行 <code class="highlighter-rouge">mix firmware.burn</code> 並確認要使用的設備之後，應該會得到以下提示：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Building ......../network_led/_build/rpi_dev/nerves/images/network_led.fw...
+Use 7.42 GiB memory card found at /dev/rdisk2? [Yn]
+</code></pre></div></div>
+
+<p>如果確定這是你想要燒錄的卡 - 選擇 <code class="highlighter-rouge">Y</code> 記憶卡會在些許時間中就燒錄完成：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Use 7.42 GiB memory card found at /dev/rdisk2? [Yn]
+|====================================| 100% (32.51 / 32.51) MB
+Success!
+Elapsed time: 8.022 s
+</code></pre></div></div>
+
+<p>現在是時候將記憶卡放入裝置中並驗證它是否有效。</p>
+
+<p>如果連接了一個螢幕 - 在插入此記憶卡的設備啟動後，應該會看到一個 Linux 啟動序列。</p>
+
+<h2 id="設定網路">設定網路</h2>
+
+<p>下一步是設定網絡。 Nerves 生態系提供各種套件，而 <a href="https://github.com/nerves-project/nerves_network">nerves_network</a> 是當要通過有線乙太網埠將裝置連線到網路所需要的。</p>
+
+<p>它已作為 <code class="highlighter-rouge">nerves_init_gadget</code> 的依賴關係存在於專案中。但是，預設情況下，它使用 DHCP (在執行  <code class="highlighter-rouge">config :nerves_init_gadget</code> 之後，請參考 <code class="highlighter-rouge">config/config.exs</code> 中的配置)。這讓擁有靜態 IP 位址更容易。</p>
+
+<p>要設定靜態網路，需要將以下幾行加入到 <code class="highlighter-rouge">config/config.exs</code>：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Statically assign an address
+config :nerves_network, :default,
+  eth0: [
+    ipv4_address_method: :static,
+    ipv4_address: "192.168.88.2",
+    ipv4_subnet_mask: "255.255.255.0",
+    nameservers: ["8.8.8.8", "8.8.4.4"]
+  ]
+</code></pre></div></div>
+
+<p>請注意，此配置是用於有線連線。如果要使用無線連線 - 請查看 <a href="https://github.com/nerves-project/nerves_network#wifi-networking">Nerves 網路文件</a>。</p>
+
+<p>注意到，需要在此處使用本機網路參數 - 在我的網路中有一個未分配的IP <code class="highlighter-rouge">192.168.88.2</code>，所以會使用它。但是，在你的情境中，它可能會有所不同。</p>
+
+<p>在修改後，需要通過 <code class="highlighter-rouge">mix firmware.burn</code> 重新燒錄修改版本後的韌體，然後使用新燒錄的卡啟動裝置。</p>
+
+<p>當開啟裝置電源時，可以使用 <code class="highlighter-rouge">ping</code> 查看它是否在線上。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Request timeout for icmp_seq 206
+Request timeout for icmp_seq 207
+64 bytes from 192.168.88.2: icmp_seq=208 ttl=64 time=2.247 ms
+64 bytes from 192.168.88.2: icmp_seq=209 ttl=64 time=2.658 ms
+</code></pre></div></div>
+
+<p>此輸出表示現在可以從網路連線到該裝置。</p>
+
+<h2 id="網路遠端燒錄韌體">網路遠端燒錄韌體</h2>
+
+<p>到目前為止，我們一直在燒錄 SD 卡並將它們物理裝載到硬體中。雖然這很好，但通過網路推送更新將更為直接。<code class="highlighter-rouge">nerves_firmware_ssh</code> 套件正是為此而生的。預設情況下，它已存在於專案中，設定為自動偵測並會在目錄中搜尋 SSH 密鑰。</p>
+
+<p>要使用網路韌體更新功能，需要通過 <code class="highlighter-rouge">mix firmware.gen.script</code> 生成上傳用 script。該指令將生成一個新的 <code class="highlighter-rouge">upload.sh</code> script，可以執行該 script 來更新韌體。</p>
+
+<p>如果在上一步之後網路正常運作，就可以開始使用了。</p>
+
+<p>要更新設定，最簡單的方法是使用 <code class="highlighter-rouge">mix firmware &amp;&amp; ./upload.sh 192.168.88.2</code>：第一個指令建立更新的韌體，第二個指令通過網路推送它並重新啟動設備。完成後可以停止並將 SD 卡插入和拔出設備！</p>
+
+<p><em>提示：<code class="highlighter-rouge">ssh 192.168.88.2</code> 在應用程式的上下文中提供設備上的 IEx 殼層。</em></p>
+
+<p><em>故障排除：如果主資料夾中沒有存在 ssh 密鑰，則會出現錯誤訊息 <code class="highlighter-rouge">No SSH public keys found in ~/.ssh.</code>。在這種情況下，需要執行 <code class="highlighter-rouge">ssh-keygen</code> 並重新燒錄靭體以使用網路更新功能。</em></p>
+
+<h2 id="設定-led-控制">設定 LED 控制</h2>
+
+<p>要與 LED 互動，需要安裝 <a href="https://github.com/nerves-project/nerves_leds">nerves_leds</a> 套件，這需要將 <code class="highlighter-rouge">{:nerves_leds, "~&gt; 0.8", targets: @all_targets},</code> 加到 <code class="highlighter-rouge">mix.exs</code> 檔案中。</p>
+
+<p>設定相依關係後，需要為該設備配置 LED 列表。例如，對於所有 Raspberry Pi 型號，內建只有一個LED：<code class="highlighter-rouge">led0</code>。現在通過在 <code class="highlighter-rouge">config/config.exs</code> 中加入一行 <code class="highlighter-rouge">config :nerves_leds, names: [green: "led0"]</code> 來使用它。</p>
+
+<p>對於其他設備，可以查看 <a href="https://github.com/nerves-project/nerves_examples/tree/master/hello_leds/config">nerves_examples 專案與之對應的部分</a>。</p>
+
+<p>配置 LED 本身後，肯定需要以某種方式控制它。為此，將在包含以下內容的 <code class="highlighter-rouge">lib/network_led/blinker.ex</code> 中加入一個 GenServer (更多關於 GenServers 的細節請參考 <a href="../../advanced/otp-concurrency">OTP Concurrency</a> 課程)：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="nv">@moduledoc</span> <span class="sd">"""
+    Simple GenServer to control GPIO #18.
+  """</span>
+
+  <span class="kn">require</span> <span class="no">Logger</span>
+  <span class="n">alias</span> <span class="no">Nerves</span><span class="o">.</span><span class="no">Leds</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">enable</span><span class="p">()</span>
+
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">(</span><span class="ss">:enable</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Enabling LED"</span><span class="p">)</span>
+    <span class="no">Leds</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="ss">green:</span> <span class="no">true</span><span class="p">)</span>
+
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">(</span><span class="ss">:disable</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Disabling LED"</span><span class="p">)</span>
+    <span class="no">Leds</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="ss">green:</span> <span class="no">false</span><span class="p">)</span>
+
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">enable</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:enable</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">disable</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:disable</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>要啟用此功能，還需要將其加入到 <code class="highlighter-rouge">lib/network_led/application.ex</code> 中的 supervision tree：在 <code class="highlighter-rouge">def children(_target) do</code> 群組下加入 <code class="highlighter-rouge">{NetworkLed.Blinker, name: NetworkLed.Blinker}</code>。</p>
+
+<p>請注意，Nerves 在應用程式中有兩個不同的 supervision tree - 一個用於主機，一個用於實際設備。</p>
+
+<p>在此之後 - 就完成了！實際上可以上傳靭體並通過目標設備中的 ssh 執行 IEx 來檢驗 <code class="highlighter-rouge">NetworkLed.Blinker.disable()</code> 關閉 LED(程式碼中預設啟用)，以及用 <code class="highlighter-rouge">NetworkLed.Blinker.enable()</code> 開啟。</p>
+
+<p>現在可以從命令提示字元控制 LED！</p>
+
+<p>現在，剩下唯一缺少的部分是通過網路介面控制 LED。</p>
+
+<h2 id="加入網路伺服器">加入網路伺服器</h2>
+
+<p>在這一步中，將使用 <code class="highlighter-rouge">Plug.Router</code>。如果需要些提示 - 請輕鬆瀏覽 <a href="../../../lessons/specifics/plug/">Plug</a> 課程。</p>
+
+<p>首先，將 <code class="highlighter-rouge">{:plug_cowboy, "~&gt; 2.0"},</code> 加入到 <code class="highlighter-rouge">mix.exs</code> 並安裝相依關係。</p>
+
+<p>然後，在 <code class="highlighter-rouge">lib/network_led/http.ex</code> 中加入實際處理程序來處理這些請求：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Http</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Router</span>
+
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:match</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:dispatch</span><span class="p">)</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"Feel free to use API endpoints!"</span><span class="p">))</span>
+
+  <span class="n">get</span> <span class="s2">"/enable"</span> <span class="k">do</span>
+    <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+    <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"LED enabled"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="s2">"/disable"</span> <span class="k">do</span>
+    <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+    <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"LED disabled"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">match</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="s2">"Oops!"</span><span class="p">))</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>最後一步 - 將 <code class="highlighter-rouge">{Plug.Cowboy, scheme: :http, plug: NetworkLed.Http, options: [port: 80]}</code> 加入到應用程式 supervision tree 中。</p>
+
+<p>靭體更新後，就可以來試試！<code class="highlighter-rouge">http://192.168.88.2/</code> 將回傳純文字響應，並以 <code class="highlighter-rouge">http://192.168.88.2/enable</code> 與 <code class="highlighter-rouge">http://192.168.88.2/disable</code> 來停用並啟用該 LED！</p>
+
+<p>甚至可以將 Phoenix 支援的使用者介面打包進 Nerves 應用程式中，不過， <a href="https://github.com/nerves-project/nerves/blob/master/docs/User%20Interfaces.md#phoenix-web-interfaces">需要進行一些調整</a>。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/specifics/nerves.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/specifics/debugging/" title="除錯">← 除錯</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/libraries/guardian/" title="Guardian (基礎)">Guardian (基礎) →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/nerves/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/specifics/nerves/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/nerves/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/nerves/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. Nerves</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

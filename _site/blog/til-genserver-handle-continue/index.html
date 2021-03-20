@@ -1,0 +1,777 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/til-genserver-handle-continue/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/til-genserver-handle-continue/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>TIL GenServer's `handle_continue/2` &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/til-genserver-handle-continue/&title=TIL GenServer's `handle_continue/2`&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/til-genserver-handle-continue/&via=elixirschool&text=ElixirSchool: TIL GenServer's `handle_continue/2`&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/til-genserver-handle-continue/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/til-genserver-handle-continue/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: TIL GenServer's `handle_continue/2`" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/til-genserver-handle-continue/&title=ElixirSchool: TIL GenServer's `handle_continue/2`&description=Check out 'TIL GenServer's `handle_continue/2`' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: TIL GenServer's `handle_continue/2`&body=Check out 'TIL GenServer's `handle_continue/2`' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/til-genserver-handle-continue/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">TIL GenServer's `handle_continue/2`</h1>
+    <p><a href="/blog/years/2019/">15 Feb 2019</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/til/">Today I Learned</a></p>
+  </header>
+  <div class="content">
+    <p>What happens when starting up your GenServer requires executing a long-running process? We <em>don’t</em> want the execution of that process to block the GenServer from completing start-up. We also don’t want to execute that process asynchronously in a way that creates a race condition between the running of the process and other messages arriving in our GenServer’s inbox. In this post, we’ll take a closer look at these two problems and understand how OTP 21’s <code class="highlighter-rouge">GenServer.handle_continue/2</code> is the perfect solution.</p>
+
+<h2 id="starting-genservers-without-blocking">Starting GenServers without Blocking</h2>
+<p>Let’s say that we are building a GenServer for a shopping list fulfillment application. Our GenServer will hold state describing a grocery shopping list <em>and</em> be aware of the available inventory as it relates to that shopping list. When our GenServer starts up, it will receive a shopping list and put it in state. But wait! Our GenServer initialization process will <em>then</em> need to take that shopping list and retrieve relevant inventory from another source.</p>
+
+<p>Our first attempt at solving this problem could look something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ShoppingListFulfillment</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">shopping_list</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span>
+      <span class="ss">shopping_list:</span> <span class="n">shopping_list</span><span class="p">,</span>
+      <span class="ss">inventory:</span> <span class="n">get_inventory_for</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">get_inventory_for</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># something that could be time consuming!</span>
+    <span class="c1"># like a web request or a database call</span>
+    <span class="c1"># returns some inventory info for each item on the shopping list</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Here, we’re calling our “get inventory for shopping list items” code in the <code class="highlighter-rouge">init/1</code> callback that gets triggered when <code class="highlighter-rouge">start_link/1</code> is called.</p>
+
+<p>This problem with this approach is that <code class="highlighter-rouge">start_link/1</code> will block until <code class="highlighter-rouge">init/1</code> returns <code class="highlighter-rouge">{:ok, state}</code>. We won’t return from <code class="highlighter-rouge">init/1</code> until <em>after</em> the inventory-fetching code runs. That <em>could</em> be time consuming. We don’t want our GenServer blocked by this.</p>
+
+<p>Let’s explore an asynchronous approach.</p>
+
+<h2 id="asynchronous-callbacks-and-race-conditions">Asynchronous Callbacks and Race Conditions</h2>
+<p>We can use <code class="highlighter-rouge">Kernel.send/2</code> in our <code class="highlighter-rouge">init</code> callback to kick off some asynchronous work without blocking <code class="highlighter-rouge">GenServer.start_link/1</code>. When we use <code class="highlighter-rouge">send/2</code> and give it a first argument of <code class="highlighter-rouge">self</code>, i.e. the PID of our GenServer, our GenServer will handle that message with a <code class="highlighter-rouge">handle_info/2</code> function that matches the message we sent.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ShoppingListFulfillment</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">shopping_list</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span>
+      <span class="ss">shopping_list:</span> <span class="n">shopping_list</span><span class="p">,</span>
+      <span class="ss">inventory:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="ss">:get_inventory</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_info</span><span class="p">(</span><span class="ss">:get_inventory</span><span class="p">,</span> <span class="p">%{</span><span class="ss">shopping_list:</span> <span class="n">shopping_list</span><span class="p">})</span> <span class="k">do</span>
+    <span class="n">inventory</span> <span class="o">=</span> <span class="n">get_inventory_for</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span>
+      <span class="ss">shopping_list:</span> <span class="n">shopping_list</span><span class="p">,</span>
+      <span class="ss">inventory:</span> <span class="n">inventory</span>
+    <span class="p">}</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">get_inventory_for</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># something that could be time consuming!</span>
+    <span class="c1"># like a web request or a database call</span>
+    <span class="c1"># returns some inventory info for each item on the shopping list</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This approach un-blocks <code class="highlighter-rouge">GenServer.start_link/1</code>. It no longer needs to <em>wait</em> for the work of getting inventory. Now that happens asynchronously and updates state once we have finished fetching inventory info.</p>
+
+<p>There is a downside to this approach though. Just because we send the <code class="highlighter-rouge">:get_inventory</code> message inside the <code class="highlighter-rouge">init</code> function, doesn’t mean that <code class="highlighter-rouge">:get_inventory</code> is the first message our GenServer will receive and process. This could lead to a race condition!</p>
+
+<p>What happens if our GenServer receives a message asking for the availability of an item on the shopping list <em>before</em> it receives and finishes processing the message to get the inventory? That could cause a false negative! We would see that <code class="highlighter-rouge">inventory</code> in state is empty, and tell the sender that their item is not available. Oh no!</p>
+
+<p>If only there was some way to fetch inventory asynchronously, without blocking <code class="highlighter-rouge">start_link/1</code>, while <em>still</em> ensuring that it executes <em>before</em> any other messages received by our GenServer are responded to…</p>
+
+<h2 id="using-handle_continue2">Using <code class="highlighter-rouge">handle_continue/2</code></h2>
+
+<p>The release of OTP 21 a few months back gives us a way to solve this problem. The <a href="https://hexdocs.pm/elixir/GenServer.html#c:handle_continue/2"><code class="highlighter-rouge">GenServer.handle_continue/2</code></a> callback is called by a GenServer process whenever a previous callback returns <code class="highlighter-rouge">{:continue, :message}</code>.</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">handle_continue/2</code> is invoked immediately after the previous callback, which makes it useful for performing work after initialization or for splitting the work in a callback in multiple steps, updating the process state along the way. <a href="http://erlang.org/doc/man/gen_server.html#Module:handle_continue-2">*</a></p>
+</blockquote>
+
+<p>This approach ensures that our GenServer won’t handle any other messages until <code class="highlighter-rouge">handle_continue/2</code> is finished. No more race conditions!</p>
+
+<p>Let’s take a look:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ShoppingListFulfillment</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">shopping_list</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span>
+      <span class="ss">shopping_list:</span> <span class="n">shopping_list</span><span class="p">,</span>
+      <span class="ss">inventory:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="p">{</span><span class="ss">:continue</span><span class="p">,</span> <span class="ss">:get_inventory</span><span class="p">}}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_continue</span><span class="p">(</span><span class="ss">:get_inventory</span><span class="p">,</span> <span class="p">%{</span><span class="ss">shopping_list:</span> <span class="n">shopping_list</span><span class="p">})</span> <span class="k">do</span>
+    <span class="n">inventory</span> <span class="o">=</span> <span class="n">get_inventory_for</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">%{</span>
+      <span class="ss">shopping_list:</span> <span class="n">shopping_list</span><span class="p">,</span>
+      <span class="ss">inventory:</span> <span class="n">inventory</span>
+    <span class="p">}</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">get_inventory_for</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># something that could be time consuming!</span>
+    <span class="c1"># like a web request or a database call</span>
+    <span class="c1"># returns some inventory info for each item on the shopping list</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now, <code class="highlighter-rouge">init/2</code> returns <code class="highlighter-rouge">{:ok, state, {:continue, :get_inventory}}</code>. This immediately triggers the callback <code class="highlighter-rouge">handle_continue(:get_inventory, state)</code>. This callback is guaranteed to finish running before our GenServer moves on to processing any other messages.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>OTP 21’s <code class="highlighter-rouge">handle_continue/2</code> callback allows us to handle expensive GenServer initialization work in a non-blocking, asynchronous manner that avoids race conditions. If you’re building a GenServer that needs to handle an initialization callback, consider reaching for <code class="highlighter-rouge">handle_continue/2</code>.</p>
+
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-02-08-til-genserver-handle-continue.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/putting-a-plug-app-on-heroku/" title="Deploying our `Plug.Router` application to Heroku" rel="prev">&laquo; Deploying our `Plug.Router` application to Heroku</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/supervisor-strategies/" title="Elixir Supervisor Strategies" rel="next">Elixir Supervisor Strategies &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

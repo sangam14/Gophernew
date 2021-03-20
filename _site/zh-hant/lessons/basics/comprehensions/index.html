@@ -1,0 +1,1014 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/basics/comprehensions/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/comprehensions/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/comprehensions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/comprehensions/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/basics/comprehensions/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>解析 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/basics/comprehensions/&title=解析&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/basics/comprehensions/&via=elixirschool&text=ElixirSchool: 解析&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/basics/comprehensions/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/basics/comprehensions/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 解析" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/basics/comprehensions/&title=ElixirSchool: 解析&description=Check out '解析' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 解析&body=Check out '解析' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/basics/comprehensions/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  解析
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    翻譯內文為最新版本。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>列表解析 (List comprehensions) 是在 Elixir 中通過列舉來循環 (looping) 的語法糖 (syntactic sugar)。在本課程中，我們將看看如何使用解析 (comprehensions) 來進行疊代 (iteration) 和生成 (generation)。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="基礎">基礎</h2>
+
+<p>在很多時候，解析可以用來為 <code class="highlighter-rouge">Enum</code> 和 <code class="highlighter-rouge">Stream</code> 疊代產生更簡潔的語句。讓我們先看一個簡單的解析，然後再拆解它的結構：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>我們注意到的第一件事是使用 <code class="highlighter-rouge">for</code> 和生成器 (generator)。生成器是什麼？生成器是在列表解析中找到的 <code class="highlighter-rouge">x &lt;- [1, 2, 3, 4]</code> 表達式，它負責產生下一個值。</p>
+
+<p>對我們來說幸運的是，解析不僅限於列表，實際上它能在任何列舉上使用：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Keyword Lists</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="p">{</span><span class="n">_key</span><span class="p">,</span> <span class="n">val</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="ss">one:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">two:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">three:</span> <span class="mi">3</span><span class="p">],</span> <span class="k">do</span><span class="p">:</span> <span class="n">val</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="c1"># Maps</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="p">%{</span><span class="s2">"a"</span> <span class="o">=&gt;</span> <span class="s2">"A"</span><span class="p">,</span> <span class="s2">"b"</span> <span class="o">=&gt;</span> <span class="s2">"B"</span><span class="p">},</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span>
+<span class="p">[{</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"A"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"b"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">}]</span>
+
+<span class="c1"># Binaries</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="o">&lt;&lt;</span><span class="n">c</span> <span class="o">&lt;-</span> <span class="s2">"hello"</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="o">&lt;&lt;</span><span class="n">c</span><span class="o">&gt;&gt;</span>
+<span class="p">[</span><span class="s2">"h"</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">,</span> <span class="s2">"o"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>如同 Elixir 中的許多其他東西，生成器依靠模式比對將其輸入集 (input set) 與左側變數進行比較。在無法找到配對的情況下，該值將被忽略：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">val</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="ss">ok:</span> <span class="s2">"Hello"</span><span class="p">,</span> <span class="ss">error:</span> <span class="s2">"Unknown"</span><span class="p">,</span> <span class="ss">ok:</span> <span class="s2">"World"</span><span class="p">],</span> <span class="k">do</span><span class="p">:</span> <span class="n">val</span>
+<span class="p">[</span><span class="s2">"Hello"</span><span class="p">,</span> <span class="s2">"World"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>可以同時使用多個生成器，就像巢狀迴圈一樣 (nested loops)：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="n">n</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">,</span> <span class="n">times</span> <span class="o">&lt;-</span> <span class="mi">1</span><span class="o">..</span><span class="n">n</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="no">String</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="p">[</span><span class="s2">"*"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">,</span> <span class="s2">"**"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">,</span> <span class="s2">"**"</span><span class="p">,</span> <span class="s2">"***"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">,</span> <span class="s2">"**"</span><span class="p">,</span> <span class="s2">"***"</span><span class="p">,</span> <span class="s2">"****"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>為了更好地說明正在執行的循環，我們使用 <code class="highlighter-rouge">IO.puts</code> 來顯示兩個被生成的值：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="n">n</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">,</span> <span class="n">times</span> <span class="o">&lt;-</span> <span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">n</span><span class="si">}</span><span class="s2"> - </span><span class="si">#{</span><span class="n">times</span><span class="si">}</span><span class="s2">"</span>
+<span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="mi">3</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span>
+<span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="mi">4</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="mi">4</span> <span class="o">-</span> <span class="mi">3</span>
+<span class="mi">4</span> <span class="o">-</span> <span class="mi">4</span>
+</code></pre></div></div>
+
+<p>列表解析是語法糖，只有在適當的時候才應該使用。</p>
+
+<h2 id="篩選器-filters">篩選器 (Filters)</h2>
+
+<p>可以把篩選器看作是解析式的監視 (guard)。當篩選值回傳 <code class="highlighter-rouge">false</code> 或 <code class="highlighter-rouge">nil</code> 時，它將被排除在最終列表之外。讓我們在一個範圍內循環，並只注意偶數。我們將使用 Integer 模組中的 <code class="highlighter-rouge">is_even/1</code> 函數來檢查一個值是否是偶數。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">Integer</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">,</span> <span class="n">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">x</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>如同生成器 (generators)，可以同時使用多個篩選器。現在擴展範圍，然後僅對偶數且可被 3 整除的值進行篩選。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">Integer</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="mi">1</span><span class="o">..</span><span class="mi">100</span><span class="p">,</span>
+<span class="o">...&gt;</span>   <span class="n">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+<span class="o">...&gt;</span>   <span class="n">rem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">x</span>
+<span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">96</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="使用-into">使用 <code class="highlighter-rouge">:into</code></h2>
+
+<p>如果想產生一個列表 (list) 以外的東西呢？加入 <code class="highlighter-rouge">:into</code> 選項，就可以做到這一點！經驗上來說， <code class="highlighter-rouge">:into</code> 接受任何能實現 <code class="highlighter-rouge">Collectable</code> 協定的結構。</p>
+
+<p>要使用 <code class="highlighter-rouge">:into</code>，讓我們從關鍵字列表中建立一個映射：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="ss">one:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">two:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">three:</span> <span class="mi">3</span><span class="p">],</span> <span class="ss">into:</span> <span class="p">%{},</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">one:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">three:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">two:</span> <span class="mi">2</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>由於二進位 (binaries) 也是可群集 (collectables) 的，所以可以使用列表解析和 <code class="highlighter-rouge">:into</code> 來建立字串：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">for</span> <span class="n">c</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">111</span><span class="p">],</span> <span class="ss">into:</span> <span class="s2">""</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="o">&lt;&lt;</span><span class="n">c</span><span class="o">&gt;&gt;</span>
+<span class="s2">"Hello"</span>
+</code></pre></div></div>
+
+<p>就這樣！列表解析是能以簡潔方式疊代群集的簡單方法。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/basics/comprehensions.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/basics/testing/" title="測試">← 測試</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/basics/strings/" title="字串">字串 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/comprehensions/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/comprehensions/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/comprehensions/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/comprehensions/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/comprehensions/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/comprehensions/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/comprehensions/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/comprehensions/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/comprehensions/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/comprehensions/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/comprehensions/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/comprehensions/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/comprehensions/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/comprehensions/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/comprehensions/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/comprehensions/" >uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/comprehensions/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/comprehensions/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">13. 解析</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

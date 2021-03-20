@@ -1,0 +1,793 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="bn">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="এলিক্সির স্কুল">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/bn/lessons/basics/testing/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="bn">
+  <meta property="og:description" content="এলিক্সির স্কুল">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/testing/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/testing/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/testing/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/bn/lessons/basics/testing/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>টেস্টিং &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/bn/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/bn/lessons/basics/testing/&title=টেস্টিং&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/bn/lessons/basics/testing/&via=elixirschool&text=ElixirSchool: টেস্টিং&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/bn/lessons/basics/testing/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/bn/lessons/basics/testing/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: টেস্টিং" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/bn/lessons/basics/testing/&title=ElixirSchool: টেস্টিং&description=Check out 'টেস্টিং' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: টেস্টিং&body=Check out 'টেস্টিং' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/bn/lessons/basics/testing/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  টেস্টিং
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    This translation is up to date.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>সফটওয়ার ডেভেলপ করার একটি গুরুত্বপূর্ণ অংশ হলো টেস্টিং। 
+এই অধ্যায়ে আমরা এক্সইউনিট ব্যবহার করে কিভাবে আমাদের এলিক্সির কোড টেস্ট করা যায় এবং এর কিছু বেস্ট প্র্যাকটিস দেখবো।</p>
+
+<h2>সূচীপত্র</h2>
+<div id="toc"></div>
+
+<h2 id="exunit">ExUnit</h2>
+
+<p>এক্সইউনিট হলো এলিক্সির এর বিল্ট-ইন টেস্ট ফ্রেইমওয়ার্ক, আমাদের কোডকে পুঙ্খানুপুঙ্খভাবে টেস্ট করার জন্যে প্রয়োজনীয় সবকিছুই এতে রয়েছে। 
+শুরু করার আগে, আমাদের খেয়াল রাখতে হবে টেস্ট এর জন্যে লেখা কোডগুলো এলিক্সির স্ক্রিপ্ট আকারে সম্পাদনা করা হয়, তাই আমাদের <code class="highlighter-rouge">.exs</code> ফাইল এক্সটেনশন ব্যবহার করতে হবে।
+এবং টেস্ট শুরুর আগে সাধারণত <code class="highlighter-rouge">test/test_helper.exs</code> নামের একটি ফাইলে <code class="highlighter-rouge">ExUnit.start()</code> লিখে এক্সইউনিটকে চালু করতে হবে।</p>
+
+<p>আগের অধ্যায়ে যখন আমরা উদাহরণস্বরূপ একটি প্রজেক্ট তৈরি করেছিলাম তখন, মিক্স আমাদের জন্যে একটি সাধারণ উদাহরণ টেস্ট কোড লিখে দিয়েছিলো, যা আমরা <code class="highlighter-rouge">test/example_test.exs</code> গিয়ে দেখে নিতে পারিঃ</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ExampleTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="n">doctest</span> <span class="no">Example</span>
+
+  <span class="n">test</span> <span class="s2">"greets the world"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span> <span class="o">==</span> <span class="ss">:world</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>আমাদের প্রজেক্টের টেস্টগুলো রান করার জন্যে আমরা <code class="highlighter-rouge">mix test</code> ব্যবহার করতে পারি। 
+আমরা যদি এটা রান করি তবে, নিচের আউটপুটের মতোই একটি আউটপুট দেখতে পাবোঃ</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+
+Finished <span class="k">in </span>0.03 seconds
+2 tests, 0 failures
+</code></pre></div></div>
+
+<p>টেস্ট আউটপুটে দুটি ডট(..) কেন? এর কারণ হলো, মিক্স <code class="highlighter-rouge">test/example_test.exs</code> এর সাথে সাথে <code class="highlighter-rouge">lib/example.ex</code> ফাইলেও একটি ডকটেস্ট সংযোজন করেঃ</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="sd">"""
+  Documentation for Example.
+  """</span>
+
+  <span class="nv">@doc</span> <span class="sd">"""
+  Hello world.
+
+  ## Examples
+
+      iex&gt; Example.hello
+      :world
+
+  """</span>
+  <span class="k">def</span> <span class="n">hello</span> <span class="k">do</span>
+    <span class="ss">:world</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="assert">assert</h3>
+
+<p>যদি আপনি এর আগে কখনো টেস্ট কোড লিখে থাকেন তবে হতে পারে আপনি ইতোমধ্যেই <code class="highlighter-rouge">assert</code> এর সাথে পরিচিত। তাছাড়া কিছু ফ্রেমওয়ার্ক এ <code class="highlighter-rouge">should</code> বা <code class="highlighter-rouge">expect</code> এর কাজও অনেকটা একই রকম।</p>
+
+<p>আমরা <code class="highlighter-rouge">assert</code> ম্যাক্রো ব্যবহার করে, একটি এক্সপ্রেশন সত্য কিনা তা টেস্ট করি। 
+যদি সত্য না হয় সেক্ষেত্রে একটি এরর তৈরি হয় এবং টেস্ট ফেইল হয়। 
+আসুন উদাহরণের টেস্টটি ফেইল হওয়ার জন্যে আমরা টেস্ট কোডে কিছু পরিবর্তন করে <code class="highlighter-rouge">mix test</code> রান করিঃ</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ExampleTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="n">doctest</span> <span class="no">Example</span>
+
+  <span class="n">test</span> <span class="s2">"greets the world"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span> <span class="o">==</span> <span class="ss">:word</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>এখন আমরা ভিন্ন রকমের একটা আউটপুট দেখতে পাবোঃ</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  1<span class="o">)</span> <span class="nb">test </span>greets the world <span class="o">(</span>ExampleTest<span class="o">)</span>
+     <span class="nb">test</span>/example_test.exs:5
+     Assertion with <span class="o">==</span> failed
+     code:  assert Example.hello<span class="o">()</span> <span class="o">==</span> :word
+     left:  :world
+     right: :word
+     stacktrace:
+       <span class="nb">test</span>/example_test.exs:6 <span class="o">(</span><span class="nb">test</span><span class="o">)</span>
+
+<span class="nb">.</span>
+
+Finished <span class="k">in </span>0.03 seconds
+2 tests, 1 failures
+</code></pre></div></div>
+
+<p>এক্সইউনিট আমাদের ঠিক কোন জায়গাতে ভুল হয়েছে, টেস্ট কি ভ্যালু আশা করেছিলো এবং কি ভ্যালু সে আসলেে পেয়েছে তা বলে দিবে।</p>
+
+<h3 id="refute">refute</h3>
+
+<p><code class="highlighter-rouge">unless</code> আর <code class="highlighter-rouge">if</code> যেমন ঠিক তেমনই হলো <code class="highlighter-rouge">refute</code> আর <code class="highlighter-rouge">assert</code> .
+<code class="highlighter-rouge">refute</code> ব্যবহার করবেন তখনই, যখন আপনি কোন স্টেটমেন্ট মিথ্যা এটা নিশ্চিত করতে চাইবেন।</p>
+
+<h3 id="assert_raise">assert_raise</h3>
+
+<p>কখনো কখনো কোডে ঠিকমতো এরর তৈরি হচ্ছে কি না সেটা assert করে নিশ্চিত হতে হয়। 
+আমরা <code class="highlighter-rouge">assert_raise</code> ব্যাবহার করে এটা করতে পারি। 
+আগামীতে প্লাগের অধ্যায়ে, আমরা এর একটি উদাহরণ দেখতে পাবো।</p>
+
+<h3 id="assert_receive">assert_receive</h3>
+
+<p>এলিক্সির এপ্লিকেশনে অনেক actors/processes থাকে যারা একে অপরকে মেসেজ আদান প্রদান করে। তো এমন ক্ষেত্রে আপনি মেসেজ ঠিকমতো পাঠানো হচ্ছে কিনা তা টেস্ট করতে চাইবেন। 
+যেহেতু এলিক্সির এর এক্সইউনিট একটি নিজস্ব প্রসেস এর মধ্যে চলে তাই এটি অন্য যে কোন প্রসেসের মতই মেসেজ গ্রহণ করতে পারে, আসুন <code class="highlighter-rouge">assert_received</code> ম্যাক্রো দিয়ে তা টেস্ট করে দেখিঃ</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">SendingProcess</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">run</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="ss">:ping</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">defmodule</span> <span class="no">TestReceive</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">test</span> <span class="s2">"receives ping"</span> <span class="k">do</span>
+    <span class="no">SendingProcess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">self</span><span class="p">())</span>
+    <span class="n">assert_received</span> <span class="ss">:ping</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">assert_received</code> মেসেজ এর জন্য অপেক্ষা করেনা, তবে আমরা <code class="highlighter-rouge">assert_receive</code> এর সাথে একটি টাইম আউট নির্ধারণ করে দিতে পারি।</p>
+
+<h3 id="capture_io-and-capture_log">capture_io and capture_log</h3>
+
+<p>এপ্লিকেশন এর আউটপুট ক্যাপচার করার জন্যে আমরা <code class="highlighter-rouge">ExUnit.CaptureIO</code> ব্যবহার করতে পারি মূল এপ্লিকেশনে কোন পরিবর্তন না করেই। 
+আমরা শুধু আউটপুট দেয়া ফাংশনটি পাস করলেই হবেঃ</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">OutputTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">import</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">CaptureIO</span>
+
+  <span class="n">test</span> <span class="s2">"outputs Hello World"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">capture_io</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Hello World"</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"Hello World</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">ExUnit.CaptureLog</code> যেভাবে কাজ করে তা অনেকটা <code class="highlighter-rouge">Logger</code> এ আউটপুট ক্যাপচার করার মত।</p>
+
+<h2 id="test-setup">Test Setup</h2>
+
+<p>কিছু কিছু ক্ষেত্রে, টেস্ট করার আগে কিছু সেটআপ করে নিতে হয়। 
+এটা করার জন্য আমরা <code class="highlighter-rouge">setup</code> এবং <code class="highlighter-rouge">setup_all</code> ম্যাক্রো ব্যবহার করতে পারি। 
+প্রত্যেক টেস্ট রান করার আগে <code class="highlighter-rouge">setup</code> রান হবে আর স্যুটের শুরুতে <code class="highlighter-rouge">setup_all</code> রান হবে শুধু একবার। 
+সাধারণত এরা <code class="highlighter-rouge">{:ok, state}</code> এর একটি টুপল রিটার্ন করে। আর, এই স্টেট আমাদের টেস্ট থেকে এক্সেস করা যাবে।</p>
+
+<p>এই উদাহরণের জন্য আমরা <code class="highlighter-rouge">setup_all</code> ব্যাবহার করার জন্যেে আমাদের কোডে পরিবর্তন করবোঃ</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ExampleTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="n">doctest</span> <span class="no">Example</span>
+
+  <span class="n">setup_all</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="ss">recipient:</span> <span class="ss">:world</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">"greets"</span><span class="p">,</span> <span class="n">state</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span> <span class="o">==</span> <span class="n">state</span><span class="p">[</span><span class="ss">:recipient</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="mocking">Mocking</h2>
+
+<p>এলিক্সির এ মকিং করবো কি না এর সাধারণ উত্তর হলোঃ করবেন না।<br />
+আপনি হয়তো আপনার সহজাত প্রেরণা থেকে মকিং করতে চাইতে পারেন, কিন্তু এলিক্সির কমিউনিটি মকিং করা থেকে সবাইকে নিরুৎসাহিত করতে আপ্রাণ চেষ্টা করে, এবং এটা তারা যুক্তিসংগত কারণেই করে থাকে।</p>
+
+<p>এ বিষয়ে বিস্তারিত জানতে এই <a href="http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/">অসাধারণ আর্টিকেলটি</a> পড়ে ফেলুুুন। 
+সারমর্ম হলো, টেস্টিং এর জন্যে ডিপেন্ডেন্সীগুলো মক(এখানে মক হলো <em>ক্রিয়াপদ</em>) না করে, এপ্লিকেশনের বাইরের কোডগুলোর জন্যে আলাদা ইন্টারফেস(বিহেবিওরস) তৈরি করার মাধ্যমে আপনার টেস্টিং এর জন্যে লেখা ক্লায়েন্ট কোডে মক (মক হলো বিশেষ্য) ব্যবহারে অনেক বেশী সুবিধা লাভ করা যায়।</p>
+
+<p>এপ্লিকেশনে কোডের ইমপ্লিমেন্টেশন সুইচ করার জন্য অন্যতম উপায় হলো, মডিউল কে আর্গুমেন্ট আকারে পাস করা এবং একটি ডিফল্ট ভ্যলু ব্যবহার করা। 
+যদি এতে কাজ না হয় তো আমরা বিল্ট ইন কনফিগারেশন ব্যাবহার করতে পারি। 
+আমাদের কোন স্পেশাল মকিং লাইব্রেরির দরকার নাই। দরকার শুধু বিহেবিওরস আর কলব্যাক এর।</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/bn/lessons/basics/testing.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/bn/lessons/basics/documentation/" title="ডকুমেন্টেশান">← ডকুমেন্টেশান</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/bn/lessons/basics/comprehensions/" title="কম্প্রিহেনশান">কম্প্রিহেনশান →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong >bn</strong>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/testing/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/testing/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/testing/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/testing/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/testing/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/testing/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/testing/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/testing/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/testing/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/testing/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/testing/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/testing/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/testing/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/testing/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/testing/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/testing/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/testing/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/testing/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>এলিক্সির স্কুল</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/bn/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">ব্যাসিকস</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/basics/">1. ব্যাসিকস</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/collections/">2. কালেকশন</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/enum/">3. ইনাম</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/pattern-matching/">4. প্যাটার্ন ম্যাচিং</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/control-structures/">5. কন্ট্রোল স্ট্রাকচার</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/functions/">6. ফাংশন</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/pipe-operator/">7. পাইপ অপারেটর</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/modules/">8. মডিউল</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/mix/">9. মিক্স</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/sigils/">10. সিজিল</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/documentation/">11. ডকুমেন্টেশান</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">12. টেস্টিং</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/comprehensions/">13. কম্প্রিহেনশান</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/strings/">14. স্ট্রিং</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/mix-tasks/">16. মিক্স টাস্ক</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/bn/lessons/basics/iex-helpers/">17. IEx হেল্পার</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/bn/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

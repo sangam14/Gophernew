@@ -1,0 +1,833 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="pl">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lekcje programowania w języku Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/pl/lessons/advanced/behaviours/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="pl">
+  <meta property="og:description" content="Lekcje programowania w języku Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/behaviours/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/behaviours/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/behaviours/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/pl/lessons/advanced/behaviours/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Zachowania &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/pl/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/pl/lessons/advanced/behaviours/&title=Zachowania&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/pl/lessons/advanced/behaviours/&via=elixirschool&text=ElixirSchool: Zachowania&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/pl/lessons/advanced/behaviours/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/pl/lessons/advanced/behaviours/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Zachowania" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/pl/lessons/advanced/behaviours/&title=ElixirSchool: Zachowania&description=Check out 'Zachowania' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Zachowania&body=Check out 'Zachowania' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/pl/lessons/advanced/behaviours/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Zachowania
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    To tłumaczenie jest aktualne.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>W poprzedniej lekcji poznaliśmy specyfikacje i typy. W tej dowiemy się jak wymusić na module ich implementację. W Elixirze funkcjonalność ta nosi nazwę zachowań.</p>
+
+<h2>Spis treści</h2>
+<div id="toc"></div>
+
+<h2 id="zastosowania">Zastosowania</h2>
+
+<p>Czasami chcemy, by moduły współdzieliły publiczne API, rozwiązaniem tego problemu w Elixirze są zachowania. Zachowania pełną dwie role:</p>
+
+<ul>
+  <li>Definiują zestaw funkcji, które muszą być zaimplementowane w module,</li>
+  <li>Sprawdzają, czy rzeczywiście zaimplementowano wymagane funkcje.</li>
+</ul>
+
+<p>Elixir zawiera pewną ilość zachowań jak na przykład GenServer, ale w tej lekcji skupimy się na tworzeniu własnych.</p>
+
+<h2 id="definiowanie-zachowania">Definiowanie zachowania</h2>
+
+<p>W celu lepszego zrozumienia zachowań definiujmy je w module <code class="highlighter-rouge">Worker</code>. Wszystkie implementacje będą musiały zawierać dwie funkcje <code class="highlighter-rouge">init/1</code> i <code class="highlighter-rouge">perform/2</code>.</p>
+
+<p>Aby to osiągnąć, użyjemy dyrektywy <code class="highlighter-rouge">@callback</code>, która ma składnię zbliżoną do <code class="highlighter-rouge">@spec</code> i definiuje <strong>wymagane</strong> metody; w przypadku makr należy użyć <code class="highlighter-rouge">@macrocallback</code>. Zdefiniujmy metody <code class="highlighter-rouge">init/1</code> i <code class="highlighter-rouge">perform/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Worker</span> <span class="k">do</span>
+  <span class="nv">@callback</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span> <span class="p">::</span> <span class="n">term</span><span class="p">)</span> <span class="p">::</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">new_state</span> <span class="p">::</span> <span class="n">term</span><span class="p">}</span> <span class="o">|</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span> <span class="p">::</span> <span class="n">term</span><span class="p">}</span>
+  <span class="nv">@callback</span> <span class="n">perform</span><span class="p">(</span><span class="n">args</span> <span class="p">::</span> <span class="n">term</span><span class="p">,</span> <span class="n">state</span> <span class="p">::</span> <span class="n">term</span><span class="p">)</span> <span class="p">::</span>
+              <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span> <span class="p">::</span> <span class="n">term</span><span class="p">,</span> <span class="n">new_state</span> <span class="p">::</span> <span class="n">term</span><span class="p">}</span>
+              <span class="o">|</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span> <span class="p">::</span> <span class="n">term</span><span class="p">,</span> <span class="n">new_state</span> <span class="p">::</span> <span class="n">term</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Nasze zachowanie określa <code class="highlighter-rouge">init/1</code> jako funkcję przyjmującą jako parametr dowolną wartość i zwracającą krotkę <code class="highlighter-rouge">{:ok, state}</code> albo <code class="highlighter-rouge">{:error, reason}</code>, jest to standardowa inicjacja modułu. Nasza funkcja <code class="highlighter-rouge">perform/2</code> będzie otrzymywać jako parametry pewne argumenty wraz ze stanem, który zainicjował nasz moduł. Spodziewamy się, że funkcja ta zwróci <code class="highlighter-rouge">{:ok, result, state}</code> albo <code class="highlighter-rouge">{:error, reason, state}</code>, podobnie jak GenServer.</p>
+
+<h2 id="użycie-zachowań">Użycie zachowań</h2>
+
+<p>Teraz gdy zdefiniowaliśmy nasze zachowanie, możemy użyć go przy tworzeniu różnych modułów, które będą współdzielić publiczne API. Dodanie zachowania do modułu jest proste i polega na wykorzystaniu dyrektywy <code class="highlighter-rouge">@behaviour</code>.</p>
+
+<p>Użyjmy naszego zachowania do stworzenia modułu, obsługującego zadanie pobrania pliku i zapisania do na dysku:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Downloader</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Example</span><span class="o">.</span><span class="no">Worker</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">perform</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">url</span>
+    <span class="o">|&gt;</span> <span class="no">HTTPoison</span><span class="o">.</span><span class="n">get!</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:body</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">write_file</span><span class="p">(</span><span class="n">opts</span><span class="p">[</span><span class="ss">:path</span><span class="p">])</span>
+    <span class="o">|&gt;</span> <span class="n">respond</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">write_file</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:missing_body</span><span class="p">}</span>
+
+  <span class="k">defp</span> <span class="n">write_file</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">contents</span><span class="p">},</span> <span class="n">path</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">path</span>
+    <span class="o">|&gt;</span> <span class="no">Path</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">File</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">(</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:path</span><span class="p">],</span> <span class="n">opts</span><span class="p">}</span>
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>A co z zadaniem kompresji tablicy plików? To też jest możliwe!</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Compressor</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Example</span><span class="o">.</span><span class="no">Worker</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">perform</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">payload</span>
+    <span class="o">|&gt;</span> <span class="n">compress</span>
+    <span class="o">|&gt;</span> <span class="n">respond</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">compress</span><span class="p">({</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="ss">:zip</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">path</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Wykonywane zadania są różne, ale publiczne API nie, tym samym każdy moduł wykorzystujący ten kod może, to robić wiedząc jakich odpowiedzi można się spodziewać. To daje nam możliwość stworzenia wielu różnych zadań, które mają spójne API.</p>
+
+<p>Jeżeli dodamy do naszego modułu zachowanie, ale pominiemy implementację wymaganych funkcji, to w trakcie kompilacji otrzymamy ostrzeżenie. Usuńmy metodę <code class="highlighter-rouge">init/1</code> z modułu <code class="highlighter-rouge">Example.Compressor</code> i zobaczmy, co się stanie:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Compressor</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Example</span><span class="o">.</span><span class="no">Worker</span>
+
+  <span class="k">def</span> <span class="n">perform</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">payload</span>
+    <span class="o">|&gt;</span> <span class="n">compress</span>
+    <span class="o">|&gt;</span> <span class="n">respond</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">compress</span><span class="p">({</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="ss">:zip</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">path</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+  <span class="k">defp</span> <span class="n">respond</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">},</span> <span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="n">opts</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Teraz gdy uruchomimy kompilację to powinniśmy otrzymać ostrzeżenie:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lib/example/compressor.ex:1: warning: undefined behaviour <span class="k">function </span>init/1 <span class="o">(</span><span class="k">for </span>behaviour Example.Worker<span class="o">)</span>
+Compiled lib/example/compressor.ex
+</code></pre></div></div>
+
+<p>I to wszystko! Jesteśmy gotowi by tworzyć zachowania i współdzielić je pomiędzy modułami.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/pl/lessons/advanced/behaviours.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pl/lessons/advanced/typespec/" title="Specyfikacje i typy">← Specyfikacje i typy</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pl/lessons/advanced/gen-stage/" title="GenStage">GenStage →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/behaviours/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/behaviours/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/behaviours/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/behaviours/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/behaviours/" >ko</a>
+        
+      
+        
+        
+
+        
+          <strong >pl</strong>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/behaviours/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/behaviours/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/advanced/behaviours/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/behaviours/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/behaviours/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/behaviours/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lekcje programowania w języku Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/pl/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Podstawy</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/basics/">1. Podstawy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/collections/">2. Kolekcje</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/pattern-matching/">4. Dopasowanie wzorców</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/control-structures/">5. Struktury sterujące</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/functions/">6. Funkcje</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/pipe-operator/">7. Operator Potoku</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/modules/">8. Organizacja kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/sigils/">10. Sigile</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/documentation/">11. Dokumentowanie kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/testing/">12. Testowanie kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/comprehensions/">13. Składanie kolekcji</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/strings/">14. Ciągi znaków</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/mix-tasks/">16. Własne funkcje Mix'a</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/iex-helpers/">17. Powłoka IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Zaawansowane</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/erlang/">1. Współpraca z Erlangiem</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/error-handling/">2. Wyjątki i błędy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/escripts/">3. Uruchamianie programów</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/concurrency/">4. Współbieżność</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/otp-concurrency/">5. Współbieżność z OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/otp-supervisors/">6. Nadzorcy OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/metaprogramming/">8. Metaprogramowanie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/umbrella-projects/">9. Projekty zbiorcze</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/typespec/">10. Specyfikacje i typy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">11. Zachowania</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specyficzne</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Biblioteki</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/libraries/guardian/">1. Guardian (Podstawy)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/pl/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,1011 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="uk">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Навчальні матеріали про мову програмування Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/uk/lessons/basics/functions/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="uk">
+  <meta property="og:description" content="Навчальні матеріали про мову програмування Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/functions/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ta" href="/ta/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/functions/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/uk/lessons/basics/functions/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Функції &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/uk/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/uk/lessons/basics/functions/&title=Функції&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/uk/lessons/basics/functions/&via=elixirschool&text=ElixirSchool: Функції&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/uk/lessons/basics/functions/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/uk/lessons/basics/functions/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Функції" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/uk/lessons/basics/functions/&title=ElixirSchool: Функції&description=Check out 'Функції' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Функції&body=Check out 'Функції' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/uk/lessons/basics/functions/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Функції
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Переклад актуальний.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>В Elixir, як і в багатьох інших функціональних мовах програмування, функції є повноцінними об’єктами.
+В цьому уроці ми розглянемо типи функцій в Elixir, чим вони відрізняються і як ними користуватись.</p>
+
+<h2>Зміст</h2>
+<div id="toc"></div>
+
+<h2 id="анонімні-функції">Анонімні функції</h2>
+
+<p>Як випливає з назви, у анонімної функції нема імені.
+В уроці <code class="highlighter-rouge">Enum</code> було показано що вони часто використовуються у якості параметрів інших функцій.
+Для визначення анонімної функції в Elixir використовуються ключові слова <code class="highlighter-rouge">fn</code> та <code class="highlighter-rouge">end</code>.
+Між ними можна визначити будь-яку кількість параметрів та тіл функції (function body), розділених <code class="highlighter-rouge">-&gt;</code>.</p>
+
+<p>Давайте розглянемо простий приклад:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">sum</span> <span class="o">=</span> <span class="k">fn</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">end</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">sum</span><span class="o">.</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+</code></pre></div></div>
+
+<h3 id="короткий-синтаксис">Короткий синтаксис</h3>
+
+<p>Анонімні функції використовуються в мові дуже часто. Тому для них було створено спеціальне скорочення:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">sum</span> <span class="o">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="nv">&amp;2</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">sum</span><span class="o">.</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+</code></pre></div></div>
+
+<p>Як ви вже могли здогадатися, у скороченій версії параметри доступні як  <code class="highlighter-rouge">&amp;1</code>, <code class="highlighter-rouge">&amp;2</code>, <code class="highlighter-rouge">&amp;3</code> і так далі.</p>
+
+<h2 id="зіставлення-зі-зразком">Зіставлення зі зразком</h2>
+
+<p>Зіставлення зі зразком в Elixir застосовується не тільки для зіставлення змінних.
+Цей же інструмент використовується для оголошення функцій.</p>
+
+<p>Elixir використовує зіставлення зі зразком для перевірки всіх наборів параметрів і вибору першого відповідного набору для виконання:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">handle_result</span> <span class="o">=</span> <span class="k">fn</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Handling result..."</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"This would be never run as previous will be matched beforehand."</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:error</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"An error has occurred!"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">some_result</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">handle_result</span><span class="o">.</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">some_result</span><span class="p">})</span>
+<span class="no">Handling</span> <span class="n">result</span><span class="o">...</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">handle_result</span><span class="o">.</span><span class="p">({</span><span class="ss">:error</span><span class="p">})</span>
+<span class="no">An</span> <span class="n">error</span> <span class="n">has</span> <span class="n">occurred!</span>
+</code></pre></div></div>
+
+<h2 id="іменовані-функції">Іменовані функції</h2>
+
+<p>Також в Elixir є можливість визначати іменовані функції для подальшого їх виклику за цими іменами.
+Ці функції оголошуються за допомогою ключового слова <code class="highlighter-rouge">def</code> в контексті модуля.
+Більш детально ми розглянемо модулі в наступних уроках, а в цьому ми зосередимося тільки на іменованих функціях.</p>
+
+<p>Функції, визначені в модулі, доступні з других модулів:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hello, Sean"</span>
+</code></pre></div></div>
+
+<p>Якщо функція поміщається в один рядок (однорядкова), то її опис можна скоротити, використовуючи <code class="highlighter-rouge">do:</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Вже розібравшись у зіставленні зі зразком, давайте розглянемо приклад рекурсії з використанням іменованих функцій:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Length</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">of</span><span class="p">([]),</span> <span class="k">do</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="k">def</span> <span class="n">of</span><span class="p">([</span><span class="n">_</span> <span class="o">|</span> <span class="n">tail</span><span class="p">]),</span> <span class="k">do</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">of</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Length</span><span class="o">.</span><span class="n">of</span> <span class="p">[]</span>
+<span class="mi">0</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Length</span><span class="o">.</span><span class="n">of</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<h3 id="найменування-та-арність-функцій">Найменування та арність функцій</h3>
+
+<p>Раніше ми зазначали, що функції іменуються шляхом поєднання імені та арності (кількості аргументів).
+Це дозволяє робити такі речі:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter2</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, anonymous person!"</span>   <span class="c1"># hello/0</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>        <span class="c1"># hello/1</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name1</span><span class="p">,</span> <span class="n">name2</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, </span><span class="si">#{</span><span class="n">name1</span><span class="si">}</span><span class="s2"> and </span><span class="si">#{</span><span class="n">name2</span><span class="si">}</span><span class="s2">"</span>
+                                                <span class="c1"># hello/2</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
+<span class="s2">"Hello, anonymous person!"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Fred"</span><span class="p">)</span>
+<span class="s2">"Hello, Fred"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Fred"</span><span class="p">,</span> <span class="s2">"Jane"</span><span class="p">)</span>
+<span class="s2">"Hello, Fred and Jane"</span>
+</code></pre></div></div>
+
+<p>В коментарях до функцій ми привели їх найменування.
+Перша функція не приймає жодних аргументів, тому описується як <code class="highlighter-rouge">hello/0</code>; друга приймає один параметр, тому описується як <code class="highlighter-rouge">hello/1</code> і т.д.
+На відміну від перевантаження функцій в деяких інших мовах програмування, в нашому випадку функції варто вважати <em>різними</em> .
+(Зіставлення зі зразком, яке ми описували раніше, застосовується тільки у випадку, коли для функцій з <em>однаковою</em> кількістю аргументів надається декілька різних реалізацій.)</p>
+
+<h3 id="функції-і-зіставлення-зі-зразком">Функції і зіставлення зі зразком</h3>
+
+<p>За лаштунками функції зіставляють зі зразком аргументи, з якими вони були викликані.</p>
+
+<p>До прикладу, нам потрібно написати функцію, яка приймає асоціативний масив, і ми зацікавлені у використанні лише одного конкретного ключа.
+В такому разі ми можемо зіставити аргумент зі зразком таким чином, щоб перевірити наявність цього ключа:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter1</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">})</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">person_name</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Припустімо, що ми маємо асоціативний масив, який описує людину на ім’я Fred:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">fred</span> <span class="o">=</span> <span class="p">%{</span>
+<span class="o">...&gt;</span> <span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">,</span>
+<span class="o">...&gt;</span> <span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span>
+<span class="o">...&gt;</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span>  
+<span class="o">...&gt;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ось такі результати ми отримаємо, коли викличемо <code class="highlighter-rouge">Greeter1.hello/1</code> з асоціативним масивом <code class="highlighter-rouge">fred</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># виклик з повним масивом</span>
+<span class="o">...&gt;</span> <span class="no">Greeter1</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="n">fred</span><span class="p">)</span>
+<span class="s2">"Hello, Fred"</span>
+</code></pre></div></div>
+
+<p>Що трапиться, коли ми викличемо функцію з асоціативним масивом, що <em>не</em> містить ключ <code class="highlighter-rouge">:name</code>?</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># виклик без потрібного ключа повертає помилку</span>
+<span class="o">...&gt;</span> <span class="no">Greeter1</span><span class="o">.</span><span class="n">hello</span><span class="p">(%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">})</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">FunctionClauseError</span><span class="p">)</span> <span class="n">no</span> <span class="n">function</span> <span class="n">clause</span> <span class="n">matching</span> <span class="ow">in</span> <span class="no">Greeter1</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span>    
+    <span class="no">The</span> <span class="n">following</span> <span class="n">arguments</span> <span class="n">were</span> <span class="n">given</span> <span class="n">to</span> <span class="no">Greeter1</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># 1</span>
+        <span class="p">%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+    <span class="ss">iex:</span><span class="mi">12</span><span class="p">:</span> <span class="no">Greeter1</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>Причиною такої поведінки є те, що в Elixir зіставлення аргументів функції зі зразком викликається на арність, з якою ця функція визначена.</p>
+
+<p>Давайте подивимося на те, як виглядають дані, коли вони надходять у <code class="highlighter-rouge">Greeter1.hello/1</code>:</p>
+
+<pre><code class="language-Elixir"># вхідний асоціативний масив
+iex&gt; fred = %{
+...&gt; name: "Fred",
+...&gt; age: "95",
+...&gt; favorite_color: "Taupe"  
+...&gt; }
+</code></pre>
+<p><code class="highlighter-rouge">Greeter1.hello/1</code> очікує такого аргументу:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">}</span>
+</code></pre></div></div>
+<p>В <code class="highlighter-rouge">Greeter1.hello/1</code> переданий асоціативний масив (<code class="highlighter-rouge">fred</code>) зіставляється з нашим аргументом (<code class="highlighter-rouge">%{name: person_name}</code>):</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">}</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">,</span> <span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Функція виявляє, що у вхідному асоціативному масиві є ключ, який відповідає на <code class="highlighter-rouge">name</code>.
+Зіставлення успішне! І як результат успішного зіставлення, значення ключа <code class="highlighter-rouge">:name</code> з асоціативного масиву справа (наприклад асоціативний масив <code class="highlighter-rouge">fred</code>) пов’язується зі змінною зліва (<code class="highlighter-rouge">person_name</code>).</p>
+
+<p>А тепер, що якби ми все ще хотіли присвоїти ім’я Fred змінній <code class="highlighter-rouge">person_name</code>, але ми ТАКОЖ хотіли би зберегти знання про всю асоціативну мапу людини?
+Скажімо, ми хочемо виконати <code class="highlighter-rouge">IO.inspect(fred)</code> після привітання.
+Наразі через те, що ми зіставили зі зразком лише ключ <code class="highlighter-rouge">:name</code> із нашого асоціативного масиву, ми пов’язуємо лише значення цього ключа зі змінною - функція не має решти знань про Фреда.</p>
+
+<p>Для того, щоб цю інформацію зберегти і могти використовувати, ми повинні присвоїти весь асоціативний масив окремій змінній.</p>
+
+<p>Давайте напишемо нову функцію:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter2</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">}</span> <span class="o">=</span> <span class="n">person</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">person_name</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span> <span class="n">person</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Пам’ятаймо, що Elixir буде на вході зіставляти аргумент зі зразком.
+Тому в цьому випадку кожна сторона буде зіставляти зі зразком вхідний аргумент і прив’язувати його до того, що зі зразком співпало.
+Для початку глянемо на праву сторону:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">person</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">,</span> <span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Зараз до змінної <code class="highlighter-rouge">person</code> було прив’язано весь асоціативний масив <code class="highlighter-rouge">fred</code>.
+Далі подивимося на наступне зіставлення зі зразком:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">}</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">,</span> <span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Далі все таке ж, як в оригінальній функції <code class="highlighter-rouge">Greeter1</code>, де ми зіставляли зі зразком асоціативний масив і залишали лише ім’я Фреда.
+Нам вдалося отримати дві змінні, які ми можемо використовувати (на противагу одній в оригінальній функції):</p>
+<ol>
+  <li><code class="highlighter-rouge">person</code> зберігає дані <code class="highlighter-rouge">%{name: "Fred", age: "95", favorite_color: "Taupe"}</code></li>
+  <li><code class="highlighter-rouge">person_name</code> зберігає стрічку <code class="highlighter-rouge">"Fred"</code></li>
+</ol>
+
+<p>Тому зараз, коли ми викликаємо <code class="highlighter-rouge">Greeter2.hello/1</code>, ми можемо використовувати всю інформацію про Фреда:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># виклик з всією інформацією про людину</span>
+<span class="o">...&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="n">fred</span><span class="p">)</span>
+<span class="s2">"Hello, Fred"</span>
+<span class="p">%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">}</span>
+<span class="c1"># виклик лише з ключем імені</span>
+<span class="o">...&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">(%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">})</span>
+<span class="s2">"Hello, Fred"</span>
+<span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">}</span>
+<span class="c1"># виклик без ключа імені</span>
+<span class="o">...&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">(%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">})</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">FunctionClauseError</span><span class="p">)</span> <span class="n">no</span> <span class="n">function</span> <span class="n">clause</span> <span class="n">matching</span> <span class="ow">in</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span>    
+    <span class="no">The</span> <span class="n">following</span> <span class="n">arguments</span> <span class="n">were</span> <span class="n">given</span> <span class="n">to</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># 1</span>
+        <span class="p">%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+    <span class="ss">iex:</span><span class="mi">15</span><span class="p">:</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>З цього ми бачимо, що в Elixir зіставлення зі зразком має неабияку глибину, оскільки кожен аргумент незалежно зіставляється з вхідними даними, залишаючи нам змінні, за якими ці дані можна викликати в нашій функції.</p>
+
+<p>Якщо ми змінимо порядок <code class="highlighter-rouge">%{name: person_name}</code> і <code class="highlighter-rouge">person</code> в списку, то ми отримаємо ідентичний результат, оскільки вони співставляють <code class="highlighter-rouge">fred</code> незалежно.</p>
+
+<p>Ми обмінюємо змінну і асоціативний масив:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter3</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">person</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">})</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">person_name</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span> <span class="n">person</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>І викликаємо з тими ж даними, які використовували в <code class="highlighter-rouge">Greeter2.hello/1</code>:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># викликаємо з тим же Фредом</span>
+<span class="o">...&gt;</span> <span class="no">Greeter3</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="n">fred</span><span class="p">)</span>
+<span class="s2">"Hello, Fred"</span>
+<span class="p">%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Пам’ятаймо, що хоча виглядає це так, ніби <code class="highlighter-rouge">%{name: person_name} = person</code> зіставляє <code class="highlighter-rouge">%{name: person_name}</code> зі змінною <code class="highlighter-rouge">person</code>, насправді тут <em>обидві</em> сторони зіставляються з вхідним аргументом.</p>
+
+<p><strong>Підсумок:</strong> Функції незалежно зіставляють вхідні дані з кожним своїм аргументом. Ми можемо це використовувати для того, щоб прив’язувати значення до окремих змінних всередині функції.</p>
+
+<h3 id="закриті-функції">Закриті функції</h3>
+
+<p>Якщо ми не хочемо давати доступ до функції з других модулів, ми визначаємо закриті (private) функції.
+Вони можуть бути викликані тільки з того ж модуля. Такі функції визначаються за допомогою <code class="highlighter-rouge">defp</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">phrase</span><span class="p">()</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hello, Sean"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">phrase</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">UndefinedFunctionError</span><span class="p">)</span> <span class="n">function</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">phrase</span><span class="o">/</span><span class="mi">0</span> <span class="n">is</span> <span class="n">undefined</span> <span class="ow">or</span> <span class="n">private</span>
+    <span class="no">Greeter</span><span class="o">.</span><span class="n">phrase</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="обмежувачі">Обмежувачі</h3>
+
+<p>Ми вже стикалися з обмежувачами у розділі <a href="../control-structures">Керуючі конструкції</a>, тепер давайте розглянемо їх застосування в іменованих функціях.
+Обмежувачі перевіряються тільки після того, як Elixir зіставив функцію.</p>
+
+<p>В наступному прикладі у нас є дві функції з однаковими сигнатурами.
+Ми використовуємо обмежувачі для визначення, яку саме з них використовувати на основі типу аргументу:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">names</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">hello</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">phrase</span><span class="p">()</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span> <span class="p">[</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"Steve"</span><span class="p">]</span>
+<span class="s2">"Hello, Sean, Steve"</span>
+</code></pre></div></div>
+
+<h3 id="аргументи-за-замовчуванням">Аргументи за замовчуванням</h3>
+
+<p>Коли ми хочемо, щоб аргумент мав деяке значення за замовчуванням - використовується синтаксис <code class="highlighter-rouge">argument \\ value</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">language_code</span> <span class="p">\\</span> <span class="s2">"en"</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">phrase</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"en"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"es"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hola, "</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"en"</span><span class="p">)</span>
+<span class="s2">"Hello, Sean"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hello, Sean"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"es"</span><span class="p">)</span>
+<span class="s2">"Hola, Sean"</span>
+</code></pre></div></div>
+
+<p>Коли ми застосовуємо одночасно обмежувачі та аргументи за замовчуванням, то все перестає працювати.
+Давайте подивимось як це виглядає:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">language_code</span> <span class="p">\\</span> <span class="s2">"en"</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">names</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">hello</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">language_code</span> <span class="p">\\</span> <span class="s2">"en"</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">phrase</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"en"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"es"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hola, "</span>
+<span class="k">end</span>
+
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">31</span><span class="p">:</span> <span class="n">definitions</span> <span class="n">with</span> <span class="n">multiple</span> <span class="n">clauses</span> <span class="ow">and</span> <span class="n">default</span> <span class="n">values</span> <span class="kn">require</span> <span class="n">a</span> <span class="n">header</span><span class="o">.</span> <span class="no">Instead</span> <span class="ss">of:</span>
+
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="ss">:first_clause</span><span class="p">,</span> <span class="n">b</span> <span class="p">\\</span> <span class="ss">:default</span><span class="p">)</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="ss">:second_clause</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+
+<span class="n">one</span> <span class="n">should</span> <span class="ss">write:</span>
+
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">\\</span> <span class="ss">:default</span><span class="p">)</span>
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="ss">:first_clause</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="ss">:second_clause</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+
+<span class="k">def</span> <span class="n">hello</span><span class="o">/</span><span class="mi">2</span> <span class="n">has</span> <span class="n">multiple</span> <span class="n">clauses</span> <span class="ow">and</span> <span class="n">defines</span> <span class="n">defaults</span> <span class="ow">in</span> <span class="n">one</span> <span class="ow">or</span> <span class="n">more</span> <span class="n">clauses</span>
+    <span class="ss">iex:</span><span class="mi">31</span><span class="p">:</span> <span class="p">(</span><span class="n">module</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Elixir не підтримує аргументи за замовчуванням при наявності декількох підходящих функцій.
+Для вирішення цієї проблеми ми додаємо визначення функції з аргументами за замовчуванням:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">language_code</span> <span class="p">\\</span> <span class="s2">"en"</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">language_code</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">names</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">hello</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">language_code</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">phrase</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"en"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"es"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hola, "</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span> <span class="p">[</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"Steve"</span><span class="p">]</span>
+<span class="s2">"Hello, Sean, Steve"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span> <span class="p">[</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"Steve"</span><span class="p">],</span> <span class="s2">"es"</span>
+<span class="s2">"Hola, Sean, Steve"</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/uk/lessons/basics/functions.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/uk/lessons/basics/control-structures/" title="Керуючі конструкції">← Керуючі конструкції</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/uk/lessons/basics/pipe-operator/" title="Оператор конвеєра">Оператор конвеєра →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/functions/" >bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/functions/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/functions/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/functions/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/functions/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/functions/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/functions/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/functions/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/functions/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/functions/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/functions/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/functions/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/functions/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/functions/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/functions/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/functions/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/ta/lessons/basics/functions/" >ta</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/functions/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/functions/" >tr</a>
+        
+      
+        
+        
+
+        
+          <strong >uk</strong>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/functions/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/functions/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/functions/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Меню</h2>
+    <p>Навчальні матеріали про мову програмування Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/uk/" class=" up ">Додому</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Основи</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/basics/">1. Основи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/collections/">2. Колекції</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/pattern-matching/">4. Зіставлення зі зразком</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/control-structures/">5. Керуючі конструкції</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. Функції</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/pipe-operator/">7. Оператор конвеєра</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/modules/">8. Модулі</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/comprehensions/">13. Вирази</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/uk/lessons/basics/mix-tasks/">16. Користувацькі Mix завдання</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Блоґ</a>
+    </li>
+    
+    <li>
+      <a href="/uk/report/" class=" up ">Прогресс перекладу</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Автори</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

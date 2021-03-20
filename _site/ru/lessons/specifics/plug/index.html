@@ -1,0 +1,1128 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ru">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Уроки программирования на языке Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ru/lessons/specifics/plug/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ru">
+  <meta property="og:description" content="Уроки программирования на языке Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/plug/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/plug/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/plug/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ru/lessons/specifics/plug/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Plug &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ru/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ru/lessons/specifics/plug/&title=Plug&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ru/lessons/specifics/plug/&via=elixirschool&text=ElixirSchool: Plug&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ru/lessons/specifics/plug/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ru/lessons/specifics/plug/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Plug" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ru/lessons/specifics/plug/&title=ElixirSchool: Plug&description=Check out 'Plug' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Plug&body=Check out 'Plug' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ru/lessons/specifics/plug/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-major"></span>
+  Plug
+</h1>
+<div class="version-info version-info-major">
+  <span>
+    
+      Некоторое содержимое этого урока может оказаться устаревшим.<br/>
+    
+
+    С момента последнего обновления перевода в оригинальный урок были внесены серьёзные изменения.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Если вы знакомы с <code class="highlighter-rouge">Ruby</code>, то можете думать о <code class="highlighter-rouge">Plug</code> как о комбинации <code class="highlighter-rouge">Rack</code> и <code class="highlighter-rouge">Sinatra</code>. Это набор договорённостей и спецификаций для модулей, используемых в веб-приложениях, а также адаптеры соединений для различных веб-серверов. Хотя <code class="highlighter-rouge">Plug</code> и не является частью ядра <code class="highlighter-rouge">Elixir</code>, это официальный проект от той же команды.</p>
+
+<p>Мы начнем с создания минимального рабочего веб-приложения с использованием <code class="highlighter-rouge">Plug</code>. После этого мы познакомимся с роутерами и узнаем, как добавить <code class="highlighter-rouge">Plug</code> к уже существующему приложению.</p>
+
+<h2>Содержание</h2>
+<div id="toc"></div>
+
+<h2 id="перед-установкой">Перед установкой</h2>
+
+<p>Чтобы следовать инструкциям этого урока, вам понадобятся установленный Elixir версии 1.4 или выше и <code class="highlighter-rouge">mix</code>.</p>
+
+<p>Если у вас еще нет проекта, создайте его:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new example
+<span class="nv">$ </span><span class="nb">cd </span>example
+</code></pre></div></div>
+
+<h2 id="зависимости">Зависимости</h2>
+
+<p>Добавлять новые зависимости при помощи <code class="highlighter-rouge">mix</code> невероятно легко. Чтобы установить <code class="highlighter-rouge">Plug</code> достаточно сделать пару изменений в файле <code class="highlighter-rouge">mix.exs</code>.
+Для начала добавим в него сам <code class="highlighter-rouge">Plug</code>, а также веб-сервер (мы будет использовать <code class="highlighter-rouge">Cowboy</code>).</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:cowboy</span><span class="p">,</span> <span class="s2">"~&gt; 1.1.2"</span><span class="p">},</span>
+    <span class="p">{</span><span class="ss">:plug</span><span class="p">,</span> <span class="s2">"~&gt; 1.3.4"</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Выполните следующую команду в терминале, чтобы <code class="highlighter-rouge">mix</code> скачал и установил новые зависимости:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+</code></pre></div></div>
+
+<h2 id="спецификация">Спецификация</h2>
+
+<p>Чтобы создавать собственные модули <code class="highlighter-rouge">Plug</code>, нужно придерживаться спецификации. К счастью, необходимо реализовать всего две функции: <code class="highlighter-rouge">init/1</code> и <code class="highlighter-rouge">call/2</code>.</p>
+
+<p>Вот пример простого модуля <code class="highlighter-rouge">Plug</code>, который возвращает “Hello World!”:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">HelloWorldPlug</span> <span class="k">do</span>
+  <span class="kn">import</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">options</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">options</span>
+
+  <span class="k">def</span> <span class="n">call</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">conn</span>
+    <span class="o">|&gt;</span> <span class="n">put_resp_content_type</span><span class="p">(</span><span class="s2">"text/plain"</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">send_resp</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s2">"Hello World!</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Сохраним файл как <code class="highlighter-rouge">lib/example/hello_world_plug.ex</code>.</p>
+
+<p>Функция <code class="highlighter-rouge">init/1</code> используется для инициализации параметров нашего модуля <code class="highlighter-rouge">Plug</code>. Она вызывается супервизором, который мы увидим в следующей секции. Пока что в качестве параметров будет пустой список.</p>
+
+<p>Значение, возвращаемое <code class="highlighter-rouge">init/1</code>, передается в качестве второго аргумента в функцию <code class="highlighter-rouge">call/2</code>.</p>
+
+<p>Функция <code class="highlighter-rouge">call/2</code> вызывается для каждого нового запроса, приходящего от веб-сервера — <code class="highlighter-rouge">Cowboy</code>.
+Она получает структуру <code class="highlighter-rouge">%Plug.Conn</code> в качества своего первого аргумента, и ожидается, что она также вернёт соединение (структуру того же типа).</p>
+
+<h2 id="настройка-application-модуля-приложения">Настройка Application-модуля приложения</h2>
+
+<p>Так как мы создаём Plug-приложение с нуля, нам придется создать еще и Application-модуль.
+Добавим в <code class="highlighter-rouge">lib/example.ex</code> старт веб-сервера <code class="highlighter-rouge">Cowboy</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Application</span>
+  <span class="kn">require</span> <span class="no">Logger</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">Plug</span><span class="o">.</span><span class="no">Adapters</span><span class="o">.</span><span class="no">Cowboy</span><span class="o">.</span><span class="n">child_spec</span><span class="p">(</span><span class="ss">:http</span><span class="p">,</span> <span class="no">Example</span><span class="o">.</span><span class="no">HelloWorldPlug</span><span class="p">,</span> <span class="p">[],</span> <span class="ss">port:</span> <span class="mi">8080</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Started application"</span><span class="p">)</span>
+
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Это запустит <code class="highlighter-rouge">Cowboy</code> под супервизором, который в свою очередь запустит <code class="highlighter-rouge">HelloWorldPlug</code> в качестве дочернего процесса.</p>
+
+<p>В вызове <code class="highlighter-rouge">Plug.Adapters.Cowboy.child_spec/4</code> третий аргумент будет передан в <code class="highlighter-rouge">Example.HelloWorldPlug.init/1</code>.</p>
+
+<p>Но это еще не все. Откроем <code class="highlighter-rouge">mix.exs</code> снова и найдем там функцию <code class="highlighter-rouge">applications</code>.
+Нужно сделать так, чтобы наше приложение автоматически запускалось.</p>
+
+<p>Для этого изменим файл следующим образом:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="ss">extra_applications:</span> <span class="p">[</span><span class="ss">:logger</span><span class="p">],</span>
+    <span class="ss">mod:</span> <span class="p">{</span><span class="no">Example</span><span class="p">,</span> <span class="p">[]}</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Теперь всё готово к запуску нашего первого веб-приложения, созданного на базе <code class="highlighter-rouge">Plug</code>. В командной строке выполним:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix run <span class="nt">--no-halt</span>
+</code></pre></div></div>
+
+<p>Как только все скомпилируется, и выведется сообщение <code class="highlighter-rouge">[info]  Started app</code>, откройте в браузере <code class="highlighter-rouge">127.0.0.1:8080</code>. Там должно появиться следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World!
+</code></pre></div></div>
+
+<h2 id="использование-plugrouter">Использование Plug.Router</h2>
+
+<p>Для большинства приложений, таких как веб-сайты и REST API, понадобится что-то, что будет перенаправлять запросы к определенным ресурсам на соответствующие обработчики в коде.
+Специально для этого в <code class="highlighter-rouge">Plug</code> существует маршрутизатор (или роутер). Как мы сейчас увидим, фреймворк типа <code class="highlighter-rouge">Sinatra</code> в <code class="highlighter-rouge">Elixir</code> не требуется, так как мы получаем его возможности вместе с <code class="highlighter-rouge">Plug</code></p>
+
+<p>Для начала создадим файл <code class="highlighter-rouge">lib/plug/router.ex</code> и скопируем в него следующий код:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Router</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Router</span>
+
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:match</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:dispatch</span><span class="p">)</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"Welcome"</span><span class="p">))</span>
+  <span class="n">match</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="s2">"Oops!"</span><span class="p">))</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Это самая простая реализация модуля <code class="highlighter-rouge">Router</code>, её код довольно очевиден.
+Мы подключили необходимые макросы с помощью инструкции <code class="highlighter-rouge">use Plug.Router</code> и задействовали встроенные модули <code class="highlighter-rouge">Plug</code>: <code class="highlighter-rouge">:match</code> и <code class="highlighter-rouge">:dispatch</code>. В коде задано два предопределённых пути маршрутизации: один, для обработки <code class="highlighter-rouge">GET</code>-запросов к родительскому узлу <code class="highlighter-rouge">'/'</code>, и второй, для обработки всех остальных запросов, возвращающий сообщение об ошибке <code class="highlighter-rouge">404</code>.</p>
+
+<p>Вернемся теперь к <code class="highlighter-rouge">lib/example.ex</code> и добавим <code class="highlighter-rouge">Example.Router</code> к дочерним процессам веб-сервера.
+Поменяем <code class="highlighter-rouge">Example.HelloWorldPlug</code> на наш новый роутер:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="no">Plug</span><span class="o">.</span><span class="no">Adapters</span><span class="o">.</span><span class="no">Cowboy</span><span class="o">.</span><span class="n">child_spec</span><span class="p">(</span><span class="ss">:http</span><span class="p">,</span> <span class="no">Example</span><span class="o">.</span><span class="no">Router</span><span class="p">,</span> <span class="p">[],</span> <span class="ss">port:</span> <span class="mi">8080</span><span class="p">)</span>
+  <span class="p">]</span>
+
+  <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Started application"</span><span class="p">)</span>
+  <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Запустим веб-сервер (в случае, если предыдущий сервер еще работает, его можно остановить, дважды нажав <code class="highlighter-rouge">Ctrl+C</code>).</p>
+
+<p>Теперь откроем <code class="highlighter-rouge">127.0.0.1:8080</code> в браузере.
+Мы должны увидеть сообщение <code class="highlighter-rouge">Welcome</code>.
+Попробуем открыть <code class="highlighter-rouge">127.0.0.1:8080/waldo</code> или любой другой ресурс.
+Должна появиться 404 ошибка с текстом <code class="highlighter-rouge">Oops!</code>.</p>
+
+<h2 id="создание-еще-одного-модуля-plug">Создание еще одного модуля Plug</h2>
+
+<p>Очень часто Plug-модули используются для обработки всех или части входящих запросов в соответствии с общей логикой.</p>
+
+<p>Для примера создадим модуль <code class="highlighter-rouge">Plug</code>, проверяющий наличие всех заданных параметров у входящего запроса. Реализуя такую проверку в виде модуля <code class="highlighter-rouge">Plug</code>, мы можем быть уверены, что приложением будут обрабатываться только корректные запросы. Ожидается, что наш модуль будет инициализироваться с двумя аргументами: <code class="highlighter-rouge">:paths</code> и <code class="highlighter-rouge">:fields</code>. Первый будет содержать те пути запросов, к которым мы применяем нашу проверку, а второй — наличие каких именно параметров у входящего запроса требуется контролировать.</p>
+
+<p><em>Примечание</em>: модули <code class="highlighter-rouge">Plug</code> применяются ко всем запросам подряд, именно поэтому мы реализуем фильтрацию запросов и применяем нашу логику только к определённому их подмножеству. Чтобы проигнорировать запрос, мы просто передаём входящее соединение (структуру <code class="highlighter-rouge">%Plug.Conn</code>) далее без изменений.</p>
+
+<p>Сначала мы покажем реализацию такого модуля <code class="highlighter-rouge">Plug</code>, а потом разберём его работу. Создаём модуль в файле <code class="highlighter-rouge">lib/example/plug/verify_request.ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">VerifyRequest</span> <span class="k">do</span>
+  <span class="k">defmodule</span> <span class="no">IncompleteRequestError</span> <span class="k">do</span>
+    <span class="nv">@moduledoc</span> <span class="sd">"""
+    Если у запроса отсутствует один из требуемых параметров - возникает исключение.
+    """</span>
+
+    <span class="k">defexception</span> <span class="ss">message:</span> <span class="s2">""</span><span class="p">,</span> <span class="ss">plug_status:</span> <span class="mi">400</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">options</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">options</span>
+
+  <span class="k">def</span> <span class="n">call</span><span class="p">(%</span><span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="p">{</span><span class="ss">request_path:</span> <span class="n">path</span><span class="p">}</span> <span class="o">=</span> <span class="n">conn</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:paths</span><span class="p">],</span> <span class="k">do</span><span class="p">:</span> <span class="n">verify_request!</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">body_params</span><span class="p">,</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:fields</span><span class="p">])</span>
+    <span class="n">conn</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">verify_request!</span><span class="p">(</span><span class="n">body_params</span><span class="p">,</span> <span class="n">fields</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">verified</span> <span class="o">=</span>
+      <span class="n">body_params</span>
+      <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+      <span class="o">|&gt;</span> <span class="n">contains_fields?</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+
+    <span class="k">unless</span> <span class="n">verified</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="k">raise</span><span class="p">(</span><span class="no">IncompleteRequestError</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">contains_fields?</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">fields</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">))</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Первое, что необходимо отметить — мы определили новое исключение <code class="highlighter-rouge">IncompleteRequestError</code>, и что один из его параметров это <code class="highlighter-rouge">:plug_status</code>. Если этот параметр доступен, модуль <code class="highlighter-rouge">Plug</code> использует его, чтобы установить код состояния для <code class="highlighter-rouge">HTTP</code> ответа в случае возникновения исключения.</p>
+
+<p>Вторая часть модуля, это функция <code class="highlighter-rouge">call/2</code>. Именно тут определяется, нужно ли вообще проверять данный запрос. Мы вызываем функцию <code class="highlighter-rouge">verify_request!/2</code> только в том случае, если путь запроса содержится в аргументе <code class="highlighter-rouge">:paths</code>.</p>
+
+<p>Последняя часть описываемого модуля Plug — закрытая функция <code class="highlighter-rouge">verify_request!/2</code>, которая проверяет наличие у запроса всех требуемых параметров из аргумента <code class="highlighter-rouge">:fields</code>. В случае отсутствия любого из параметров, вызывается исключение <code class="highlighter-rouge">IncompleteRequestError</code>.</p>
+
+<p>Мы настроили наш модуль <code class="highlighter-rouge">Plug</code> так, чтобы проверять, что все запросы к пути <code class="highlighter-rouge">/upload</code> содержат параметры <code class="highlighter-rouge">"content"</code> и <code class="highlighter-rouge">"mimetype"</code>. Только в случае прохождения этой проверки может быть выполнен код маршрутизатора, связанный с такими запросами.</p>
+
+<p>Теперь нужно сообщить маршрутизатору о новом Plug-модуле.
+Отредактируем <code class="highlighter-rouge">lib/example/router.ex</code> следующим образом:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Router</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Router</span>
+  <span class="kn">use</span> <span class="no">Plug</span><span class="o">.</span><span class="no">ErrorHandler</span>
+
+  <span class="n">alias</span> <span class="no">Example</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">VerifyRequest</span>
+
+  <span class="n">plug</span><span class="p">(</span><span class="no">Plug</span><span class="o">.</span><span class="no">Parsers</span><span class="p">,</span> <span class="ss">parsers:</span> <span class="p">[</span><span class="ss">:urlencoded</span><span class="p">,</span> <span class="ss">:multipart</span><span class="p">])</span>
+
+  <span class="n">plug</span><span class="p">(</span>
+    <span class="no">VerifyRequest</span><span class="p">,</span>
+    <span class="ss">fields:</span> <span class="p">[</span><span class="s2">"content"</span><span class="p">,</span> <span class="s2">"mimetype"</span><span class="p">],</span>
+    <span class="ss">paths:</span> <span class="p">[</span><span class="s2">"/upload"</span><span class="p">]</span>
+  <span class="p">)</span>
+
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:match</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:dispatch</span><span class="p">)</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"Welcome</span><span class="se">\n</span><span class="s2">"</span><span class="p">))</span>
+  <span class="n">post</span><span class="p">(</span><span class="s2">"/upload"</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span> <span class="s2">"Uploaded</span><span class="se">\n</span><span class="s2">"</span><span class="p">))</span>
+  <span class="n">match</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="s2">"Oops!</span><span class="se">\n</span><span class="s2">"</span><span class="p">))</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="делаем-http-порт-конфигурируемым">Делаем HTTP порт конфигурируемым</h2>
+
+<p>Когда мы создавали наше приложение, HTTP порт был “зашит” в коде.
+Считается хорошим тоном делать порт конфигурируемым при помощи файлов настроек.</p>
+
+<p>Начнём с изменения блока <code class="highlighter-rouge">application</code> в файле <code class="highlighter-rouge">mix.exs</code> для того, чтобы предоставить среде <code class="highlighter-rouge">Elixir</code> информацию о нашем приложении и установить для приложения переменную среды <code class="highlighter-rouge">env</code>. Отредактированный код данного блока будет выглядеть следующим образом:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="ss">extra_applications:</span> <span class="p">[</span><span class="ss">:logger</span><span class="p">],</span>
+    <span class="ss">mod:</span> <span class="p">{</span><span class="no">Example</span><span class="p">,</span> <span class="p">[]},</span>
+    <span class="ss">env:</span> <span class="p">[</span><span class="ss">cowboy_port:</span> <span class="mi">8080</span><span class="p">]</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Непосредственно нашего приложения касается строка <code class="highlighter-rouge">mod: {Example, []}</code>. Обратите внимание, что мы также запускаем приложения <code class="highlighter-rouge">cowboy</code>, <code class="highlighter-rouge">logger</code> и <code class="highlighter-rouge">plug</code>.</p>
+
+<p>Далее необходимо добавить в файл <code class="highlighter-rouge">lib/example.ex</code> чтение номера порта из настроек и передачу его в <code class="highlighter-rouge">Cowboy</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:example</span><span class="p">,</span> <span class="ss">:cowboy_port</span><span class="p">,</span> <span class="mi">8080</span><span class="p">)</span>
+
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">Plug</span><span class="o">.</span><span class="no">Adapters</span><span class="o">.</span><span class="no">Cowboy</span><span class="o">.</span><span class="n">child_spec</span><span class="p">(</span><span class="ss">:http</span><span class="p">,</span> <span class="no">Example</span><span class="o">.</span><span class="no">Router</span><span class="p">,</span> <span class="p">[],</span> <span class="ss">port:</span> <span class="n">port</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Третий аргумент в <code class="highlighter-rouge">Application.get_env</code> — это порт по умолчанию на случай, если настройка не объявлена.</p>
+
+<blockquote>
+  <p>(Необязательно) добавить параметр <code class="highlighter-rouge">:cowboy_port</code> в файл <code class="highlighter-rouge">config/config.exs</code></p>
+</blockquote>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+
+<span class="n">config</span> <span class="ss">:example</span><span class="p">,</span> <span class="ss">cowboy_port:</span> <span class="mi">8080</span>
+</code></pre></div></div>
+
+<p>Теперь для запуска приложения можно использовать команду:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix run <span class="nt">--no-halt</span>
+</code></pre></div></div>
+
+<h2 id="тестирование-модуля-plug">Тестирование модуля Plug</h2>
+
+<p>Тестировать модули <code class="highlighter-rouge">Plug</code> легко благодаря наличию <code class="highlighter-rouge">Plug.Test</code>.
+Этот модуль предоставляет множество функций для упрощения тестирования.</p>
+
+<p>Напишем следующий тест в <code class="highlighter-rouge">test/example/router_test.exs</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">RouterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Test</span>
+
+  <span class="n">alias</span> <span class="no">Example</span><span class="o">.</span><span class="no">Router</span>
+
+  <span class="nv">@content</span> <span class="s2">"&lt;html&gt;&lt;body&gt;Hi!&lt;/body&gt;&lt;/html&gt;"</span>
+  <span class="nv">@mimetype</span> <span class="s2">"text/html"</span>
+
+  <span class="nv">@opts</span> <span class="no">Router</span><span class="o">.</span><span class="n">init</span><span class="p">([])</span>
+
+  <span class="n">test</span> <span class="s2">"returns welcome"</span> <span class="k">do</span>
+    <span class="n">conn</span> <span class="o">=</span>
+      <span class="n">conn</span><span class="p">(</span><span class="ss">:get</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="no">Router</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nv">@opts</span><span class="p">)</span>
+
+    <span class="n">assert</span> <span class="n">conn</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="ss">:sent</span>
+    <span class="n">assert</span> <span class="n">conn</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">200</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">"returns uploaded"</span> <span class="k">do</span>
+    <span class="n">conn</span> <span class="o">=</span>
+      <span class="n">conn</span><span class="p">(</span><span class="ss">:post</span><span class="p">,</span> <span class="s2">"/upload"</span><span class="p">,</span> <span class="s2">"content=</span><span class="si">#{</span><span class="nv">@content</span><span class="si">}</span><span class="s2">&amp;mimetype=</span><span class="si">#{</span><span class="nv">@mimetype</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">put_req_header</span><span class="p">(</span><span class="s2">"content-type"</span><span class="p">,</span> <span class="s2">"application/x-www-form-urlencoded"</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="no">Router</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nv">@opts</span><span class="p">)</span>
+
+    <span class="n">assert</span> <span class="n">conn</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="ss">:sent</span>
+    <span class="n">assert</span> <span class="n">conn</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">201</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">"returns 404"</span> <span class="k">do</span>
+    <span class="n">conn</span> <span class="o">=</span>
+      <span class="n">conn</span><span class="p">(</span><span class="ss">:get</span><span class="p">,</span> <span class="s2">"/missing"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="no">Router</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nv">@opts</span><span class="p">)</span>
+
+    <span class="n">assert</span> <span class="n">conn</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="ss">:sent</span>
+    <span class="n">assert</span> <span class="n">conn</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">404</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>И запустим командой:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix <span class="nb">test test</span>/example/router_test.exs
+</code></pre></div></div>
+
+<h2 id="доступные-модули-plug">Доступные модули Plug</h2>
+
+<p>Много модулей <code class="highlighter-rouge">Plug</code> доступно для использования сразу “из коробки”. Полный список можно найти в документации по <code class="highlighter-rouge">Plug</code> — <a href="https://github.com/elixir-lang/plug#available-plugs">здесь</a>.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ru/lessons/specifics/plug.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/ecto/querying/" title="Язык запросов">← Язык запросов</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/specifics/eex/" title="Embedded Elixir (EEx)">Embedded Elixir (EEx) →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/plug/" title="Английский / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/specifics/plug/" title="Испанский / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/specifics/plug/" title="Греческий">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/specifics/plug/" title="Индонезийский / Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/plug/" title="Японский / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/plug/" title="Корейский">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/specifics/plug/" title="Польский">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/specifics/plug/" title="Португальский">pt</a>
+        
+      
+        
+        
+
+        
+          <strong title="Русский">ru</strong>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/specifics/plug/" title="Вьетнамский">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/plug/" title="Китайский">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/plug/" title="Китайский традиционный">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Меню</h2>
+    <p>Уроки программирования на языке Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ru/" class=" up ">Домашняя страница</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Основы</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/basics/">1. Основы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/collections/">2. Коллекции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pattern-matching/">4. Сопоставление с образцом</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/control-structures/">5. Управляющие конструкции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/functions/">6. Функции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pipe-operator/">7. Оператор конвейера</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/modules/">8. Модули</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/sigils/">10. Строковые метки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/documentation/">11. Документирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/testing/">12. Тестирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/comprehensions/">13. Списковые включения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/strings/">14. Строки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/date-time/">15. Дата и время</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix-tasks/">16. Пользовательские Mix-задачи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/iex-helpers/">17. IEx функции</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Продвинутый</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/erlang/">1. Взаимодействие с Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/error-handling/">2. Обработка ошибок</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/escripts/">3. Исполняемые файлы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/concurrency/">4. Параллелизм</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-concurrency/">5. Параллелизм в OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-supervisors/">6. OTP Супервизоры</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/metaprogramming/">8. Метапрограммирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/umbrella-projects/">9. Зонтичные проекты</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/typespec/">10. Спецификации и типы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/behaviours/">11. Поведения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/protocols/">13. Протоколы</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/changesets/">2. Наборы изменений</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/associations/">3. Связи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/querying/">4. Язык запросов</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Специфика</span>
+          <ul>
+        
+            <li>
+              
+              <span class="active">1. Plug</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/debugging/">5. Отладка</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Библиотеки</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/guardian/">1. Guardian (Основы)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Блог</a>
+    </li>
+    
+    <li>
+      <a href="/ru/report/" class=" up ">Состояние перевода</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Участники</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

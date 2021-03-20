@@ -1,0 +1,1202 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/live-view-with-presence/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/live-view-with-presence/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Tracking Users in a Chat App with LiveView, PubSub Presence &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/live-view-with-presence/&title=Tracking Users in a Chat App with LiveView, PubSub Presence&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/live-view-with-presence/&via=elixirschool&text=ElixirSchool: Tracking Users in a Chat App with LiveView, PubSub Presence&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/live-view-with-presence/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/live-view-with-presence/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Tracking Users in a Chat App with LiveView, PubSub Presence" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/live-view-with-presence/&title=ElixirSchool: Tracking Users in a Chat App with LiveView, PubSub Presence&description=Check out 'Tracking Users in a Chat App with LiveView, PubSub Presence' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Tracking Users in a Chat App with LiveView, PubSub Presence&body=Check out 'Tracking Users in a Chat App with LiveView, PubSub Presence' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/live-view-with-presence/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Tracking Users in a Chat App with LiveView, PubSub Presence</h1>
+    <p><a href="/blog/years/2019/">21 May 2019</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <p>After playing with LiveView and leveraging Phoenix PubSub to broadcast messages to all of a live view’s clients, I wanted to try incorporating Phoenix Presence to track the state of these clients. So this past weekend I built a chat app using Phoenix LiveView, PubSub and Presence. The LiveView clocks in at 90 lines of code, and I was able to get the Presence-backed features up and running in no time! Keep reading to see how it works.</p>
+
+<h2 id="the-app">The App</h2>
+
+<p>The chat app is fairly straightforward, and we won’t get into the details of setting up LiveView in our Phoenix app here. You can check out the <a href="https://github.com/elixirschool/live-view-chat/tree/tutorial">source code</a> along with this <a href="https://elixirschool.com/blog/phoenix-live-view/">earlier post</a> on getting LiveView up and running for more info.</p>
+
+<h3 id="following-along">Following Along</h3>
+
+<p>If you’d like to follow along with this tutorial, clone down the repo <a href="https://github.com/elixirschool/live-view-chat/tree/tutorial">here</a> and follow the README instructions to get up and running. The starting state of the tutorial branch includes the chat domain model, routes, controller and the initial state of the LiveView, described below. You can also check out the completed code <a href="https://github.com/elixirschool/live-view-chat">here</a>.</p>
+
+<h3 id="chatliveviews-initial-state"><code class="highlighter-rouge">ChatLiveView's</code> Initial State</h3>
+
+<p>We’ve mounted our live view at <code class="highlighter-rouge">/chats/:id</code> by telling the <code class="highlighter-rouge">show</code> action of the <code class="highlighter-rouge">ChatController</code> to render the <code class="highlighter-rouge">ChatLiveView</code>. We pass the given chat and the current user from the controller into our live view:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/controllers/chat_controller.ex</span>
+
+<span class="k">defmodule</span> <span class="no">PhatWeb</span><span class="o">.</span><span class="no">ChatController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">PhatWeb</span><span class="p">,</span> <span class="ss">:controller</span>
+  <span class="n">alias</span> <span class="no">Phat</span><span class="o">.</span><span class="no">Chats</span>
+  <span class="n">alias</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span>
+  <span class="n">alias</span> <span class="no">PhatWeb</span><span class="o">.</span><span class="no">ChatLiveView</span>
+
+  <span class="k">def</span> <span class="n">show</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">chat_id</span><span class="p">})</span> <span class="k">do</span>
+    <span class="n">chat</span> <span class="o">=</span> <span class="no">Chats</span><span class="o">.</span><span class="n">get_chat</span><span class="p">(</span><span class="n">chat_id</span><span class="p">)</span>
+
+    <span class="no">LiveView</span><span class="o">.</span><span class="no">Controller</span><span class="o">.</span><span class="n">live_render</span><span class="p">(</span>
+      <span class="n">conn</span><span class="p">,</span>
+      <span class="no">ChatLiveView</span><span class="p">,</span>
+      <span class="ss">session:</span> <span class="p">%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">current_user:</span> <span class="n">conn</span><span class="o">.</span><span class="n">assigns</span><span class="o">.</span><span class="n">current_user</span><span class="p">}</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">ChatLiveView.mount/2</code> function sets up the initial state of the LiveView socket with the given chat, an empty message changeset with which to populate the form for a new message, and the current user:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">defmodule</span> <span class="no">PhatWeb</span><span class="o">.</span><span class="no">ChatLiveView</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveView</span>
+  <span class="n">alias</span> <span class="no">Phat</span><span class="o">.</span><span class="no">Chats</span>
+
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">PhatWeb</span><span class="o">.</span><span class="no">ChatView</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">"show.html"</span><span class="p">,</span> <span class="n">assigns</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">mount</span><span class="p">(%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">current_user:</span> <span class="n">current_user</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span>
+     <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span>
+       <span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span>
+       <span class="ss">message:</span> <span class="no">Chats</span><span class="o">.</span><span class="n">change_message</span><span class="p">(),</span>
+       <span class="ss">current_user:</span> <span class="n">current_user</span>
+     <span class="p">)}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>After mounting and setting the socket state, the live view will render the <code class="highlighter-rouge">ChatView</code>’s <code class="highlighter-rouge">show.html</code> template:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/templates/chat/show.html.leex</span>
+
+<span class="o">&lt;</span><span class="n">h2</span><span class="err">&gt;</span><span class="o">&lt;%=</span> <span class="nv">@chat</span><span class="o">.</span><span class="n">room_name</span> <span class="p">%</span><span class="err">&gt;</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+<span class="o">&lt;%=</span><span class="n">for</span> <span class="n">message</span> <span class="o">&lt;-</span> <span class="nv">@chat</span><span class="o">.</span><span class="n">messages</span> <span class="k">do</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+    <span class="o">&lt;%=</span> <span class="n">message</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">first_name</span> <span class="p">%</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;%=</span> <span class="n">message</span><span class="o">.</span><span class="n">content</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="p">%</span> <span class="k">end</span> <span class="p">%</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">"form-group"</span><span class="o">&gt;</span>
+  <span class="o">&lt;%=</span> <span class="n">form_for</span> <span class="nv">@message</span><span class="p">,</span> <span class="s2">"#"</span><span class="p">,</span> <span class="p">[</span><span class="ss">phx_submit:</span> <span class="ss">:message</span><span class="p">],</span> <span class="k">fn</span> <span class="n">_f</span> <span class="o">-&gt;</span> <span class="p">%</span><span class="o">&gt;</span>
+    <span class="o">&lt;%=</span> <span class="n">text_input</span> <span class="ss">:message</span><span class="p">,</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">placeholder:</span> <span class="s2">"write your message here..."</span> <span class="p">%</span><span class="o">&gt;</span>
+    <span class="o">&lt;%=</span> <span class="n">hidden_input</span> <span class="ss">:message</span><span class="p">,</span> <span class="ss">:user_id</span><span class="p">,</span> <span class="ss">value:</span> <span class="nv">@current_user</span><span class="o">.</span><span class="n">id</span>  <span class="p">%</span><span class="o">&gt;</span>
+    <span class="o">&lt;%=</span> <span class="n">hidden_input</span> <span class="ss">:message</span><span class="p">,</span> <span class="ss">:chat_id</span><span class="p">,</span> <span class="ss">value:</span> <span class="nv">@chat</span><span class="o">.</span><span class="n">id</span>  <span class="p">%</span><span class="o">&gt;</span>
+    <span class="o">&lt;%=</span> <span class="n">submit</span> <span class="s2">"submit"</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="p">%</span> <span class="k">end</span> <span class="p">%</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Our template is simple: it grabs the chat we assigned to our live view’s socket, displays the chat room name and iterates over the messages to show us the content and sender. It also contains a form for a new message, built on the empty message changeset we assigned to our socket. At this point, our rendered template looks something like this:</p>
+
+<p><img src="/assets/live-view-1-d87784f1800c025627ca41ed2726b016fab2c3c947e7dd58c6b32b4e3f8d2b35.png" alt="" /></p>
+
+<h3 id="pushing-messages-to-the-liveview-client">Pushing Messages to the LiveView Client</h3>
+
+<p>Now that our live view is up and running, let’s take a look at what happens when a given user submits the form for a new message.</p>
+
+<p>We’ve attached the <code class="highlighter-rouge">phx-submit</code> event to our form’s submission, and instructed it to emit an event of type <code class="highlighter-rouge">"message"</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/templates/chat/show.html.leex</span>
+
+  <span class="o">&lt;%=</span> <span class="n">form_for</span> <span class="nv">@message</span><span class="p">,</span> <span class="s2">"#"</span><span class="p">,</span> <span class="p">[</span><span class="ss">phx_submit:</span> <span class="ss">:message</span><span class="p">],</span> <span class="k">fn</span> <span class="n">_f</span> <span class="o">-&gt;</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">...</span>
+</code></pre></div></div>
+
+<p>Now, we need to teach our live view how to handle this event by defining a matching <code class="highlighter-rouge">handle_event/3</code> function.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">defmodule</span> <span class="no">PhatWeb</span><span class="o">.</span><span class="no">ChatLiveView</span> <span class="k">do</span>
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"message"</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"message"</span> <span class="o">=&gt;</span> <span class="n">message_params</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">chat</span> <span class="o">=</span> <span class="no">Chats</span><span class="o">.</span><span class="n">create_message</span><span class="p">(</span><span class="n">message_params</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">message:</span> <span class="no">Chats</span><span class="o">.</span><span class="n">change_message</span><span class="p">())}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The live view responds to the <code class="highlighter-rouge">"message"</code> event by creating a new message and updating the socket’s with the updated chat and a new empty message changeset for our form. *Note that although we specify the value of the <code class="highlighter-rouge">phx_submit</code> as an atom, <code class="highlighter-rouge">:message</code>, our live view process receives the message as a string, <code class="highlighter-rouge">"message".*</code></p>
+
+<p>The live view then re-renders the relevant portions of our page, in this case the chat and messages display and the form for a new message.</p>
+
+<p>Thanks to this code, we have messages getting pushed down the socket to the client who submitted the message form. But what about all of the other clients in our live view––the other users in the chatroom?</p>
+
+<h2 id="broadcasting-messages-with-phoenix-pubsub">Broadcasting Messages with Phoenix PubSub</h2>
+
+<p>In order to broadcast the new message to all such users, we need to leverage Phoenix PubSub.</p>
+
+<p>First, we need to ensure that each client starts subscribing to the chat room’s PubSub topic when they mount the live view:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">defp</span> <span class="n">topic</span><span class="p">(</span><span class="n">chat_id</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"chat:</span><span class="si">#{</span><span class="n">chat_id</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="k">def</span> <span class="n">mount</span><span class="p">(%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">current_user:</span> <span class="n">current_user</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">PhatWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span>
+   <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span>
+     <span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span>
+     <span class="ss">message:</span> <span class="no">Chats</span><span class="o">.</span><span class="n">change_message</span><span class="p">(),</span>
+     <span class="ss">current_user:</span> <span class="n">current_user</span>
+   <span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Then, we need to teach our live view to broadcast new messages to these subscribers when it handles the <code class="highlighter-rouge">"message"</code> event.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"message"</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"message"</span> <span class="o">=&gt;</span> <span class="n">message_params</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">chat</span> <span class="o">=</span> <span class="no">Chats</span><span class="o">.</span><span class="n">create_message</span><span class="p">(</span><span class="n">message_params</span><span class="p">)</span>
+  <span class="no">PhatWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="o">.</span><span class="n">broadcast_from</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="s2">"message"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">})</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">message:</span> <span class="no">Chats</span><span class="o">.</span><span class="n">change_message</span><span class="p">())}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">broadcast_from/4</code> function will broadcast a message of type <code class="highlighter-rouge">"message"</code>, with the payload of our newly updated chat, to all subscribing clients <em>excluding the client who is sending the message</em>.</p>
+
+<p>Lastly, we need to teach our live view how to respond to this broadcast with a <code class="highlighter-rouge">handle_info/2</code> function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">(%{</span><span class="ss">event:</span> <span class="s2">"message"</span><span class="p">,</span> <span class="ss">payload:</span> <span class="n">state</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">state</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The live view handles the <code class="highlighter-rouge">"message"</code> message by updating the socket’s state with <code class="highlighter-rouge">%{chat: chat}</code> payload, where the chat is our newly updated chat containing the new message from the user. And that is all it takes to ensure that all subscribing clients see any new messages submitted into the chat template’s new message form!</p>
+
+<h2 id="tracking-users-with-phoenix-presence">Tracking Users with Phoenix Presence</h2>
+
+<p>Now that our live view is smart enough to broadcast messages to all of the users in the given chat room, we’re ready to build some features that track and interact with those users. Let’s say we want to have our template render a list of users in the chat room, something like this:</p>
+
+<p><img src="/assets/live-view-presence-1-907958fcd1bf97792edc573c51247144afc05a41a3c478363ac2ef81456c33e6.png" alt="" /></p>
+
+<p>We could create our own data structure for tracking user presence in a live view, store it in the live view’s socket, and hand-roll our own functions to update that data structure when a user joins, leaves or otherwise changes their state. However, the <a href="https://hexdocs.pm/phoenix/Phoenix.Presence.html">Phoenix Presence behaviour</a> abstracts this work away from us. It provides presence tracking for processes and channels, leveraging Phoenix PubSub behind the scenes to broadcast updates. It also uses a CRDT (Conflict-free Replicated Data Type) model, which means it works on distributed applications.</p>
+
+<p>Now that we understand a bit about what Presence is and why we want to use it, let’s get it set up in our application.</p>
+
+<h3 id="setting-up-presence">Setting Up Presence</h3>
+
+<p>In order to leverage Presence in our Phoenix app, we need to define our very our module:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/presence.ex</span>
+
+<span class="k">defmodule</span> <span class="no">PhatWeb</span><span class="o">.</span><span class="no">Presence</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">Presence</span><span class="p">,</span>
+    <span class="ss">otp_app:</span> <span class="ss">:phat</span><span class="p">,</span>
+    <span class="ss">pubsub_server:</span> <span class="no">Phat</span><span class="o">.</span><span class="no">PubSub</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">PhatWeb.Presence</code> module does three things:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">uses</code> the Presence behaviour</li>
+  <li>Specifies that it shares a PubSub server with the rest of the application</li>
+  <li>Specifies that is shares our app’s OTP app, which holds our application configuration</li>
+</ul>
+
+<p>Now we can use the <code class="highlighter-rouge">PhatWeb.Presence</code> module throughout our app to track user presence in a given process.</p>
+
+<h3 id="tracking-user-presence">Tracking User Presence</h3>
+
+<p>Our Presence module will maintain lists of present users in a given chat room by storing these users under a given topic of <code class="highlighter-rouge">"chat:#{chat_id}"</code>.</p>
+
+<p>So, when should we tell Presence to start tracking a given user? Well, at what point in time do we consider a user to be “present” in a chat room? When the user mounts the live view!</p>
+
+<p>We’ll hook into our <code class="highlighter-rouge">mount/2</code> function to add the new user to Presence’s list of users in a given chat room:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+<span class="err">©</span>
+<span class="k">def</span> <span class="n">mount</span><span class="p">(%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">current_user:</span> <span class="n">current_user</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Presence</span><span class="o">.</span><span class="n">track</span><span class="p">(</span>
+    <span class="n">self</span><span class="p">(),</span>
+    <span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+    <span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="p">%{</span>
+      <span class="ss">first_name:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">first_name</span><span class="p">,</span>
+      <span class="ss">email:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+      <span class="ss">user_id:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here, we use the <a href="https://hexdocs.pm/phoenix/Phoenix.Presence.html#c:track/4"><code class="highlighter-rouge">Presence.track/4</code></a> function to track our live view process as a presence. We add the PID of the LiveView process to Presence’s data store, along with a payload describing the new user under a topic of <code class="highlighter-rouge">"chat:#{chat.id}"</code> and a key of the user’s ID.</p>
+
+<p>The Presence process’s state for the given topic will look something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span>
+  <span class="s2">"1"</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+    <span class="ss">metas:</span> <span class="p">[</span>
+      <span class="p">%{</span>
+        <span class="ss">email:</span> <span class="s2">"sophie@email.com"</span><span class="p">,</span>
+        <span class="ss">first_name:</span> <span class="s2">"Sophie"</span><span class="p">,</span>
+        <span class="ss">phx_ref:</span> <span class="s2">"TNV4PzRfyhw="</span><span class="p">,</span>
+        <span class="ss">user_id:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="broadcasting-presence-to-existing-users">Broadcasting Presence To Existing Users</h4>
+
+<p>When we call <code class="highlighter-rouge">Presence.track</code>, Presence will broadcast a <code class="highlighter-rouge">"presence_diff"</code> event over its PubSub backend. We told our Presence module to use the same PubSub server as the rest of the application––the very same server that backs our <code class="highlighter-rouge">PhatWeb.Endpoint</code>.</p>
+
+<p>Recall that our live view clients are subscribing to this PubSub server via the following call in the <code class="highlighter-rouge">mount/2</code> function: ` PhatWeb.Endpoint.subscribe(topic(chat.id))<code class="highlighter-rouge">. So, these subscribing LiveView processes will receive the </code>“presence_diff”` event, which looks something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span>
+  <span class="ss">event:</span> <span class="s2">"presence_diff"</span><span class="p">,</span>
+  <span class="ss">payload:</span> <span class="p">%{</span>
+    <span class="ss">joins:</span>
+      <span class="p">%{</span>
+        <span class="s2">"1"</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+          <span class="ss">metas:</span> <span class="p">[</span>
+            <span class="p">%{</span>
+              <span class="ss">email:</span> <span class="s2">"sophie@email.com"</span><span class="p">,</span>
+              <span class="ss">first_name:</span> <span class="s2">"Sophie"</span><span class="p">,</span>
+              <span class="ss">phx_ref:</span> <span class="s2">"TNV4PzRfyhw="</span><span class="p">,</span>
+              <span class="ss">user_id:</span> <span class="mi">1</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+    <span class="ss">leaves:</span> <span class="p">%{},</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The event’s payload will describe the users that are joining the channel when <code class="highlighter-rouge">Presence.track/4</code> is called. Although we will respond to the <code class="highlighter-rouge">"presence_diff"</code> event, we won’t do anything with the event’s payload for now. However, you could imagine using it to create custom user experiences such as welcoming the newly joined user or alerting existing users that a certain new member has joined the chat room.</p>
+
+<p>In order to respond to the event we’ll define a <code class="highlighter-rouge">handle_info/2</code> function in our live view that will match the <code class="highlighter-rouge">"presence_diff"</code> event:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">(%{</span><span class="ss">event:</span> <span class="s2">"presence_diff"</span><span class="p">},</span> <span class="n">socket</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">}})</span> <span class="k">do</span>
+
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This function has two responsibilities:</p>
+
+<ul>
+  <li>Get the list of present users for the given chat room topic from the Presence data store</li>
+  <li>Update the LiveView socket’s state to reflect this list of users</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">handle_info</span><span class="p">(%{</span><span class="ss">event:</span> <span class="s2">"presence_diff"</span><span class="p">,</span> <span class="ss">payload:</span> <span class="n">_payload</span><span class="p">},</span> <span class="n">socket</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">}})</span> <span class="k">do</span>
+  <span class="n">users</span> <span class="o">=</span>   
+    <span class="no">Presence</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="p">{</span><span class="n">_user_id</span><span class="p">,</span> <span class="n">data</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="n">data</span><span class="p">[</span><span class="ss">:metas</span><span class="p">]</span>
+      <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">end</span><span class="p">)</span>
+
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">users:</span> <span class="n">users</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>First, we use the <code class="highlighter-rouge">Presence.list/1</code> function to get the collection of present users under the given topic. This will return the following data structure:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span>
+  <span class="s2">"1"</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+    <span class="ss">metas:</span> <span class="p">[</span>
+      <span class="p">%{</span>
+        <span class="ss">email:</span> <span class="s2">"sophie@email.com"</span><span class="p">,</span>
+        <span class="ss">first_name:</span> <span class="s2">"Sophie"</span><span class="p">,</span>
+        <span class="ss">phx_ref:</span> <span class="s2">"TNV4PzRfyhw="</span>
+        <span class="ss">user_id:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"2"</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+    <span class="ss">metas:</span> <span class="p">[</span>
+      <span class="p">%{</span>
+        <span class="ss">email:</span> <span class="s2">"beini@email.com"</span><span class="p">,</span>
+        <span class="ss">first_name:</span> <span class="s2">"Beini"</span><span class="p">,</span>
+        <span class="ss">phx_ref:</span> <span class="s2">"ZZ30QuoI/8s="</span>
+        <span class="ss">user_id:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The Presence behavior handles the diffs of join and leave events for us. So, as long as we call <code class="highlighter-rouge">Presence.track/4</code>, the Presence process will update its own state, such that when we next call <code class="highlighter-rouge">Presence.list/1</code>, we are retrieving the updated list of users.</p>
+
+<p>Once we fetch this list, we iterate over it to collect a list of the individual <code class="highlighter-rouge">:metas</code> payloads that describe each user. The resulting list will look like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+  <span class="p">%{</span>
+    <span class="ss">email:</span> <span class="s2">"sophie@email.com"</span><span class="p">,</span>
+    <span class="ss">first_name:</span> <span class="s2">"Sophie"</span><span class="p">,</span>
+    <span class="ss">phx_ref:</span> <span class="s2">"TNV4PzRfyhw="</span>
+    <span class="ss">user_id:</span> <span class="mi">1</span>
+  <span class="p">},</span>
+  <span class="s2">"2"</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+    <span class="ss">metas:</span> <span class="p">[</span>
+      <span class="p">%{</span>
+        <span class="ss">email:</span> <span class="s2">"beini@email.com"</span><span class="p">,</span>
+        <span class="ss">first_name:</span> <span class="s2">"Beini"</span><span class="p">,</span>
+        <span class="ss">phx_ref:</span> <span class="s2">"ZZ30QuoI/8s="</span>
+        <span class="ss">user_id:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>We enact this transformation so that we have a simple, easy-to-use data structure to interact with in the template when we want to list present user names.</p>
+
+<p>Lastly, we update the LiveView socket’s state by adding a key of <code class="highlighter-rouge">:users</code> pointing to a value of our user list:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">users:</span> <span class="n">users</span><span class="p">)}</span>
+</code></pre></div></div>
+
+<p>Now we can access the user list via the <code class="highlighter-rouge">@users</code> assignment in our template to list out the names of the users present in the chatroom:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/templates/chat/show.html.leex</span>
+
+<span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="no">Members</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="o">&lt;%=</span> <span class="n">for</span> <span class="n">user</span> <span class="o">&lt;-</span> <span class="nv">@users</span> <span class="k">do</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+    <span class="o">&lt;%=</span> <span class="n">user</span><span class="o">.</span><span class="n">first_name</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="p">%</span> <span class="k">end</span> <span class="p">%</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Let’s recap. The code we’ve written so far supports the following flow:</p>
+
+<p>When a user visits a chat room at <code class="highlighter-rouge">/chats/:id</code> and the LiveView is mounted…</p>
+
+<ul>
+  <li>Add the user to the Presence data store’s list of users for the given chat room topic</li>
+  <li>Broadcast to subscribing clients, telling them to grab the latest list of present users from the Presnce data store</li>
+  <li>Update the live view socket’s state with this updated list</li>
+  <li>Re-render the live view template to display this updated list of users</li>
+</ul>
+
+<p>This allows users who are <em>already in a chat room</em> to see an updated list of users reflected anyone who joins the chatroom.</p>
+
+<p>But what about the user who is joining? How can we ensure that when a new user visits the chat room, they see the list of users who are already present?</p>
+
+<h4 id="fetching-presence-for-new-users">Fetching Presence for New Users</h4>
+
+<p>In order to display the existing chat room members to any new users who join, we need to fetch these users from Presence and assign them to the live view socket when the live view mounts.</p>
+
+<p>Let’s update our <code class="highlighter-rouge">mount/2</code> function to do exactly that:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">def</span> <span class="n">mount</span><span class="p">(%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">current_user:</span> <span class="n">current_user</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="o">...</span>
+  <span class="n">users</span> <span class="o">=</span>   
+    <span class="no">Presence</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="p">{</span><span class="n">_user_id</span><span class="p">,</span> <span class="n">data</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="n">data</span><span class="p">[</span><span class="ss">:metas</span><span class="p">]</span>
+      <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">end</span><span class="p">)</span>
+
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span>
+   <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span>
+     <span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span>
+     <span class="ss">message:</span> <span class="no">Chats</span><span class="o">.</span><span class="n">change_message</span><span class="p">(),</span>
+     <span class="ss">current_user:</span> <span class="n">current_user</span><span class="p">,</span>
+     <span class="ss">users:</span> <span class="n">users</span>
+   <span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now our live view will be able to render the list of existing members for a new user loading the page.</p>
+
+<h4 id="broadcasting-user-leave-events">Broadcasting User Leave Events</h4>
+
+<p>At this point, you might be wondering how we can update Presence state and broadcast changes when a user leaves the tracked process. This is actually functionality that we get for free thanks to the Presence behavior. Recall that we are tracking presence for a given LiveView process via the <code class="highlighter-rouge">Presence.track/4</code> function, where the first argument we give to <code class="highlighter-rouge">track/4</code> is the PID of the LiveView process.</p>
+
+<p>When a user navigates away from the chat show page, their LiveView process terminates. This will cause <code class="highlighter-rouge">Presence.untrack/3</code> to get called, thereby un-tracking the terminated PID. This in turn tells Presence to broadcast the <code class="highlighter-rouge">"presence_diff"</code> event, this time with a payload that describes the departed user, i.e. the user we were tracking under the terminated PID. Presence knows how to handle diffs from both join <em>and</em> leave events––it will update the list of users it is storing under the chat room topic appropriately.</p>
+
+<p>The running LiveView processes that receive this <code class="highlighter-rouge">"presence_diff"</code> event will need to fetch this updated list of present users for the given topic, update socket state and re-render the page accordingly. This means we can re-use our original <code class="highlighter-rouge">handle_info/2</code> function for the <code class="highlighter-rouge">"presence_diff"</code> event without making any changes:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">(%{</span><span class="ss">event:</span> <span class="s2">"presence_diff"</span><span class="p">,</span> <span class="ss">payload:</span> <span class="n">_payload</span><span class="p">},</span> <span class="n">socket</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">}})</span> <span class="k">do</span>
+  <span class="n">users</span> <span class="o">=</span>   
+    <span class="no">Presence</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="p">{</span><span class="n">_user_id</span><span class="p">,</span> <span class="n">data</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="n">data</span><span class="p">[</span><span class="ss">:metas</span><span class="p">]</span>
+      <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">end</span><span class="p">)</span>
+
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span>
+   <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span>
+     <span class="ss">users:</span> <span class="n">users</span>
+   <span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>So, we don’t have to write any additional code to handle the “leave” event at all!</p>
+
+<h4 id="using-presence-to-track-user-state">Using Presence to Track User State</h4>
+
+<p>So far, we’ve leveraged presence to keep track of users as they join or leave the LiveView. We can also use presence to track the state of a given user while they are present in the LiveView process. Let’s see how this works by building a feature that indicates that a given user is typing into the new chat message form by appending a <code class="highlighter-rouge">"..."</code> to their name on the list of present users rendered in the template:</p>
+
+<p><img src="/assets/live-view-presence-2-7cc9d9b1791ce35ff50d5c1dc861c31cfda4c756b8412898ffd5610427e91774.png" alt="" /></p>
+
+<p>First, we’ll update the <code class="highlighter-rouge">:metas</code> payload we use to describe the starting state of a given user with the data point: <code class="highlighter-rouge">typing: false</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">def</span> <span class="n">mount</span><span class="p">(%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">current_user:</span> <span class="n">current_user</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Presence</span><span class="o">.</span><span class="n">track</span><span class="p">(</span>
+    <span class="n">self</span><span class="p">(),</span>
+    <span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+    <span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="p">%{</span>
+      <span class="ss">first_name:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">first_name</span><span class="p">,</span>
+      <span class="ss">email:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+      <span class="ss">user_id:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+      <span class="ss">typing:</span> <span class="no">false</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then, we’ll attach a new <code class="highlighter-rouge">phx-change</code> event to our form that will fire with a message type of <code class="highlighter-rouge">"typing"</code> when a user types into the form field:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/templates/chat/show.html.leex</span>
+
+<span class="o">&lt;%=</span> <span class="n">form_for</span> <span class="nv">@message</span><span class="p">,</span> <span class="s2">"#"</span><span class="p">,</span> <span class="p">[</span><span class="ss">phx_change:</span> <span class="ss">:typing</span><span class="p">,</span> <span class="ss">phx_submit:</span> <span class="ss">:message</span><span class="p">],</span> <span class="k">fn</span> <span class="n">_f</span> <span class="o">-&gt;</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">...</span>
+<span class="o">&lt;</span><span class="p">%</span> <span class="k">end</span> <span class="p">%</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Next up, we will teach our live view to handle this event with a new <code class="highlighter-rouge">handle_event/2</code> function that matches the <code class="highlighter-rouge">"typing"</code> event type. To respond to this event, the live view should update the current user’s <code class="highlighter-rouge">:metas</code> map under the given chat room’s topic:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"typing"</span><span class="p">,</span> <span class="n">_value</span><span class="p">,</span> <span class="n">socket</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">current_user:</span> <span class="n">user</span><span class="p">}})</span> <span class="k">do</span>
+  <span class="n">topic</span> <span class="o">=</span> <span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+  <span class="n">key</span>   <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span>
+  <span class="n">payload</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">typing:</span> <span class="no">true</span><span class="p">}</span>
+  <span class="n">metas</span> <span class="o">=</span>
+      <span class="no">Presence</span><span class="o">.</span><span class="n">get_by_key</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="n">key</span><span class="p">)[</span><span class="ss">:metas</span><span class="p">]</span>
+      <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+      <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+  <span class="no">Presence</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="n">topic</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">metas</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here, we use the <code class="highlighter-rouge">Presence.get_by_key/2</code> function to fetch the <code class="highlighter-rouge">:metas</code> for the current user, stored under the <code class="highlighter-rouge">topic</code> of <code class="highlighter-rouge">"chat:#{chat.id}"</code>, under a key of the user’s ID.</p>
+
+<p>Then we create a copy of the <code class="highlighter-rouge">:metas</code> map for that user, setting the <code class="highlighter-rouge">:typing</code> key to <code class="highlighter-rouge">true</code>.</p>
+
+<p>Lastly, we update the Presence process’s metadata for the topic and user to point to this new map. Calling <code class="highlighter-rouge">Presence.update/4</code> will once again broadcast a <code class="highlighter-rouge">"presence_diff"</code> event for us. Our LiveView processes already know how to handle this event, so we don’t need to write any additional code to ensure that running LiveView processes fetch the latest list of users with the new metadata and re-render the page.</p>
+
+<p>The last thing we need to do is update our template to append <code class="highlighter-rouge">"..."</code> to name of any users on the list who have <code class="highlighter-rouge">typing</code> set to <code class="highlighter-rouge">true</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/templates/chat/show.html.leex</span>
+
+<span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="no">Members</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="o">&lt;%=</span> <span class="n">for</span> <span class="n">user</span> <span class="o">&lt;-</span> <span class="nv">@users</span> <span class="k">do</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+    <span class="o">&lt;%=</span> <span class="n">user</span><span class="o">.</span><span class="n">first_name</span> <span class="p">%</span><span class="err">&gt;</span><span class="o">&lt;%=</span> <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">typing</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"..."</span> <span class="k">end</span><span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="p">%</span> <span class="k">end</span> <span class="p">%</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Now we’re ready to teach our LiveView how to behave when a user <em>stops</em> typing, ensuring that the template will re-render without the <code class="highlighter-rouge">"..."</code> attached to the user’s name.</p>
+
+<p>We’ll add a <code class="highlighter-rouge">phx-blur</code> event to the message content form field:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/templates/chat/show.html.leex</span>
+
+  <span class="o">&lt;%=</span> <span class="n">text_input</span> <span class="ss">:message</span><span class="p">,</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">value:</span> <span class="nv">@message</span><span class="o">.</span><span class="n">changes</span><span class="p">[</span><span class="ss">:content</span><span class="p">],</span> <span class="ss">phx_blur:</span> <span class="s2">"stop_typing"</span><span class="p">,</span> <span class="ss">placeholder:</span> <span class="s2">"write your message here..."</span> <span class="p">%</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>This will send an event of type <code class="highlighter-rouge">"stop_typing"</code> to the LiveView process when the user blurs away from this form field.</p>
+
+<p>We’ll teach our LiveView to respond to this message with a <code class="highlighter-rouge">handle_info/2</code> that updates the Presence metadata with <code class="highlighter-rouge">typing: false</code> for the current user.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/phat_web/live/chat_live_view.ex</span>
+
+<span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span>
+      <span class="s2">"stop_typing"</span><span class="p">,</span>
+      <span class="n">value</span><span class="p">,</span>
+      <span class="n">socket</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">assigns:</span> <span class="p">%{</span><span class="ss">chat:</span> <span class="n">chat</span><span class="p">,</span> <span class="ss">current_user:</span> <span class="n">user</span><span class="p">,</span> <span class="ss">message:</span> <span class="n">message</span><span class="p">}}</span>
+    <span class="p">)</span> <span class="k">do</span>
+  <span class="n">message</span> <span class="o">=</span> <span class="no">Chats</span><span class="o">.</span><span class="n">change_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="p">%{</span><span class="ss">content:</span> <span class="n">value</span><span class="p">})</span>
+
+  <span class="n">topic</span> <span class="o">=</span> <span class="n">topic</span><span class="p">(</span><span class="n">chat</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+  <span class="n">key</span>   <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span>
+  <span class="n">payload</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">typing:</span> <span class="no">false</span><span class="p">}</span>
+  <span class="n">metas</span> <span class="o">=</span>
+      <span class="no">Presence</span><span class="o">.</span><span class="n">get_by_key</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="n">key</span><span class="p">)[</span><span class="ss">:metas</span><span class="p">]</span>
+      <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+      <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+  <span class="no">Presence</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">self</span><span class="p">(),</span> <span class="n">topic</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">metas</span><span class="p">)</span>
+
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">message:</span> <span class="n">message</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>Note: Here we can see some obvious repetition of code we wrote to handle the <code class="highlighter-rouge">"typing"</code> event. This code has been refactored to move Presence interactions into our <code class="highlighter-rouge">PhatWeb.Presence</code> module which you can check out <a href="https://github.com/elixirschool/live-view-chat/blob/master/lib/phat_web/presence.ex">here</a> and <a href="https://github.com/elixirschool/live-view-chat/blob/master/lib/phat_web/live/chat_live_view.ex">here</a>. For the purposes of easy reading in this post, I let this code remain explicit.</em></p>
+
+<p>Here, we update the message changeset to reflect the content the user typed into the form field. Then, we fetch the user’s metadata from Presence and update it to set <code class="highlighter-rouge">typing: false</code>. Lastly, we update the live view’s socket to reflect the content the user typed into the message form field. This is a necessary step so that the template will display this content when it re-renders as a consequence of the <code class="highlighter-rouge">"presence_diff"</code> event.</p>
+
+<p>Since we called <code class="highlighter-rouge">Presence.update/4</code>, the presence process will broadcast the <code class="highlighter-rouge">"presence_diff"</code> event and the LiveView processes will respond by fetching the updated list of users with the new metadata and re-rendering the template. This re-render will have the effect of removing the <code class="highlighter-rouge">"..."</code> from the given user’s name since the call to <code class="highlighter-rouge">user.typing</code> in the template will now evaluate to <code class="highlighter-rouge">false</code>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Let’s take a step back and recap what we’ve built:</p>
+
+<ul>
+  <li>With “plain” LiveView, we gave our chat the ability to push real-time updates to the user who initiated the change. In other words, users who submit new messages via the chat form see those new messages appear in the chat log on the page.</li>
+  <li>With the addition of PubSub, we were able to broadcast these new chat messages to <em>all</em> of the LiveView clients subscribed to a chat room topic, i.e. all of the members of a given chat room.</li>
+  <li>By leveraging Presence, we were able to track and display the list of users “present” in a given chat room, along with the state of a given user (i.e. whether or not they are currently typing).</li>
+</ul>
+
+<p>You can see the final (slightly refactored!) code <a href="https://github.com/elixirschool/live-view-chat">here</a>.</p>
+
+<p>The flexibility of Phoenix PubSub made it easy to subscribe all of our running LiveView processes to the same topic on the pub sub server. In addition, the Presence module’s ability to share a pub sub server with the rest of our application allowed each Presence process to broadcast presence events to LiveView processes. Overall, LiveView, PubSub and Presence played together really nicely, and enabled us to build a robust set of features with very little hand-rolled code.</p>
+
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2019-05-06-live-view-with-presence.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/elixirconf-announcement/" title="ElixirConf 2019 Announcement" rel="prev">&laquo; ElixirConf 2019 Announcement</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/live-view-with-channels/" title="Using Channels with LiveView for Better UX" rel="next">Using Channels with LiveView for Better UX &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

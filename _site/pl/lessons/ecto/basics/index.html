@@ -1,0 +1,1077 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="pl">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lekcje programowania w języku Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/pl/lessons/ecto/basics/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="pl">
+  <meta property="og:description" content="Lekcje programowania w języku Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/basics/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/basics/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/pl/lessons/ecto/basics/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Basics &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/pl/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/pl/lessons/ecto/basics/&title=Basics&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/pl/lessons/ecto/basics/&via=elixirschool&text=ElixirSchool: Basics&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/pl/lessons/ecto/basics/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/pl/lessons/ecto/basics/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Basics" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/pl/lessons/ecto/basics/&title=ElixirSchool: Basics&description=Check out 'Basics' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Basics&body=Check out 'Basics' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/pl/lessons/ecto/basics/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-major"></span>
+  Basics
+</h1>
+<div class="version-info version-info-major">
+  <span>
+    
+      Od ostatniej aktualizacji wprowadzono wiele zmian i tłumaczenie może być nieaktualne.<br/>
+    
+
+    Od ostatniej aktualizacji wprowadzono kilka dużych zmian.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Ecto jest oficjalnym projektem zespołu Elixira zapewniającym obsługę baz danych wraz z odpowiednim, zintegrowanym językiem. Za pomocą Ecto możemy migrować dane, definiować modele, wstawiać, aktualizować i odpytywać bazę danych.</p>
+
+<h2>Spis treści</h2>
+<div id="toc"></div>
+
+<h2 id="przygotowanie">Przygotowanie</h2>
+
+<p>Zacznijmy od dodania Ecto oraz adaptera bazy do konfiguracji projektu w pliku <code class="highlighter-rouge">mix.exs</code>.  Lista wszystkich dostępnych adapterów i wspieranych baz danych, w języku angielskim, znajduje się w sekcji <a href="https://github.com/elixir-lang/ecto/blob/master/README.md#usage">Usage</a> w pliku README projektu Ecto. W naszym przykładzie użyjemy bazy PostgreSQL:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:ecto</span><span class="p">,</span> <span class="s2">"~&gt; 2.1.4"</span><span class="p">},</span> <span class="p">{</span><span class="ss">:postgrex</span><span class="p">,</span> <span class="s2">"&gt;= 0.13.2"</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Teraz możemy dodać Ecto i nasz adapter do listy aplikacji:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+  <span class="p">[</span><span class="ss">applications:</span> <span class="p">[</span><span class="ss">:ecto</span><span class="p">,</span> <span class="ss">:postgrex</span><span class="p">]]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="repozytorium">Repozytorium</h3>
+
+<p>W końcu musimy stworzyć repozytorium dla naszego projektu, które pełni rolę opakowania (ang. <em>wrapper</em>) bazy danych.  Możemy to zrobić wykorzystując polecenie <code class="highlighter-rouge">mix ecto.gen.repo -r FriendsApp.Repo</code>.  Zadania Ecto dla Mixa omówimy za chwilę. Moduł <code class="highlighter-rouge">Repo</code> znajdziemy w <code class="highlighter-rouge">lib/&lt;projectname&gt;/repo.ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">Repo</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> <span class="ss">otp_app:</span> <span class="ss">:example_app</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="nadzorca">Nadzorca</h3>
+
+<p>Po stworzeniu repozytorium musimy jeszcze skonfigurować drzewo nadzorców, które znajdziemy w pliku<code class="highlighter-rouge">lib/&lt;project name&gt;.ex</code>.</p>
+
+<p>Kluczowe jest wykorzystanie do tego funkcji <code class="highlighter-rouge">supervisor/3</code>, a <em>nie</em> <code class="highlighter-rouge">worker/3</code>.  Jeżeli wygenerujemy aplikację z flagą <code class="highlighter-rouge">--sup</code>, to większość konfiguracji będzie już gotowa:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">App</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">import</span> <span class="no">Supervisor</span><span class="o">.</span><span class="no">Spec</span>
+
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="n">supervisor</span><span class="p">(</span><span class="no">FriendsApp</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Więcej o nadzorcach znajdziesz w lekcji <a href="../../advanced/otp-supervisors">Nadzorcy OTP</a>.</p>
+
+<h3 id="konfiguracja">Konfiguracja</h3>
+
+<p>By skonfigurować Ecto musimy dodać odpowiednią sekcję w pliku <code class="highlighter-rouge">config/config.exs</code>. Zawiera ona informacje o repozytorium, adapterze, bazie danych oraz dane użytkownika:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:example_app</span><span class="p">,</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span>
+  <span class="ss">adapter:</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Adapters</span><span class="o">.</span><span class="no">Postgres</span><span class="p">,</span>
+  <span class="ss">database:</span> <span class="s2">"example_app"</span><span class="p">,</span>
+  <span class="ss">username:</span> <span class="s2">"postgres"</span><span class="p">,</span>
+  <span class="ss">password:</span> <span class="s2">"postgres"</span><span class="p">,</span>
+  <span class="ss">hostname:</span> <span class="s2">"localhost"</span>
+</code></pre></div></div>
+
+<h2 id="zadnie-mix">Zadnie Mix</h2>
+
+<p>Ecto zawiera wiele przydatnych zadań mix by wspomagać nas w pracy z bazą danych:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.create         <span class="c"># Create the storage for the repo</span>
+mix ecto.drop           <span class="c"># Drop the storage for the repo</span>
+mix ecto.gen.migration  <span class="c"># Generate a new migration for the repo</span>
+mix ecto.gen.repo       <span class="c"># Generate a new repository</span>
+mix ecto.migrate        <span class="c"># Run migrations up on a repo</span>
+mix ecto.rollback       <span class="c"># Rollback migrations from a repo</span>
+</code></pre></div></div>
+
+<h2 id="migracja">Migracja</h2>
+
+<p>Najlepszą metodą do pracy z migracjami jest zadanie <code class="highlighter-rouge">mix ecto.gen.migration &lt;name&gt;</code>.  Jeżeli spotkałeś się ze wzorcem ActiveRecord, to odkryjesz tu wiele podobieństw.</p>
+
+<p>Na początek przyjrzyjmy się migracji tabeli <code class="highlighter-rouge">users</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateUser</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:users</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">unique:</span> <span class="no">true</span><span class="p">)</span>
+      <span class="n">add</span><span class="p">(</span><span class="ss">:encrypted_password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">null:</span> <span class="no">false</span><span class="p">)</span>
+      <span class="n">add</span><span class="p">(</span><span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+      <span class="n">add</span><span class="p">(</span><span class="ss">:confirmed</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">false</span><span class="p">)</span>
+
+      <span class="n">timestamps</span>
+    <span class="k">end</span>
+
+    <span class="n">create</span><span class="p">(</span><span class="n">unique_index</span><span class="p">(</span><span class="ss">:users</span><span class="p">,</span> <span class="p">[</span><span class="ss">:username</span><span class="p">],</span> <span class="ss">name:</span> <span class="ss">:unique_usernames</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ecto tworzy domyślnie przyrostowy klucz główny <code class="highlighter-rouge">id</code>.  W tej lekcji używamy funkcji <code class="highlighter-rouge">change/0</code>, ale Ecto  wspiera też operacje <code class="highlighter-rouge">up/0</code> i <code class="highlighter-rouge">down/0</code>, pozwalające na większą i dokładniejszą kontrolę.</p>
+
+<p>Jak się domyślasz, dodanie <code class="highlighter-rouge">timestamps</code> do migracji wygeneruje kolumny <code class="highlighter-rouge">created_at</code> i <code class="highlighter-rouge">updated_at</code>..</p>
+
+<p>Możemy teraz uruchomić migrację poleceniem <code class="highlighter-rouge">mix ecto.migrate</code>.</p>
+
+<p>Więcej na temat migracji znajdziesz w dokumentacji <a href="http://hexdocs.pm/ecto/Ecto.Migration.html#content">Ecto.Migration</a>.</p>
+
+<h2 id="modele">Modele</h2>
+
+<p>Mają gotową migrację możemy przejść do modelu. Modele opisują nasze dane, funkcje pomocnicze oraz zestawy zmian. Tymi ostatnimi zajmiemy się w następnej kolejności.</p>
+
+<p>Załóżmy, że model dla naszej migracji wygląda następująco:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span>
+
+  <span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:encrypted_password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:confirmed</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">false</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+
+    <span class="n">timestamps</span>
+  <span class="k">end</span>
+
+  <span class="nv">@required_fields</span> <span class="sx">~w(username encrypted_password email)</span>
+  <span class="nv">@optional_fields</span> <span class="sx">~w()</span>
+
+  <span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">params</span> <span class="p">\\</span> <span class="ss">:empty</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">user</span>
+    <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nv">@required_fields</span><span class="p">,</span> <span class="nv">@optional_fields</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">unique_constraint</span><span class="p">(</span><span class="ss">:username</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>To, co przedstawia powyższa definicja pokrywa się z tym, co mamy w migracji. Dodatkowo do naszej bazy danych dodaliśmy dwa pola wirtualne.  Pola wirtualne nie są składowane w bazie danych, ale czasami przydają się np. w trakcie walidacji. Przyjrzymy im się bliżej w części <a href="#Aktualizacja-danych">aktualizacja danych</a>.</p>
+
+<h2 id="zapytania">Zapytania</h2>
+
+<p>Zanim zaczniemy odpytywać repozytorium, musimy zaimportować <code class="highlighter-rouge">Ecto.Query</code>.  Na początek potrzebujemy tylko <code class="highlighter-rouge">from/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">from:</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Oficjalną dokumentację, w języku angielskim, znajdziesz na stronie <a href="http://hexdocs.pm/ecto/Ecto.Query.html">Ecto.Query</a>.</p>
+
+<h3 id="podstawy">Podstawy</h3>
+
+<p>Ecto ma wspaniały DSL (ang. <em>Domain specific language</em> – język domeny) do definiowania zapytań. Przykładowo by pobrać wszystkie pola <code class="highlighter-rouge">username</code> dla użytkowników, którzy mają zatwierdzone konto, napiszemy:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">alias</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="p">{</span><span class="no">Repo</span><span class="p">,</span> <span class="no">User</span><span class="p">}</span>
+
+<span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span> <span class="o">==</span> <span class="no">true</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="n">u</span><span class="o">.</span><span class="n">username</span>
+  <span class="p">)</span>
+
+<span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Poza funkcją <code class="highlighter-rouge">all/2</code> Repo ma też m.in. <code class="highlighter-rouge">one/2</code>, <code class="highlighter-rouge">get/3</code>, <code class="highlighter-rouge">insert/2</code> i <code class="highlighter-rouge">delete/2</code>.  Pełną listę znajdziesz na stronie <a href="http://hexdocs.pm/ecto/Ecto.Repo.html#callbacks">Ecto.Repo#callbacks</a>.</p>
+
+<h3 id="zliczanie">Zliczanie</h3>
+
+<p>Jeżeli chcemy policzyć, ilu użytkowników ma zatwierdzone konta, możemy użyć <code class="highlighter-rouge">count/1</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span> <span class="o">==</span> <span class="no">true</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="n">count</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<p>Jest też funkcja <code class="highlighter-rouge">count/2</code>, która zlicza liczbę unikalnych rekordów:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span> <span class="o">==</span> <span class="no">true</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="n">count</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="ss">:distinct</span><span class="p">)</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="grupowanie">Grupowanie</h3>
+
+<p>Funkcja <code class="highlighter-rouge">group_by</code> pozwala nam grupować dane wyliczone w funkcjach agregujących. Na przykład policzyć ilu użytkowników ma konta zatwierdzone, a ilu niezatwierdzone:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">group_by:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">confirmed</span><span class="p">,</span> <span class="n">count</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p">)]</span>
+  <span class="p">)</span>
+
+<span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="sortowanie">Sortowanie</h3>
+
+<p>Sortowanie kont po dacie utworzenia:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">order_by:</span> <span class="n">u</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">]</span>
+  <span class="p">)</span>
+
+<span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>W kolejności malejącej <code class="highlighter-rouge">DESC</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">order_by:</span> <span class="p">[</span><span class="ss">desc:</span> <span class="n">u</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">],</span>
+    <span class="ss">select:</span> <span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">]</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="złączenia">Złączenia</h3>
+
+<p>Załóżmy, że mamy profil połączony z użytkownikiem, by odszukać wszystkie profile, które mają zatwierdzone konta napiszemy:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">p</span> <span class="ow">in</span> <span class="no">Profile</span><span class="p">,</span>
+    <span class="ss">join:</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">assoc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="ss">:user</span><span class="p">),</span>
+    <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span> <span class="o">==</span> <span class="no">true</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="fragmenty">Fragmenty</h3>
+
+<p>Czasami Query API nie wystarcza i musimy użyć funkcji dostępnej w bazie danych. Służy do tego funkcja <code class="highlighter-rouge">fragment/1</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">where:</span> <span class="n">fragment</span><span class="p">(</span><span class="s2">"downcase(?)"</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">username</span><span class="p">)</span> <span class="o">==</span> <span class="o">^</span><span class="n">username</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="n">u</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<p>Na stronie <a href="http://hexdocs.pm/ecto/Ecto.Query.API.html">Ecto.Query.API</a> znajdziesz więcej przykładów.</p>
+
+<h2 id="aktualizacja-danych">Aktualizacja danych</h2>
+
+<p>W poprzednich częściach dowiedziałeś się jak pobierać dane, ale co ze wstawianiem ich i aktualizacją? Do tego służą zestawy zmian.</p>
+
+<p>Zestawy zmian dbają o zachowanie ograniczeń, filtrowanie oraz walidację w momencie wprowadzania zmian do modelu.</p>
+
+<p>W tym zestawie skupimy się na zestawie zmian potrzebnym do utworzenia konta. Zacznijmy od aktualizacji naszego modelu:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span>
+  <span class="kn">import</span> <span class="no">Comeonin</span><span class="o">.</span><span class="no">Bcrypt</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">hashpwsalt:</span> <span class="mi">1</span><span class="p">]</span>
+
+  <span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:encrypted_password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:confirmed</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">false</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+
+    <span class="n">timestamps</span>
+  <span class="k">end</span>
+
+  <span class="nv">@required_fields</span> <span class="sx">~w(username email password password_confirmation)</span>
+  <span class="nv">@optional_fields</span> <span class="sx">~w()</span>
+
+  <span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">params</span> <span class="p">\\</span> <span class="ss">:empty</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">user</span>
+    <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nv">@required_fields</span><span class="p">,</span> <span class="nv">@optional_fields</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">validate_length</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">min:</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">validate_password_confirmation</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="n">unique_constraint</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">name:</span> <span class="ss">:email</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">put_change</span><span class="p">(</span><span class="ss">:encrypted_password</span><span class="p">,</span> <span class="n">hashpwsalt</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:password</span><span class="p">]))</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">validate_password_confirmation</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="n">get_change</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">)</span> <span class="k">do</span>
+      <span class="no">nil</span> <span class="o">-&gt;</span>
+        <span class="n">password_incorrect_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span>
+
+      <span class="n">confirmation</span> <span class="o">-&gt;</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">get_field</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:password</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">confirmation</span> <span class="o">==</span> <span class="n">password</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">changeset</span><span class="p">,</span> <span class="k">else</span><span class="p">:</span> <span class="n">password_mismatch_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">password_mismatch_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">add_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="s2">"Passwords does not match"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">password_incorrect_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">add_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="s2">"is not valid"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Stworzyliśmy funkcję <code class="highlighter-rouge">changeset/2</code> oraz trzy funkcje pomocnicze: <code class="highlighter-rouge">validate_password_confirmation/1</code>, <code class="highlighter-rouge">password_mismatch_error/1</code> i <code class="highlighter-rouge">password_incorrect_error/1</code>.</p>
+
+<p>Jak sama nazwa sugeruje, <code class="highlighter-rouge">changeset/2</code> tworzy nowy zestaw zmian.  W ramach niego wywołujemy <code class="highlighter-rouge">cast/4</code> by zamienić parametry na zestaw obowiązkowych i opcjonalnych pól, które zostaną zmienione. Następnie walidujemy długość pola <code class="highlighter-rouge">password</code>. Sprawdzamy, czy pole to jest takie same jak <code class="highlighter-rouge">password_confirmation</code> oraz, czy <code class="highlighter-rouge">username</code> nie istnieje już w bazie. Na końcu, na podstawie parametrów, aktualizujemy pole <code class="highlighter-rouge">encrypted_password</code> za pomocą funkcji <code class="highlighter-rouge">put_change/3</code> dopisując je do zestawu zmian.</p>
+
+<p>Samo użycie <code class="highlighter-rouge">User.changeset/2</code> jest stosunkowo proste:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">alias</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="p">{</span><span class="no">User</span><span class="p">,</span> <span class="no">Repo</span><span class="p">}</span>
+
+<span class="n">pw</span> <span class="o">=</span> <span class="s2">"passwords should be hard"</span>
+
+<span class="n">changeset</span> <span class="o">=</span>
+  <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">User</span><span class="p">{},</span> <span class="p">%{</span>
+    <span class="ss">username:</span> <span class="s2">"doomspork"</span><span class="p">,</span>
+    <span class="ss">email:</span> <span class="s2">"sean@seancallan.com"</span><span class="p">,</span>
+    <span class="ss">password:</span> <span class="n">pw</span><span class="p">,</span>
+    <span class="ss">password_confirmation:</span> <span class="n">pw</span>
+  <span class="p">})</span>
+
+<span class="k">case</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">model</span><span class="p">}</span>        <span class="o">-&gt;</span> <span class="c1"># Inserted with success</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">changeset</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="c1"># Something went wrong</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>I to wszystko! Możesz zapisać dane do bazy.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/pl/lessons/ecto/basics.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pl/lessons/advanced/gen-stage/" title="GenStage">← GenStage</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pl/lessons/specifics/plug/" title="Plug">Plug →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/ecto/basics/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/basics/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/ecto/basics/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/ecto/basics/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/ecto/basics/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/ecto/basics/" >ko</a>
+        
+      
+        
+        
+
+        
+          <strong >pl</strong>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/basics/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/basics/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/ecto/basics/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/ecto/basics/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/basics/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/ecto/basics/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lekcje programowania w języku Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/pl/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Podstawy</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/basics/">1. Podstawy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/collections/">2. Kolekcje</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/pattern-matching/">4. Dopasowanie wzorców</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/control-structures/">5. Struktury sterujące</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/functions/">6. Funkcje</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/pipe-operator/">7. Operator Potoku</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/modules/">8. Organizacja kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/sigils/">10. Sigile</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/documentation/">11. Dokumentowanie kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/testing/">12. Testowanie kodu</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/comprehensions/">13. Składanie kolekcji</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/strings/">14. Ciągi znaków</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/mix-tasks/">16. Własne funkcje Mix'a</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/basics/iex-helpers/">17. Powłoka IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Zaawansowane</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/erlang/">1. Współpraca z Erlangiem</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/error-handling/">2. Wyjątki i błędy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/escripts/">3. Uruchamianie programów</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/concurrency/">4. Współbieżność</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/otp-concurrency/">5. Współbieżność z OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/otp-supervisors/">6. Nadzorcy OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/metaprogramming/">8. Metaprogramowanie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/umbrella-projects/">9. Projekty zbiorcze</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/typespec/">10. Specyfikacje i typy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/behaviours/">11. Zachowania</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <span class="active">1. Basics</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specyficzne</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Biblioteki</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pl/lessons/libraries/guardian/">1. Guardian (Podstawy)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pl/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/pl/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

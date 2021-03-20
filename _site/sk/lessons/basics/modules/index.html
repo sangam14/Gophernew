@@ -1,0 +1,970 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="sk">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lekcie o programovacom jazyku Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/sk/lessons/basics/modules/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="sk">
+  <meta property="og:description" content="Lekcie o programovacom jazyku Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/modules/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/modules/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/sk/lessons/basics/modules/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Moduly &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/sk/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/sk/lessons/basics/modules/&title=Moduly&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/sk/lessons/basics/modules/&via=elixirschool&text=ElixirSchool: Moduly&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/sk/lessons/basics/modules/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/sk/lessons/basics/modules/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Moduly" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/sk/lessons/basics/modules/&title=ElixirSchool: Moduly&description=Check out 'Moduly' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Moduly&body=Check out 'Moduly' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/sk/lessons/basics/modules/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Moduly
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      Niektoré časti tohto prekladu môžu byť neaktuálne.<br/>
+    
+
+    Viacero drobných zmien bolo pridaných do originálnej lekcie od poslednej aktualizácie.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Zo skúsenosti vieme, že je dosť nepohodlné, mať všetky funkcie v jedinom súbore. V tejto lekcii sa naučíme, ako funkcie zoskupovať a definovať špeciálny typ mapy, zvaný <em>struct</em>, aby sme mohli náš kód usporiadať efektívnejšie.</p>
+
+<h2>Obsah</h2>
+<div id="toc"></div>
+
+<h2 id="moduly">Moduly</h2>
+
+<p>Moduly nám umožňujú organizovať funkcie do menných priestorov (<em>namespaces</em>). Definujeme v nich pomenované a privátne funkcie, o ktorých sme si povedali v <a href="../functions/">lekcii o funkciách</a>.</p>
+
+<p>Pozrime sa na jednoduchý príklad:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">pozdrav</span><span class="p">(</span><span class="n">meno</span><span class="p">)</span> <span class="k">do</span>
+    <span class="sx">~s(Ahoj #{meno}.)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">pozdrav</span> <span class="s2">"Jano"</span>
+<span class="s2">"Ahoj Jano."</span>
+</code></pre></div></div>
+
+<p>V Elixire je možné definovať moduly vnorené v iných moduloch, čo nám dovoľuje ďalej rozdeľovať funkcionalitu do menších menných priestorov:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Pozdravy</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">rano</span><span class="p">(</span><span class="n">meno</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Dobré ráno </span><span class="si">#{</span><span class="n">meno</span><span class="si">}</span><span class="s2">."</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">vecer</span><span class="p">(</span><span class="n">meno</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Dobrý večer </span><span class="si">#{</span><span class="n">meno</span><span class="si">}</span><span class="s2">."</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="no">Pozdravy</span><span class="o">.</span><span class="n">rano</span> <span class="s2">"Jano"</span>
+<span class="s2">"Dobré ráno Jano."</span>
+</code></pre></div></div>
+
+<h3 id="atribúty-modulov">Atribúty modulov</h3>
+
+<p>Atribúty sa v Elixirových moduloch najčastejšie používajú ako konštanty:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="nv">@pozdrav</span> <span class="s2">"Ahoj"</span>
+
+  <span class="k">def</span> <span class="n">pozdrav</span><span class="p">(</span><span class="n">meno</span><span class="p">)</span> <span class="k">do</span>
+    <span class="sx">~s(#{@pozdrav} #{meno}.)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Je dôležité zapamätať si, že v Elixire existujú vyhradené atribúty modulov. Najbežnejšie sú tieto tri:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">moduledoc</code> — Slúži na dokumentáciu modulu.</li>
+  <li><code class="highlighter-rouge">doc</code> — Dokumentácia funkcie alebo makra.</li>
+  <li><code class="highlighter-rouge">behaviour</code> — Indikuje použitie OTP, alebo iného behaviour (chovania) definovaného užívateľom.</li>
+</ul>
+
+<h2 id="structs">Structs</h2>
+
+<p>Structs sú špeciálny typ <em>máp</em> s definovanými kľúčmi a ich východiskovými hodnotami. Struct musí byť definovaný v module, z ktorého získa svoj názov. Je bežné, že struct je jediná vec definovaná v module.</p>
+
+<p>Na definovanie structu používame kľúčové slovo <code class="highlighter-rouge">defstruct</code> nasledované zoznamom kľúčových slov a ich východiskových hodnôt:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="k">defstruct</span> <span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Teraz si vytvorme niekoľko príkladov tohto structu:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[],</span> <span class="o">...&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[],</span> <span class="o">...&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="ss">:manager</span><span class="p">]}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="ss">:manager</span><span class="p">]</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Struct môžeme meniť rovnako, ako mapu:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">steve</span> <span class="o">=</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">sean</span> <span class="o">=</span> <span class="p">%{</span><span class="n">steve</span> <span class="o">|</span> <span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+</code></pre></div></div>
+
+<p>Veľmi dôležitou vlastnosťou structov je, že ich môžeme pattern matchovať s mapami:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">}</span> <span class="o">=</span> <span class="n">sean</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+</code></pre></div></div>
+
+<h2 id="kompozícia">Kompozícia</h2>
+
+<p>Teraz, keď už dokážeme vytvárať vlastné moduly a štruktúry, je načase naučiť sa, ako pridať funkcionalitu definovanú v iných moduloch. Elixir nám na tento účel poskytuje niekoľko spôsobov ako interagovať s inými modulmi.</p>
+
+<h3 id="alias"><code class="highlighter-rouge">alias</code></h3>
+
+<p>Dovoľuje nám dať externému modulu (kratší) alias, cez ktorý potom k nemu budeme pristupovať. V Elixirovom kóde je použitie aliasov veľmi bežné:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="c1"># S použitím aliasu</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span>
+
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Greetings</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Bez použitia aliasu</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ak existuje konflikt medzi dvoma aliasmi alebo iba chceme aliasy pomenovať úplne inak, môžeme tak urobiť pomocou <code class="highlighter-rouge">:as</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span><span class="p">,</span> <span class="ss">as:</span> <span class="no">Hi</span>
+
+  <span class="k">def</span> <span class="n">print_message</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Hi</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Je možné aliasovať aj viacero modulov naraz:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="p">{</span><span class="no">Greetings</span><span class="p">,</span> <span class="no">Farewells</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="import"><code class="highlighter-rouge">import</code></h3>
+
+<p>Ak chceme z externého modulu len importovať jeho funkcie a makrá do nášho modulu, môžeme použiť príkaz <code class="highlighter-rouge">import</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">9</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">last</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<h4 id="filtrovanie">Filtrovanie</h4>
+
+<p>Normálne sa pri importe do nášho modulu dostanú úplne všetky funkcie a makrá z modulu, ktorý importujeme. Môžeme však použiť filtre <code class="highlighter-rouge">:only</code> (iba) a <code class="highlighter-rouge">:except</code> (okrem), ktorými vieme presnejšie špecifikovať, o čo z cieľového modulu máme záujem.</p>
+
+<p>Pri použití filtrov <em>only</em> a <em>except</em> musíme uviesť názov a aritu (počet argumentov) každej filtrovanej funkcie (alebo makra). Napríklad funkciu <code class="highlighter-rouge">last/1</code> by sme samostatne importovali takto:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">last:</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">first</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">13</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">first</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<p>Ak zasa naimportujeme <em>všetko okrem</em> funkcie <code class="highlighter-rouge">last/1</code> a teraz vyskúšame rovnaké funkcie ako predtým dostaneme:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">except:</span> <span class="p">[</span><span class="ss">last:</span> <span class="mi">1</span><span class="p">]</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">first</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">3</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">last</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>Ďalšími užitočnými filtrami sú <code class="highlighter-rouge">:functions</code> a <code class="highlighter-rouge">:macros</code>, ktorými vieme naimportovať z cieľového modulu len funkcie alebo len makrá:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:functions</span>
+<span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:macros</span>
+</code></pre></div></div>
+
+<h3 id="require"><code class="highlighter-rouge">require</code></h3>
+
+<p>Keď chceme z iného modulu načítať len makrá, ale nie funkcie, použijeme <code class="highlighter-rouge">require</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">require</span> <span class="no">SuperMacros</span>
+
+  <span class="no">SuperMacros</span><span class="o">.</span><span class="n">do_stuff</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ak sa pokúsime zavolať makro, ktoré nie je načítané, Elixir vyhodí chybu.</p>
+
+<h3 id="use"><code class="highlighter-rouge">use</code></h3>
+
+<p>Makrom <code class="highlighter-rouge">use</code> umožníme cieľovému modulu modifikovať náš modul.
+Keď zavoláme <code class="highlighter-rouge">use</code> v našom kóde, tak vlastne vyvoláme <code class="highlighter-rouge">__using__/1</code> callback definovaný v dodanom module.
+Výsledok <code class="highlighter-rouge">__using__/1</code> makra sa stane časťou definície nášho modulu.
+Aby sme si ukázali ako funguje pozrime sa na tento jednoduchý príklad:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Hello</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">__using__</span><span class="p">(</span><span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Tu sme vytvorili modul <code class="highlighter-rouge">Hello</code>, ktorý definuje <code class="highlighter-rouge">__using__/1</code> callback vo vnútri ktorého definujeme funkciu <code class="highlighter-rouge">hello/1</code>.
+Poďme vytvoriť nový modul aby sme mohli vyskúšať náš kód:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Hello</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ak skúsime spustiť v IEx náš kód tak uvidíme, že funkcia <code class="highlighter-rouge">hello/1</code> je dostupná v module <code class="highlighter-rouge">Example</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hi, Sean"</span>
+</code></pre></div></div>
+
+<p>Tu môžeme vidieť, že <code class="highlighter-rouge">use</code> vyvolalo <code class="highlighter-rouge">__using__/1</code> callback na module <code class="highlighter-rouge">Hello</code>, čo pridalo výsledný kód do nášho modulu.
+Teraz, keď sme si ukázali jednoduchý príklad upravme náš kód aby sme sa pozreli ako <code class="highlighter-rouge">__using__/1</code> podporuje doplnkové parametre.
+Spravíme to tak, že pridáme <code class="highlighter-rouge">greeting</code> možnosť:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Hello</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">__using__</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">greeting</span> <span class="o">=</span> <span class="no">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="ss">:greeting</span><span class="p">,</span> <span class="s2">"Hi"</span><span class="p">)</span>
+
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s2">", "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Upravme náš modul <code class="highlighter-rouge">Example</code> aby mal novo vytvorenú <code class="highlighter-rouge">greeting</code> možnosť:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Hello</span><span class="p">,</span> <span class="ss">greeting:</span> <span class="s2">"Hola"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Keď vyskúšame zavolať našu funkciu v IEx tak by sme mali vidieť, že pozdrav sa zmenil:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; Example.hello("Sean")
+"Hola, Sean"
+</code></pre></div></div>
+
+<p>Toto sú jednoduché príklady ako funguje <code class="highlighter-rouge">use</code>, ale zároveň demonštruje aký silný nástroj to je v Elixire.
+Ako sa postupne učíme o Elixire, pozerajme sa po použití <code class="highlighter-rouge">use</code>. Jeden príklad, ktorý určite uvidíme je <code class="highlighter-rouge">use ExUnit.Case, async: true</code>.</p>
+
+<p><strong>Poznámka</strong>: <code class="highlighter-rouge">quote</code>, <code class="highlighter-rouge">alias</code>, <code class="highlighter-rouge">use</code> a <code class="highlighter-rouge">require</code> sú makrá použité keď pracujeme s metaprogramovaním.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/sk/lessons/basics/modules.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/sk/lessons/basics/pipe-operator/" title="Operátor pipe">← Operátor pipe</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/sk/lessons/basics/mix/" title="Mix">Mix →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/modules/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/modules/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/modules/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/modules/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/modules/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/modules/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/modules/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/modules/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/modules/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/modules/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/modules/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/modules/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/modules/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/modules/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/modules/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <strong >sk</strong>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/modules/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/modules/" >uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/modules/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/modules/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/modules/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lekcie o programovacom jazyku Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/sk/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Základy</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/basics/">1. Základy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/collections/">2. Kolekcie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/control-structures/">5. Riadiace štruktúry</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/functions/">6. Funkcie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/pipe-operator/">7. Operátor pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">8. Moduly</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/sigils/">10. Sigily</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/documentation/">11. Dokumentácia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/testing/">12. Testovanie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/strings/">14. Reťazce</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/mix-tasks/">16. Vlastné Mix Tasky</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/iex-helpers/">17. Pomocné funkcie IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Pokročilé</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/erlang/">1. Interoperabilita s Erlangom</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/error-handling/">2. Spracovanie Chýb</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/escripts/">3. Spustiteľné súbory</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/concurrency/">4. Konkurentnosť</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/sk/lessons/ecto/basics/">1. Základy</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/sk/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,945 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ja">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="プログラミング言語Elixirのレッスン">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ja/lessons/specifics/nerves/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ja">
+  <meta property="og:description" content="プログラミング言語Elixirのレッスン">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/nerves/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/nerves/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ja/lessons/specifics/nerves/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Nerves &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ja/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ja/lessons/specifics/nerves/&title=Nerves&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ja/lessons/specifics/nerves/&via=elixirschool&text=ElixirSchool: Nerves&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ja/lessons/specifics/nerves/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ja/lessons/specifics/nerves/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Nerves" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ja/lessons/specifics/nerves/&title=ElixirSchool: Nerves&description=Check out 'Nerves' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Nerves&body=Check out 'Nerves' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ja/lessons/specifics/nerves/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Nerves
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      和訳が古くなっている可能性があります。<br/>
+    
+
+    いくつかの変更が翻訳元の文書に適用されています。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <h2 id="はじめに">はじめに</h2>
+
+<p>このレッスンではNervesについて話します。Nervesプロジェクトは組込みソフトウェア開発にElixirを使用するためのフレームワークです。Nervesのウェブサイトにあるように、それはあなたが「Elixirで、安全な組み込みソフトウェアを作り、そして展開する」ことを可能にします。このレッスンは他のElixir Schoolのレッスンとは少し異なります。上級者向けのシステム設定と追加のハードウェアの両方が必要なため、Nervesを習得するのは少し困難です。したがって、初心者にはオススメしません。</p>
+
+<p>Nervesを使ってコードを書くためには、ネットワークによってこのデバイスにアクセスするための有線ネットワーク接続として、 <a href="https://hexdocs.pm/nerves/targets.html">サポート対象のハードウェア</a> のいずれか、お好みのハードウェアでサポートされているメモリカードを持ったカードリーダーが必要です。</p>
+
+<p>ただし、Raspberry Piには制御可能なLEDが搭載されているため、Raspberry Piを使用することをお勧めします。IExを使用したデバッグが簡単になるため、画面をターゲットデバイスに接続することをお勧めします。</p>
+
+<h2 id="セットアップ">セットアップ</h2>
+
+<p>Nervesプロジェクト自体は優れた <a href="https://hexdocs.pm/nerves/getting-started.html">Getting started guide</a> を持っていますが、一部のユーザーにとっては情報量が圧倒的なものかもしれません。代わりに、このチュートリアルでは「言葉を減らし、コードを増やす」ことを試みます。</p>
+
+<p>まず、環境設定が必要になります。このガイドは、Nerves wikiの <a href="https://hexdocs.pm/nerves/installation.html">Installation</a> にあります。ガイドに記載されているOTPとElixirの両方のバージョンが同じであることを確認してください。正しいバージョンを使用しないと、進行中に問題が発生する可能性があります。これを書いている時点では、どのElixir（Erlang/OTP 21でコンパイルされたもの）でも動作するはずです。</p>
+
+<p>セットアップが完了したら、最初のNervesプロジェクトを構築する準備が整いました!</p>
+
+<p>今回の私たちの目標は、組み込み開発の「Hello world」、つまり単純なHTTP APIを呼び出すことによってLEDの点滅を制御することです。</p>
+
+<h2 id="プロジェクトを作成する">プロジェクトを作成する</h2>
+
+<p>新しいプロジェクトを生成するには、 <code class="highlighter-rouge">mix nerves.new network_led</code> を実行し、依存関係を取得してインストールするかどうかを尋ねられたら <code class="highlighter-rouge">Y</code> と答えてください。</p>
+
+<p>次のような出力が得られるはずです:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Your Nerves project was created successfully.
+
+You should now pick a target. See https://hexdocs.pm/nerves/targets.html#content
+for supported targets. If your target is on the list, set `MIX_TARGET`
+to its tag name:
+
+For example, for the Raspberry Pi 3 you can either
+  $ export MIX_TARGET=rpi3
+Or prefix `mix` commands like the following:
+  $ MIX_TARGET=rpi3 mix firmware
+
+If you will be using a custom system, update the `mix.exs`
+dependencies to point to desired system's package.
+
+Now download the dependencies and build a firmware archive:
+  $ cd network_led
+  $ mix deps.get
+  $ mix firmware
+
+If your target boots up using an SDCard (like the Raspberry Pi 3),
+then insert an SDCard into a reader on your computer and run:
+  $ mix firmware.burn
+
+Plug the SDCard into the target and power it up. See target documentation
+above for more information and other targets.
+</code></pre></div></div>
+
+<p>プロジェクトは生成され、テスト装置を点滅させる準備ができています！早速試してみましょう!</p>
+
+<p>Raspberry Pi 3の場合、 <code class="highlighter-rouge">MIX_TARGET=rpi3</code> を設定しますが、ハードウェアに応じて、これをあなたが持っているハードウェアに合うように変更することができます。(<a href="https://hexdocs.pm/nerves/targets.html#content">Nerves documentation</a> を参照)</p>
+
+<p>まず依存関係を設定しましょう:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ export MIX_TARGET=rpi3
+$ cd network_led
+$ mix deps.get
+
+....
+
+Nerves environment
+  MIX_TARGET:   rpi3
+  MIX_ENV:      dev
+Resolving Nerves artifacts...
+  Resolving nerves_system_rpi3
+  =&gt; Trying https://github.com/nerves-project/nerves_system_rpi3/releases/download/v1.7.0/nerves_system_rpi3-portable-1.7.0-17EA89A.tar.gz
+|==================================================| 100% (133 / 133) MB
+  =&gt; Success
+  Resolving nerves_toolchain_arm_unknown_linux_gnueabihf
+  =&gt; Trying https://github.com/nerves-project/toolchains/releases/download/v1.1.0/nerves_toolchain_arm_unknown_linux_gnueabihf-darwin_x86_64-1.1.0-2305AD8.tar.xz
+|==================================================| 100% (50 / 50) MB
+  =&gt; Success
+</code></pre></div></div>
+
+<p>注意: 指定したプラットフォーム用の適切なシステムイメージとツールチェーンをダウンロードするので、 <code class="highlighter-rouge">mix deps.get</code>を実行する前にターゲットプラットフォームを指定する環境変数を設定していることを確認してください。</p>
+
+<h2 id="ファームウェアの書き込み">ファームウェアの書き込み</h2>
+
+<p>これでファームウェアを書き込むことができます。カードをリーダーに入れて、前の手順ですべてを正しく設定した場合は、 <code class="highlighter-rouge">mix firmware.burn</code> を実行してデバイスの使用を確認した後に、次のプロンプトが表示されるはずです:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Building ......../network_led/_build/rpi_dev/nerves/images/network_led.fw...
+Use 7.42 GiB memory card found at /dev/rdisk2? [Yn]
+</code></pre></div></div>
+
+<p>これがあなたが書き込むカードであると確信しているなら、 <code class="highlighter-rouge">Y</code> を選んで、しばらくするとメモリカードは準備ができています:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Use 7.42 GiB memory card found at /dev/rdisk2? [Yn]
+|====================================| 100% (32.51 / 32.51) MB
+Success!
+Elapsed time: 8.022 s
+</code></pre></div></div>
+
+<p>これで、メモリカードをデバイスに挿入して動作するかどうかを確認します。</p>
+
+<p>画面が接続されている場合、このメモリカードを挿入した状態でデバイスの電源を入れた後に、Linuxの起動シーケンスが表示されるはずです。</p>
+
+<h2 id="ネットワークの設定">ネットワークの設定</h2>
+
+<p>次のステップはネットワークを設定することです。Nervesのエコシステムはさまざまなパッケージを提供しています。<a href="https://github.com/nerves-project/nerves_network">nerves_network</a> は、有線イーサネットポートを介してデバイスをネットワークに接続するために必要なものです。</p>
+
+<p>あなたのプロジェクトにはすでに <code class="highlighter-rouge">nerves_init_gadget</code> が依存関係として存在しています。しかし、デフォルトではDHCPを使います（ <code class="highlighter-rouge">config/config.exs</code> の中の <code class="highlighter-rouge">config :nerves_init_gadget</code> の後の実行内容を確認してください）。静的IPアドレスを持つ方が簡単です。</p>
+
+<p>静的ネットワークを設定するには、 <code class="highlighter-rouge">config/config.exs</code> に以下の行を追加する必要があります:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Statically assign an address
+config :nerves_network, :default,
+  eth0: [
+    ipv4_address_method: :static,
+    ipv4_address: "192.168.88.2",
+    ipv4_subnet_mask: "255.255.255.0",
+    nameservers: ["8.8.8.8", "8.8.4.4"]
+  ]
+</code></pre></div></div>
+
+<p>この設定は有線接続用です。無線接続を使用したい場合は、<a href="https://github.com/nerves-project/nerves_network#wifi-networking">Nerves network documentation</a> を参照してください。</p>
+
+<p>ここであなたのローカルネットワークパラメータを使う必要があることに注意してください。私のネットワークでは割り当てられていないIP <code class="highlighter-rouge">192.168.88.2</code> があるので、これを使用します。しかし、あなたの場合、IPアドレスは違うかもしれません。</p>
+
+<p>これを変更した後、私たちは <code class="highlighter-rouge">mix firmware.burn</code> を通してファームウェアの変更されたバージョンを書き込んで、それから新しいカードで装置を起動する必要があります。</p>
+
+<p>デバイスに電源を入れると、 <code class="highlighter-rouge">ping</code> を使ってオンラインになるのを見ることができます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Request timeout for icmp_seq 206
+Request timeout for icmp_seq 207
+64 bytes from 192.168.88.2: icmp_seq=208 ttl=64 time=2.247 ms
+64 bytes from 192.168.88.2: icmp_seq=209 ttl=64 time=2.658 ms
+</code></pre></div></div>
+
+<p>この出力は、デバイスがネットワークから到達可能になったことを意味します。</p>
+
+<h2 id="ネットワークファームウェアの書き込み">ネットワークファームウェアの書き込み</h2>
+
+<p>これまでのところ、私達はSDカードに書き込んで、物理的にそれらを私達のハードウェアにロードしてきました。これは最初は問題ありませんが、ネットワーク経由で更新する方が簡単です。 <code class="highlighter-rouge">nerves_firmware_ssh</code> パッケージはまさにそれをしてくれます。デフォルトでは、すでにプロジェクトに存在し、ディレクトリ内のSSHキーを自動検出して見つけるように設定されています。</p>
+
+<p>ネットワークファームウェアアップデート機能を使うためには、 <code class="highlighter-rouge">mix firmware.gen.script</code> を通してアップロードスクリプトを生成する必要があります。このコマンドはファームウェアを更新するために実行できる新しい <code class="highlighter-rouge">upload.sh</code> スクリプトを生成します。</p>
+
+<p>前の手順を実行してネットワークが機能している場合は、問題ないので次に進みます。</p>
+
+<p>設定を更新するための最も簡単な方法は <code class="highlighter-rouge">mix firmware &amp;&amp; ./upload.sh 192.168.88.2</code> を使うことです。最初のコマンドは更新されたファームウェアを作成し、二番目のコマンドはそれをネットワーク経由でプッシュしてデバイスを再起動します。SDカードをデバイスに出し入れする必要がなくなります。</p>
+
+<p><em>ヒント： <code class="highlighter-rouge">ssh 192.168.88.2</code> はアプリのコンテキストでデバイスにIExシェルを提供します。</em></p>
+
+<p><em>トラブルシューティング：ホームフォルダにsshキーが存在しない場合は、 <code class="highlighter-rouge">No SSH public keys found in ~/.ssh.</code> というエラーが表示されます。この場合、 <code class="highlighter-rouge">ssh-keygen</code> を実行してネットワークアップデート機能を使用するためにファームウェアを再書き込みする必要があります。</em></p>
+
+<h2 id="ledのコントロールを設定する">LEDのコントロールを設定する</h2>
+
+<p>LEDとやり取りするには、<a href="https://github.com/nerves-project/nerves_leds">nerves_leds</a> パッケージをインストールする必要があります。これは、 <code class="highlighter-rouge">mix.exs</code> ファイルに <code class="highlighter-rouge">{:nerves_leds, "~&gt; 0.8", targets: @all_targets},</code> を追加することによって行われます。</p>
+
+<p>依存関係を設定したら、特定のデバイスのLEDリストを設定する必要があります。例えば、すべてのRaspberry Piモデルのために、ただ一つのLEDである <code class="highlighter-rouge">led0</code> が搭載されています。 <code class="highlighter-rouge">config/config.exs</code> に <code class="highlighter-rouge">config :nerves_leds, names: [green: "led0"]</code> を追加して使用しましょう。</p>
+
+<p>他のデバイスについては、<a href="https://github.com/nerves-project/nerves_examples/tree/master/hello_leds/config">nerves_examplesプロジェクトで対応する部分</a> を参照してください。</p>
+
+<p>LED自体を設定したら、どうにかしてそれを制御する必要があります。そのために、以下の内容を含む <code class="highlighter-rouge">lib/network_led/blinker.ex</code> にGenServerを追加します（<a href="../../advanced/otp-concurrency">OTP Concurrency</a> レッスンのGenServerについての詳細を参照）。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="nv">@moduledoc</span> <span class="sd">"""
+    Simple GenServer to control GPIO #18.
+  """</span>
+
+  <span class="kn">require</span> <span class="no">Logger</span>
+  <span class="n">alias</span> <span class="no">Nerves</span><span class="o">.</span><span class="no">Leds</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">enable</span><span class="p">()</span>
+
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">(</span><span class="ss">:enable</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Enabling LED"</span><span class="p">)</span>
+    <span class="no">Leds</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="ss">green:</span> <span class="no">true</span><span class="p">)</span>
+
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">(</span><span class="ss">:disable</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Disabling LED"</span><span class="p">)</span>
+    <span class="no">Leds</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="ss">green:</span> <span class="no">false</span><span class="p">)</span>
+
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">enable</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:enable</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">disable</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:disable</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>これを有効にするには、それを <code class="highlighter-rouge">lib/network_led/application.ex</code> のスーパーバイザーツリーに追加する必要があります。<code class="highlighter-rouge">def children(_target) do</code> グループの下に <code class="highlighter-rouge">{NetworkLed.Blinker, name: NetworkLed.Blinker}</code> を追加してください。</p>
+
+<p>Nervesのアプリケーションには2つの異なるスーパーバイザーツリーがあります。1つはホストマシン用、もう1つは実際のデバイス用です。</p>
+
+<p>この後、実際にファームウェアをアップロードし、ターゲットデバイス上でsshを使ってIExを実行することで <code class="highlighter-rouge">NetworkLed.Blinker.disable()</code> がLEDを消すこと（コードではデフォルトで有効になっています）、そして <code class="highlighter-rouge">NetworkLed.Blinker.enable()</code> がLEDを点けることを確認できます。</p>
+
+<p>コマンドプロンプトからLEDを制御できます!</p>
+
+<p>今残っているパズルが欠けている唯一の部分は、ウェブインタフェースを介してLEDを制御することです。</p>
+
+<h2 id="webサーバーを追加する">Webサーバーを追加する</h2>
+
+<p>このステップでは、 <code class="highlighter-rouge">Plug.Router</code> を使います。思い出す必要がある場合は、<a href="../../../lessons/specifics/plug/">Plug</a> レッスンを読んでください。</p>
+
+<p>最初に、 <code class="highlighter-rouge">{:plug_cowboy, "~&gt; 2.0"},</code> を <code class="highlighter-rouge">mix.exs</code> に追加して依存関係をインストールします。</p>
+
+<p>それから、 <code class="highlighter-rouge">lib/network_led/http.ex</code> でそれらのリクエストを処理するための実際のプロセスを追加します。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Http</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Router</span>
+
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:match</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:dispatch</span><span class="p">)</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"Feel free to use API endpoints!"</span><span class="p">))</span>
+
+  <span class="n">get</span> <span class="s2">"/enable"</span> <span class="k">do</span>
+    <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+    <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"LED enabled"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="s2">"/disable"</span> <span class="k">do</span>
+    <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+    <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"LED disabled"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">match</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="s2">"Oops!"</span><span class="p">))</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>そして最後のステップ - アプリケーションのスーパーバイザーツリーに <code class="highlighter-rouge">{Plug.Cowboy, scheme: :http, plug: NetworkLed.Http, options: [port: 80]}</code> を追加します。</p>
+
+<p>ファームウェアのアップデート後に試すことができます。 <code class="highlighter-rouge">http://192.168.88.2/</code> はプレーンテキストの応答を返しており、 <code class="highlighter-rouge">http://192.168.88.2/disable</code> と一緒に <code class="highlighter-rouge">http://192.168.88.2/enable</code> はそのLEDを無効にして有効にします！</p>
+
+<p>Phoenixを使ったユーザーインターフェースをNervesアプリに導入することもできますが、それには<a href="https://github.com/nerves-project/nerves/blob/master/docs/User%20Interfaces.md#phoenix-web-interfaces">いくつかの調整が必要になります</a>。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ja/lessons/specifics/nerves.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/specifics/debugging/" title="デバッグ">← デバッグ</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ja/lessons/libraries/guardian/" title="Guardian (Basics)">Guardian (Basics) →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/nerves/" title="英語 / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/specifics/nerves/" title="スペイン語 / Español">es</a>
+        
+      
+        
+        
+
+        
+          <strong title="日本語">ja</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/nerves/" title="中国語">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/nerves/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>プログラミング言語Elixirのレッスン</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ja/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/collections/">2. コレクション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pattern-matching/">4. パターンマッチング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/control-structures/">5. 制御構造</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/functions/">6. 関数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/pipe-operator/">7. パイプライン演算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/modules/">8. モジュール</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/documentation/">11. ドキュメント</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/testing/">12. テスト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/comprehensions/">13. 内包表記</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/strings/">14. 文字列</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/date-time/">15. 日付と時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/mix-tasks/">16. カスタムMixタスク</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">上級</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/erlang/">1. Erlangとの相互運用</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/error-handling/">2. エラーハンドリング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/escripts/">3. 実行ファイル</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-concurrency/">5. OTPの並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-supervisors/">6. OTPスーパバイザ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/otp-distribution/">7. OTPディストリビューション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/metaprogramming/">8. メタプログラミング</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/umbrella-projects/">9. アンブレラプロジェクト</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/typespec/">10. 仕様と型</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/behaviours/">11. ビヘイビア</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/advanced/protocols/">13. プロトコル</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/basics/">1. 基本</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/changesets/">2. チェンジセット</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/associations/">3. アソシエーション</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/ecto/querying/">4. クエリ</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">詳細</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/eex/">2. 埋め込みElixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/specifics/debugging/">5. デバッグ</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. Nerves</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">ライブラリー</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/distillery/">5. Distillery (基本)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ja/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/ja/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

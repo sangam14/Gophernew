@@ -1,0 +1,906 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ru">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Уроки программирования на языке Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ru/lessons/advanced/typespec/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ru">
+  <meta property="og:description" content="Уроки программирования на языке Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/typespec/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/typespec/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/typespec/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ru/lessons/advanced/typespec/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Спецификации и типы &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ru/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ru/lessons/advanced/typespec/&title=Спецификации и типы&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ru/lessons/advanced/typespec/&via=elixirschool&text=ElixirSchool: Спецификации и типы&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ru/lessons/advanced/typespec/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ru/lessons/advanced/typespec/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Спецификации и типы" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ru/lessons/advanced/typespec/&title=ElixirSchool: Спецификации и типы&description=Check out 'Спецификации и типы' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Спецификации и типы&body=Check out 'Спецификации и типы' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ru/lessons/advanced/typespec/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Спецификации и типы
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Это перевод актуальной версии оригинального урока.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>В этом уроке мы узнаем о директивах <code class="highlighter-rouge">@spec</code> и <code class="highlighter-rouge">@type</code>. Первая — скорее дополнение синтаксиса языка для написания документации, которая может быть проанализирована специальными инструментами. Вторая — помогает нам писать более читаемый и понятный код.</p>
+
+<h2>Содержание</h2>
+<div id="toc"></div>
+
+<h2 id="введение">Введение</h2>
+
+<p>Иногда вы можете захотеть сделать описание для интерфейса вашей функции. Конечно, вы можете использовать <a href="../../basics/documentation">аннотацию @doc</a>, но это информация для других разработчиков, которая не проверяется во время компиляции. В Elixir есть аннотация <code class="highlighter-rouge">@spec</code>, она позволяет описать спецификацию функции, и может использоваться для дополнительной проверки кода.</p>
+
+<p>Такая спецификация может получиться весьма объёмной из-за сложных параметров. Вы можете упростить её, определяя свои типы. В Elixir для этого существует аннотация <code class="highlighter-rouge">@type</code>. С другой стороны, Elixir всё равно остаётся динамическим языком. Это значит, что вся информация о типах будет проигнорирована компилятором, но может быть использована другими инструментами.</p>
+
+<h2 id="спецификация">Спецификация</h2>
+
+<p>Если у вас есть опыт работы с Java, вы можете думать о спецификации как об интерфейсе. Спецификация определяет типы параметров и возвращаемого значения функции.</p>
+
+<p>Чтобы описать принимаемые и возвращаемые функцией типы мы используем директиву <code class="highlighter-rouge">@spec</code>, располагая её прямо перед определением функции. Директива принимает в качестве параметров: имя функции, список типов аргументов функции, и, после знака <code class="highlighter-rouge">::</code>, тип возвращаемого значения.</p>
+
+<p>Рассмотрим пример:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_product</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_product</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Всё выглядит верно и мы получим правильный результат после вызова функции, но <code class="highlighter-rouge">Enum.sum</code> возвращает значение типа <code class="highlighter-rouge">number</code> а не <code class="highlighter-rouge">integer</code>, как мы ожидали в <code class="highlighter-rouge">@spec</code>. Это может быть источником ошибок! Существуют инструменты статического анализа кода, например <code class="highlighter-rouge">Dialyzer</code>, которые помогают нам найти такие ошибки. Мы поговорим о них в других уроках.</p>
+
+<h2 id="пользовательские-типы">Пользовательские типы</h2>
+
+<p>Создание спецификации — хорошо, но иногда наши функции работают со сложными структурами данных, вместо чисел или списков. В таком случае определение в <code class="highlighter-rouge">@spec</code> будет очень сложно понять и/или изменить. Иногда функциям необходимо принимать большое число параметров или возвращать сложные структуры данных. Длинный список параметров — это одно из потенциально проблемных мест кода. В объектно-ориентированных языках, таких как Ruby или Java, мы легко можем определить классы, которые помогут нам решить эту проблему. В Elixir нет классов, но благодаря тому, что он легко расширяем, мы можем определять наши собственные типы.</p>
+
+<p>Изначально Elixir уже содержит некоторые простые типы, такие как <code class="highlighter-rouge">integer</code> или <code class="highlighter-rouge">pid</code>. Вы можете найти полный список доступных типов в <a href="https://hexdocs.pm/elixir/typespecs.html#types-and-their-syntax">документации</a>.</p>
+
+<h3 id="определение-пользовательского-типа">Определение пользовательского типа</h3>
+
+<p>Изменим нашу функцию <code class="highlighter-rouge">sum_times</code> и добавим несколько дополнительных параметров:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">integer</span><span class="p">,</span> <span class="p">%</span><span class="no">Examples</span><span class="p">{</span><span class="ss">first:</span> <span class="n">integer</span><span class="p">,</span> <span class="ss">last:</span> <span class="n">integer</span><span class="p">})</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">for</span> <span class="n">i</span> <span class="o">&lt;-</span> <span class="n">params</span><span class="o">.</span><span class="n">first</span><span class="o">..</span><span class="n">params</span><span class="o">.</span><span class="n">last</span> <span class="k">do</span>
+    <span class="n">i</span>
+  <span class="k">end</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">round</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Мы добавили в модуль <code class="highlighter-rouge">Examples</code> структуру, которая содержит два поля: <code class="highlighter-rouge">first</code> и <code class="highlighter-rouge">last</code>. Это упрощенная версия структуры из модуля <code class="highlighter-rouge">Range</code>. Мы поговорим о <code class="highlighter-rouge">структурах</code> в разделе <a href="../../basics/modules/#structs">модули</a>. Представьте, что нам надо написать в нашем коде спецификации, включающие структуру <code class="highlighter-rouge">Examples</code>, множество раз. Это будет довольно нудно — писать длинную, сложную спецификацию, и может послужить источником ошибок. Решением этой проблемы будет директива <code class="highlighter-rouge">@type</code>.</p>
+
+<p>У <code class="highlighter-rouge">Elixir</code> есть три директивы для определения типов:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">@type</code> — простой публичный тип. Внутренняя структура типа тоже публична.</li>
+  <li><code class="highlighter-rouge">@typep</code> — тип закрытый и может использоваться только в том модуле, в котором описан.</li>
+  <li><code class="highlighter-rouge">@opaque</code> — тип публичный, но его внутренняя структура закрыта.</li>
+</ul>
+
+<p>Запишем определение нашего типа:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Examples</span> <span class="k">do</span>
+  <span class="k">defstruct</span> <span class="ss">first:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">last:</span> <span class="no">nil</span>
+
+  <span class="nv">@type</span> <span class="n">t</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span> <span class="p">::</span> <span class="p">%</span><span class="no">Examples</span><span class="p">{</span><span class="ss">first:</span> <span class="n">first</span><span class="p">,</span> <span class="ss">last:</span> <span class="n">last</span><span class="p">}</span>
+
+  <span class="nv">@type</span> <span class="n">t</span> <span class="p">::</span> <span class="p">%</span><span class="no">Examples</span><span class="p">{</span><span class="ss">first:</span> <span class="n">integer</span><span class="p">,</span> <span class="ss">last:</span> <span class="n">integer</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Мы определили тип <code class="highlighter-rouge">t(first, last)</code>, который представляет нашу структуру <code class="highlighter-rouge">%Examples{first: first, last: last}</code>. Теперь мы видим, что типы могут принимать параметры. Но мы также определили и тип <code class="highlighter-rouge">t</code>, в данном случае это представление структуры <code class="highlighter-rouge">%Examples{first: integer, last: integer}</code>.</p>
+
+<p>В чем отличие? Первый — представляет структуру <code class="highlighter-rouge">Examples</code>, в которой оба ключа могут иметь любой тип. Второй — представляет структуру, ключи в которой имеют тип <code class="highlighter-rouge">integer</code>. Это означает, что такой код:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">integer</span><span class="p">,</span> <span class="no">Examples</span><span class="o">.</span><span class="n">t</span><span class="p">())</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">for</span> <span class="n">i</span> <span class="o">&lt;-</span> <span class="n">params</span><span class="o">.</span><span class="n">first</span><span class="o">..</span><span class="n">params</span><span class="o">.</span><span class="n">last</span> <span class="k">do</span>
+    <span class="n">i</span>
+  <span class="k">end</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">round</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>равносилен коду:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">integer</span><span class="p">,</span> <span class="no">Examples</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="n">integer</span><span class="p">,</span> <span class="n">integer</span><span class="p">))</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">for</span> <span class="n">i</span> <span class="o">&lt;-</span> <span class="n">params</span><span class="o">.</span><span class="n">first</span><span class="o">..</span><span class="n">params</span><span class="o">.</span><span class="n">last</span> <span class="k">do</span>
+    <span class="n">i</span>
+  <span class="k">end</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">round</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="документирование-типов">Документирование типов</h3>
+
+<p>Последний вопрос, который нам надо обсудить: как документировать наши типы. Как известно из урока  <a href="../../basics/documentation">документирование</a>, для описания функций и модулей у нас есть аннотации <code class="highlighter-rouge">@doc</code> и <code class="highlighter-rouge">@moduledoc</code>. Для описания наших типов мы можем использовать <code class="highlighter-rouge">@typedoc</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Examples</span> <span class="k">do</span>
+  <span class="nv">@typedoc</span> <span class="sd">"""
+      Тип, который представляет структуру Examples с полями :first типа integer и :last типа integer.
+  """</span>
+  <span class="nv">@type</span> <span class="n">t</span> <span class="p">::</span> <span class="p">%</span><span class="no">Examples</span><span class="p">{</span><span class="ss">first:</span> <span class="n">integer</span><span class="p">,</span> <span class="ss">last:</span> <span class="n">integer</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Директива <code class="highlighter-rouge">@typedoc</code> аналогична директивам <code class="highlighter-rouge">@doc</code> и <code class="highlighter-rouge">@moduledoc</code>.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ru/lessons/advanced/typespec.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/advanced/umbrella-projects/" title="Зонтичные проекты">← Зонтичные проекты</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/advanced/behaviours/" title="Поведения">Поведения →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/advanced/typespec/" title="Немецкий">de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/typespec/" title="Английский / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/typespec/" title="Испанский / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/typespec/" title="Греческий">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/typespec/" title="Японский / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/typespec/" title="Корейский">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/typespec/" title="Польский">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/typespec/" title="Португальский">pt</a>
+        
+      
+        
+        
+
+        
+          <strong title="Русский">ru</strong>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/typespec/" title="Вьетнамский">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/typespec/" title="Китайский">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/typespec/" title="Китайский традиционный">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Меню</h2>
+    <p>Уроки программирования на языке Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ru/" class=" up ">Домашняя страница</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Основы</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/basics/">1. Основы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/collections/">2. Коллекции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pattern-matching/">4. Сопоставление с образцом</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/control-structures/">5. Управляющие конструкции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/functions/">6. Функции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pipe-operator/">7. Оператор конвейера</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/modules/">8. Модули</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/sigils/">10. Строковые метки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/documentation/">11. Документирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/testing/">12. Тестирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/comprehensions/">13. Списковые включения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/strings/">14. Строки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/date-time/">15. Дата и время</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix-tasks/">16. Пользовательские Mix-задачи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/iex-helpers/">17. IEx функции</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Продвинутый</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/erlang/">1. Взаимодействие с Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/error-handling/">2. Обработка ошибок</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/escripts/">3. Исполняемые файлы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/concurrency/">4. Параллелизм</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-concurrency/">5. Параллелизм в OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-supervisors/">6. OTP Супервизоры</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/metaprogramming/">8. Метапрограммирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/umbrella-projects/">9. Зонтичные проекты</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">10. Спецификации и типы</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/behaviours/">11. Поведения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/protocols/">13. Протоколы</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/changesets/">2. Наборы изменений</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/associations/">3. Связи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/querying/">4. Язык запросов</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Специфика</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/debugging/">5. Отладка</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Библиотеки</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/guardian/">1. Guardian (Основы)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Блог</a>
+    </li>
+    
+    <li>
+      <a href="/ru/report/" class=" up ">Состояние перевода</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Участники</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

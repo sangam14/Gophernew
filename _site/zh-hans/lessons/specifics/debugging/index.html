@@ -1,0 +1,1071 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hans">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 编程语言教程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hans/lessons/specifics/debugging/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hans">
+  <meta property="og:description" content="Elixir 编程语言教程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/debugging/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/debugging/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hans/lessons/specifics/debugging/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>调试 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hans/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hans/lessons/specifics/debugging/&title=调试&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hans/lessons/specifics/debugging/&via=elixirschool&text=ElixirSchool: 调试&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hans/lessons/specifics/debugging/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hans/lessons/specifics/debugging/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 调试" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hans/lessons/specifics/debugging/&title=ElixirSchool: 调试&description=Check out '调试' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 调试&body=Check out '调试' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hans/lessons/specifics/debugging/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  调试
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    This translation is up to date.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>臭虫（Bugs）可谓是任何项目都无法避免的存在，所以调试也不可或缺。</p>
+
+<p>本课程我们将学习如何调试 Elixir 代码，并使用静态分析工具来帮助寻找可能存在的 bugs。</p>
+
+<h2>目录</h2>
+<div id="toc"></div>
+
+<h2 id="iex">IEx</h2>
+
+<p>调试 Elixir 代码最直接的工具就是 IEx 了。</p>
+
+<p>但是，别被它的简单而愚弄到你了 - 你可以通过它来解决你应用的大部分问题。</p>
+
+<p>IEx 全称是 <code class="highlighter-rouge">Elixir 的交互式 shell</code>。</p>
+
+<p>你可能已经在前面的<a href="../../basics/basics">基础课</a>那里了解到它了。</p>
+
+<p>调试的做法其实很简单。我们就在需要调试的地方，通过交互式的 shell 来操作。</p>
+
+<p>首先，创建一个 <code class="highlighter-rouge">test.exs</code> 来试验一下吧。在文件里输入以下代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defmodule TestMod do
+  def sum([a, b]) do
+    b = 0
+
+    a + b
+  end
+end
+
+IO.puts(TestMod.sum([34, 65]))
+</code></pre></div></div>
+
+<p>如果你执行这个文件，输出显然为 <code class="highlighter-rouge">34</code>：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ elixir test.exs
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+34
+</code></pre></div></div>
+
+<p>现在我们来看看如何调试这段代码，也就是最令人兴奋的地方。</p>
+
+<p>紧接着在 <code class="highlighter-rouge">b = 0</code> 那行的后面加入 <code class="highlighter-rouge">require IEx; IEx.pry</code> 这一行，然后重新运行一次代码。</p>
+
+<p>你将会看到类似这样的输出：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ elixir test.exs
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+Cannot pry #PID&lt;0.92.0&gt; at TestMod.sum/1 (test.exs:5). Is an IEx shell running?
+34
+</code></pre></div></div>
+
+<p>注意到那条重要的提醒消息了吗？</p>
+
+<p>向以往那样运行一个程序的时候，IEx 会输出这条消息，而不会阻止程序的运行。</p>
+
+<p>如果我们希望正确的进入调试模式，则需要在命令的前面使用 <code class="highlighter-rouge">iex -S</code>。</p>
+
+<p>这么做的意义就是在 <code class="highlighter-rouge">iex</code> 命令里面运行 <code class="highlighter-rouge">mix</code>，从而应用程序可以在一种特殊模式下运行，比如对 <code class="highlighter-rouge">IEx.pry</code> 的调用可以把应用程序暂停下来。</p>
+
+<p>比如说，<code class="highlighter-rouge">iex -S mix phx.server</code> 这么就可以调试你的 Phoenix 应用。</p>
+
+<p>对我们上面的例子来说，则是通过 <code class="highlighter-rouge">iex -r test.exs</code> 来执行文件：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iex -r test.exs
+Erlang/OTP 21 [erts-10.3.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+Request to pry #PID&lt;0.107.0&gt; at TestMod.sum/1 (test.exs:5)
+
+    3:     b = 0
+    4:
+    5:     require IEx; IEx.pry
+    6:
+    7:     a + b
+
+Allow? [Yn]
+</code></pre></div></div>
+
+<p>当你输入 <code class="highlighter-rouge">y</code> 或者回车来给予反馈后，你将进入交互执行模式。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ iex -r test.exs
+Erlang/OTP 21 [erts-10.3.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+warning: variable "b" is unused (if the variable is not meant to be used, prefix it with an underscore)
+  test.exs:2
+
+Request to pry #PID&lt;0.107.0&gt; at TestMod.sum/1 (test.exs:5)
+
+    3:     b = 0
+    4:
+    5:     require IEx; IEx.pry
+    6:
+    7:     a + b
+
+Allow? [Yn] y
+Interactive Elixir (1.8.1) - press Ctrl+C to exit (type h() ENTER for help)
+pry(1)&gt; a
+34
+pry(2)&gt; b
+0
+pry(3)&gt; a + b
+34
+pry(4)&gt; continue
+34
+
+Interactive Elixir (1.8.1) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)&gt;
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+</code></pre></div></div>
+
+<p>要退出 IEx，你可以通过按 <code class="highlighter-rouge">Ctrl+C</code> 两次，或者输入 <code class="highlighter-rouge">continue</code> 来继续运行到下一个断点。</p>
+
+<p>正如你所见，你可以运行任何 Elixir 代码。</p>
+
+<p>这么做的局限在于，语言的不可变特性，使得你无法更改当前代码的变量值。</p>
+
+<p>但是，你可以获取任何变量值，并进行任何计算。</p>
+
+<p>上面的案例，bug 出在 <code class="highlighter-rouge">b</code> 被重新赋予了 0，<code class="highlighter-rouge">sum</code> 函数也因此出现问题。</p>
+
+<p>当然，语言层面在最初的时候已经发现了这个 bug，但这只是一个例子！</p>
+
+<h3 id="iexhelpers">IEx.Helpers</h3>
+
+<p>其中一个最让人讨厌的 IEx 使用经验就是它不支持查询以前执行过的命令。</p>
+
+<p>为了解决这个问题，<a href="https://hexdocs.pm/iex/IEx.html#module-shell-history">IEx 文档</a>里面有专门的一个章节告诉你如何解决这个问题。</p>
+
+<p>你还可以通过 <a href="https://hexdocs.pm/iex/IEx.Helpers.html">IEx.Helpers 文档</a>来查看可用的一些辅助工具有哪些。</p>
+
+<h2 id="dialyxir-和-dialyzer">Dialyxir 和 Dialyzer</h2>
+
+<p><a href="http://erlang.org/doc/man/dialyzer.html">Dialyzer</a>，全称就是 <strong>DI</strong>screpancy <strong>A</strong>na<strong>LYZ</strong>er for <strong>ER</strong>lang，它是一个静态代码分析工具。也就是说，它_阅读_和分析你的代码，但是不_执行_它们，比如说，寻找 bugs，无法触及的死代码等。</p>
+
+<p><a href="https://github.com/jeremyjh/dialyxir">Dialyxir</a> 则是在 Elixir 里简化了 Dialyzer 使用的 mix 任务。</p>
+
+<p>Specification 可以帮助像 Dialyzer 这样的工具更好地理解代码。不像那些只能被人类阅读和理解的文档（假如存在或者写的足够好的话），<code class="highlighter-rouge">@spec</code> 使用了一些可以被机器理解的，更规范的语法。</p>
+
+<p>让我们把 Dialyxir 加到我们的项目里头吧。最简单的方式就是添加依赖到 <code class="highlighter-rouge">mix.exs</code> 文件中：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:dialyxir</span><span class="p">,</span> <span class="s2">"~&gt; 0.4"</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:dev</span><span class="p">]}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>然后调用一下面的命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+...
+<span class="nv">$ </span>mix deps.compile
+</code></pre></div></div>
+
+<p>第一个命令下载并安装 Dialyxir。或许你会同时被要求安装 Hex。第二个命令编译 Dialyxir 应用。如果你想全局安装 Dialyxir，请参考它的<a href="https://github.com/jeremyjh/dialyxir#installation">文档</a>。</p>
+
+<p>最后一个步骤就是要运行 Dialyzer 来重建 PLT（Persistent Lookup Table）。每次安装新版本的 Erlang 或者 Elixir 后，你都要做这一步。幸运地是，Dialyzer 不会每次使用的时候都去分析标准程序库。这个重建过程需要好几分钟才能下载完成。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer <span class="nt">--plt</span>
+Starting PLT Core Build ... this will take awhile
+dialyzer <span class="nt">--build_plt</span> <span class="nt">--output_plt</span> /.dialyxir_core_18_1.3.2.plt <span class="nt">--apps</span> erts kernel stdlib crypto public_key <span class="nt">-r</span> /Elixir/lib/elixir/../eex/ebin /Elixir/lib/elixir/../elixir/ebin /Elixir/lib/elixir/../ex_unit/ebin /Elixir/lib/elixir/../iex/ebin /Elixir/lib/elixir/../logger/ebin /Elixir/lib/elixir/../mix/ebin
+  Creating PLT /.dialyxir_core_18_1.3.2.plt ...
+...
+ <span class="k">done in </span>5m14.67s
+<span class="k">done</span> <span class="o">(</span>warnings were emitted<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="代码静态分析">代码静态分析</h2>
+
+<p>Dialyxir 已经准备好了：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+examples.ex:3: Invalid <span class="nb">type </span>specification <span class="k">for function</span> <span class="s1">'Elixir.Examples'</span>:sum_times/1. The success typing is <span class="o">(</span>_<span class="o">)</span> -&gt; number<span class="o">()</span>
+...
+</code></pre></div></div>
+
+<p>Dialyzer 提示的信息已经很明确了：函数 <code class="highlighter-rouge">sum_times/1</code> 的返回值，和声明的不一样。因为 <code class="highlighter-rouge">Enum.sum/1</code> 返回的是 <code class="highlighter-rouge">number</code> 而不是一个 <code class="highlighter-rouge">integer</code>。但是 <code class="highlighter-rouge">sum_times/1</code> 的返回值声明为 <code class="highlighter-rouge">integer</code>。</p>
+
+<p>因为 <code class="highlighter-rouge">number</code> 并不是 <code class="highlighter-rouge">integer</code>，所以我们就得到了一个错误。那该怎么修改？我们可以使用 <code class="highlighter-rouge">round/1</code> 函数把 <code class="highlighter-rouge">number</code> 类型转换为 <code class="highlighter-rouge">integer</code>：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">round</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>最后：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+  Proceeding with analysis... <span class="k">done in </span>0m0.95s
+<span class="k">done</span> <span class="o">(</span>passed successfully<span class="o">)</span>
+</code></pre></div></div>
+<p>借助 specifications 就可以使用工具进行静态代码分析，并让代码变得更健壮和包含更少的 bugs。</p>
+
+<h2 id="调试">调试</h2>
+
+<p>有时，静态代码分析是不够的。要找到 bugs，理解代码的执行过程是必须的。最简单的方案发就是在代码里加上诸如 <code class="highlighter-rouge">IO.puts/2</code> 这样的代码来打印输出一些语句以便跟踪值的变化和代码执行过程。但是，这样的手段非常的原始，并有很多局限性。庆幸的是，我们可以使用 Erlang 的调试器来调试 Elixir 代码。</p>
+
+<p>现在我们来看一个基本的模块：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">cpu_burns</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="mi">5</span>
+
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>然后运行 <code class="highlighter-rouge">iex</code>：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>再运行调试器：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:debugger</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.307.0&gt;}</span>
+</code></pre></div></div>
+
+<p>Erlang 的 <code class="highlighter-rouge">:debugger</code> 模块可以让我们访问调试器。我们可以使用 <code class="highlighter-rouge">start/1</code> 函数来对它进行配置：</p>
+
+<ul>
+  <li>通过传入文件路径来指定外部配置文件。</li>
+  <li>如果参数是 <code class="highlighter-rouge">:local</code> 或者 <code class="highlighter-rouge">:global</code>，调试器就会：
+    <ul>
+      <li><code class="highlighter-rouge">:global</code> - 调试器会解析所有已知节点的代码。这个是选项的默认值。</li>
+      <li><code class="highlighter-rouge">:local</code> - 调试器只会解析当前节点的代码。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>下一步就是把调试器挂载到我们的模块上：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">ni</span><span class="p">(</span><span class="no">Example</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:module</span><span class="p">,</span> <span class="no">Example</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">:int</code> 模块是一个解析器。它能让我们创建断点，和一步步执行代码。</p>
+
+<p>当你打开调试器的时候，会出现类似的新窗口：</p>
+
+<p><img src="/assets/debugger_1-98405f919dea64207148bd2434268c300ce63a4de05b3c242aea8216a001eff9.png" alt="Debugger Screenshot 1" /></p>
+
+<p>当我们把调试器挂载到要调试的模块时，它就会出现在左边的菜单：</p>
+
+<p><img src="/assets/debugger_2-bbb5ca6bc547fbdf1a87021e6f0ab830b03edbc5a3ea3627da6ec869a5f6e9e1.png" alt="Debugger Screenshot 2" /></p>
+
+<h3 id="创建断点">创建断点</h3>
+
+<p>一个断点就是代码执行到指定位置后，会挂起的地方。有两种创建断点的方法：</p>
+
+<ul>
+  <li>在代码里调用 <code class="highlighter-rouge">:int.break/2</code></li>
+  <li>通过调试器界面</li>
+</ul>
+
+<p>让我们先在 IEx 尝试添加一个断点：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>这在 <code class="highlighter-rouge">Example</code> 模块代码的第 8 行处设定了一个断点。然后开始调用我们的函数：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">cpu_burns</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>在 IEx 中，代码的运行被挂起了，调试器窗口显示如下：</p>
+
+<p><img src="/assets/debugger_3-a102cae7d61b9a645424defbbb3a74af29f37c5739b0635c12d81efc567e85f0.png" alt="Debugger Screenshot 3" /></p>
+
+<p>另一个窗口会显示出当前执行的源代码：</p>
+
+<p><img src="/assets/debugger_4-4083df8f049c34f813d3bbbe173d49324498f3be96616d11e94f82d5de8b5ff1.png" alt="Debugger Screenshot 4" /></p>
+
+<p>在这个窗口中，我们可以查看变量的值，跳到下一行代码，或者执行表达式。调用 <code class="highlighter-rouge">:int.disable_break/2</code> 就能够禁用断点：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">disable_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>我们可以调用 <code class="highlighter-rouge">:int.enable_break/2</code> 来重新开启一个断点，或者通过如下命令删除断点：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">delete_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>在调试器窗口也有同样的操作选项。在顶层菜单，<strong>Break</strong>，我们可以选择 <strong>Line Break</strong> 并设置断点。如果我们选择了一行没有代码的涤烦设置了断点，它会被忽略，但是依然会在调试器窗口出现。断点的类型有三种：</p>
+
+<ul>
+  <li>行断点 - 调试器到达目标行时，挂起执行。这种断点通过 <code class="highlighter-rouge">:int.break/2</code> 设置。</li>
+  <li>条件断点 - 和行断点类似，但是调试器只有在满足特定条件的时候才会挂起代码。<code class="highlighter-rouge">:int.get_binding/2</code> 可以获取绑定的条件变量。</li>
+  <li>函数断点 - 调试器会在函数的第一行挂起。这种断点通过 <code class="highlighter-rouge">:int.break_in/3</code> 配置。</li>
+</ul>
+
+<p>准备就绪！调试快乐！</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hans/lessons/specifics/debugging.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/specifics/mnesia/" title="Mnesia 数据库">← Mnesia 数据库</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/specifics/nerves/" title="Nerves">Nerves →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/debugging/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/specifics/debugging/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/debugging/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/debugging/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/specifics/debugging/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/specifics/debugging/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hans</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/debugging/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 编程语言教程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hans/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基础</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/basics/">1. 基础</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/enum/">3. Enum 模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pattern-matching/">4. 模式匹配</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/control-structures/">5. 控制语句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/functions/">6. 函数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pipe-operator/">7. 管道操作符</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/modules/">8. 模块（Module）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/sigils/">10. 魔符(Sigil)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/documentation/">11. 文档模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/testing/">12. 测试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/comprehensions/">13. 推导</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/strings/">14. 字符串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/date-time/">15. 日期和时间</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix-tasks/">16. 自定义 Mix 任务</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/iex-helpers/">17. IEx 辅助函数</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">高级</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/erlang/">1. 和 Erlang 互操作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/error-handling/">2. 错误处理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/escripts/">3. 可执行文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/concurrency/">4. 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-concurrency/">5. OTP 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-distribution/">7. OTP 分布式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/metaprogramming/">8. 元编程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/behaviours/">11. 行为</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/protocols/">13. 协议</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/associations/">3. 关联关系</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/querying/">4. 查询</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">专题</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/eex/">2. 嵌入的 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/ets/">3. Erlang 项式存储 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/mnesia/">4. Mnesia 数据库</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. 调试</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">程序库</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/guardian/">1. Guardian（基础）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/distillery/">5. Distillery (基础)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hans/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

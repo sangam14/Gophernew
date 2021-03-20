@@ -1,0 +1,1151 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="The premier destination for learning and mastering Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/en/lessons/libraries/stream-data/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="en">
+  <meta property="og:description" content="The premier destination for learning and mastering Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/stream-data/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/stream-data/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/stream-data/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/stream-data/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/stream-data/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/stream-data/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/en/lessons/libraries/stream-data/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>StreamData &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/en/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/en/lessons/libraries/stream-data/&title=StreamData&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/en/lessons/libraries/stream-data/&via=elixirschool&text=ElixirSchool: StreamData&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/en/lessons/libraries/stream-data/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/en/lessons/libraries/stream-data/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: StreamData" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/en/lessons/libraries/stream-data/&title=ElixirSchool: StreamData&description=Check out 'StreamData' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: StreamData&body=Check out 'StreamData' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/en/lessons/libraries/stream-data/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+      <h1>StreamData</h1>
+    
+  </header>
+  <div class="content">
+    <p>An example-based unit testing library like <a href="https://hexdocs.pm/ex_unit/ExUnit.html">ExUnit</a> is a wonderful tool to help you verify that your code works the way you think it does.
+However, example-based unit tests have some drawbacks:</p>
+
+<ul>
+  <li>It can be easy to miss edge cases, since you’re only testing a few inputs.</li>
+  <li>You can write these tests without thinking through your requirements thoroughly.</li>
+  <li>These tests can be very verbose when you use several examples for one function.</li>
+</ul>
+
+<p>In this lesson we’re going to explore how <a href="https://github.com/whatyouhide/stream_data">StreamData</a> can help us overcome some of these drawbacks.</p>
+
+<h2>Table of Contents</h2>
+<div id="toc"></div>
+
+<h2 id="what-is-streamdata">What is StreamData?</h2>
+
+<p><a href="https://github.com/whatyouhide/stream_data">StreamData</a> is a library that performs stateless property-based testing.</p>
+
+<p>The StreamData library will run each test <a href="https://hexdocs.pm/stream_data/ExUnitProperties.html#check/1-options">100 times by default</a>, using random data each time.
+When a test fails, StreamData will try to <a href="https://hexdocs.pm/stream_data/StreamData.html#module-shrinking">shrink</a> the input to the smallest value that causes the test failure.
+This can be helpful when you have to debug your code!
+If a 50-element list causes your function to break, and only one of the list elements is problematic, StreamData can help you identify the offending element.</p>
+
+<p>This testing library has two main modules.
+<a href="https://hexdocs.pm/stream_data/StreamData.html"><code class="highlighter-rouge">StreamData</code></a> generates streams of random data. 
+<a href="https://hexdocs.pm/stream_data/ExUnitProperties.html"><code class="highlighter-rouge">ExUnitProperties</code></a> lets you run tests against your functions, using the generated data as your input.</p>
+
+<p>You might be asking how you can say anything meaningful about a function if you don’t know what your exact inputs are. Read on!</p>
+
+<h2 id="installing-streamdata">Installing StreamData</h2>
+
+<p>First, create a new Mix project.
+Refer to <a href="https://elixirschool.com/en/lessons/basics/mix/#new-projects">New Projects</a> if you need some help.</p>
+
+<p>Second, add StreamData as a dependency to your <code class="highlighter-rouge">mix.exs</code> file:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:stream_data</span><span class="p">,</span> <span class="s2">"~&gt; x.y"</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:test</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Just replace <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> with the version of StreamData shown in the library’s <a href="https://github.com/whatyouhide/stream_data#installation">installation instructions</a>.</p>
+
+<p>Third, run this from the command line of your terminal:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix deps.get
+</code></pre></div></div>
+
+<h2 id="using-streamdata">Using StreamData</h2>
+
+<p>To illustrate the features of StreamData, we’ll write a few simple utility functions that repeat values.
+Let’s say we want a function like <a href="https://hexdocs.pm/elixir/String.html#duplicate/2"><code class="highlighter-rouge">String.duplicate/2</code></a>, but one that will duplicate strings, lists, or tuples.</p>
+
+<h3 id="strings">Strings</h3>
+
+<p>First, let’s write a function that duplicates strings.
+What are some requirements for our function?</p>
+
+<ol>
+  <li>The first argument should be a string.
+This is the string that we’ll duplicate.</li>
+  <li>The second argument should be a non-negative integer.
+It shows how many times we’ll duplicate the first argument.</li>
+  <li>The function should return a string.
+This new string is just the original string, repeated zero or more times.</li>
+  <li>If the original string is empty, the returned string should also be empty.</li>
+  <li>If the second argument is <code class="highlighter-rouge">0</code>, the returned string should be empty.</li>
+</ol>
+
+<p>When we run our function, we want it to look like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="c1"># "aaaa"</span>
+</code></pre></div></div>
+
+<p>Elixir has a function, <code class="highlighter-rouge">String.duplicate/2</code> that will handle this for us.
+Our new <code class="highlighter-rouge">duplicate/2</code> will just delegate to that function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Repeater</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">String</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The happy path should be easy to test with <a href="https://hexdocs.pm/ex_unit/ExUnit.html">ExUnit</a>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">test</span> <span class="s2">"creates a new string, with the first argument duplicated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="s2">"aaaa"</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>That’s hardly a comprehensive test, though.
+What should happen when the second argument is <code class="highlighter-rouge">0</code>?
+What should the output be when the first argument is an empty string? 
+What does it even mean to repeat an empty string?
+How should the function work with UTF-8 characters?
+Will the function still work with large input strings?</p>
+
+<p>We could write more examples to test edge cases and large strings. 
+However, let’s see if we can use StreamData to test this function more rigorously without much more code.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new string, with the first argument duplicated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">str</span> <span class="o">&lt;-</span> <span class="n">string</span><span class="p">(</span><span class="ss">:printable</span><span class="p">),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+
+        <span class="n">assert</span> <span class="sx">??</span><span class="err">?</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>What does that do?</p>
+
+<ul>
+  <li>We replaced <code class="highlighter-rouge">test</code> with <a href="https://github.com/whatyouhide/stream_data/blob/v0.4.2/lib/ex_unit_properties.ex#L109"><code class="highlighter-rouge">property</code></a>.
+This lets us document the property we’re testing.</li>
+  <li><a href="https://hexdocs.pm/stream_data/ExUnitProperties.html#check/1"><code class="highlighter-rouge">check/1</code></a> is a macro that allows us to set up the data we’ll use in the test.</li>
+  <li><a href="https://hexdocs.pm/stream_data/StreamData.html#string/2"><code class="highlighter-rouge">StreamData.string/2</code></a> generates random strings.
+We can omit the module name when calling <code class="highlighter-rouge">string/2</code> because <code class="highlighter-rouge">use ExUnitProperties</code> <a href="https://github.com/whatyouhide/stream_data/blob/v0.4.2/lib/ex_unit_properties.ex#L109">imports StreamData functions</a>.</li>
+  <li><code class="highlighter-rouge">StreamData.integer/0</code> generates random integers.</li>
+  <li><code class="highlighter-rouge">times &gt;= 0</code> is kind of like a guard clause.
+It ensures that the random integers we use in our test are greater than or equal to zero. 
+<a href="https://hexdocs.pm/stream_data/StreamData.html#positive_integer/0"><code class="highlighter-rouge">SreamData.positive_integer/0</code></a> exists, but it’s not quite what we want, since <code class="highlighter-rouge">0</code> is an acceptable value in our function.</li>
+</ul>
+
+<p>The <code class="highlighter-rouge">???</code> is just some pseudocode I added.
+What exactly should we assert?
+We <em>could</em> write:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assert</span> <span class="no">String</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>…but that just uses the actual function’s implementation, which isn’t helpful.
+We could loosen up our assertion by only verifying the length of the string:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">expected_length</span> <span class="o">=</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+<span class="n">actual_length</span> <span class="o">=</span>
+  <span class="n">str</span>
+  <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+
+<span class="n">assert</span> <span class="n">actual_length</span> <span class="o">==</span> <span class="n">expected_length</span>
+</code></pre></div></div>
+
+<p>That’s better than nothing, but it’s not ideal.
+This test would still pass if our function generated random strings of the correct length.</p>
+
+<p>We really want to verify two things:</p>
+
+<ol>
+  <li>Our function generates a string of the right length.</li>
+  <li>The contents of the final string are the original string repeated over and over again.</li>
+</ol>
+
+<p>This is just another way of <a href="https://www.propertesting.com/book_what_is_a_property.html#_alternate_wording_of_properties">rephrasing the property</a>.
+We already have some code to verify #1.
+To verify #2, let’s split the final string by the original string, and verify that we are left with a list of zero or more empty strings.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span> <span class="o">=</span>
+  <span class="n">str</span>
+  <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+
+<span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="s2">""</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Let’s combine our assertions:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new string, with the first argument duplicated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">str</span> <span class="o">&lt;-</span> <span class="n">string</span><span class="p">(</span><span class="ss">:printable</span><span class="p">),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">new_string</span> <span class="o">=</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">new_string</span><span class="p">)</span> <span class="o">==</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+        <span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">new_string</span><span class="p">,</span> <span class="n">str</span><span class="p">),</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="s2">""</span><span class="p">))</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>When we compare that with our original test, we see that the StreamData version is twice as long.
+However, by the time you add more test cases to the original test…</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicating a string"</span> <span class="k">do</span>
+    <span class="n">test</span> <span class="s2">"duplicates the first argument a number of times equal to the second argument"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="s2">"aaaa"</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"returns an empty string if the first argument is an empty string"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="s2">""</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"returns an empty string if the second argument is zero"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="s2">""</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"works with longer strings"</span> <span class="k">do</span>
+      <span class="n">alphabet</span> <span class="o">=</span> <span class="s2">"abcdefghijklmnopqrstuvwxyz"</span>
+
+      <span class="n">assert</span> <span class="s2">"</span><span class="si">#{</span><span class="n">alphabet</span><span class="si">}#{</span><span class="n">alphabet</span><span class="si">}</span><span class="s2">"</span> <span class="o">==</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">alphabet</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>…the StreamData version is actually shorter.
+StreamData also covers edge cases a developer might forget to test.</p>
+
+<h3 id="lists">Lists</h3>
+
+<p>Now, let’s write a function that repeats lists.
+We want the function to work like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># [1, 2, 3, 1, 2, 3, 1, 2, 3]</span>
+</code></pre></div></div>
+
+<p>Here is a correct, but somewhat inefficient, implementation:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Repeater</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">[]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">list</span> <span class="o">++</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>A StreamData test might look like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new list, with the elements of the original list repeated a specified number or times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">list</span> <span class="o">&lt;-</span> <span class="n">list_of</span><span class="p">(</span><span class="n">term</span><span class="p">()),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">new_list</span> <span class="o">=</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="n">length</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+
+        <span class="k">if</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">do</span>
+          <span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="no">Enum</span><span class="o">.</span><span class="n">chunk_every</span><span class="p">(</span><span class="n">new_list</span><span class="p">,</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)),</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="n">list</span><span class="p">))</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We used <code class="highlighter-rouge">StreamData.list_of/1</code> and <code class="highlighter-rouge">StreamData.term/0</code> to create lists of random length, whose elements are any type.</p>
+
+<p>Like the property-based test for repeating strings, we compare the length of the new list with the product of the source list and <code class="highlighter-rouge">times</code>. 
+The second assertion takes some explaining:</p>
+
+<ol>
+  <li>We break the new list apart into several lists, each of which has the same number of elements as <code class="highlighter-rouge">list</code>.</li>
+  <li>We then verify that each chunked list is equal to <code class="highlighter-rouge">list</code>.</li>
+</ol>
+
+<p>To put it differently, we make sure that our original list appears in the final list the right number of times, and that no <em>other</em> elements show up in our final list.</p>
+
+<p>Why did we use the conditional?
+The first assertion and the conditional combine to tell us that the original list and the final list are both empty, so there is no need to do any more list comparison.
+Moreover, <code class="highlighter-rouge">Enum.chunk_every/2</code> requires the second argument to be positive.</p>
+
+<h3 id="tuples">Tuples</h3>
+
+<p>Finally, let’s implement a function that repeats the elements of a tuple.
+The function should work like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">({</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">,</span> <span class="ss">:c</span><span class="p">},</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># {:a, :b, :c, :a, :b, :c, :a, :b, :c}</span>
+</code></pre></div></div>
+
+<p>One way we could approach this is to convert the tuple to a list, duplicate the list, and convert the data structure back to a tuple.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Repeater</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">tuple</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_tuple</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">tuple</span>
+    <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">()</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>How might we test this?
+Let’s approach it a bit differently than we’ve done so far.
+For strings and lists, we asserted something about the length of the final data, and we asserted something about the contents of the data. 
+Trying the same approach with tuples is possible, but the test code may not be as straightforward.</p>
+
+<p>Consider two sequences of operations you could perform on a tuple:</p>
+
+<ol>
+  <li>Call <code class="highlighter-rouge">Repeater.duplicate/2</code> on the tuple, and convert the result to a list</li>
+  <li>Convert the tuple to a list, and then pass the list to <code class="highlighter-rouge">Repeater.duplicate/2</code></li>
+</ol>
+
+<p>This is an application of a pattern that Scott Wlaschin calls <a href="https://fsharpforfunandprofit.com/posts/property-based-testing-2/#different-paths-same-destination">“Different Paths, Same Destination”</a>.
+I would expect both of these sequences of operations to yield the same result.
+Let’s use that approach in our test.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new tuple, with the elements of the original tuple repeated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">t</span> <span class="o">&lt;-</span> <span class="n">tuple</span><span class="p">({</span><span class="n">term</span><span class="p">()}),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">result_1</span> <span class="o">=</span>
+          <span class="n">t</span>
+          <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+        <span class="n">result_2</span> <span class="o">=</span>
+          <span class="n">t</span>
+          <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+          <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="n">result_1</span> <span class="o">==</span> <span class="n">result_2</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<p>We now have three function clauses that repeat strings, list elements, and tuple elements.
+We have some property-based tests that give us a high degree of confidence that our implementation is correct.</p>
+
+<p>Here is our final application code:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Repeater</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">String</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">[]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">list</span> <span class="o">++</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">tuple</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_tuple</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">tuple</span>
+    <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">()</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here are the property-based tests:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">RepeaterTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="kn">use</span> <span class="no">ExUnitProperties</span>
+
+  <span class="n">describe</span> <span class="s2">"duplicate/2"</span> <span class="k">do</span>
+    <span class="n">property</span> <span class="s2">"creates a new string, with the first argument duplicated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">str</span> <span class="o">&lt;-</span> <span class="n">string</span><span class="p">(</span><span class="ss">:printable</span><span class="p">),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">new_string</span> <span class="o">=</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">new_string</span><span class="p">)</span> <span class="o">==</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+        <span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">new_string</span><span class="p">,</span> <span class="n">str</span><span class="p">),</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="s2">""</span><span class="p">))</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">property</span> <span class="s2">"creates a new list, with the elements of the original list repeated a specified number or times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">list</span> <span class="o">&lt;-</span> <span class="n">list_of</span><span class="p">(</span><span class="n">term</span><span class="p">()),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">new_list</span> <span class="o">=</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="n">length</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">*</span> <span class="n">times</span>
+
+        <span class="k">if</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">do</span>
+          <span class="n">assert</span> <span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">(</span><span class="no">Enum</span><span class="o">.</span><span class="n">chunk_every</span><span class="p">(</span><span class="n">new_list</span><span class="p">,</span> <span class="n">length</span><span class="p">(</span><span class="n">list</span><span class="p">)),</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">==</span> <span class="n">list</span><span class="p">))</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">property</span> <span class="s2">"creates a new tuple, with the elements of the original tuple repeated a specified number of times"</span> <span class="k">do</span>
+      <span class="n">check</span> <span class="n">all</span> <span class="n">t</span> <span class="o">&lt;-</span> <span class="n">tuple</span><span class="p">({</span><span class="n">term</span><span class="p">()}),</span>
+                <span class="n">times</span> <span class="o">&lt;-</span> <span class="n">integer</span><span class="p">(),</span>
+                <span class="n">times</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">do</span>
+        <span class="n">result_1</span> <span class="o">=</span>
+          <span class="n">t</span>
+          <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+        <span class="n">result_2</span> <span class="o">=</span>
+          <span class="n">t</span>
+          <span class="o">|&gt;</span> <span class="no">Tuple</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+          <span class="o">|&gt;</span> <span class="no">Repeater</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+
+        <span class="n">assert</span> <span class="n">result_1</span> <span class="o">==</span> <span class="n">result_2</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>You can run your tests by entering this on your terminal’s command line:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix test
+</code></pre></div></div>
+
+<p>Remember that each StreamData test you write will run 100 times by default.
+Additionally, some of StreamData’s random data takes longer to generate than others.
+The cumulative effect is that these types of tests will run more slowly than example-based unit tests.</p>
+
+<p>Even so, property-based testing is a nice complement to example-based unit testing.
+It allows us to write succinct tests that cover a wide variety of inputs.
+If you don’t need to maintain state between test runs, StreamData offers a nice syntax to write property-based tests.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/en/lessons/libraries/stream-data.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/libraries/distillery/" title="Distillery (Basics)">← Distillery (Basics)</a>
+    </div>
+    
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong title="English">en</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/libraries/stream-data/" title="Japanese / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/libraries/stream-data/" title="Russian / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/stream-data/" title="Chinese">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/stream-data/" title="Traditional Chinese">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/en/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. StreamData</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

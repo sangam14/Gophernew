@@ -1,0 +1,940 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="sk">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lekcie o programovacom jazyku Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/sk/lessons/basics/control-structures/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="sk">
+  <meta property="og:description" content="Lekcie o programovacom jazyku Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/control-structures/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ta" href="/ta/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/control-structures/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/control-structures/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/sk/lessons/basics/control-structures/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Riadiace štruktúry &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/sk/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/sk/lessons/basics/control-structures/&title=Riadiace štruktúry&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/sk/lessons/basics/control-structures/&via=elixirschool&text=ElixirSchool: Riadiace štruktúry&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/sk/lessons/basics/control-structures/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/sk/lessons/basics/control-structures/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Riadiace štruktúry" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/sk/lessons/basics/control-structures/&title=ElixirSchool: Riadiace štruktúry&description=Check out 'Riadiace štruktúry' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Riadiace štruktúry&body=Check out 'Riadiace štruktúry' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/sk/lessons/basics/control-structures/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Riadiace štruktúry
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Tento preklad je aktuálny.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>V tejto lekcii sa pozrieme na riadiace štruktúry, ktoré máme k dispozícii v Elixire.</p>
+
+<h2>Obsah</h2>
+<div id="toc"></div>
+
+<h2 id="if-a-unless"><code class="highlighter-rouge">if</code> a <code class="highlighter-rouge">unless</code></h2>
+
+<p>Na funkciu <code class="highlighter-rouge">if/2</code> ste už pravdepodobne narazili a ak ste pracovali s Ruby, poznáte aj <code class="highlighter-rouge">unless/2</code>. V Elixire fungujú úplne rovnako, no sú implementované ako makrá, nie sú to skutočné jazykové konštrukty. Ich implementáciu si môžete pozrieť v dokumentácii <a href="https://hexdocs.pm/elixir/Kernel.html">modulu Kernel</a>.</p>
+
+<p>Len pre pripomenutie: je dôležité si uvedomiť, že jediné hodnoty, ktoré Elixir vyhodnotí ako <code class="highlighter-rouge">false</code> (v angličtine sa používa výraz <em>falsey</em>), sú hodnoty <code class="highlighter-rouge">nil</code> a <code class="highlighter-rouge">false</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">if</span> <span class="no">String</span><span class="o">.</span><span class="n">valid?</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">)</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="s2">"Valid string!"</span>
+<span class="o">...&gt;</span> <span class="k">else</span>
+<span class="o">...&gt;</span>   <span class="s2">"Invalid string."</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Valid string!"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="k">if</span> <span class="s2">"a string value"</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="s2">"Truthy"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Truthy"</span>
+</code></pre></div></div>
+
+<p>Použitie <code class="highlighter-rouge">unless/2</code> je analogické k <code class="highlighter-rouge">if/2</code> - pracuje opačne, t.j. ako <em>if not</em>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">unless</span> <span class="n">is_integer</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="s2">"Not an Int"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Not an Int"</span>
+</code></pre></div></div>
+
+<h2 id="case"><code class="highlighter-rouge">case</code></h2>
+
+<p>Ak potrebujeme hodnotu porovnať s viacerými možnosťami (vzormi), môžeme použiť <code class="highlighter-rouge">case/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"Hello World"</span><span class="p">}</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">result</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:error</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="s2">"Uh oh!"</span>
+<span class="o">...&gt;</span>   <span class="n">_</span> <span class="o">-&gt;</span> <span class="s2">"Catch all"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Hello World"</span>
+</code></pre></div></div>
+
+<p>Špeciálna premenná <code class="highlighter-rouge">_</code> má v <code class="highlighter-rouge">case/2</code> význam <em>žolíka</em>, teda matchne čokoľvek. Používa sa podobne, ako <em>else</em> alebo <em>default</em> vetva v iných jazykoch. Bez nej nám <code class="highlighter-rouge">case/2</code> vyhodí chybu, ak sa mu nepodarí matchnúť hodnotu do niektorej zo svojich vetiev:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="ss">:even</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="ss">:odd</span> <span class="o">-&gt;</span> <span class="s2">"Odd"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CaseClauseError</span><span class="p">)</span> <span class="n">no</span> <span class="k">case</span> <span class="n">clause</span> <span class="ss">matching:</span> <span class="ss">:even</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="ss">:even</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="ss">:odd</span> <span class="o">-&gt;</span> <span class="s2">"Odd"</span>
+<span class="o">...&gt;</span>   <span class="n">_</span> <span class="o">-&gt;</span> <span class="s2">"Not Odd"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Not Odd"</span>
+</code></pre></div></div>
+
+<p>Keďže výraz <code class="highlighter-rouge">case/2</code> je založený na pattern matchingu, platia preň všetky jeho pravidlá a obmedzenia. Ak chceme matchovať oproti existujúcim premenným (t.j. nepriraďovať do nich), musíme použiť operátor <em>pin</em> (<code class="highlighter-rouge">^/1</code>):</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">pie</span> <span class="o">=</span> <span class="mf">3.14</span>
+<span class="mf">3.14</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="s2">"cherry pie"</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="o">^</span><span class="n">pie</span> <span class="o">-&gt;</span> <span class="s2">"Not so tasty"</span>
+<span class="o">...&gt;</span>   <span class="n">pie</span> <span class="o">-&gt;</span> <span class="s2">"I bet </span><span class="si">#{</span><span class="n">pie</span><span class="si">}</span><span class="s2"> is tasty"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"I bet cherry pie is tasty"</span>
+</code></pre></div></div>
+
+<p>Výborná vec, ktorú nám <code class="highlighter-rouge">case/2</code> umožňuje použiť, sú tzv. <em>guard clauses</em> (hraničné podmienky):</p>
+
+<p><em>Nasledujúci príklad pochádza priamo z oficiálnej príručky Elixiru <a href="http://elixir-lang.org/getting-started/case-cond-and-if.html#case">Getting Started</a>.</em></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">case</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="ow">when</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"Will match"</span>
+<span class="o">...&gt;</span>   <span class="n">_</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"Won't match"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Will match"</span>
+</code></pre></div></div>
+
+<p>Pozrite si príslušnú kapitolu v oficiálnej dokumentácii <a href="https://hexdocs.pm/elixir/guards.html#list-of-allowed-expressions">Expressions allowed in guard clauses</a>.</p>
+
+<h2 id="cond"><code class="highlighter-rouge">cond</code></h2>
+
+<p>Keď potrebujeme vetviť na základe podmienok, nie hodnôt, použijeme <code class="highlighter-rouge">cond/1</code> - funguje to podobne ako séria <code class="highlighter-rouge">else if</code> alebo <code class="highlighter-rouge">elsif</code> v iných jazykoch:</p>
+
+<p><em>Nasledujúci príklad pochádza priamo z oficiálnej príručky Elixiru <a href="http://elixir-lang.org/getting-started/case-cond-and-if.html#cond">Getting Started</a>.</em></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">cond</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">5</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"Do tejto vetvy sa nedostaneme"</span>
+<span class="o">...&gt;</span>   <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"Ani do tejto"</span>
+<span class="o">...&gt;</span>   <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">-&gt;</span>
+<span class="o">...&gt;</span>     <span class="s2">"No do tejto áno"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"No do tejto áno"</span>
+</code></pre></div></div>
+
+<p>Podobne ako <code class="highlighter-rouge">case/2</code> aj <code class="highlighter-rouge">cond/1</code> vyhodí chybu, ak nenájde použiteľnú vetvu. V tom prípade musíme vytvoriť vetvu s podmienkou <code class="highlighter-rouge">true</code>, ktorá takéto prípady odchytí:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="k">cond</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="mi">7</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">-&gt;</span> <span class="s2">"Incorrect"</span>
+<span class="o">...&gt;</span>   <span class="no">true</span> <span class="o">-&gt;</span> <span class="s2">"Catch all"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+<span class="s2">"Catch all"</span>
+</code></pre></div></div>
+
+<h2 id="with"><code class="highlighter-rouge">with</code></h2>
+
+<p>Špeciálna riadiaca štruktúra <code class="highlighter-rouge">with/1</code> je užitočná, keď potrebujeme použiť vnorené <code class="highlighter-rouge">case/2</code> výrazy alebo v situácii keď ich nemôžeme spojiť pomocou operátora pipe. Výraz <code class="highlighter-rouge">with/1</code> je zložený z kľúčových slov, generátorov a výrazu.</p>
+
+<p>O generátoroch si povieme viac v <a href="../comprehensions/">lekcii o comprehensions</a>, ale zatiaľ stačí keď vieme, že používajú <a href="../pattern-matching/">pattern matching</a> na porovnanie pravej strany operátora <code class="highlighter-rouge">&lt;-</code> s ľavou stranou.</p>
+
+<p>Začneme s jednoduchým príkladom ako použiť <code class="highlighter-rouge">with/1</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">first:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">last:</span> <span class="s2">"Callan"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">first:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">last:</span> <span class="s2">"Callan"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">first</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:first</span><span class="p">),</span>
+<span class="o">...&gt;</span>      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">last</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:last</span><span class="p">),</span>
+<span class="o">...&gt;</span>      <span class="k">do</span><span class="p">:</span> <span class="n">last</span> <span class="o">&lt;&gt;</span> <span class="s2">", "</span> <span class="o">&lt;&gt;</span> <span class="n">first</span>
+<span class="s2">"Callan, Sean"</span>
+</code></pre></div></div>
+
+<p>V prípade, že pattern matching výrazu je neúspešný, nehodiaca sa hodnota bude vrátená:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">first:</span> <span class="s2">"doomspork"</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">first:</span> <span class="s2">"doomspork"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">first</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:first</span><span class="p">),</span>
+<span class="o">...&gt;</span>      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">last</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:last</span><span class="p">),</span>
+<span class="o">...&gt;</span>      <span class="k">do</span><span class="p">:</span> <span class="n">last</span> <span class="o">&lt;&gt;</span> <span class="s2">", "</span> <span class="o">&lt;&gt;</span> <span class="n">first</span>
+<span class="ss">:error</span>
+</code></pre></div></div>
+
+<p>Teraz máme väčší príklad bez <code class="highlighter-rouge">with/1</code> a potom sa pozrieme ako ho môžeme zrefaktorovať:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+    <span class="k">case</span> <span class="no">Guardian</span><span class="o">.</span><span class="n">encode_and_sign</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:token</span><span class="p">,</span> <span class="n">claims</span><span class="p">)</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">full_claims</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">important_stuff</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">full_claims</span><span class="p">)</span>
+
+      <span class="n">error</span> <span class="o">-&gt;</span>
+        <span class="n">error</span>
+    <span class="k">end</span>
+
+  <span class="n">error</span> <span class="o">-&gt;</span>
+    <span class="n">error</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Keď zavedieme <code class="highlighter-rouge">with/1</code>, dostaneme kód, ktorý je ľahšie pochopiteľný, čitateľný a má menej riadkov:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">changeset</span><span class="p">),</span>
+     <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">full_claims</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Guardian</span><span class="o">.</span><span class="n">encode_and_sign</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:token</span><span class="p">,</span> <span class="n">claims</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">important_stuff</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">full_claims</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Od verzie Elixiru 1.3, <code class="highlighter-rouge">with/1</code> výrazy podporujú <code class="highlighter-rouge">else</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">Integer</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">c:</span> <span class="mi">3</span><span class="p">}</span>
+
+<span class="n">a</span> <span class="o">=</span>
+  <span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">number</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="ss">:a</span><span class="p">),</span>
+       <span class="no">true</span> <span class="o">&lt;-</span> <span class="n">is_even</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">number</span><span class="si">}</span><span class="s2"> divided by 2 is </span><span class="si">#{</span><span class="n">div</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="ss">:even</span>
+  <span class="k">else</span>
+    <span class="ss">:error</span> <span class="o">-&gt;</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"We don't have this item in map"</span><span class="p">)</span>
+      <span class="ss">:error</span>
+
+    <span class="n">_</span> <span class="o">-&gt;</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"It is odd"</span><span class="p">)</span>
+      <span class="ss">:odd</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<p>To nám pomáha spracovať chyby tým, že poskytuje pattern matching podobný <code class="highlighter-rouge">case</code>. Vzor vo vetve <code class="highlighter-rouge">else</code> je prvá nehodiaca sa hodnota výrazu.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/sk/lessons/basics/control-structures.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/sk/lessons/basics/pattern-matching/" title="Pattern Matching">← Pattern Matching</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/sk/lessons/basics/functions/" title="Funkcie">Funkcie →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/control-structures/" >bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/control-structures/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/control-structures/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/control-structures/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/control-structures/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/control-structures/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/control-structures/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/control-structures/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/control-structures/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/control-structures/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/control-structures/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/control-structures/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/control-structures/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/control-structures/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/control-structures/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/control-structures/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <strong >sk</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ta/lessons/basics/control-structures/" >ta</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/control-structures/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/control-structures/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/control-structures/" >uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/control-structures/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/control-structures/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/control-structures/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lekcie o programovacom jazyku Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/sk/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Základy</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/basics/">1. Základy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/collections/">2. Kolekcie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. Riadiace štruktúry</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/functions/">6. Funkcie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/pipe-operator/">7. Operátor pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/modules/">8. Moduly</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/sigils/">10. Sigily</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/documentation/">11. Dokumentácia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/testing/">12. Testovanie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/strings/">14. Reťazce</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/mix-tasks/">16. Vlastné Mix Tasky</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/iex-helpers/">17. Pomocné funkcie IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Pokročilé</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/erlang/">1. Interoperabilita s Erlangom</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/error-handling/">2. Spracovanie Chýb</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/escripts/">3. Spustiteľné súbory</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/concurrency/">4. Konkurentnosť</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/sk/lessons/ecto/basics/">1. Základy</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/sk/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

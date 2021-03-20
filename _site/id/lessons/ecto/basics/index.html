@@ -1,0 +1,1002 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="id">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Pelajaran mengenai bahasa pemrograman Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/id/lessons/ecto/basics/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="id">
+  <meta property="og:description" content="Pelajaran mengenai bahasa pemrograman Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/basics/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/basics/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/id/lessons/ecto/basics/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Basics &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/id/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/id/lessons/ecto/basics/&title=Basics&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/id/lessons/ecto/basics/&via=elixirschool&text=ElixirSchool: Basics&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/id/lessons/ecto/basics/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/id/lessons/ecto/basics/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Basics" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/id/lessons/ecto/basics/&title=ElixirSchool: Basics&description=Check out 'Basics' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Basics&body=Check out 'Basics' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/id/lessons/ecto/basics/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-major"></span>
+  Basics
+</h1>
+<div class="version-info version-info-major">
+  <span>
+    
+      Some contents of this translation may be outdated.<br/>
+    
+
+    Several major changes were applied to the original lesson since the last update.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Ecto adalah sebuah project resmi Elixir yang memberikan sebuah wrapper (pembungkus) terhadap database dan bahasa query yang terintegrasi.  Dengan Ecto kita bisa membuat migrasi, mendefinisikan model, melakukan insert dan update data, dan melakukan query.</p>
+
+<h2>Daftar Isi</h2>
+<div id="toc"></div>
+
+<h2 id="setup">Setup</h2>
+
+<p>Untuk mulai kita perlu menginclude Ecto dan sebuah adapter database dalam <code class="highlighter-rouge">mix.exs</code> project kita.  Anda bisa menemukan daftar adapter database yang didukung di bagian <a href="https://github.com/elixir-lang/ecto/blob/master/README.md#usage">Usage</a> section dari README Ecto.  Sebagai contoh kita akan gunakan Postgresql:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:ecto</span><span class="p">,</span> <span class="s2">"~&gt; 1.0"</span><span class="p">},</span> <span class="p">{</span><span class="ss">:postgrex</span><span class="p">,</span> <span class="s2">"&gt;= 0.0.0"</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Sekarang kita bisa tambahkan Ecto dan adapter kita ke application:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+  <span class="p">[</span><span class="ss">applications:</span> <span class="p">[</span><span class="ss">:ecto</span><span class="p">,</span> <span class="ss">:postgrex</span><span class="p">]]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="repository">Repository</h3>
+
+<p>Akhirnya kita perlu membuat repositori project kita, wrapper untuk databasenya.  Ini bisa dilakukan lewat task <code class="highlighter-rouge">mix ecto.gen.repo -r FriendsApp.Repo</code>.  Kita akan membahas task mix Ecto nanti.  Repo bisa ditemukan di <code class="highlighter-rouge">lib/&lt;project name&gt;/repo.ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">Repo</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> <span class="ss">otp_app:</span> <span class="ss">:example_app</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="supervisor">Supervisor</h3>
+
+<p>Setelah kita membuat Repo, kita perlu mensetup pohon supervisor (supervisor tree) kita, yang biasanya ditemukan di <code class="highlighter-rouge">lib/&lt;project name&gt;.ex</code>.</p>
+
+<p>Penting dicatat bahwa kita mensetup Repo sebagai sebuah supervisor dengan <code class="highlighter-rouge">supervisor/3</code> dan <em>bukan</em> <code class="highlighter-rouge">worker/3</code>.  Jika anda membuat app dengan flag <code class="highlighter-rouge">--sup</code> sebagian besarnya sudah dibuat:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">App</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">import</span> <span class="no">Supervisor</span><span class="o">.</span><span class="no">Spec</span>
+
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="n">supervisor</span><span class="p">(</span><span class="no">FriendsApp</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Untuk info lebih lanjut tentang supervisor lihatlah pelajaran <a href="../../advanced/otp-supervisors">OTP Supervisors</a>.</p>
+
+<h3 id="konfigurasi">Konfigurasi</h3>
+
+<p>Untuk mengkonfigurasi Ecto kita perlu menambahkan sebuah bagian ke <code class="highlighter-rouge">config/config.exs</code> kita.  Di sini kita akan menspesifikasikan repositori, adapter, database, dan informasi terkait account:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:example_app</span><span class="p">,</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span>
+  <span class="ss">adapter:</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Adapters</span><span class="o">.</span><span class="no">Postgres</span><span class="p">,</span>
+  <span class="ss">database:</span> <span class="s2">"example_app"</span><span class="p">,</span>
+  <span class="ss">username:</span> <span class="s2">"postgres"</span><span class="p">,</span>
+  <span class="ss">password:</span> <span class="s2">"postgres"</span><span class="p">,</span>
+  <span class="ss">hostname:</span> <span class="s2">"localhost"</span>
+</code></pre></div></div>
+
+<h2 id="mix-task">Mix Task</h2>
+
+<p>Ecto menyertakan sejumlah task mix yang membantu untuk bekerja dengan database kita:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.create         <span class="c"># Membuat database untuk repo</span>
+mix ecto.drop           <span class="c"># Menghapus database untuk repo</span>
+mix ecto.gen.migration  <span class="c"># Membuat migrasi baru untuk repo</span>
+mix ecto.gen.repo       <span class="c"># Membuat repo baru</span>
+mix ecto.migrate        <span class="c"># Menjalankan migrasi pada repo</span>
+mix ecto.rollback       <span class="c"># Menjalankan balik migrasi dari repo</span>
+</code></pre></div></div>
+
+<h2 id="migrasi">Migrasi</h2>
+
+<p>Cara terbaik membuat migrasi adalah dengan task <code class="highlighter-rouge">mix ecto.gen.migration &lt;name&gt;</code>.  Jika anda sudah kenal ActiveRecord maka ini akan tampak familiar.</p>
+
+<p>Mari mulai dengan melihat sebuah migrasi untuk tabel users:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateUser</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:users</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">unique:</span> <span class="no">true</span><span class="p">)</span>
+      <span class="n">add</span><span class="p">(</span><span class="ss">:encrypted_password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">null:</span> <span class="no">false</span><span class="p">)</span>
+      <span class="n">add</span><span class="p">(</span><span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+      <span class="n">add</span><span class="p">(</span><span class="ss">:confirmed</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">false</span><span class="p">)</span>
+
+      <span class="n">timestamps</span>
+    <span class="k">end</span>
+
+    <span class="n">create</span><span class="p">(</span><span class="n">unique_index</span><span class="p">(</span><span class="ss">:users</span><span class="p">,</span> <span class="p">[</span><span class="ss">:username</span><span class="p">],</span> <span class="ss">name:</span> <span class="ss">:unique_usernames</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Secara default Ecto membuat sebuah primary key yang auto-increment bernama <code class="highlighter-rouge">id</code>.  Di sini kita menggunakan callback default <code class="highlighter-rouge">change/0</code> tetapi Ecto juga mendukung <code class="highlighter-rouge">up/0</code> dan <code class="highlighter-rouge">down/0</code> jika anda perlu mengendalikan secara lebih rinci.</p>
+
+<p>Sebagaimana yang anda mungkin sudah terka, menambahkan <code class="highlighter-rouge">timestamps</code> ke migrasi anda akan membuat dan mengelola <code class="highlighter-rouge">inserted_at</code> dan <code class="highlighter-rouge">updated_at</code>.</p>
+
+<p>Untuk menjalankan migrasi kita yang baru jalankanlah <code class="highlighter-rouge">mix ecto.migrate</code>.</p>
+
+<p>Untuk info lebih lanjut tentang migrasi silakan lihat di bagian <a href="http://hexdocs.pm/ecto/Ecto.Migration.html#content">Ecto.Migration</a> dari dokumentasi.</p>
+
+<h2 id="model">Model</h2>
+
+<p>Sekarang setelah kita membuat migrasi kita dapat melanjutkan ke model.  Model mendefinisikan schema kita, metode pembantu, dan changeset.  Kita akan bahas changeset lebih jauh di bagian berikutnya.</p>
+
+<p>Untuk sementara ini mari lihat seperti apa model dari migrasi kita:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span>
+
+  <span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:encrypted_password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:confirmed</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">false</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+
+    <span class="n">timestamps</span>
+  <span class="k">end</span>
+
+  <span class="nv">@required_fields</span> <span class="sx">~w(username encrypted_password email)</span>
+  <span class="nv">@optional_fields</span> <span class="sx">~w()</span>
+
+  <span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">params</span> <span class="p">\\</span> <span class="ss">:empty</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">user</span>
+    <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nv">@required_fields</span><span class="p">,</span> <span class="nv">@optional_fields</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">unique_constraint</span><span class="p">(</span><span class="ss">:username</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Schema yang kita definisikan dalam model kita merepresentasikan apa yang kita spesifikasikan di migrasi kita.  Sebagai tambahan atas field-field database kita kita juga memasukkan dua virtual field.  Virtual field tidak disimpan ke database tapi bisa jadi berguna untuk hal-hal seperti validasi.  Kita akan lihat tentang virtual field di bagian <a href="#changesets">Changesets</a>.</p>
+
+<h2 id="query">Query</h2>
+
+<p>Sebelum kita bisa melakukan query pada repository kita kita perlu mengimpor API Query.  Untuk saat ini kita hanya perlu mengimpor <code class="highlighter-rouge">from/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">from:</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Dokumentasi resmi bisa ditemukan di <a href="http://hexdocs.pm/ecto/Ecto.Query.html">Ecto.Query</a>.</p>
+
+<h3 id="dasar">Dasar</h3>
+
+<p>Ecto menyediakan DSL Query yang sangat bagus yang memungkinkan kita mengekspresikan query dengan jelas.  Untuk menemukan username dari semua akun yang sudah dikonfirmasikan kita dapat gunakan seperti ini:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">alias</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="p">{</span><span class="no">Repo</span><span class="p">,</span> <span class="no">User</span><span class="p">}</span>
+
+<span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span> <span class="o">==</span> <span class="no">true</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="n">u</span><span class="o">.</span><span class="n">username</span>
+  <span class="p">)</span>
+
+<span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Selain <code class="highlighter-rouge">all/2</code>, Repo menyediakan sejumlah callback termasuk <code class="highlighter-rouge">one/2</code>, <code class="highlighter-rouge">get/3</code>, <code class="highlighter-rouge">insert/2</code>, dan <code class="highlighter-rouge">delete/2</code>.  Daftar lengkap callback bisa ditemukan di <a href="http://hexdocs.pm/ecto/Ecto.Repo.html#callbacks">Ecto.Repo#callbacks</a>.</p>
+
+<h3 id="count">Count</h3>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span> <span class="o">==</span> <span class="no">true</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="n">count</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="group-by">Group By</h3>
+
+<p>Untuk mengelompokkan user berdasar status konfirmasinya kita bisa masukkan opsi <code class="highlighter-rouge">group_by</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">group_by:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">confirmed</span><span class="p">,</span> <span class="n">count</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p">)]</span>
+  <span class="p">)</span>
+
+<span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="order-by">Order By</h3>
+
+<p>Mengurutkan user berdasarkan tanggal pembuatannya:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">order_by:</span> <span class="n">u</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">]</span>
+  <span class="p">)</span>
+
+<span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Untuk mengurutkannya secara menurun (<code class="highlighter-rouge">DESC</code>):</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">order_by:</span> <span class="p">[</span><span class="ss">desc:</span> <span class="n">u</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">],</span>
+    <span class="ss">select:</span> <span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">inserted_at</span><span class="p">]</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="join">Join</h3>
+
+<p>Dengan asumsi kita punya profil yang terkait dengan user kita, mari dapatkan semua profil akun yang sudah terkonfirmasi:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">p</span> <span class="ow">in</span> <span class="no">Profile</span><span class="p">,</span>
+    <span class="ss">join:</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">assoc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="ss">:user</span><span class="p">),</span>
+    <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">confirmed</span> <span class="o">==</span> <span class="no">true</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="fragment">Fragment</h3>
+
+<p>Terkadang, seperti saat kita butuh fungsi database yang khusus, API Query tidaklah cukup.  Fungsi <code class="highlighter-rouge">fragment/1</code> ada untuk tujuan ini:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">query</span> <span class="o">=</span>
+  <span class="n">from</span><span class="p">(</span>
+    <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+    <span class="ss">where:</span> <span class="n">fragment</span><span class="p">(</span><span class="s2">"downcase(?)"</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">username</span><span class="p">)</span> <span class="o">==</span> <span class="o">^</span><span class="n">username</span><span class="p">,</span>
+    <span class="ss">select:</span> <span class="n">u</span>
+  <span class="p">)</span>
+</code></pre></div></div>
+
+<p>Contoh tambahan query dapat ditemukan di deskripsi modul <a href="http://hexdocs.pm/ecto/Ecto.Query.API.html">Ecto.Query.API</a>.</p>
+
+<h2 id="changeset">Changeset</h2>
+
+<p>Dalam bagian sebelumnya kita pelajari cara mendapatkan data, tetapi bagaimana dengan menambahkan dan mengubahnya?  Untuk itu kita perlu Changeset.</p>
+
+<p>Changeset mengurus pemfilteran, validasi, dan menangani batasan ketika mengubah sebuah model.</p>
+
+<p>Untuk contoh ini kita akan fokus pada changeset untuk membuat user.  Untuk memulai kita perlu mengubah model kita:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span>
+  <span class="kn">import</span> <span class="no">Comeonin</span><span class="o">.</span><span class="no">Bcrypt</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">hashpwsalt:</span> <span class="mi">1</span><span class="p">]</span>
+
+  <span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:encrypted_password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:confirmed</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">false</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+    <span class="n">field</span><span class="p">(</span><span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+
+    <span class="n">timestamps</span>
+  <span class="k">end</span>
+
+  <span class="nv">@required_fields</span> <span class="sx">~w(username email password password_confirmation)</span>
+  <span class="nv">@optional_fields</span> <span class="sx">~w()</span>
+
+  <span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">params</span> <span class="p">\\</span> <span class="ss">:empty</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">user</span>
+    <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nv">@required_fields</span><span class="p">,</span> <span class="nv">@optional_fields</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">validate_length</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">min:</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">validate_password_confirmation</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="n">unique_constraint</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">name:</span> <span class="ss">:email</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">put_change</span><span class="p">(</span><span class="ss">:encrypted_password</span><span class="p">,</span> <span class="n">hashpwsalt</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:password</span><span class="p">]))</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">validate_password_confirmation</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="n">get_change</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">)</span> <span class="k">do</span>
+      <span class="no">nil</span> <span class="o">-&gt;</span>
+        <span class="n">password_incorrect_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span>
+
+      <span class="n">confirmation</span> <span class="o">-&gt;</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">get_field</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:password</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">confirmation</span> <span class="o">==</span> <span class="n">password</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">changeset</span><span class="p">,</span> <span class="k">else</span><span class="p">:</span> <span class="n">password_mismatch_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">password_mismatch_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">add_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="s2">"Password tidak cocok"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">password_incorrect_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">add_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="s2">"tidak valid"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Kita sudah mengubah fungsi <code class="highlighter-rouge">changeset/2</code> kita dan menambahkan tiga fungsi penolong baru: <code class="highlighter-rouge">validate_password_confirmation/1</code>, <code class="highlighter-rouge">password_mismatch_error/1</code>, dan <code class="highlighter-rouge">password_incorrect_error/1</code>.</p>
+
+<p>Sebagaimana diduga, <code class="highlighter-rouge">changeset/2</code> membuat sebuah changeset baru untuk kita.  Di dalamnya kita menggunakan <code class="highlighter-rouge">cast/4</code> untuk mengubah parameter kita ke sebuah changeset dari serangkaian field yang dibutuhkan (required) dan yang opsional.  Lelau kita memvalidasi panjang password changeset tersebut, kita gunakan fungsi kita sendiri untuk memvalidasi kecocokan konfirmasi password, dan kita memvalidasi keunikan username.  Akhirnya kita mengubah field database password.  Untuk ini kita gunakan <code class="highlighter-rouge">put_change/3</code> untuk mengubah sebuah value dalam changeset tersebut.</p>
+
+<p>Menggunakan <code class="highlighter-rouge">User.changeset/2</code> adalah relatif sederhana:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">alias</span> <span class="no">FriendsApp</span><span class="o">.</span><span class="p">{</span><span class="no">User</span><span class="p">,</span> <span class="no">Repo</span><span class="p">}</span>
+
+<span class="n">pw</span> <span class="o">=</span> <span class="s2">"passwords should be hard"</span>
+
+<span class="n">changeset</span> <span class="o">=</span>
+  <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">User</span><span class="p">{},</span> <span class="p">%{</span>
+    <span class="ss">username:</span> <span class="s2">"doomspork"</span><span class="p">,</span>
+    <span class="ss">email:</span> <span class="s2">"sean@seancallan.com"</span><span class="p">,</span>
+    <span class="ss">password:</span> <span class="n">pw</span><span class="p">,</span>
+    <span class="ss">password_confirmation:</span> <span class="n">pw</span>
+  <span class="p">})</span>
+
+<span class="k">case</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">model</span><span class="p">}</span>        <span class="o">-&gt;</span> <span class="c1"># Inserted with success</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">changeset</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="c1"># Something went wrong</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Beres! Sekarang anda sudah siap menyimpan data.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/id/lessons/ecto/basics.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/id/lessons/advanced/umbrella-projects/" title="Umbrella Projects">← Umbrella Projects</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/id/lessons/specifics/plug/" title="Plug">Plug →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/ecto/basics/" title="Bahasa Inggris / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/basics/" title="Bahasa Spanyol / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/ecto/basics/" title="Bahasa Yunani">gr</a>
+        
+      
+        
+        
+
+        
+          <strong title="Bahasa Indonesia">id</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/ecto/basics/" title="Bahasa Jepang / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/ecto/basics/" title="Bahasa Korea">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/ecto/basics/" title="Bahasa Poland">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/basics/" title="Bahasa Portugis">pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/basics/" title="Bahasa Rusia / Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/ecto/basics/" title="Bahasa Slovakia">sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/ecto/basics/" title="Bahasa Vietnam">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/basics/" title="Bahasa China">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/ecto/basics/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Pelajaran mengenai bahasa pemrograman Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/id/" class=" up ">Beranda</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Dasar</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/id/lessons/basics/basics/">1. Dasar</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/collections/">2. Koleksi</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/pattern-matching/">4. Pencocokan Pola</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/control-structures/">5. Struktur Kendali</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/functions/">6. Fungsi</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/pipe-operator/">7. Operator pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/modules/">8. Composition</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/sigils/">10. Sigil</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Lanjutan</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/erlang/">1. Interoperabilitas dengan Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/error-handling/">2. Penanganan Error</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <span class="active">1. Basics</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Khusus</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/id/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/id/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/id/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

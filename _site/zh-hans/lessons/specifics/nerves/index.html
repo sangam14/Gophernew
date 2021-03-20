@@ -1,0 +1,968 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hans">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 编程语言教程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hans/lessons/specifics/nerves/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hans">
+  <meta property="og:description" content="Elixir 编程语言教程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/nerves/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/nerves/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/nerves/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hans/lessons/specifics/nerves/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Nerves &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hans/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hans/lessons/specifics/nerves/&title=Nerves&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hans/lessons/specifics/nerves/&via=elixirschool&text=ElixirSchool: Nerves&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hans/lessons/specifics/nerves/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hans/lessons/specifics/nerves/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Nerves" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hans/lessons/specifics/nerves/&title=ElixirSchool: Nerves&description=Check out 'Nerves' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Nerves&body=Check out 'Nerves' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hans/lessons/specifics/nerves/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Nerves
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      Some contents of this translation may be outdated.<br/>
+    
+
+    Several minor changes were applied to the original lesson since the last update.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <h2 id="nerves-简介">Nerves 简介</h2>
+
+<p>我们将在本课中介绍 Nerves， Nerves 项目是在嵌入式软件开发中使用 Elixir 的框架。 正如 Nerves 官网所说，它允许您“使用 Elixir 制作和部署防弹嵌入式软件”。 本课将与其他 Elixir School课程略有不同。 Nerves 学习起来有点困难，因为它需要一些先进的系统设置和额外的硬件，因此可能不适合初学者。</p>
+
+<p>要使用 Nerves 编写嵌入式代码，您需要一个<a href="https://hexdocs.pm/nerves/targets.html">目标设备</a>，一个带有您所选硬件支持的存储卡的读卡器，以及可以通过网络访问此设备。</p>
+
+<p>在这里我们建议使用 Raspberry Pi (树莓派)，因为它具有可控的 LED 板。 同时也建议将目标设备连接到一个屏幕，因为这样可以简化使用 IEx 的调试。</p>
+
+<h2 id="环境安装">环境安装</h2>
+
+<p>Nerves 项目本身有一个很好的<a href="https://hexdocs.pm/nerves/getting-started.html">入门指南</a>，但文档里面大量的细节对于一些用户来说可能有点压力。 相反地，本教程将尝试呈现“少说话，放码过来”。</p>
+
+<p>首先，您需要安装环境。 您可以在 Nerves wiki 的 <a href="https://hexdocs.pm/nerves/installation.html">安装</a> 部分找到该指南。 请确保您同时也已经具备指南中提到的 OTP 和 Elixir 的相同版本。 不使用正确的版本会导致安装时出现问题。 在撰写本文时，任何 Elixir 版本（使用 Erlang/OTP 21编译）都应该可以工作。</p>
+
+<p>环境安装完成后，您应当已经准备好构建您的第一个 Nerves 项目了！</p>
+
+<p>我们的目标是嵌入式开发中的 “Hello world” ：通过调用简单的 HTTP API 来控制闪烁的 LED。</p>
+
+<h2 id="创建项目">创建项目</h2>
+
+<p>要创建一个新项目，请运行 <code class="highlighter-rouge">mix nerves.new network_led</code> 并在提示是否获取和安装依赖项时输入 <code class="highlighter-rouge">Y</code>。</p>
+
+<p>你应该会看到以下输出：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Your Nerves project was created successfully.
+
+You should now pick a target. See https://hexdocs.pm/nerves/targets.html#content
+for supported targets. If your target is on the list, set `MIX_TARGET`
+to its tag name:
+
+For example, for the Raspberry Pi 3 you can either
+  $ export MIX_TARGET=rpi3
+Or prefix `mix` commands like the following:
+  $ MIX_TARGET=rpi3 mix firmware
+
+If you will be using a custom system, update the `mix.exs`
+dependencies to point to desired system's package.
+
+Now download the dependencies and build a firmware archive:
+  $ cd network_led
+  $ mix deps.get
+  $ mix firmware
+
+If your target boots up using an SDCard (like the Raspberry Pi 3),
+then insert an SDCard into a reader on your computer and run:
+  $ mix firmware.burn
+
+Plug the SDCard into the target and power it up. See target documentation
+above for more information and other targets.
+</code></pre></div></div>
+
+<p>我们的项目已经创建完成，并准备好被写入到我们测试设备中！ 我们现在开始试试吧！</p>
+
+<p>对于 Raspberry Pi 3，您可以设置 <code class="highlighter-rouge">MIX_TARGET=rpi3</code>，但您可以根据目标硬件更改此设置以适应您的硬件（请参阅 <a href="https://hexdocs.pm/nerves/targets.html#content">Nerves 文档</a>).</p>
+
+<p>让我们先设置我们的依赖项：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ export MIX_TARGET=rpi3
+$ cd network_led
+$ mix deps.get
+
+....
+
+Nerves environment
+  MIX_TARGET:   rpi3
+  MIX_ENV:      dev
+Resolving Nerves artifacts...
+  Resolving nerves_system_rpi3
+  =&gt; Trying https://github.com/nerves-project/nerves_system_rpi3/releases/download/v1.7.0/nerves_system_rpi3-portable-1.7.0-17EA89A.tar.gz
+|==================================================| 100% (133 / 133) MB
+  =&gt; Success
+  Resolving nerves_toolchain_arm_unknown_linux_gnueabihf
+  =&gt; Trying https://github.com/nerves-project/toolchains/releases/download/v1.1.0/nerves_toolchain_arm_unknown_linux_gnueabihf-darwin_x86_64-1.1.0-2305AD8.tar.xz
+|==================================================| 100% (50 / 50) MB
+  =&gt; Success
+</code></pre></div></div>
+
+<p>注意：确保在运行 <code class="highlighter-rouge">mix deps.get</code> 之前设置了指定目标设备的环境变量，因为它将为指定设备下载相应的系统镜像和工具链。</p>
+
+<h2 id="烧录固件">烧录固件</h2>
+
+<p>现在我们可以使用闪存驱动器了。 将卡放入读卡器，如果您在前面的步骤中正确设置了所有内容，在运行 <code class="highlighter-rouge">mix firmware.burn</code> 并确认要使用的设备之后，您应该得到以下提示：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Building ......../network_led/_build/rpi_dev/nerves/images/network_led.fw...
+Use 7.42 GiB memory card found at /dev/rdisk2? [Yn]
+</code></pre></div></div>
+
+<p>如果你确定这是你想要烧录的卡 - 选择 <code class="highlighter-rouge">Y</code>, 一段时间后存储卡就烧好了：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Use 7.42 GiB memory card found at /dev/rdisk2? [Yn]
+|====================================| 100% (32.51 / 32.51) MB
+Success!
+Elapsed time: 8.022 s
+</code></pre></div></div>
+
+<p>现在是时候将存储卡放入您的设备并验证它是否有效。</p>
+
+<p>如果您连接了一个屏幕 - 在插入此存储卡的设备启动后，您应该看到一个 Linux 启动序列。</p>
+
+<h2 id="网络设置">网络设置</h2>
+
+<p>下一步是连接网络。 Nerves 生态系统提供各种软件包，<a href="https://github.com/nerves-project/nerves_network">nerves_network</a> 是我们通过有线以太网端口将设备连接到网络所需的。</p>
+
+<p>其实它已作为 <code class="highlighter-rouge">nerves_init_gadget</code> 的依赖项存在于您的项目中。 但是，默认情况下，它使用 DHCP（在运行 <code class="highlighter-rouge">config: nerves_init_gadget</code> 之后，请参阅 <code class="highlighter-rouge">config/config.exs</code> 中的配置）。 拥有静态 IP 地址更容易。</p>
+
+<p>要设置静态网络，您需要在 <code class="highlighter-rouge">config/config.exs</code> 文件中添加以下行:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Statically assign an address
+config :nerves_network, :default,
+  eth0: [
+    ipv4_address_method: :static,
+    ipv4_address: "192.168.88.2",
+    ipv4_subnet_mask: "255.255.255.0",
+    nameservers: ["8.8.8.8", "8.8.4.4"]
+  ]
+</code></pre></div></div>
+
+<p>请注意，此配置适只适用于有线连接。 如果要使用无线连接——请查看<a href="https://github.com/nerves-project/nerves_network#wifi-networking">Nerves network documentation</a>.</p>
+
+<p>请注意，您需要根据所在的局域网的具体情况设置这里的参数，在我的网络中有一个未分配的 IP <code class="highlighter-rouge">192.168.88.2</code>，所以使用了这个 IP。 但是在您的网络环境中，这些参数可能会有所不同。</p>
+
+<p>更改后，我们需要运行 <code class="highlighter-rouge">mix firmware.burn</code> 重新烧录固件的更改版本，然后使用新卡启动设备。</p>
+
+<p>当您打开设备电源后，可以使用 <code class="highlighter-rouge">ping</code> 命令查看它是否在线。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Request timeout for icmp_seq 206
+Request timeout for icmp_seq 207
+64 bytes from 192.168.88.2: icmp_seq=208 ttl=64 time=2.247 ms
+64 bytes from 192.168.88.2: icmp_seq=209 ttl=64 time=2.658 ms
+</code></pre></div></div>
+
+<p>此输出表示设备已经连上网，并且可以被访问到了</p>
+
+<h2 id="远程更新">远程更新</h2>
+
+<p>到目前为止，我们一直在烧录 SD 卡并将它们通过物理方式加载到我们的硬件中。 虽然这很好，但通过网络推送我们的更新更为直接。 <code class="highlighter-rouge">nerves_firmware_ssh</code> 包正是做这个事的。 默认情况下，它已存在于您的项目中，并配置为自动检测并在目录中查找 SSH 密钥。</p>
+
+<p>要使用网络固件更新功能，您需要通过 <code class="highlighter-rouge">mix firmware.gen.script</code> 生成上传脚本。 该命令将生成一个新的 <code class="highlighter-rouge">upload.sh</code> 脚本，我们可以运行该脚本来更新固件。</p>
+
+<p>如果在上一步之后网络正常运行，您就可以开始使用了。</p>
+
+<p>要更新您的设置，最简单的方法是使用 <code class="highlighter-rouge">mix firmware &amp;&amp; ./upload.sh 192.168.88.2</code>：第一个命令创建更新的固件，第二个命令通过网络推送它并重新启动设备。 您最终可以停止将 SD 卡插入和拔出设备！</p>
+
+<p><em>提示：<code class="highlighter-rouge">ssh 192.168.88.2</code> 在应用程序的上下文中为您提供设备上的 IEx shell。</em></p>
+
+<p><em>故障排除：如果您的主文件夹中没有现有的 ssh 密钥，则会出现错误 <code class="highlighter-rouge">No SSH public keys found in ~/.ssh.</code> 在这种情况下，您需要运行 <code class="highlighter-rouge">ssh-keygen</code> 并重新烧录固件以使用网络更新功能.</em></p>
+
+<h2 id="控制-led">控制 LED</h2>
+
+<p>要与 LED 交互，需要安装 <a href="https://github.com/nerves-project/nerves_leds">nerves_leds</a> 软件包，这需要添加 <code class="highlighter-rouge">{:nerves_leds，"〜&gt; 0.8", targets: @all_targets},</code> 到 <code class="highlighter-rouge">mix.exs</code> 文件。</p>
+
+<p>设置依赖关系后，需要为设备配置 LED 列表。 例如，对于所有 Raspberry Pi 型号，板载只有一个 LED：<code class="highlighter-rouge">led0</code>。 让我们通过在 <code class="highlighter-rouge">config/config.exs</code> 中添加一行 <code class="highlighter-rouge">config: nerves_leds, names:[green: "led0"]</code> 来使用它。</p>
+
+<p>对于其他设备，您可以查看<a href="https://github.com/nerves-project/nerves_examples/tree/master/hello_leds/config">nerves_examples 项目的相应部分</a>.</p>
+
+<p>配置 LED 后，我们肯定需要以某种方式控制它。 为此，我们将在 <code class="highlighter-rouge">lib/network_led/blinker.ex</code> 中添加一个 GenServer（请参阅 <a href="../../advanced/otp-concurrency">OTP Concurrency</a> 课程中有关 GenServers 的详细信息），其中包含以下内容：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="nv">@moduledoc</span> <span class="sd">"""
+    Simple GenServer to control GPIO #18.
+  """</span>
+
+  <span class="kn">require</span> <span class="no">Logger</span>
+  <span class="n">alias</span> <span class="no">Nerves</span><span class="o">.</span><span class="no">Leds</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">state</span> <span class="p">\\</span> <span class="p">[])</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">enable</span><span class="p">()</span>
+
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">(</span><span class="ss">:enable</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Enabling LED"</span><span class="p">)</span>
+    <span class="no">Leds</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="ss">green:</span> <span class="no">true</span><span class="p">)</span>
+
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">(</span><span class="ss">:disable</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Disabling LED"</span><span class="p">)</span>
+    <span class="no">Leds</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="ss">green:</span> <span class="no">false</span><span class="p">)</span>
+
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">enable</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:enable</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">disable</span><span class="p">()</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:disable</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>要启用此功能，还需要将其添加到 <code class="highlighter-rouge">lib/network_led/application.ex</code> 中的监督树中：在 <code class="highlighter-rouge">def children（_target）do</code> 组下添加 <code class="highlighter-rouge">{NetworkLed.Blinker, name: NetworkLed.Blinker}</code>。</p>
+
+<p>请注意，Nerves 在应用程序中有两个不同的监督树 - 一个用于主机，一个用于实际设备。</p>
+
+<p>在此之后 - 就是这样！ 您实际上可以上传固件并通过目标设备上的 ssh 运行 IEx 检查 <code class="highlighter-rouge">NetworkLed.Blinker.disable()</code> 关闭 LED（默认情况下在代码中启用），以及 <code class="highlighter-rouge">NetworkLed.Blinker.enable()</code> 打开它。</p>
+
+<p>我们可以从命令提示符控制 LED 了！</p>
+
+<p>现在，剩下的唯一缺失的部分是通过网络界面控制 LED。</p>
+
+<h2 id="添加-web-服务器">添加 Web 服务器</h2>
+
+<p>在这一步中，我们将使用 <code class="highlighter-rouge">Plug.Router</code>。 如果您需要提醒 - 请随意浏览<a href="../../../lessons/specifics/plug/">插件</a> 课程.</p>
+
+<p>首先，我们将 <code class="highlighter-rouge">{plug_cowboy, '〜&gt; 2.0“}，</code> 添加到 <code class="highlighter-rouge">mix.exs</code> 并安装依赖项。</p>
+
+<p>然后，在 <code class="highlighter-rouge">lib/network_led/http.ex</code> 中添加实际进程来处理这些请求：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Http</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Router</span>
+
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:match</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="ss">:dispatch</span><span class="p">)</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"Feel free to use API endpoints!"</span><span class="p">))</span>
+
+  <span class="n">get</span> <span class="s2">"/enable"</span> <span class="k">do</span>
+    <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+    <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"LED enabled"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">get</span> <span class="s2">"/disable"</span> <span class="k">do</span>
+    <span class="no">NetworkLed</span><span class="o">.</span><span class="no">Blinker</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+    <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"LED disabled"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">match</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">send_resp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="s2">"Oops!"</span><span class="p">))</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>最后一步 - 将 <code class="highlighter-rouge">{Plug.Cowboy, scheme: :http, plug: NetworkLed.Http, options: [port: 80]}</code> 添加到应用程序监督树中。</p>
+
+<p>固件更新后，您可以试试。 访问 <code class="highlighter-rouge">http://192.168.88.2/</code> 将返回纯文本响应，<code class="highlighter-rouge">http://192.168.88.2/enable</code> 和 <code class="highlighter-rouge">http://192.168.88.2/disable</code> 将控制禁用并启用该 LED！</p>
+
+<p>您甚至可以将 Phoenix 支持的用户界面打包到您的 Nerves 应用程序中，但是，这<a href="https://github.com/nerves-project/nerves/blob/master/docs/User%20Interfaces.md#phoenix-web-interfaces">需要进行一些调整</a>。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hans/lessons/specifics/nerves.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/specifics/debugging/" title="调试">← 调试</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/libraries/guardian/" title="Guardian（基础）">Guardian（基础） →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/nerves/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/specifics/nerves/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/nerves/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hans</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/nerves/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 编程语言教程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hans/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基础</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/basics/">1. 基础</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/enum/">3. Enum 模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pattern-matching/">4. 模式匹配</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/control-structures/">5. 控制语句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/functions/">6. 函数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pipe-operator/">7. 管道操作符</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/modules/">8. 模块（Module）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/sigils/">10. 魔符(Sigil)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/documentation/">11. 文档模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/testing/">12. 测试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/comprehensions/">13. 推导</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/strings/">14. 字符串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/date-time/">15. 日期和时间</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix-tasks/">16. 自定义 Mix 任务</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/iex-helpers/">17. IEx 辅助函数</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">高级</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/erlang/">1. 和 Erlang 互操作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/error-handling/">2. 错误处理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/escripts/">3. 可执行文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/concurrency/">4. 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-concurrency/">5. OTP 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-distribution/">7. OTP 分布式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/metaprogramming/">8. 元编程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/behaviours/">11. 行为</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/protocols/">13. 协议</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/associations/">3. 关联关系</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/querying/">4. 查询</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">专题</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/eex/">2. 嵌入的 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/ets/">3. Erlang 项式存储 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/mnesia/">4. Mnesia 数据库</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/debugging/">5. 调试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. Nerves</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">程序库</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/guardian/">1. Guardian（基础）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/distillery/">5. Distillery (基础)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hans/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,987 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="gr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/gr/lessons/ecto/changesets/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="gr">
+  <meta property="og:description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/changesets/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/changesets/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/changesets/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/gr/lessons/ecto/changesets/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Σετ Αλλαγών &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/gr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/gr/lessons/ecto/changesets/&title=Σετ Αλλαγών&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/gr/lessons/ecto/changesets/&via=elixirschool&text=ElixirSchool: Σετ Αλλαγών&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/gr/lessons/ecto/changesets/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/gr/lessons/ecto/changesets/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Σετ Αλλαγών" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/gr/lessons/ecto/changesets/&title=ElixirSchool: Σετ Αλλαγών&description=Check out 'Σετ Αλλαγών' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Σετ Αλλαγών&body=Check out 'Σετ Αλλαγών' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/gr/lessons/ecto/changesets/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Σετ Αλλαγών
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Αυτή η μετάφραση είναι πλήρως ενημερωμένη.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Για να μπορέσουμε νε εισάγουμε, αλλάξουμε, ή διαγράψουμε δεδομένα από τη βάση δεδομένων μας, οι συναρτήσεις <code class="highlighter-rouge">Ecto.Repo.insert/2</code>, <code class="highlighter-rouge">update/2</code> και <code class="highlighter-rouge">delete/2</code> απαιτούν ένα σετ αλλαγών σαν το πρώτο τους όρισμα. Αλλά τι είναι τα σετ αλλαγών;</p>
+
+<p>Μια πολύ γνώριμη εργασία σε όλους τους προγραμματιστές είναι να ελέγχουν τα εισαγόμενα δεδομένα για πιθανά σφάλματα - θέλουμε να βεβαιωθούμε ότι τα δεδομένα είναι στη σωστή κατάσταση πριν προσπαθήσουμε να τα χρησιμοποιήσουμε για τους σκοπούς μας.</p>
+
+<p>Το Ecto μας παρέχει μια πλήρη λύση για την εργασία με αλλαγές δεδομένων στη μορφή της ενότητας και δομής δεδομένων <code class="highlighter-rouge">Changeset</code>.
+Σε αυτό το μάθημα θα εξερευνήσουμε τη λειτουργικότητα και θα μάθουμε πως να επιβεβαιώνουμε την ορθότητα των δεδομένων, πριν τα οριστικοποιήσουμε στη βάση δεδομένων.</p>
+
+<h2>Πίνακας περιεχομένων</h2>
+<div id="toc"></div>
+
+<h2 id="δημιουργώντας-το-πρώτο-μας-σετ-αλλαγών">Δημιουργώντας το πρώτο μας σετ αλλαγών</h2>
+
+<p>Ας δούμε μια κενή δομή <code class="highlighter-rouge">%Changeset{}</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="p">{}</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span> <span class="ss">data:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">valid?:</span> <span class="no">false</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Όπως θα δείτε, έχει μερικά πιθανόν χρήσιμα πεδία, αλλά είναι όλα άδεια.</p>
+
+<p>Για να είναι πραγματικά χρήσιμο ένα σετ αλλαγών, όταν το δημιουργήσουμε θα πρέπει να παρέχουμε ένα σχεδιάγραμμα από τη μορφή των δεδομένων μας.
+Υπάρχει καλύτερο σχεδιάγραμμα για τα δεδομένα μας από το σχήμα που δημιουργήσαμε πριν και ορίζει τα πεδία και τους τύπους τους;</p>
+
+<p>Ας χρησιμοποιήσουμε το σχήμα <code class="highlighter-rouge">Friends.Person</code> από το προηγούμενο μάθημα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"people"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">default:</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Για να δημιουργήσουμε ένα σετ αλλαγών χρησιμοποιώντας το σχήμα <code class="highlighter-rouge">Person</code>, θα χρειαστούμε την <code class="highlighter-rouge">Ecto.Changeset.cast/3</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">cast</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span> <span class="p">%{},</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span> <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+ <span class="ss">valid?:</span> <span class="no">true</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Η πρώτη παράμετρος είναι τα αρχικά δεδομένα - μια αρχική δομή <code class="highlighter-rouge">%Friends.Person{}</code> σε αυτή την περίπτωση.
+Το Ecto είναι αρκετά έξυπνο να βρει το σχήμα βασιζόμενο μόνο στην ίδια τη δομή.
+Στη συνέχεια βρίσκονται οι αλλαγές που θέλουμε να κάνουμε - εδώ απλά ένας άδειος χάρτης.
+Η τρίτη παράμετρος είναι αυτή που κάνει την <code class="highlighter-rouge">cast/3</code> ξεχωριστή: είναι μια λίστα πεδίων που επιτρέπονται να περάσουν, το οποίο μας δίνει τη δυνατότητα να ελέγξουμε τι πεδία μπορούν να αλλαχθούν και να προστατεύσουμε τα υπόλοιπα.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">cast</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Jack"</span><span class="p">},</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Jack"</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">cast</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Jack"</span><span class="p">},</span> <span class="p">[])</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span><span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">changes:</span> <span class="p">%{},</span> <span class="ss">errors:</span> <span class="p">[],</span> <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+ <span class="ss">valid?:</span> <span class="no">true</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Μπορείτε να δείτε πως το νέο όνομα αγνοήθηκε τη δεύτερη φορά, όταν δεν του το επιτρέψαμε.</p>
+
+<p>Μια εναλλακτική της <code class="highlighter-rouge">cast/3</code> είναι η συνάρτηση <code class="highlighter-rouge">change/2</code>, η οποία δεν έχει τη δυνατότητα να φιτλράρει αλλαγές σαν την <code class="highlighter-rouge">cast/3</code>.
+Είναι χρήσιμη όταν εμπιστεύεστε την πηγή που κάνει της αλλαγές ή όταν εργάζεστε με δεδομένα χειροκίνητα.</p>
+
+<p>Τώρα μπορούμε να δημιουργήσουμε σετ αλλαγών, αλλά από τη στιγμή που δεν έχουμε επιβεβαίωση, όλες οι αλλαγές στο όνομα του ατόμου θα γίνουν αποδεκτές, έτσι μπορούμε να καταλήξουμε με ένα άδειο όνομα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">.</span><span class="n">change</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">""</span><span class="p">})</span>
+<span class="c1">#Ecto.Changeset&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">""</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="c1">#Friends.Person&lt;&gt;,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Το Ecto λέει ότι το σετ αλλαγών είναι αποδεκτό, αλλά στην πραγματικότητα δεν θέλουμε να επιτρέψουμε άδεια ονόματα. Ας το διορθώσουμε αυτό!</p>
+
+<h2 id="επικυρώσεις">Επικυρώσεις</h2>
+
+<p>Το Ecto για να μας βοηθήσει έρχεται με έναν αριθμό εσωτερικών συναρτήσεων για επικυρώσεις.</p>
+
+<p>Θα χρησιμοποιήσουμε την ενότητα <code class="highlighter-rouge">Ecto.Changeset</code> αρκετά, έτσι ας εισάγουμε την <code class="highlighter-rouge">Ecto.Changeset</code> στην ενότητα μας <code class="highlighter-rouge">person.ex</code>, η οποία επίσης περιέχει το σχήμα μας:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span>
+
+  <span class="n">schema</span> <span class="s2">"people"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">default:</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Τώρα μπορούμε να χρησιμοποιήσουμε απευθείας τη συνάρτηση <code class="highlighter-rouge">cast/3</code>.</p>
+
+<p>Είναι σύνηθες να έχουμε μια ή περισσότερες συναρτήσεις δημιουργίας σετ αλλαγών για ένα σχήμα.
+Ας φτιάξουμε μια που δέχεται μια δομή, ένα χάρτη αλλαγών και επιστρέφει ένα σετ αλλαγών:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Τώρα μπορούμε να βεβαιωθούμε ότι το <code class="highlighter-rouge">name</code> είναι πάντα παρόν:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_required</span><span class="p">([</span><span class="ss">:name</span><span class="p">])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Όταν καλούμε τη συνάρτηση <code class="highlighter-rouge">Friends.Person.changeset/2</code> και της περνάμε ένα άδειο όνομα, το σετ αλλαγών δεν θα είναι πλέον έγκυρο, και ακόμα θα περιέχει ένα πολύ χρήσιμο μήνυμα λάθους.
+Σημείωση: μην ξεχνάτε να τρέχετε την εντολή <code class="highlighter-rouge">recompile()</code> όταν εργάζεστε στο <code class="highlighter-rouge">iex</code>, διαφορετικά δεν θα έχει τις αλλαγές που κάνατε στον κώδικα.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{},</span>
+  <span class="ss">errors:</span> <span class="p">[</span><span class="ss">name:</span> <span class="p">{</span><span class="s2">"can't be blank"</span><span class="p">,</span> <span class="p">[</span><span class="ss">validation:</span> <span class="ss">:required</span><span class="p">]}],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">false</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Αν προσπαθήσετε να τρέξετε την <code class="highlighter-rouge">Repo.insert(changeset)</code> με το παραπάνω σετ αλλαγών, θα πάρετε πίσω ένα <code class="highlighter-rouge">{:error, changeset}</code> με το ίδιο σφάλμα, ώστε να μην χρειαστεί να ελέγχετε το <code class="highlighter-rouge">changeset.valid?</code> κάθε φορά.
+Είναι πιο εύκολο να προσπαθήσετε να κάνετε μια εισαγωγή, αλλαγή ή διαγραφή και να επεξεργαστείτε το σφάλμα αργότερα αν υπάρχει κάποιο.</p>
+
+<p>Πέρα από την <code class="highlighter-rouge">validate_required/2</code>, υπάρχει επίσης η <code class="highlighter-rouge">validate_length/3</code>, η οποία δέχεται μερικές επιπλέον επιλογές:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_required</span><span class="p">([</span><span class="ss">:name</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_length</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">min:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Μπορείτε να δοκιμάσετε να μαντέψετε το αποτέλεσμα αν περάσουμε ένα όνομα που δέχεται έναν μόνο χαρακτήρα!</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"A"</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"A"</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[</span>
+    <span class="ss">name:</span> <span class="p">{</span><span class="s2">"should be at least %{count} character(s)"</span><span class="p">,</span>
+     <span class="p">[</span><span class="ss">count:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">validation:</span> <span class="ss">:length</span><span class="p">,</span> <span class="ss">kind:</span> <span class="ss">:min</span><span class="p">,</span> <span class="ss">type:</span> <span class="ss">:string</span><span class="p">]}</span>
+  <span class="p">],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">false</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Μπορεί να εκπλαγείτε με το ότι το μήνυμα σφάλματος περιέχει το μυστηριώδες <code class="highlighter-rouge">%{count}</code> - αυτό υπάρχει για να βοηθήσει στη μετάφραση σε άλλες γλώσσες. Αν θέλετε να προβάλετε τα σφάλματα απευθείας στο χρήστη, θα πρέπει να τα κάνετε πιο αναγνώσιμα χρησιμοποιώντας την <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#traverse_errors/2"><code class="highlighter-rouge">traverse_errors/2</code></a> - ρίξτε μια ματιά στο παράδειγμα που δίνεται στα έγγραφα.</p>
+
+<p>Μερικές από τις υπόλοιπες επικυρώσεις που παρέχονται στην <code class="highlighter-rouge">Ecto.Changeset</code> είναι:</p>
+
+<ul>
+  <li>validate_acceptance/3</li>
+  <li>validate_change/3 &amp; /4</li>
+  <li>validate_confirmation/3</li>
+  <li>validate_exclusion/4 &amp; validate_inclusion/4</li>
+  <li>validate_format/4</li>
+  <li>validate_number/3</li>
+  <li>validate_subset/4</li>
+</ul>
+
+<p>Μπορείτε να βρείτε την πλήρη λίστα με λεπτομέρεις πως να τις χρησιμοποιήσετε <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#summary">εδώ</a>.</p>
+
+<h3 id="χειροποίητες-επικυρώσεις">Χειροποίητες Επικυρώσεις</h3>
+
+<p>Παρόλο που οι παρεχόμενες επικυρώσεις καλύπτουν ένα ευρύ φάσμα περιπτώσεων, μπορεί να χρειαστείτε κάτι διαφορετικό.</p>
+
+<p>Κάθε συνάρτηση τύπου <code class="highlighter-rouge">validate_</code> που χρησιμοποιήσαμε ως τώρα  δέχεται και επιστρέφει μια δομή <code class="highlighter-rouge">%Ecto.Changeset{}</code>, έτσι μπορούμε πανεύκολα να φτιάξουμε τη δική μας.</p>
+
+<p>Για παράδειγμα, μπορούμε να βεβαιωθούμε ότι μόνο ονόματα φανταστικών χαρακτήρων επιτρέπονται:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@fictional_names</span> <span class="p">[</span><span class="s2">"Black Panther"</span><span class="p">,</span> <span class="s2">"Wonder Woman"</span><span class="p">,</span> <span class="s2">"Spiderman"</span><span class="p">]</span>
+<span class="k">def</span> <span class="n">validate_fictional_name</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="n">get_field</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="nv">@fictional_names</span> <span class="k">do</span>
+    <span class="n">changeset</span>
+  <span class="k">else</span>
+    <span class="n">add_error</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="s2">"is not a superhero"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Παραπάνω εισηγάγαμε δύο νέες βοηθητικές συναρτήσεις: τις <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#get_field/3"><code class="highlighter-rouge">get_field/3</code></a> και <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#add_error/4"><code class="highlighter-rouge">add_error/4</code></a>.
+Η λειτουργία τους είναι αυτονόητη, αλλά σας προτρέπουμε να τους ρίξετε μια ματιά στους συνδέσμους των εγγράφων.</p>
+
+<p>Είναι μια καλή πρακτική να επιστρέφετε πάντα μια δομή <code class="highlighter-rouge">%Ecto.Changeset{}</code>, ώστε να μπορείτε να χρησιμοποιείτε τον τελεστή <code class="highlighter-rouge">|&gt;</code> και να κάνετε ευκολότερη την προσθήκη περισσότερων επικυρώσεων αργότερα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_required</span><span class="p">([</span><span class="ss">:name</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">validate_length</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">min:</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="n">validate_fictional_name</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Bob"</span><span class="p">})</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Bob"</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[</span><span class="ss">name:</span> <span class="p">{</span><span class="s2">"is not a superhero"</span><span class="p">,</span> <span class="p">[]}],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">false</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Θαυμάσια, δουλεύει! Ωστόσο, δεν υπήρχε λόγος να υλοποιήσουμε αυτή τη συνάρτηση μόνοι μας - μπορούσαμε στη θέση της να χρησιμοποιήσουμε τη συνάρτηση <code class="highlighter-rouge">validate_inclusion/4</code>. Παρόλα αυτά μπορείτε να δείτε πως να προσθέσετε τα δικά σας σφάλματα το οποίο λογικά θα σας φανεί χρήσιμο.</p>
+
+<h2 id="προσθέτοντας-αλλαγές-προγραμματιστικά">Προσθέτοντας αλλαγές προγραμματιστικά</h2>
+
+<p>Μερικές φορές θα θέλετε να εισάγετε αλλαγές σε ένα σετ αλλαγών χειροκίνητα. Η βοηθητική συνάρτηση <code class="highlighter-rouge">put_change/3</code> υπάρχει για αυτό το λόγο.</p>
+
+<p>Αντί να κάνουμε το πεδίο <code class="highlighter-rouge">name</code> απαραίτητο, ας επιτρέψουμε τους χρήστες μας να εγγραφούν χωρίς όνομα, και ας τους ονομάσουμε “Ανώνυμους”.
+Η συνάρτηση που χρειαζόμαστε δείχνει οικεία - δέχεται και επιστρέφει ένα σετ αλλαγών, ακριβώς όπως η <code class="highlighter-rouge">validate_fictional_name/1</code> που δείξαμε νωρίτερα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">set_name_if_anonymous</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="n">get_field</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">is_nil</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">put_change</span><span class="p">(</span><span class="n">changeset</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="s2">"Anonymous"</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="n">changeset</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Μπορούμε να ορίσουμε το όνομα ενός χρήστη σαν “Ανώνυμος” μόνο όταν κάνουν εγγραφή στην εφαρμογή μας. Για να το κάνουν αυτό, θα δημιουργήσουμε μια νέα συνάρτηση δημιουργίας σετ αλλαγών:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">registration_changeset</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">struct</span>
+  <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>
+  <span class="o">|&gt;</span> <span class="n">set_name_if_anonymous</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Τώρα δεν χρειάζεται να περάσουμε ένα <code class="highlighter-rouge">name</code> και το <code class="highlighter-rouge">Ανώνυμος</code> θα οριστεί αυτόματα όπως αναμένεται:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">registration_changeset</span><span class="p">(%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{},</span> <span class="p">%{})</span>
+<span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="o">&lt;</span>
+  <span class="ss">action:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">changes:</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Anonymous"</span><span class="p">},</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">data:</span> <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+  <span class="ss">valid?:</span> <span class="no">true</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Η ύπαρξη συναρτήσεων δημιουργίας σετ αλλαγών που έχουν μία συγκεκριμένη αρμοδιότητα (όπως η <code class="highlighter-rouge">registration_changeset/2</code>) είναι συνηθισμένη - μερικές φορές χρειαζόμαστε την ελαστικότητα να εκτελούμε συγκεκριμένες επικυρώσεις ή να φιλτράρουμε συγκεκριμένες παραμέτρους.
+Η συνάρτηση παραπάνω θα μπορούσε να χρησιμοποιηθεί τότε σε μια βοηθητική συνάρτηση <code class="highlighter-rouge">sign_up/1</code> κάπου αλλού:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">sign_up</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{}</span>
+  <span class="o">|&gt;</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="o">.</span><span class="n">registration_changeset</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="συμπέρασμα">Συμπέρασμα</h2>
+
+<p>Υπάρχουν αρκετές χρήσεις και λειτουργίες που δεν καλύψαμε σε αυτό το μάθημα, όπως τα <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#module-schemaless-changesets">μη σχηματικά σετ αλλαγών</a> που μπορείτε να χρησιμοποιήσετε για να επικυρώσετε <em>οποιαδήποτε</em> δεδομένα, ή να αντιμετωπίσετε παρενέργειες του σετ αλλαγών (<a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#prepare_changes/2"><code class="highlighter-rouge">prepare_changes/2</code></a>) ή να εργαστείτε με ενώσεις και ενσωματώσεις.
+Μπορεί να τις καλύψουμε μελλοντικά σε ένα πιο προχωρημένο μάθημα, αλλά προς το παρών σας ενθαρύνουμε να εξερευνήσετε την <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html">τεκμηρίωση του Σετ Αλλαγών του Ecto</a> για περισσότερες πληροφορίες.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/gr/lessons/ecto/changesets.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/ecto/basics/" title="Basics">← Basics</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/ecto/associations/" title="Συσχετισμοί">Συσχετισμοί →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/ecto/changesets/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/changesets/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <strong >gr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/ecto/changesets/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/changesets/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/changesets/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/changesets/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/ecto/changesets/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Μαθήματα προγραμματισμού της γλώσσας Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/gr/" class="">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βασικά</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/basics/">1. Βασικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/collections/">2. Συλλογές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pattern-matching/">4. Αντιπαραβολές Προτύπων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/control-structures/">5. Δομές Ελέγχου</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/functions/">6. Συναρτήσεις</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pipe-operator/">7. Τελεστής Σωλήνα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/modules/">8. Ενότητες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/sigils/">10. Σφραγίδες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/documentation/">11. Τεκμηρίωση</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/testing/">12. Δοκιμές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/comprehensions/">13. Ανάγνωση Λιστών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/strings/">14. Αλφαριθμητικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/date-time/">15. Ημερομηνία και Ώρα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix-tasks/">16. Ειδικές Εργασίες Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/iex-helpers/">17. Βοηθοί IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Προχωρημένα</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/erlang/">1. Διαλειτουργικότητα με την Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/error-handling/">2. Διαχείριση Σφαλμάτων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/escripts/">3. Εκτελέσιμα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/concurrency/">4. Συγχρονισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-concurrency/">5. Συγχρονισμός OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-supervisors/">6. Επιτηρητές OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/metaprogramming/">8. Μεταπρογραμματισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/umbrella-projects/">9. Projects Ομπρέλας</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/typespec/">10. Προδιαγραφές και τύποι</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/behaviours/">11. Συμπεριφορές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/protocols/">13. Πρωτόκολλα</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">2. Σετ Αλλαγών</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/associations/">3. Συσχετισμοί</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ιδιαιτερότητες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/eex/">2. Ένθετη Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βιβλιοθήκες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/guardian/">1. Guardian (Βασικά)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class="">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/gr/report/" class="">Αναφορά Μετάφρασης</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class="">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

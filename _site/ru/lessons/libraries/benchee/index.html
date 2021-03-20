@@ -1,0 +1,1148 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ru">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Уроки программирования на языке Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ru/lessons/libraries/benchee/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ru">
+  <meta property="og:description" content="Уроки программирования на языке Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/benchee/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/benchee/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/libraries/benchee/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/libraries/benchee/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/benchee/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/benchee/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/benchee/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/benchee/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ru/lessons/libraries/benchee/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Benchee &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ru/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ru/lessons/libraries/benchee/&title=Benchee&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ru/lessons/libraries/benchee/&via=elixirschool&text=ElixirSchool: Benchee&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ru/lessons/libraries/benchee/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ru/lessons/libraries/benchee/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Benchee" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ru/lessons/libraries/benchee/&title=ElixirSchool: Benchee&description=Check out 'Benchee' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Benchee&body=Check out 'Benchee' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ru/lessons/libraries/benchee/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Benchee
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Это перевод актуальной версии оригинального урока.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Невозможно угадать, какие функции работают быстро, а какие — медленно.
+Нам нужны настоящие измерения, получаемые при помощи тестирования производительности.
+В этом уроке мы узнаем, как легко измерять скорость нашего кода.</p>
+
+<h2>Содержание</h2>
+<div id="toc"></div>
+
+<h1 id="о-benchee">О Benchee</h1>
+
+<p>Несмотря на то, что в Erlang уже есть <a href="http://erlang.org/doc/man/timer.html#tc-1">функция</a>, которую можно использовать для простейших измерений времени выполнения кода, она не очень удобна по сравнению с некоторыми существующими инструментами, а также не поддерживает многократные измерения, необходимые для сбора полноценной статистики. Поэтому мы будем использовать <a href="https://github.com/PragTob/benchee">Benchee</a>.
+<code class="highlighter-rouge">Benchee</code> позволяет нам использовать широкий набор метрик с возможностью легко сопоставлять результаты разных сценариев — что невероятно полезно при сравнении вызовов функций с несколькими наборами входных данных. Результаты можно красиво отобразить при помощи нескольких встроенных форматтеров, либо же написать свой собственный.</p>
+
+<h1 id="использование">Использование</h1>
+
+<p>Чтобы использовать <code class="highlighter-rouge">Benchee</code> в своём проекте, просто добавим её в качестве зависимости в <code class="highlighter-rouge">mix.exs</code>:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:benchee</span><span class="p">,</span> <span class="s2">"~&gt; 1.0"</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:dev</span><span class="p">}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Теперь вызовем:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+...
+<span class="nv">$ </span>mix compile
+</code></pre></div></div>
+
+<p>Первая команда загрузит и установит <code class="highlighter-rouge">Benchee</code>.
+Возможно, понадобится также установить <code class="highlighter-rouge">Hex</code>.
+Вторая команда скомпилирует <code class="highlighter-rouge">Benchee</code>.
+Всё готово к написанию нашего первого теста!</p>
+
+<p><strong>Важное замечание:</strong> тестируя производительность, очень важно не использовать интерактивный режим <code class="highlighter-rouge">iex</code>, поскольку он ведет себя иначе и зачастую гораздо медленнее того, что ваш код покажет в боевых условиях.
+Давайте создадим файл <code class="highlighter-rouge">benchmark.exs</code> со следующим содержимым:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span> <span class="o">=</span> <span class="no">Enum</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10_000</span><span class="p">)</span>
+<span class="n">map_fun</span> <span class="o">=</span> <span class="k">fn</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span> <span class="k">end</span>
+
+<span class="no">Benchee</span><span class="o">.</span><span class="n">run</span><span class="p">(%{</span>
+  <span class="s2">"flat_map"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">map_fun</span><span class="p">)</span> <span class="k">end</span><span class="p">,</span>
+  <span class="s2">"map.flatten"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="n">list</span> <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_fun</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">end</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Теперь, чтобы произвести замер производительности, исполним код в файле:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix run benchmark.exs
+</code></pre></div></div>
+
+<p>В консоли должно появиться что-то похожее:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Operating System: Linux
+CPU Information: Intel<span class="o">(</span>R<span class="o">)</span> Core<span class="o">(</span>TM<span class="o">)</span> i7-4790 CPU @ 3.60GHz
+Number of Available Cores: 8
+Available memory: 15.61 GB
+Elixir 1.8.1
+Erlang 21.3.2
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+<span class="nb">time</span>: 5 s
+memory <span class="nb">time</span>: 0 ns
+parallel: 1
+inputs: none specified
+Estimated total run <span class="nb">time</span>: 14 s
+
+Benchmarking flat_map...
+Benchmarking map.flatten...
+
+Name                  ips        average  deviation         median         99th %
+flat_map           2.40 K      416.00 μs    ±12.88%      405.67 μs      718.61 μs
+map.flatten        1.24 K      806.20 μs    ±20.65%      752.52 μs     1186.28 μs
+
+Comparison:
+flat_map           2.40 K
+map.flatten        1.24 K - 1.94x slower +390.20 μs
+</code></pre></div></div>
+
+<p>Разумеется, ваша системная информация и результаты могут отличаться в зависимости от характеристик вашего компьютера. Но в целом вся эта информация должна быть представлена.</p>
+
+<p>Взглянув на секцию <code class="highlighter-rouge">Comparison</code>, сразу становится понятно, что реализация <code class="highlighter-rouge">map.flatten</code> в 1,94 раз медленнее, чем <code class="highlighter-rouge">flat_map</code>. Также видно, что она в среднем на 390 микросекунд медленнее. Очень полезно! Но давайте взглянем и на другие метрики:</p>
+
+<ul>
+  <li><strong>ips</strong> — “итераций в секунду” — показывает, сколько раз функция успеет выполниться в течение одной секунды.
+Чем больше этот показатель, тем лучше.</li>
+  <li><strong>average</strong> — среднее — среднее время выполнения данной функции.
+Чем меньше, тем лучше.</li>
+  <li><strong>deviation</strong> — отклонение — значение стандартного отклонения.
+Показывает, насколько результаты каждой отдельной итерации отличаются от среднего. Измеряется в процентах от среднего значения.</li>
+  <li><strong>median</strong> — медиана — если отсортировать все замеры, медиана будет центральным значением (или средним из двух центральных, если количество измерений чётное).
+Из-за изменчивости окружения, медиана — более стабильный показатель, чем среднее значение.
+К тому же она надежнее отразит поведение вашего кода в боевых условиях. Чем меньше медиана, тем лучше.</li>
+  <li><strong>99th %</strong> - 99% всех замеров быстрее этого, что в какой-то степени делает его показателем худшей производительности. Чем меньше, тем лучше.</li>
+</ul>
+
+<p>Существуют также другие метрики, но на эти пять, как правило, обращают наибольшее внимание при тестировании производительности, поэтому они выводятся в результатах стандартным форматтером.
+Узнать больше о других метриках можно в <a href="https://hexdocs.pm/benchee/Benchee.Statistics.html#t:t/0">документации</a>.</p>
+
+<h1 id="настройка">Настройка</h1>
+
+<p>Одна из лучших сторон <code class="highlighter-rouge">Benchee</code> — это большое количество настроек.
+Мы пройдемся сперва по простейшим из них, т.к. они понятны даже без примеров кода. Затем мы посмотрим, как использовать одну из самых крутых возможностей <code class="highlighter-rouge">Benchee</code> — наборы входных данных.</p>
+
+<h2 id="основы">Основы</h2>
+<p><code class="highlighter-rouge">Benchee</code> использует для настройки параметры конфигурации. В основном интерфейсе <code class="highlighter-rouge">Benchee.run/2</code> они передаются вторым аргументом в виде опционального ключевого списка.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Benchee</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+  <span class="p">%{</span><span class="s2">"example function"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="s2">"hi!"</span> <span class="k">end</span><span class="p">},</span>
+  <span class="ss">warmup:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="ss">time:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="ss">inputs:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">parallel:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="ss">formatters:</span> <span class="p">[</span><span class="o">&amp;</span><span class="no">Benchee</span><span class="o">.</span><span class="no">Formatters</span><span class="o">.</span><span class="no">Console</span><span class="o">.</span><span class="n">output</span><span class="o">/</span><span class="mi">1</span><span class="p">],</span>
+  <span class="ss">print:</span> <span class="p">[</span>
+    <span class="ss">benchmarking:</span> <span class="no">true</span><span class="p">,</span>
+    <span class="ss">configuration:</span> <span class="no">true</span><span class="p">,</span>
+    <span class="ss">fast_warning:</span> <span class="no">true</span>
+  <span class="p">],</span>
+  <span class="ss">console:</span> <span class="p">[</span>
+    <span class="ss">comparison:</span> <span class="no">true</span><span class="p">,</span>
+    <span class="ss">unit_scaling:</span> <span class="ss">:best</span>
+  <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Список доступных параметров (также описан в <a href="https://hexdocs.pm/benchee/Benchee.Configuration.html#init/1">документации</a>):</p>
+
+<ul>
+  <li><strong>warmup</strong> — прогрев — время в секундах, в течение которого сценарий будет выполняться “в холостую”, прежде чем начнутся реальные замеры производительности.
+Это имитирует “прогрев” реальной системы.
+Значение по умолчанию — 2.</li>
+  <li><strong>time</strong> — время в секундах, в течение которого каждый отдельный сценарий будет исполняться с выполнением измерений.
+По умолчанию равно 5.</li>
+  <li><strong>memory_time</strong> — время в секундах, в течении которого будет замеряться потребление памяти для каждого отдельного сценария. We’ll look at that later. Defaults to 0.</li>
+  <li><strong>inputs</strong> — ассоциативный массив со строками, в котором ключи отвечают за название параметра, а значения — за сами передаваемые параметры. Также может быть списком кортежей в форме <code class="highlighter-rouge">{input_name, actual_value}</code>
+По умолчанию равно <code class="highlighter-rouge">nil</code> (нет параметров).
+Мы детальнее опишем этот пункт в следующей секции.</li>
+  <li><strong>parallel</strong> — количество процессов, которое следует использовать при тестировании.
+Так, если мы передадим <code class="highlighter-rouge">parallel: 4</code>, то создадутся 4 процесса, каждый из которых будет выполнять одну и ту же функцию на протяжении <code class="highlighter-rouge">time</code> секунд.
+Когда они закончат, 4 новых процесса будут запущены уже для следующей функции.
+Это позволит собрать больше данных за то же время, но при этом создаст некоторую нагрузку на систему, что может повлиять на результаты.
+Этот параметр можно использовать для симуляции системы под нагрузкой, что иногда полезно. Однако надо помнить, что параллельное выполнение может непредсказуемо повлиять на результаты, так что использовать его нужно с осторожностью.
+Значение по умолчанию: 1 (т.е. без параллельного выполнения).</li>
+  <li><strong>formatters</strong> — форматтеры — список форматтеров (модулей с поведением форматтера, кортежа с таким модулем и опциями, которые он принимает, либо функций форматирования)  который вы бы хотели использовать для отображения результата выполнения <code class="highlighter-rouge">Benchee.run/2</code>.
+Функции должны принимать один аргумент (набор данных) и затем с его помощью отображать результат.
+По умолчанию используется встроенный консольный форматтер <code class="highlighter-rouge">Benchee.Formatters.Console.output/1</code>.
+Мы подробнее рассмотрим форматтеры чуть позже.</li>
+  <li><strong>measure_function_call_overhead</strong> - замеряет время, которое занимает вызов пустой функции, и отнимает его от времени каждого замера. Помогает с точностью очень быстрых замеров. По умолчанию <code class="highlighter-rouge">true</code>.</li>
+  <li><strong>pre_check</strong> - определяет, запускать ли каждую пару “замер - ввод” - включая все сценарии <code class="highlighter-rouge">before</code>, <code class="highlighter-rouge">after</code> и хуки - прежде чем проводить замеры, чтобы убедиться, что ваш код запустится без ошибок. Это экономит время при написании замеров. По умолчанию <code class="highlighter-rouge">false</code>.</li>
+  <li><strong>save</strong> - определяет путь (<code class="highlighter-rouge">path</code>) для хранения результатов текущего набора замеров, с пометкой специальным тегом (<code class="highlighter-rouge">tag</code>). См. раздел <a href="//github.com/bencheeorg/benchee#saving-loading-and-comparing-previous-runs">Сохранение и загрузка в документации Benchee</a>.</li>
+  <li><strong>load</strong> - загружает сохранённый набор(ы) замеров для сравнения с текущими. Может быть строкой или списком строк или паттернов. См. раздел <a href="//github.com/bencheeorg/benchee#saving-loading-and-comparing-previous-runs">Сохранение и загрузка в документации Benchee</a>.</li>
+  <li><strong>print</strong> — ассоциативный массив или ключевой список со следующими опциями-атомами в качестве ключей и <code class="highlighter-rouge">true</code> или <code class="highlighter-rouge">false</code> в качестве значений.
+С помощью этого параметра мы можем указывать, какие метрики должны быть выведены в ходе стандартного выполнения теста.
+Все опции включены по умолчанию (имеют значение <code class="highlighter-rouge">true</code>).
+Вот они:
+    <ul>
+      <li><strong>benchmarking</strong> — выводится, когда <code class="highlighter-rouge">Benchee</code> запускает новый тест.</li>
+      <li><strong>configuration</strong> — краткий список всех настроек, включая прогнозируемое время выполнения. Выводится перед началом теста.</li>
+      <li><strong>first_warning</strong> — предупреждения выводятся в случае, если функция выполняется слишком быстро, что потенциально может привести к неточным результатам.</li>
+    </ul>
+  </li>
+  <li><strong>unit_scaling</strong> — масштабирование — стратегия выбора единиц измерения для времени и количества.
+Когда масштабирование включено, <code class="highlighter-rouge">Benchee</code> подыщет наиболее подходящее отображение для чисел.
+Например, <code class="highlighter-rouge">1_200_000</code> масштабируется в 1,2 М, а <code class="highlighter-rouge">800_000</code> в 800 К.
+Стратегия масштабирования определяет то, как <code class="highlighter-rouge">Benchee</code> будет выбирать отображение числовых значений в случаях, когда “наилучший” вид разный для разных чисел.
+Всего есть четыре стратегии, у каждой — имя-атом. По умолчанию используется <code class="highlighter-rouge">:best</code>:
+    <ul>
+      <li><strong>best</strong> — будет выбрано наиболее часто встречающееся сокращение.
+В случае совпадения, будет выбрано наибольшее.</li>
+      <li><strong>largest</strong> — среди наилучших сокращений будет выбрано наибольшее.</li>
+      <li><strong>smallest</strong> — среди наилучших будет выбрано наименьшее.</li>
+      <li><strong>none</strong> — масштабирование не будет использоваться вовсе.
+Время будет выводится в наносекундах, а количество <code class="highlighter-rouge">ips</code> — без тысячных сокращений.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">:before_scenario</code>/<code class="highlighter-rouge">after_scenario</code>/<code class="highlighter-rouge">before_each</code>/<code class="highlighter-rouge">after_each</code> - мы не будем углубляться в эти опции здесь, но если вам нужно что-то сделать перед/после вашей функции замера, не включая это в замер, обратитесь к <a href="//github.com/bencheeorg/benchee#hooks-setup-teardown-etc">документации о хуках в Benchee</a></li>
+</ul>
+
+<h1 id="наборы-входных-данных">Наборы входных данных</h1>
+
+<p>Очень важно тестировать функции с использованием данных, похожих на те, с которыми они скорее всего столкнутся в реальном мире.
+Часто функция может вести себя по-разному на маленьких и больших наборах данных. Специально для таких случаев <code class="highlighter-rouge">Benchee</code> поддерживает <em>наборы входных данных</em> (<code class="highlighter-rouge">inputs</code>)!
+Они позволяют нам тестировать одну и ту же функцию со столькими наборами входных данных, сколько нам понадобится, а затем отобразить их в результатах.</p>
+
+<p>Посмотрим на наш первый пример:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span> <span class="o">=</span> <span class="no">Enum</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10_000</span><span class="p">)</span>
+<span class="n">map_fun</span> <span class="o">=</span> <span class="k">fn</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span> <span class="k">end</span>
+
+<span class="no">Benchee</span><span class="o">.</span><span class="n">run</span><span class="p">(%{</span>
+  <span class="s2">"flat_map"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">map_fun</span><span class="p">)</span> <span class="k">end</span><span class="p">,</span>
+  <span class="s2">"map.flatten"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="n">list</span> <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_fun</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">end</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>В нём мы используем один-единственный список целых чисел от 1 до 10 000.
+Давайте вместо него используем несколько разных аргументов, чтобы можно было сравнить результаты на малых и больших списках.
+Должно получиться так:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_fun</span> <span class="o">=</span> <span class="k">fn</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span> <span class="k">end</span>
+
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">%{</span>
+  <span class="s2">"small list"</span> <span class="o">=&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">100</span><span class="p">),</span>
+  <span class="s2">"medium list"</span> <span class="o">=&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10_000</span><span class="p">),</span>
+  <span class="s2">"large list"</span> <span class="o">=&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">1_000_000</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="no">Benchee</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+  <span class="p">%{</span>
+    <span class="s2">"flat_map"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="n">list</span> <span class="o">-&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">map_fun</span><span class="p">)</span> <span class="k">end</span><span class="p">,</span>
+    <span class="s2">"map.flatten"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="n">list</span> <span class="o">-&gt;</span> <span class="n">list</span> <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_fun</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">end</span>
+  <span class="p">},</span>
+  <span class="ss">inputs:</span> <span class="n">inputs</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Можно заметить два существенных различия.
+Во-первых, мы создали ассоциативный массив <code class="highlighter-rouge">inputs</code>, в котором хранится информация о наборах входных данных.
+Во-вторых, мы передаём его в виде настройки в <code class="highlighter-rouge">Benchee.run/2</code>.</p>
+
+<p>И так как теперь наша функция должна уметь принимать входной аргумент, мы должны заменить:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">map_fun</span><span class="p">)</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p>на:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">map_fun</span><span class="p">)</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Снова запустим наши измерения:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix run benchmark.exs
+</code></pre></div></div>
+
+<p>Теперь должно получиться что-то такое:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
+Number of Available Cores: 8
+Available memory: 15.61 GB
+Elixir 1.8.1
+Erlang 21.3.2
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 5 s
+memory time: 0 ns
+parallel: 1
+inputs: large list, medium list, small list
+Estimated total run time: 42 s
+
+Benchmarking flat_map with input large list...
+Benchmarking flat_map with input medium list...
+Benchmarking flat_map with input small list...
+Benchmarking map.flatten with input large list...
+Benchmarking map.flatten with input medium list...
+Benchmarking map.flatten with input small list...
+
+##### With input large list #####
+Name                  ips        average  deviation         median         99th %
+flat_map            13.20       75.78 ms    ±25.15%       71.89 ms      113.61 ms
+map.flatten         10.48       95.44 ms    ±19.26%       96.79 ms      134.43 ms
+
+Comparison:
+flat_map            13.20
+map.flatten         10.48 - 1.26x slower +19.67 ms
+
+##### With input medium list #####
+Name                  ips        average  deviation         median         99th %
+flat_map           2.66 K      376.04 μs    ±23.72%      347.29 μs      678.17 μs
+map.flatten        1.75 K      573.01 μs    ±27.12%      512.48 μs     1076.27 μs
+
+Comparison:
+flat_map           2.66 K
+map.flatten        1.75 K - 1.52x slower +196.98 μs
+
+##### With input small list #####
+Name                  ips        average  deviation         median         99th %
+flat_map         266.52 K        3.75 μs   ±254.26%        3.47 μs        7.29 μs
+map.flatten      178.18 K        5.61 μs   ±196.80%        5.00 μs       10.87 μs
+
+Comparison:
+flat_map         266.52 K
+map.flatten      178.18 K - 1.50x slower +1.86 μs
+</code></pre></div></div>
+
+<p>Мы видим результаты замеров, сгруппированные по входным данным.
+В этом простом примере не видно никакой гигантской разницы, но в реальном мире производительность может о-о-очень отличаться в зависимости от размера данных.</p>
+
+<h1 id="форматтеры">Форматтеры</h1>
+
+<p>Консольный вывод, который мы видели прежде, — отличное начало, но это не единственный доступный вариант.
+В этой секции мы взглянем на три других форматтера, а также узнаем, что нужно сделать, чтобы написать свой.</p>
+
+<h2 id="другие-форматтеры">Другие форматтеры</h2>
+
+<p>Помимо консольного форматтера, существует еще три -
+<a href="https://github.com/bencheeorg/benchee_csv"><code class="highlighter-rouge">benchee_csv</code></a>,
+<a href="https://github.com/bencheeorg/benchee_json"><code class="highlighter-rouge">benchee_json</code></a> и
+<a href="https://github.com/bencheeorg/benchee_html"><code class="highlighter-rouge">benchee_html</code></a>.
+Все они делают именно то, что можно было бы ожидать исходя из их названия: пишут результат в файлы соответствующего формата, чтобы затем с ними можно было работать любым удобным способом.</p>
+
+<p>Каждый из этих форматтеров поставляется отдельным пакетом, поэтому, для использования, их нужно добавить в качестве зависимостей в <code class="highlighter-rouge">mix.exs</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:benchee_csv</span><span class="p">,</span> <span class="s2">"~&gt; 1.0"</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:dev</span><span class="p">},</span>
+    <span class="p">{</span><span class="ss">:benchee_json</span><span class="p">,</span> <span class="s2">"~&gt; 1.0"</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:dev</span><span class="p">},</span>
+    <span class="p">{</span><span class="ss">:benchee_html</span><span class="p">,</span> <span class="s2">"~&gt; 1.0"</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:dev</span><span class="p">},</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>В то время как <code class="highlighter-rouge">benchee_json</code> и <code class="highlighter-rouge">benchee_csv</code> очень просты, <code class="highlighter-rouge">benchee_html</code> можно назвать <em>крайне</em> продвинутым!
+Он может с легкостью строить красивые графики и диаграммы, и даже позволяет экспортировать их в изображение формата PNG.
+Можете посмотреть <a href="http://www.pragtob.info/benchee/README/results.html">пример вывода html</a>, если интересно - он включает в себя графики вроде этого:</p>
+
+<p><img src="/assets/benchee_html_graph_sample-b43a1013505cd376814f5901f776c7c5fb262b601e871ee74d4b6952850c7176.png" alt="benchee_html graph export sample" /></p>
+
+<p>Для всех трёх форматтеров написана хорошая документация на их страницах на GitHub, поэтому мы не будем вдаваться в детали.</p>
+
+<h2 id="собственные-форматтеры">Собственные форматтеры</h2>
+
+<p>Если ни один из имеющихся форматтеров не подходит, всегда можно написать собственный.
+Сделать это несложно.
+Надо написать функцию, которая будет принимать структуру <code class="highlighter-rouge">%Benchee.Suite{}</code>, из которой она в дальнейшем будет доставать любую нужную информацию.
+Подробнее о том, что именно находится в структуре, можно почитать на <a href="https://github.com/PragTob/benchee/blob/master/lib/benchee/suite.ex">GitHub</a> или в <a href="https://hexdocs.pm/benchee/Benchee.Suite.html">HexDocs</a>.
+Код очень хорошо документирован и легко читается, полезно, чтобы знать, какого рода информация доступна для написания собственных форматтеров.</p>
+
+<p>Вы также можете написать более полноценный форматтер, который реализует <a href="https://hexdocs.pm/benchee/Benchee.Formatter.html#content"><code class="highlighter-rouge">поведение Benchee.Formatter</code></a>, но тут мы остановимся на простой функции.</p>
+
+<p>Для примера продемонстрируем, как можно легко и быстро написать собственный форматтер.
+Предположим, что мы хотим супер-минималистичный форматтер, который просто выводит среднее время выполнения для каждого сценария. Это будет выглядеть примерно так:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Custom</span><span class="o">.</span><span class="no">Formatter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">output</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">suite</span>
+    <span class="o">|&gt;</span> <span class="n">format</span>
+    <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+    <span class="n">suite</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">format</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Enum</span><span class="o">.</span><span class="n">map_join</span><span class="p">(</span><span class="n">suite</span><span class="o">.</span><span class="n">scenarios</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="k">fn</span> <span class="n">scenario</span> <span class="o">-&gt;</span>
+      <span class="s2">"Average for </span><span class="si">#{</span><span class="n">scenario</span><span class="o">.</span><span class="n">job_name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">scenario</span><span class="o">.</span><span class="n">run_time_statistics</span><span class="o">.</span><span class="n">average</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">end</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>И теперь запустим измерения:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span> <span class="o">=</span> <span class="no">Enum</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10_000</span><span class="p">)</span>
+<span class="n">map_fun</span> <span class="o">=</span> <span class="k">fn</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span> <span class="k">end</span>
+
+<span class="no">Benchee</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+  <span class="p">%{</span>
+    <span class="s2">"flat_map"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">map_fun</span><span class="p">)</span> <span class="k">end</span><span class="p">,</span>
+    <span class="s2">"map.flatten"</span> <span class="o">=&gt;</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="n">list</span> <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_fun</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">end</span>
+  <span class="p">},</span>
+  <span class="ss">formatters:</span> <span class="p">[</span><span class="o">&amp;</span><span class="no">Custom</span><span class="o">.</span><span class="no">Formatter</span><span class="o">.</span><span class="n">output</span><span class="o">/</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Наш форматтер должен вывести следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
+Number of Available Cores: 8
+Available memory: 15.61 GB
+Elixir 1.8.1
+Erlang 21.3.2
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 5 s
+memory time: 0 ns
+parallel: 1
+inputs: none specified
+Estimated total run time: 14 s
+
+Benchmarking flat_map...
+Benchmarking map.flatten...
+Average for flat_map: 419433.3593474056
+Average for map.flatten: 788524.9366408596
+</code></pre></div></div>
+
+<h2 id="память">Память</h2>
+
+<p>Мы почти всё рассмотрели, но обошли стороной одну из крутейших возможностей Benchee: замеры памяти!</p>
+
+<p>Benchee может измерять потребление памяти, но имея доступ только к процессу, в котором запущен замер. Сейчас Benchee не может отслеживать потребление памяти другими процессами (к примеру, пулами воркеров).</p>
+
+<p>Потребление памяти включает всю память, использованную вашими замерами, и также память, которая была освобождена сборщиком мусора, так что не обязательно соответствует максимальному размеру памяти процесса.</p>
+
+<p>Как этим пользоваться? Просто используйте опцию <code class="highlighter-rouge">:memory_time</code>!</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Operating System: Linux
+CPU Information: Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
+Number of Available Cores: 8
+Available memory: 15.61 GB
+Elixir 1.8.1
+Erlang 21.3.2
+
+Benchmark suite executing with the following configuration:
+warmup: 0 ns
+time: 0 ns
+memory time: 1 s
+parallel: 1
+inputs: none specified
+Estimated total run time: 2 s
+
+Benchmarking flat_map...
+Benchmarking map.flatten...
+
+Memory usage statistics:
+
+Name           Memory usage
+flat_map          624.97 KB
+map.flatten       781.25 KB - 1.25x memory usage +156.28 KB
+
+**All measurements for memory usage were the same**
+</code></pre></div></div>
+
+<p>Как видите, Benchee не пытается отобразить все метрики, так как все собранные замеры одинаковые. На самом деле, так часто бывает, если ваши функции не подвергаются случайности в том или ином виде. И какой прок был бы от всех этих метрик, если бы они выдавали одну и ту же цифру каждый раз?</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ru/lessons/libraries/benchee.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/libraries/poolboy/" title="Poolboy">← Poolboy</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/libraries/bypass/" title="Bypass">Bypass →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/benchee/" title="Английский / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/libraries/benchee/" title="Греческий">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/libraries/benchee/" title="Польский">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/libraries/benchee/" title="Португальский">pt</a>
+        
+      
+        
+        
+
+        
+          <strong title="Русский">ru</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/benchee/" title="Китайский">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/benchee/" title="Китайский традиционный">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Меню</h2>
+    <p>Уроки программирования на языке Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ru/" class=" up ">Домашняя страница</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Основы</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/basics/">1. Основы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/collections/">2. Коллекции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pattern-matching/">4. Сопоставление с образцом</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/control-structures/">5. Управляющие конструкции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/functions/">6. Функции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pipe-operator/">7. Оператор конвейера</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/modules/">8. Модули</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/sigils/">10. Строковые метки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/documentation/">11. Документирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/testing/">12. Тестирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/comprehensions/">13. Списковые включения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/strings/">14. Строки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/date-time/">15. Дата и время</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix-tasks/">16. Пользовательские Mix-задачи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/iex-helpers/">17. IEx функции</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Продвинутый</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/erlang/">1. Взаимодействие с Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/error-handling/">2. Обработка ошибок</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/escripts/">3. Исполняемые файлы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/concurrency/">4. Параллелизм</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-concurrency/">5. Параллелизм в OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-supervisors/">6. OTP Супервизоры</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/metaprogramming/">8. Метапрограммирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/umbrella-projects/">9. Зонтичные проекты</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/typespec/">10. Спецификации и типы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/behaviours/">11. Поведения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/protocols/">13. Протоколы</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/changesets/">2. Наборы изменений</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/associations/">3. Связи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/querying/">4. Язык запросов</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Специфика</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/debugging/">5. Отладка</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Библиотеки</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/guardian/">1. Guardian (Основы)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">3. Benchee</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Блог</a>
+    </li>
+    
+    <li>
+      <a href="/ru/report/" class=" up ">Состояние перевода</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Участники</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

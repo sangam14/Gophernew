@@ -1,0 +1,1093 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hans">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 编程语言教程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hans/lessons/advanced/metaprogramming/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hans">
+  <meta property="og:description" content="Elixir 编程语言教程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/metaprogramming/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/metaprogramming/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hans/lessons/advanced/metaprogramming/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>元编程 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hans/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hans/lessons/advanced/metaprogramming/&title=元编程&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hans/lessons/advanced/metaprogramming/&via=elixirschool&text=ElixirSchool: 元编程&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hans/lessons/advanced/metaprogramming/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hans/lessons/advanced/metaprogramming/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 元编程" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hans/lessons/advanced/metaprogramming/&title=ElixirSchool: 元编程&description=Check out '元编程' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 元编程&body=Check out '元编程' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hans/lessons/advanced/metaprogramming/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  元编程
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    This translation is up to date.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>元编程是指用代码来写代码的过程。在 Elixir 中，这说明我们可以扩展该语言，动态地修改该语言来满足我们的需求。我们会先看看 Elixir 底层是怎么实现的，然后讲怎么修改它，最后会使用刚学过的知识来扩展它。</p>
+
+<p>忠告：元编程不容易用好，只有在绝对需要的时候才去使用它。过度使用元编程会导致代码很复杂，不容易理解和调试。</p>
+
+<h2>目录</h2>
+<div id="toc"></div>
+
+<h2 id="quote">Quote</h2>
+
+<p>学习元编程的第一步是理解表达式是怎么表示的。Elixir 的 AST（抽象语法树）是由元组构成的。这些元组包含了三个部分：函数名称，metadata，还有函数的参数。</p>
+
+<p>Elixir 提供了 <code class="highlighter-rouge">quote/2</code> 函数，可以让我们看到这些内部结构。也就是说，<code class="highlighter-rouge">quote/2</code> 能把 Elixir 代码转换成代码的底层表示形式。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="mi">42</span>
+<span class="mi">42</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello"</span>
+<span class="s2">"Hello"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="ss">:world</span>
+<span class="ss">:world</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="p">{</span><span class="ss">:+</span><span class="p">,</span> <span class="p">[</span><span class="ss">context:</span> <span class="no">Elixir</span><span class="p">,</span> <span class="kn">import</span><span class="p">:</span> <span class="no">Kernel</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="k">if</span> <span class="n">value</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"True"</span><span class="p">,</span> <span class="k">else</span><span class="p">:</span> <span class="s2">"False"</span>
+<span class="p">{</span><span class="ss">:if</span><span class="p">,</span> <span class="p">[</span><span class="ss">context:</span> <span class="no">Elixir</span><span class="p">,</span> <span class="kn">import</span><span class="p">:</span> <span class="no">Kernel</span><span class="p">],</span>
+ <span class="p">[{</span><span class="ss">:value</span><span class="p">,</span> <span class="p">[],</span> <span class="no">Elixir</span><span class="p">},</span> <span class="p">[</span><span class="k">do</span><span class="p">:</span> <span class="s2">"True"</span><span class="p">,</span> <span class="k">else</span><span class="p">:</span> <span class="s2">"False"</span><span class="p">]]}</span>
+</code></pre></div></div>
+
+<p>注意到前面三个并没有返回列表了吗？这五种字面量（literal）使用 quote 的返回值是它们自身：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="ss">:atom</span>
+<span class="ss">:atom</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"string"</span>
+<span class="s2">"string"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="mi">1</span> <span class="c1"># All numbers</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># Lists</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">{</span><span class="s2">"hello"</span><span class="p">,</span> <span class="ss">:world</span><span class="p">}</span> <span class="c1"># 2 element tuples</span>
+<span class="p">{</span><span class="s2">"hello"</span><span class="p">,</span> <span class="ss">:world</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="unquote">Unquote</h2>
+
+<p>知道了如何获取代码的内部表示，那怎么修改它呢？我们依靠 <code class="highlighter-rouge">unquote/1</code> 来插入新的代码和值。当我们 unquote 一个表达式的时候，会把它运行的结果插入到 AST。我们来看个例子理解一下 <code class="highlighter-rouge">unquote/2</code> 的用法:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">denominator</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="mi">2</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">divide</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">denominator</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:divide</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="p">{</span><span class="ss">:denominator</span><span class="p">,</span> <span class="p">[],</span> <span class="no">Elixir</span><span class="p">}]}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">divide</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">denominator</span><span class="p">))</span>
+<span class="p">{</span><span class="ss">:divide</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}</span>
+</code></pre></div></div>
+
+<p>在第一个的例子里，变量 <code class="highlighter-rouge">denominator</code> 在 quote 的时候会导致生成的 AST 包含了一个访问了这个变量的列表。而在使用 <code class="highlighter-rouge">unquote/1</code> 的例子里，生成的代码就直接包含了 <code class="highlighter-rouge">denominator</code> 的值。</p>
+
+<h2 id="宏">宏</h2>
+
+<p>理解了 <code class="highlighter-rouge">quote/2</code> 和 <code class="highlighter-rouge">unquote/1</code>，我们就可以开始深入学习宏了。要注意的是：宏和元编程一样，必须谨慎使用。</p>
+
+<p>简单来说，宏就是一个特别的函数：它返回的 quoted 的表达式，会被插入到应用的代码中。可以想象宏被 quoted 后的表达式替代，而不是像函数那样被调用。有了宏，我们就能够扩展 Elixir 和动态地为应用添加代码了。</p>
+
+<p>定义宏需要用 <code class="highlighter-rouge">defmacro/2</code>，这在 Elixir 中也是一个宏(花点时间慢慢领会)。在以下例子中，我们会实现 <code class="highlighter-rouge">unless</code> 这个宏。记住，宏需要返回 quoted 后的表达式：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">OurMacro</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="k">unless</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">block</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="n">!unquote</span><span class="p">(</span><span class="n">expr</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>导入模块，测试一下我们刚定义的宏：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">require</span> <span class="no">OurMacro</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">OurMacro</span><span class="o">.</span><span class="k">unless</span> <span class="no">true</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi"</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">OurMacro</span><span class="o">.</span><span class="k">unless</span> <span class="no">false</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi"</span>
+<span class="s2">"Hi"</span>
+</code></pre></div></div>
+
+<p>因为宏会替换应用中的代码，所以我们能控制把代码替换成什么，也能控制在什么情况下进行替换。<code class="highlighter-rouge">Logger</code> 模块就是很好的例子，如果 logging 被禁止了，就不会有代码被插入，最终的代码也不会有调用 logging 的逻辑。和其他语言的区别在于：其他语言在 logging 被禁止的时候，还会有 logging 相关的代码存在，即使里面的实现是空的。</p>
+
+<p>我们写一个简单的 logger 来说明这一点。我们的 logger 可以通过环境变量来开启或禁止：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Logger</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:logger</span><span class="p">,</span> <span class="ss">:enabled</span><span class="p">)</span> <span class="k">do</span>
+      <span class="kn">quote</span> <span class="k">do</span>
+        <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Logged message: </span><span class="si">#{</span><span class="kn">unquote</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">require</span> <span class="no">Logger</span>
+
+  <span class="k">def</span> <span class="n">test</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"This is a log message"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>当 logging 开启的时候，我们的 <code class="highlighter-rouge">test</code> 函数的代码会是下面的样子：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">test</span> <span class="k">do</span>
+  <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Logged message: </span><span class="si">#{</span><span class="s2">"This is a log message"</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>如果我们禁止了 logging，最终的代码就变成了：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">test</span> <span class="k">do</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="调试">调试</h2>
+
+<p>好了，现在我们知道如何使用 <code class="highlighter-rouge">quote/2</code>, <code class="highlighter-rouge">unquote/1</code> 和编写宏了。但是，如果你面对的是一大段 quoted 的代码，并希望理解它怎么办？这种情况下，你可以使用 <code class="highlighter-rouge">Macro.to_string/2</code>。来看看下面的例子：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="kn">quote</span><span class="p">(</span><span class="k">do</span><span class="p">:</span> <span class="n">foo</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="s2">"foo.bar(1, 2, 3)"</span>
+</code></pre></div></div>
+
+<p>当你想查看通过宏生成出来的代码，你可以结合 <code class="highlighter-rouge">Macro.expand/2</code> 和 <code class="highlighter-rouge">Macro.expand_once/2</code> 的使用，这些函数会把提供给宏的原来的 quoted 的代码展开出来。第一个函数可以展开多次，而后者只展开一次。比如，我们可以把 <code class="highlighter-rouge">unless</code> 这个例子从前面的方案修改如下：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">OurMacro</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="k">unless</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">block</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="n">!unquote</span><span class="p">(</span><span class="n">expr</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="kn">require</span> <span class="no">OurMacro</span>
+
+<span class="n">quoted</span> <span class="o">=</span>
+  <span class="kn">quote</span> <span class="k">do</span>
+    <span class="no">OurMacro</span><span class="o">.</span><span class="k">unless</span><span class="p">(</span><span class="no">true</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi"</span><span class="p">)</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">quoted</span> <span class="o">|&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">expand_once</span><span class="p">(</span><span class="n">__ENV__</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">to_string</span> <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span>
+<span class="k">if</span><span class="p">(</span><span class="n">!true</span><span class="p">)</span> <span class="k">do</span>
+  <span class="s2">"Hi"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>如果我们使用 <code class="highlighter-rouge">Macro.expand/2</code> 来运行同样的代码，最终的结果则相当有趣：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">quoted</span> <span class="o">|&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">__ENV__</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">to_string</span> <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span>
+<span class="k">case</span><span class="p">(</span><span class="n">!true</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">x</span> <span class="ow">when</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="no">false</span><span class="p">,</span> <span class="no">nil</span><span class="p">]</span> <span class="o">-&gt;</span>
+    <span class="no">nil</span>
+  <span class="n">_</span> <span class="o">-&gt;</span>
+    <span class="s2">"Hi"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>或许你还记得，我们曾经提过，<code class="highlighter-rouge">if</code> 在 Elixir 里面也是一个宏。在这里，我们就可以看到它底下的 <code class="highlighter-rouge">case</code> 表达式被扩展出来了。</p>
+
+<h3 id="私有宏">私有宏</h3>
+
+<p>尽管不常使用，Elixir 还支持私有宏。私有宏通过 <code class="highlighter-rouge">defmacrop</code> 定义，只能在定义的模块中被调用。私有宏必须在调用它的代码之前定义。</p>
+
+<h3 id="宏清洁">宏清洁</h3>
+
+<p>宏清洁是指：宏和调用的上下文交互的过程。默认情况下，Elixir 中的宏是洁净的：也就是说，它不会和调用者的上下文冲突：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">hygienic</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">require</span> <span class="no">Example</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="mi">42</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">hygienic</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span>
+<span class="mi">42</span>
+</code></pre></div></div>
+
+<p>但是如果我们希望在宏里面修改 <code class="highlighter-rouge">val</code> 变量呢？使用 <code class="highlighter-rouge">var!/2</code> 可以让某个变量的操作变成对上下文变量的操作。在我们的例子中，添加另外一个使用 <code class="highlighter-rouge">var!/2</code> 的宏：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">hygienic</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="k">defmacro</span> <span class="n">unhygienic</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">var!</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>然后比较一下它们是怎么和代码的上下文交互的：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">require</span> <span class="no">Example</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="mi">42</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">hygienic</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span>
+<span class="mi">42</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">unhygienic</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span>
+<span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>使用 <code class="highlighter-rouge">var!/2</code>，我们可以直接操作 <code class="highlighter-rouge">val</code> 变量而不需要它作为参数传递给宏。宏的这种使用方式应该尽少使用，引入 <code class="highlighter-rouge">var!/2</code> 会增加变量冲突的风险。</p>
+
+<h3 id="绑定">绑定</h3>
+
+<p>我们已经介绍过 <code class="highlighter-rouge">unquote/1</code> 的用法，但是还有另外一种方法可以在代码中插入值：绑定。使用变量绑定，我们能够在宏中多次使用变量，并且保证它们只会被计算一次，从而避免意外的重新计算。要使用绑定变量，我们必须传一个关键字列表 <code class="highlighter-rouge">bind_quoted</code> 作为 <code class="highlighter-rouge">quote/2</code> 的选项。</p>
+
+<p>为了理解 <code class="highlighter-rouge">bind_quote</code> 的好处和重新计算的问题，我们来看个例子。创建一下把某个表达式的值打印两遍的宏：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">double_puts</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="kn">unquote</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="kn">unquote</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>我们把当前的系统时间传递过去，来测试一下刚定义的宏，期望是：它把当前时间打印两遍：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">double_puts</span><span class="p">(</span><span class="ss">:os</span><span class="o">.</span><span class="n">system_time</span><span class="p">)</span>
+<span class="mi">1450475941851668000</span>
+<span class="mi">1450475941851733000</span>
+</code></pre></div></div>
+
+<p>两次的时间居然不一样！什么鬼？对同一个表达式多次使用 <code class="highlighter-rouge">unquote/1</code> 会重新计算表达式的值，这会导致意想不到的错误。我们来更新一下例子，看看使用 <code class="highlighter-rouge">bind_quoted</code> 的结果：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">double_puts</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="ss">bind_quoted:</span> <span class="p">[</span><span class="ss">expr:</span> <span class="n">expr</span><span class="p">]</span> <span class="k">do</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">require</span> <span class="no">Example</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">double_puts</span><span class="p">(</span><span class="ss">:os</span><span class="o">.</span><span class="n">system_time</span><span class="p">)</span>
+<span class="mi">1450476083466500000</span>
+<span class="mi">1450476083466500000</span>
+</code></pre></div></div>
+
+<p>使用 <code class="highlighter-rouge">bind_quoted</code> 和我们预期的结果是一致的：当前的时间被打印两次。</p>
+
+<p>现在我们已经学完了 <code class="highlighter-rouge">quote/2</code>，<code class="highlighter-rouge">unquote/1</code> 和 <code class="highlighter-rouge">defmacro/2</code>，这些工具已经足够我们按照需要扩展 Elixir 了。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hans/lessons/advanced/metaprogramming.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/advanced/otp-distribution/" title="OTP 分布式">← OTP 分布式</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/advanced/umbrella-projects/" title="Umbrella Projects">Umbrella Projects →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/advanced/metaprogramming/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/metaprogramming/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/metaprogramming/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/metaprogramming/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/metaprogramming/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/metaprogramming/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/metaprogramming/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/metaprogramming/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/metaprogramming/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/metaprogramming/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/metaprogramming/" >vi</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hans</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/metaprogramming/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 编程语言教程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hans/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基础</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/basics/">1. 基础</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/enum/">3. Enum 模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pattern-matching/">4. 模式匹配</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/control-structures/">5. 控制语句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/functions/">6. 函数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pipe-operator/">7. 管道操作符</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/modules/">8. 模块（Module）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/sigils/">10. 魔符(Sigil)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/documentation/">11. 文档模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/testing/">12. 测试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/comprehensions/">13. 推导</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/strings/">14. 字符串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/date-time/">15. 日期和时间</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix-tasks/">16. 自定义 Mix 任务</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/iex-helpers/">17. IEx 辅助函数</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">高级</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/erlang/">1. 和 Erlang 互操作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/error-handling/">2. 错误处理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/escripts/">3. 可执行文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/concurrency/">4. 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-concurrency/">5. OTP 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-distribution/">7. OTP 分布式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">8. 元编程</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/behaviours/">11. 行为</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/protocols/">13. 协议</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/associations/">3. 关联关系</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/querying/">4. 查询</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">专题</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/eex/">2. 嵌入的 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/ets/">3. Erlang 项式存储 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/mnesia/">4. Mnesia 数据库</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/debugging/">5. 调试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">程序库</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/guardian/">1. Guardian（基础）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/distillery/">5. Distillery (基础)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hans/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

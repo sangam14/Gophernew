@@ -1,0 +1,1071 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="pt">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lições sobre a linguagem de programação Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/pt/lessons/libraries/guardian/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="pt">
+  <meta property="og:description" content="Lições sobre a linguagem de programação Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/guardian/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/libraries/guardian/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/libraries/guardian/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/pt/lessons/libraries/guardian/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Guardian (Basics) &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/pt/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/pt/lessons/libraries/guardian/&title=Guardian (Basics)&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/pt/lessons/libraries/guardian/&via=elixirschool&text=ElixirSchool: Guardian (Basics)&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/pt/lessons/libraries/guardian/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/pt/lessons/libraries/guardian/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Guardian (Basics)" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/pt/lessons/libraries/guardian/&title=ElixirSchool: Guardian (Basics)&description=Check out 'Guardian (Basics)' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Guardian (Basics)&body=Check out 'Guardian (Basics)' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/pt/lessons/libraries/guardian/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Guardian (Basics)
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Esta tradução está atualizada.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p><a href="https://github.com/ueberauth/guardian">Guardian</a> é uma biblioteca de autenticação amplamente utilizada tendo como base o <a href="https://jwt.io/">JWT</a> (JSON Web Tokens).</p>
+
+<h2>Sumário</h2>
+<div id="toc"></div>
+
+<h2 id="jwts">JWTs</h2>
+
+<p>Um JWT pode fornecer um token rico para autenticação.
+Onde muitos sistemas de autenticação fornecem acesso à apenas o identificador do sujeito para o recurso, JWTs fornecem isto junto com outras informações como:</p>
+
+<ul>
+  <li>Quem emitiu o token</li>
+  <li>Para quem é o token</li>
+  <li>Que sistema deve usar o token</li>
+  <li>Quando ele foi emitido</li>
+  <li>Quando o token expira</li>
+</ul>
+
+<p>Além desses campos o Guardian fornece outros campos para facilitar funcionalidades adicionais:</p>
+
+<ul>
+  <li>Qual é o tipo do token</li>
+  <li>Que permissões o portador tem</li>
+</ul>
+
+<p>Esses são apenas alguns campos básico em um JWT. 
+Você é livre para acrescentar qualquer informação adicional que a sua aplicação necessite. 
+Apenas lembre de mantê-lo pequeno, porque o JWT tem que caber em um header HTTP.</p>
+
+<p>Essa riqueza significa que você pode passar JWTs pelo seu sistema como uma unidade totalmente contida de credenciais.</p>
+
+<h3 id="onde-usá-los">Onde usá-los</h3>
+
+<p>JWT tokens podem ser usados para autenticar qualquer parte da sua aplicação.</p>
+
+<ul>
+  <li>Single page applications</li>
+  <li>Controllers (via browser session)</li>
+  <li>Controllers (via authorization headers - API)</li>
+  <li>Phoenix Channels</li>
+  <li>Service to Service requests</li>
+  <li>Inter-process</li>
+  <li>3rd Party access (OAuth)</li>
+  <li>Funcionalidade lembre-me</li>
+  <li>Outras interface - TCP puro, UDP, CLI, etc</li>
+</ul>
+
+<p>JWT tokens podem ser usados em todos os lugares da sua aplicação onde você precisa fornecer autenticação verificável.</p>
+
+<h3 id="eu-preciso-usar-um-banco-de-dados">Eu preciso usar um banco de dados?</h3>
+
+<p>Você não precisa rastrear um JWT através de um banco de dados. 
+Você pode simplesmente contar com os timestamps de emissão e expiração para controlar o acesso.
+Frequentemente você acabará usando um banco de dados para procurar por seu registro de usuário mas o JWT em si não necessita disso.</p>
+
+<p>Por exemplo, se você fosse usar JWT para autenticar comunicação em um socket UDP você provavelmente não iria usar um banco de dados. 
+Codifique toda a informação que você precisa diretamente no token quando você emiti-lo. 
+Uma vez que você verificá-lo (verificar se ele está assinado corretamente), você está pronto para continuar.</p>
+
+<p>Você <em>pode</em> no entanto usar um banco de dados para salvar um JWT. 
+Se você fizer isso, você ganha a habilidade de verificar se o token ainda é válido - isto é - se ele não foi revogado. 
+Ou você pode usar os registros do banco para forçar um logout do usuário.
+Isso é bem simples de fazer no Guardian por usar o <a href="https://github.com/hassox/guardian_db">GuardianDb</a>. 
+GuardianDb usa ‘Hooks’ do Guardian para realizar verificações, salvar e deletar do banco. 
+Nós vamos abordar isso depois.</p>
+
+<h2 id="instalação">Instalação</h2>
+
+<p>Há muitas opções para configurar o Guardian. Nós vamos abordar elas em um certo ponto mas vamos começar com uma instalação muito simples.</p>
+
+<h3 id="instalação-mínima">Instalação mínima</h3>
+
+<p>Para começar há algumas coisas que você vai precisar.</p>
+
+<h4 id="configuração">Configuração</h4>
+
+<p><code class="highlighter-rouge">mix.exs</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="ss">mod:</span> <span class="p">{</span><span class="no">MyApp</span><span class="p">,</span> <span class="p">[]},</span>
+    <span class="ss">applications:</span> <span class="p">[</span><span class="ss">:guardian</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">guardian:</span> <span class="s2">"~&gt; x.x"</span><span class="p">},</span>
+    <span class="o">...</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">config/config.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># no arquivo de configuração de cada ambiente você deve sobrescrever isto se é externo</span>
+<span class="n">config</span> <span class="ss">:guardian</span><span class="p">,</span> <span class="no">Guardian</span><span class="p">,</span>
+  <span class="ss">issuer:</span> <span class="s2">"MyAppId"</span><span class="p">,</span>
+  <span class="ss">secret_key:</span> <span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="p">(),</span>
+  <span class="ss">serializer:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">GuardianSerializer</span>
+</code></pre></div></div>
+
+<p>Esse é o conjunto mínimo de informações que você precisa fornecer ao Guardian para ele operar. 
+Você não deve codificar a sua chave privada diretamente em sua configuração geral.
+Em vez disso, cada ambiente deve ter sua própria chave privada.
+É comum usar o ambiente do Mix para chaves em desenvolvimento e teste.
+Mas em staging e produção, você deve usar chaves fortes. 
+(e.g.
+gerados com <code class="highlighter-rouge">mix phoenix.gen.secret</code>)</p>
+
+<p><code class="highlighter-rouge">lib/my_app/guardian_serializer.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">GuardianSerializer</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Serializer</span>
+
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Repo</span>
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">User</span>
+
+  <span class="k">def</span> <span class="n">for_token</span><span class="p">(</span><span class="n">user</span> <span class="o">=</span> <span class="p">%</span><span class="no">User</span><span class="p">{}),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"User:</span><span class="si">#{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span>
+  <span class="k">def</span> <span class="n">for_token</span><span class="p">(</span><span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"Unknown resource type"</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="n">from_token</span><span class="p">(</span><span class="s2">"User:"</span> <span class="o">&lt;&gt;</span> <span class="n">id</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="n">id</span><span class="p">)}</span>
+  <span class="k">def</span> <span class="n">from_token</span><span class="p">(</span><span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"Unknown resource type"</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>O seu serializer é responsável por encontrar o recurso no campo <code class="highlighter-rouge">sub</code> (sujeito). 
+Isso pode ser uma busca em banco de dados, em uma API, ou até uma simples string.
+Ele ainda é responsável por serializar o recurso em um campo <code class="highlighter-rouge">sub</code>.</p>
+
+<p>Isso é para a configuração inicial.
+Há ainda muito mais que você pode fazer se você precisar mas para iniciar é o suficiente.</p>
+
+<h4 id="uso-na-aplicação">Uso na Aplicação</h4>
+
+<p>Agora que nós temos uma configuração feita para usar o Guardian, nós precisamos integrá-lo na aplicação. 
+Visto que essa é uma configuração mínima, vamos primeiro considerar requisições HTTP.</p>
+
+<h2 id="http-requests">HTTP requests</h2>
+
+<p>O Guardian fornece vários Plugs para facilitar a integração em requisições HTTP. 
+Você pode aprender sobre o Plug em uma <a href="../../specifics/plug/">outra lição</a>. 
+O Guardian não precisa do Phoenix, mas usar o Phoenix nos exemplos a seguir será mais fácil para demonstrar o uso.</p>
+
+<p>A maneira mais fácil de integrar com o HTTP é através de um router. 
+Já que as integrações do Guardian com o HTTP são todas baseadas em plugs, você pode usá-las em qualquer lugar que um plug pode ser usado.</p>
+
+<p>O fluxo geral do plug do Guardian é:</p>
+
+<ol>
+  <li>Encontra um token na requisição (em algum lugar) e verifica ele: <code class="highlighter-rouge">Verify*</code> plugs</li>
+  <li>Opcionalmente carrega o recurso indentificado no token: <code class="highlighter-rouge">LoadResource</code> plug</li>
+  <li>Garante que há um token válido para a requisição e recusa o acesso se não há. <code class="highlighter-rouge">EnsureAuthenticated</code> plug</li>
+</ol>
+
+<p>Para atender as necessidades de todos os desenvolvedores, o Guardian implementa essa fase separadamente. 
+Para encontrar o token use os plugs <code class="highlighter-rouge">Verify*</code></p>
+
+<p>Vamos criar alguns pipelines.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipeline</span> <span class="ss">:maybe_browser_auth</span> <span class="k">do</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">VerifySession</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">VerifyHeader</span><span class="p">,</span> <span class="ss">realm:</span> <span class="s2">"Bearer"</span><span class="p">)</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">LoadResource</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">pipeline</span> <span class="ss">:ensure_authed_access</span> <span class="k">do</span>
+  <span class="n">plug</span><span class="p">(</span><span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="no">EnsureAuthenticated</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"typ"</span> <span class="o">=&gt;</span> <span class="s2">"access"</span><span class="p">,</span> <span class="ss">handler:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">HttpErrorHandler</span><span class="p">})</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Esses pipelines podem ser usados para compor diferentes requisitos de autenticação. 
+O primeiro pipeline tenta encontrar um token primeiro na sessão e então tenta em um header.
+Se um é encontrado, ele vai carregar o recurso para você.</p>
+
+<p>O segundo pipeline exige que um token válido e verificado esteja presente e que seja do tipo “access”. 
+Para usar esses pipelines, adicione eles ao seu scope.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scope</span> <span class="s2">"/"</span><span class="p">,</span> <span class="no">MyApp</span> <span class="k">do</span>
+  <span class="n">pipe_through</span><span class="p">([</span><span class="ss">:browser</span><span class="p">,</span> <span class="ss">:maybe_browser_auth</span><span class="p">])</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:new</span><span class="p">)</span>
+  <span class="n">post</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:create</span><span class="p">)</span>
+  <span class="n">delete</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">,</span> <span class="no">LoginController</span><span class="p">,</span> <span class="ss">:delete</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">scope</span> <span class="s2">"/"</span><span class="p">,</span> <span class="no">MyApp</span> <span class="k">do</span>
+  <span class="n">pipe_through</span><span class="p">([</span><span class="ss">:browser</span><span class="p">,</span> <span class="ss">:maybe_browser_auth</span><span class="p">,</span> <span class="ss">:ensure_authed_access</span><span class="p">])</span>
+
+  <span class="n">resource</span><span class="p">(</span><span class="s2">"/protected/things"</span><span class="p">,</span> <span class="no">ProtectedController</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>As rotas de login acima vão ter o usuário autenticado se existir um. 
+O segundo scope acima garante que um token válido é passado para todas as ações. 
+Você não <em>precisa</em> colocar eles em pipelines, você poderia colocá-los em seus controllers para uma customização super flexível mas nós estamos fazendo uma configuração mínima.</p>
+
+<p>Nós estamos esquecendo de algo até agora. 
+O manipulador de erro adicionado no plug <code class="highlighter-rouge">EnsureAuthenticated</code>.
+Esse é um módulo muito simples que responde a</p>
+
+<ul>
+  <li><code class="highlighter-rouge">unauthenticated/2</code></li>
+  <li><code class="highlighter-rouge">unauthorized/2</code></li>
+</ul>
+
+<p>As duas funções recebem uma struct Plug.Conn e um map com parâmetros e deve lidar com os seus respectivos erros. 
+Você pode até usar um controller do Phoenix!</p>
+
+<h4 id="no-controller">No controller</h4>
+
+<p>Dentro do controller, há algumas opções de como acessar o usuário atualmente logado. 
+Vamos começar com o mais simples.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">MyController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Web</span><span class="p">,</span> <span class="ss">:controller</span>
+  <span class="kn">use</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Phoenix</span><span class="o">.</span><span class="no">Controller</span>
+
+  <span class="k">def</span> <span class="n">some_action</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">claims</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># do stuff</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ao usar o módulo <code class="highlighter-rouge">Guardian.Phoenix.Controller</code>, as suas ações vão receber dois argumentos adicionais que você pode usar pattern matching.
+Lembre, se você não usar <code class="highlighter-rouge">EnsureAuthenticated</code> você pode ter user e claims nulos.</p>
+
+<p>A outra versão - a mais flexível/verbosa - é usar plug helpers.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">MyController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Web</span><span class="p">,</span> <span class="ss">:controller</span>
+
+  <span class="k">def</span> <span class="n">some_action</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">authenticated?</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">current_resource</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="c1"># No user</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="loginlogout">Login/Logout</h4>
+
+<p>Fazer o login e logout de uma sessão do browser é muito simples. 
+No controller de login:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="n">find_the_user_and_verify_them_from_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="c1"># Use access tokens. </span>
+      <span class="c1"># Other tokens can be used, like :refresh etc</span>
+      <span class="n">conn</span>
+      <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:access</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">()</span>
+
+    <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="no">nil</span>
+      <span class="c1"># handle not verifying the user's credentials</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">delete</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">conn</span>
+  <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_out</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">()</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Quando usado para fazer o login de uma API, é levemente diferente porque não há sessão e você precisa fornecer o token puro de volta para o cliente.
+Para login de uma API você provavelmente usará o header <code class="highlighter-rouge">Authorization</code> para fornecer o token para a sua aplicação. 
+Esse método é útil quando você não pretende usar uma sessão.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="n">find_the_user_and_verify_them_from_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">jwt</span><span class="p">,</span> <span class="n">_claims</span><span class="p">}</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="n">encode_and_sign</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:access</span><span class="p">)</span>
+      <span class="n">conn</span> <span class="o">|&gt;</span> <span class="n">respond_somehow</span><span class="p">(%{</span><span class="ss">token:</span> <span class="n">jwt</span><span class="p">})</span>
+
+    <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="c1"># handle not verifying the user's credentials</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">delete</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">jwt</span> <span class="o">=</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">current_token</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+  <span class="no">Guardian</span><span class="o">.</span><span class="n">revoke!</span><span class="p">(</span><span class="n">jwt</span><span class="p">)</span>
+  <span class="n">respond_somehow</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>O login usando a sessão do browser executa <code class="highlighter-rouge">encode_and_sign</code> debaixo dos panos então pode usá-lo da mesma forma.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/pt/lessons/libraries/guardian.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pt/lessons/specifics/debugging/" title="Depuração">← Depuração</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/pt/lessons/libraries/poolboy/" title="Poolboy">Poolboy →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/libraries/guardian/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/libraries/guardian/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/libraries/guardian/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/libraries/guardian/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/libraries/guardian/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/libraries/guardian/" >pl</a>
+        
+      
+        
+        
+
+        
+          <strong >pt</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/libraries/guardian/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/libraries/guardian/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/libraries/guardian/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/libraries/guardian/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lições sobre a linguagem de programação Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/pt/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Básico</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/basics/">1. Básico</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/collections/">2. Coleções</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/control-structures/">5. Estruturas de Controle</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/functions/">6. Funções</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/pipe-operator/">7. Operador Pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/modules/">8. Módulos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/documentation/">11. Documentação</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/testing/">12. Testando</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/date-time/">15. Data e Tempo</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/mix-tasks/">16. Tarefas Mix Customizadas</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Avançado</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/erlang/">1. Interoperabilidade com Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/error-handling/">2. Tratamento de Erros</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/escripts/">3. Executáveis</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/concurrency/">4. Concorrência</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/otp-concurrency/">5. Concorrência OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/otp-supervisors/">6. Supervisores OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/metaprogramming/">8. Metaprogramação</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/umbrella-projects/">9. Projetos Guarda-chuva</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/typespec/">10. Especificações e tipos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/behaviours/">11. Comportamentos</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/ecto/basics/">1. Básico</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/ecto/associations/">3. Associações</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/ecto/querying/">4. Consultas</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Específico</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/eex/">2. Elixir embutido (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/specifics/debugging/">5. Depuração</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Bibliotecas</span>
+          <ul>
+        
+            <li>
+              
+              <span class="active">1. Guardian (Basics)</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/pt/lessons/libraries/distillery/">5. Distillery (Básico)</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/pt/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

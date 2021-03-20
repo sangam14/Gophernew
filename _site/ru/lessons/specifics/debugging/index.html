@@ -1,0 +1,918 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ru">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Уроки программирования на языке Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ru/lessons/specifics/debugging/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ru">
+  <meta property="og:description" content="Уроки программирования на языке Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/debugging/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/debugging/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ru/lessons/specifics/debugging/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Отладка &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ru/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ru/lessons/specifics/debugging/&title=Отладка&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ru/lessons/specifics/debugging/&via=elixirschool&text=ElixirSchool: Отладка&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ru/lessons/specifics/debugging/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ru/lessons/specifics/debugging/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Отладка" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ru/lessons/specifics/debugging/&title=ElixirSchool: Отладка&description=Check out 'Отладка' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Отладка&body=Check out 'Отладка' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ru/lessons/specifics/debugging/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Отладка
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      Некоторое содержимое этого урока может оказаться устаревшим.<br/>
+    
+
+    С момента последнего обновления перевода в оригинальный урок были внесены небольшие изменения.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Ошибки – неотъемлемая часть любого проекта, поэтому отладка очень важна. В этом уроке мы узнаем об отладке Elixir-кода и инструментах статического анализа, позволяющих находить потенциальные проблемы.</p>
+
+<h2>Содержание</h2>
+<div id="toc"></div>
+
+<h1 id="dialyxir-и-dialyzer">Dialyxir и Dialyzer</h1>
+
+<p><a href="http://erlang.org/doc/man/dialyzer.html">Dialyzer</a> – <strong>DI</strong>screpancy <strong>A</strong>na<strong>LYZ</strong>er for <strong>ER</strong>lang programs – инструмент статического анализа кода. Его задача – <em>не выполняя</em> сам программный код, проанализировать его на наличие ошибок, лишних выражений, недостижимых участков и т.д.</p>
+
+<p><a href="https://github.com/jeremyjh/dialyxir">Dialyxir</a> – это mix-команда, облегчающая использование <code class="highlighter-rouge">Dialyzer</code> в Elixir.</p>
+
+<p>Спецификации позволяют таким инструментам как <code class="highlighter-rouge">Dialyzer</code> лучше понимать код. В отличие от документации, которая может быть прочитана только живыми людьми (если она, конечно, существует и хорошо написана), <code class="highlighter-rouge">@spec</code> использует более формальный, понятный компьютеру синтаксис.</p>
+
+<p>Давайте добавим <code class="highlighter-rouge">Dialyxir</code> в наш проект. Проще всего сделать это, добавив зависимость в <code class="highlighter-rouge">mix.exs</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:dialyxir</span><span class="p">,</span> <span class="s2">"~&gt; 0.4"</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:dev</span><span class="p">]}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Теперь выполним:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+...
+<span class="nv">$ </span>mix deps.compile
+</code></pre></div></div>
+
+<p>Первая команда загрузит и установит <code class="highlighter-rouge">Dialyxir</code>. Возможно, вместе с ним понадобится установить также <code class="highlighter-rouge">Hex</code>. Вторая команда компилирует <code class="highlighter-rouge">Dialyxir</code>. Если вы хотите установить его глобально, пожалуйста, обратитесь к <a href="https://github.com/jeremyjh/dialyxir#installation">документации</a>.</p>
+
+<p>Последним шагом мы запустим <code class="highlighter-rouge">Dialyxir</code>, чтобы он построил PLT (Персистентную Таблицу Поиска). Это придется делать после установки каждой новой версии Erlang или Elixir. К счастью, <code class="highlighter-rouge">Dialyzer</code> не будет пытаться анализировать стандартную библиотеку при каждом использовании. На загрузку потребуется несколько минут.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer <span class="nt">--plt</span>
+Starting PLT Core Build ... this will take awhile
+dialyzer <span class="nt">--build_plt</span> <span class="nt">--output_plt</span> /.dialyxir_core_18_1.3.2.plt <span class="nt">--apps</span> erts kernel stdlib crypto public_key <span class="nt">-r</span> /Elixir/lib/elixir/../eex/ebin /Elixir/lib/elixir/../elixir/ebin /Elixir/lib/elixir/../ex_unit/ebin /Elixir/lib/elixir/../iex/ebin /Elixir/lib/elixir/../logger/ebin /Elixir/lib/elixir/../mix/ebin
+  Creating PLT /.dialyxir_core_18_1.3.2.plt ...
+...
+ <span class="k">done in </span>5m14.67s
+<span class="k">done</span> <span class="o">(</span>warnings were emitted<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="статический-анализ-кода">Статический анализ кода</h2>
+
+<p>Все готово к использованию <code class="highlighter-rouge">Dialyxir</code>:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+examples.ex:3: Invalid <span class="nb">type </span>specification <span class="k">for function</span> <span class="s1">'Elixir.Examples'</span>:sum_times/1. The success typing is <span class="o">(</span>_<span class="o">)</span> -&gt; number<span class="o">()</span>
+...
+</code></pre></div></div>
+
+<p>Сообщение от <code class="highlighter-rouge">Dialyzer</code> понятно: тип возвращаемого значения нашей функции <code class="highlighter-rouge">sum_times/1</code> отличается от объявленного. Причина в том, что <code class="highlighter-rouge">Enum.sum/1</code> возвращает число типа <code class="highlighter-rouge">number</code>, а не <code class="highlighter-rouge">integer</code>, но при этом заявлено, что <code class="highlighter-rouge">sum_times/1</code> возвращает <code class="highlighter-rouge">integer</code>.</p>
+
+<p>Поскольку <code class="highlighter-rouge">number</code> это не <code class="highlighter-rouge">integer</code> мы получаем ошибку. Как её исправить? Нужно использовать функцию <code class="highlighter-rouge">round/1</code>, чтобы превратить число типа <code class="highlighter-rouge">number</code> в <code class="highlighter-rouge">integer</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">round</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>И теперь:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+  Proceeding with analysis... <span class="k">done in </span>0m0.95s
+<span class="k">done</span> <span class="o">(</span>passed successfully<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Использование спецификаций вместе с инструментами статического анализа позволяет писать код, тестирующий сам себя и содержащий меньше ошибок.</p>
+
+<h1 id="отладка">Отладка</h1>
+
+<p>Иногда статического анализа кода не достаточно. Часто, чтобы найти ошибки, нужно понять логику выполнения программы. Самый простой способ – это добавить в наш код выражения вывода, такие как <code class="highlighter-rouge">IO.puts/2</code>, чтобы отследить значения переменных и ход выполнения. Однако он примитивен и обладает рядом ограничений. К счастью для нас, мы можем использовать отладчик Erlang для работы с Elixir-кодом.</p>
+
+<p>Взглянем на простейший модуль:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">cpu_burns</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="mi">5</span>
+
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Теперь запустим <code class="highlighter-rouge">iex</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>И отладчик:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:debugger</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.307.0&gt;}</span>
+</code></pre></div></div>
+
+<p>Модуль <code class="highlighter-rouge">:debugger</code> отвечает за доступ к отладчику. Функция <code class="highlighter-rouge">start/1</code> позволяет настраивать его:</p>
+
+<ul>
+  <li>Можно передать в качестве аргумента путь к внешнему файлу конфигураций.</li>
+  <li>Дополнительные аргументы <code class="highlighter-rouge">:local</code> и <code class="highlighter-rouge">:global</code> оказывают следующий эффект:
+    <ul>
+      <li><code class="highlighter-rouge">:global</code> – отладчик будет интерпретировать код на всех известных нодах. Это аргумент по умолчанию.</li>
+      <li><code class="highlighter-rouge">:local</code> – отладчик будет интерпретировать код только на текущей ноде.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Следующим шагом подключим наш модуль к отладчику:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">ni</span><span class="p">(</span><span class="no">Example</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:module</span><span class="p">,</span> <span class="no">Example</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Модуль <code class="highlighter-rouge">:int</code> – это интерпретатор, дающий возможность ставить точки останова и пошагово выполнять код программы.</p>
+
+<p>Когда вы запустите отладчик вы увидите примерно такое окно:</p>
+
+<p><img src="/assets/debugger_1-98405f919dea64207148bd2434268c300ce63a4de05b3c242aea8216a001eff9.png" alt="Скриншот отладчика 1" /></p>
+
+<p>После того, как мы подключили наш модуль к отладчику, он появится в меню слева:</p>
+
+<p><img src="/assets/debugger_2-bbb5ca6bc547fbdf1a87021e6f0ab830b03edbc5a3ea3627da6ec869a5f6e9e1.png" alt="Скриншот отладчика 2" /></p>
+
+<h2 id="точки-останова">Точки останова</h2>
+
+<p>Точка останова – это точка в коде, где выполнение программы будет остановлено. Есть два способа поставить точку останова:</p>
+
+<ul>
+  <li>вызвать <code class="highlighter-rouge">:int.break/2</code> в нашем коде</li>
+  <li>через графический интерфейс</li>
+</ul>
+
+<p>Попробуем поставить точку останова в IEx:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Точка установлена в строке 8 модуля <code class="highlighter-rouge">Example</code>. Теперь, когда мы вызовем нашу функцию:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">cpu_burns</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Выполнение поставится на паузу и окно отладчика будет выглядеть следующим образом:</p>
+
+<p><img src="/assets/debugger_3-a102cae7d61b9a645424defbbb3a74af29f37c5739b0635c12d81efc567e85f0.png" alt="Скриншот отладчика 3" /></p>
+
+<p>Также появится дополнительное окно с нашим исходным кодом:</p>
+
+<p><img src="/assets/debugger_4-4083df8f049c34f813d3bbbe173d49324498f3be96616d11e94f82d5de8b5ff1.png" alt="Скриншот отладчика 4" /></p>
+
+<p>В этом окне можно просмотреть значения переменных, выполнить следующую строку кода или произвольное выражение. Функция <code class="highlighter-rouge">:int.disable_break/2</code> позволяет деактивировать точку останова:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">disable_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Реактивировать точку останова можно вызовом функции <code class="highlighter-rouge">:int.enable_break/2</code>. Удалить точку совсем можно так:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">delete_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Все те же операции доступны в окне отладчика. В верхнем меню <strong>Break</strong> при помощи <strong>Line Break</strong> можно поставить точку останова. Если мы выберем строку, не содержащую кода, точка останова будет проигнорирована интерпретатором, но отобразится в окне отладчика. Есть три типа точек останова:</p>
+
+<ul>
+  <li>Точка останова в строке – отладчик остановит выполнение сразу же, как только мы достигнем нужной строки. Ставится при помощи <code class="highlighter-rouge">:int.break/2</code></li>
+  <li>Условная точка останова – похожа на предыдущую, но отладчик остановит ход выполнения, только если выполнится определенное условие. Ставится функцией <code class="highlighter-rouge">:int.get_binding/2</code></li>
+  <li>Точка останова в функции – отладчик остановит ход выполнения на первой строке функции. Устанавливается вызовом <code class="highlighter-rouge">:int.break_in/3</code></li>
+</ul>
+
+<p>Вот и всё! Счастливой отладки!</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ru/lessons/specifics/debugging.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/specifics/mnesia/" title="Mnesia">← Mnesia</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/libraries/guardian/" title="Guardian (Основы)">Guardian (Основы) →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/debugging/" title="Английский / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/specifics/debugging/" title="Греческий">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/debugging/" title="Японский / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/debugging/" title="Корейский">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/specifics/debugging/" title="Португальский">pt</a>
+        
+      
+        
+        
+
+        
+          <strong title="Русский">ru</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/debugging/" title="Китайский">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/debugging/" title="Китайский традиционный">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Меню</h2>
+    <p>Уроки программирования на языке Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ru/" class=" up ">Домашняя страница</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Основы</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/basics/">1. Основы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/collections/">2. Коллекции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pattern-matching/">4. Сопоставление с образцом</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/control-structures/">5. Управляющие конструкции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/functions/">6. Функции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pipe-operator/">7. Оператор конвейера</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/modules/">8. Модули</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/sigils/">10. Строковые метки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/documentation/">11. Документирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/testing/">12. Тестирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/comprehensions/">13. Списковые включения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/strings/">14. Строки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/date-time/">15. Дата и время</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix-tasks/">16. Пользовательские Mix-задачи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/iex-helpers/">17. IEx функции</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Продвинутый</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/erlang/">1. Взаимодействие с Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/error-handling/">2. Обработка ошибок</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/escripts/">3. Исполняемые файлы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/concurrency/">4. Параллелизм</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-concurrency/">5. Параллелизм в OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-supervisors/">6. OTP Супервизоры</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/metaprogramming/">8. Метапрограммирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/umbrella-projects/">9. Зонтичные проекты</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/typespec/">10. Спецификации и типы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/behaviours/">11. Поведения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/protocols/">13. Протоколы</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/changesets/">2. Наборы изменений</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/associations/">3. Связи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/querying/">4. Язык запросов</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Специфика</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. Отладка</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Библиотеки</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/guardian/">1. Guardian (Основы)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Блог</a>
+    </li>
+    
+    <li>
+      <a href="/ru/report/" class=" up ">Состояние перевода</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Участники</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,1149 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hans">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 编程语言教程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hans/lessons/advanced/otp-distribution/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hans">
+  <meta property="og:description" content="Elixir 编程语言教程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/otp-distribution/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/otp-distribution/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hans/lessons/advanced/otp-distribution/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>OTP 分布式 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hans/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hans/lessons/advanced/otp-distribution/&title=OTP 分布式&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hans/lessons/advanced/otp-distribution/&via=elixirschool&text=ElixirSchool: OTP 分布式&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hans/lessons/advanced/otp-distribution/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hans/lessons/advanced/otp-distribution/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: OTP 分布式" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hans/lessons/advanced/otp-distribution/&title=ElixirSchool: OTP 分布式&description=Check out 'OTP 分布式' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: OTP 分布式&body=Check out 'OTP 分布式' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hans/lessons/advanced/otp-distribution/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  OTP 分布式
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    This translation is up to date.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <h2 id="分布式简介">分布式简介</h2>
+
+<p>我们可以把我们的 Elixir 应用运行分布在单主机，或者多主机的不同的节点上。Elixir 允许这些不同的节点通过以下课程中列出来的不同的机制来相互通信。</p>
+
+<h2>目录</h2>
+<div id="toc"></div>
+
+<h2 id="节点间通信">节点间通信</h2>
+
+<p>Elixir 运行在 Erlang 虚拟机之上，也就意味着它拥有了 Erlang 强大的<a href="http://erlang.org/doc/reference_manual/distributed.html">分布式特性。</a></p>
+
+<blockquote>
+  <p>一个分布式 Erlang 系统由相互沟通的 Erlang 运行环境组成。每个这样的环境称之为一个节点。</p>
+</blockquote>
+
+<p>一个节点就是赋予了名字的 Erlang 运行环境。我们可以通过打开 <code class="highlighter-rouge">iex</code> 会话，并设置名称的方式来启动一个节点：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost
+iex<span class="o">(</span>alex@localhost<span class="o">)&gt;</span>
+</code></pre></div></div>
+
+<p>然后我们可以在另一个命令行窗口启动另一个节点：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost
+iex<span class="o">(</span>kate@localhost<span class="o">)&gt;</span>
+</code></pre></div></div>
+
+<p>这两个节点可以通过 <code class="highlighter-rouge">Node.spawn_link/2</code> 来相互发送消息。</p>
+
+<h3 id="通过-nodespawn_link2-来通信">通过 <code class="highlighter-rouge">Node.spawn_link/2</code> 来通信</h3>
+
+<p>这个函数需要接收两个参数：</p>
+
+<ul>
+  <li>需要连接的节点名称</li>
+  <li>需要远程节点运行的函数</li>
+</ul>
+
+<p>它会和远程节点建立连接，然后在对方那运行指定的函数，然后返回关联进程的 PID。</p>
+
+<p>让我们先定义一个模块，<code class="highlighter-rouge">Kate</code>，在 <code class="highlighter-rouge">kate</code> 节点上，并懂得如何介绍 Kate 这个人：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">defmodule</span> <span class="no">Kate</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">def</span> <span class="n">say_name</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>     <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hi, my name is Kate"</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">end</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="发送消息">发送消息</h4>
+
+<p>现在，我们就可以使用 <a href="https://hexdocs.pm/elixir/Node.html#spawn_link/2"><code class="highlighter-rouge">Node.spawn_link/2</code></a> 来让 <code class="highlighter-rouge">alex</code> 节点要求 <code class="highlighter-rouge">kate</code> 节点运行 <code class="highlighter-rouge">say_name/0</code> 这个函数：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Node</span><span class="o">.</span><span class="n">spawn_link</span><span class="p">(</span><span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">Kate</span><span class="o">.</span><span class="n">say_name</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">Hi</span><span class="p">,</span> <span class="n">my</span> <span class="n">name</span> <span class="n">is</span> <span class="no">Kate</span>
+<span class="c1">#PID&lt;10507.132.0&gt;</span>
+</code></pre></div></div>
+
+<h4 id="关于-io-和节点要注意的地方">关于 I/O 和节点要注意的地方</h4>
+
+<p>注意到，尽管 <code class="highlighter-rouge">Kate.say_name/0</code> 是在远程节点调用的，但确实本地，或者说调用节点这里接收到 <code class="highlighter-rouge">IO.puts</code> 的输出。</p>
+
+<p>这是因为本地节点是 <strong>群组领导节点（group leader）</strong>。Erlang 虚拟机通过进程来管理 I/O。这就使得我们可以在分布式的节点间执行 I/O 操作，比如 <code class="highlighter-rouge">IO.puts</code>。这些分布式的进程是通过群组领导节点的 I/O 进程来管理的。群组领导节点总是发起进程的那个节点。</p>
+
+<p>因为 <code class="highlighter-rouge">alex</code> 节点是我们调用 <code class="highlighter-rouge">spawn_link/2</code> 函数的节点，所以它就是群组领导节点，<code class="highlighter-rouge">IO.puts</code> 的返回也会指向这个节点的标准输出流上。</p>
+
+<h4 id="回应消息">回应消息</h4>
+
+<p>如果我们希望接收到消息的节点发送某些 <strong>回应</strong> 到发送方？我们可以简单的使用 <code class="highlighter-rouge">receive/1</code> 和 <a href="https://hexdocs.pm/elixir/Process.html#send/3"><code class="highlighter-rouge">send/3</code></a> 来实现这一点。</p>
+
+<p>我们可以让 <code class="highlighter-rouge">alex</code> 节点建立一个通道到 <code class="highlighter-rouge">kate</code> 节点，并指定 <code class="highlighter-rouge">kate</code> 节点运行某个匿名函数。这个匿名函数会监听是否收到某个描述了特定消息和 <code class="highlighter-rouge">alex</code> 节点 PID 的元组。如果收到了这个元组消息，它就会通过相应的 PID 回应一条消息到 <code class="highlighter-rouge">alex</code> 节点上：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">pid</span> <span class="o">=</span> <span class="no">Node</span><span class="o">.</span><span class="n">spawn_link</span> <span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">receive</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>     <span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="n">alex_node_pid</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">send</span> <span class="n">alex_node_pid</span><span class="p">,</span> <span class="ss">:sup?</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">end</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">end</span>
+<span class="c1">#PID&lt;10467.112.0&gt;</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">pid</span>
+<span class="c1">#PID&lt;10467.112.0&gt;</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">send</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="n">self</span><span class="p">()})</span>
+<span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="c1">#PID&lt;0.106.0&gt;}</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">flush</span><span class="p">()</span>
+<span class="ss">:sup?</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<h4 id="关于跨网络间的节点通信">关于跨网络间的节点通信</h4>
+
+<p>如果你希望在不同网络间的节点之间发送消息，我们需要在启动命名节点的时候提供相同的一个 cookie：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">--cookie</span> secret_token
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">--cookie</span> secret_token
+</code></pre></div></div>
+
+<p>只有拿着相同 <code class="highlighter-rouge">cookie</code> 启动的节点才能够成功相互通信。</p>
+
+<h4 id="nodespawn_link2-的限制"><code class="highlighter-rouge">Node.spawn_link/2</code> 的限制</h4>
+
+<p>虽然 <code class="highlighter-rouge">Node.spawn_link/2</code> 很好阐明节点之间的关系，以及我们在它们之间发送消息的方式，但是，它 <strong>不是</strong> 在分布式节点中运行的应用之间传递消息的好的做法。<code class="highlighter-rouge">Node.spawn_link/2</code> 会创建出独立的进程，也就是不受监管的进程。如果能有 <strong>跨节点</strong> 之间创建出受监管的异步进程的话…</p>
+
+<h2 id="分布式任务">分布式任务</h2>
+
+<p><a href="https://hexdocs.pm/elixir/master/Task.html#module-distributed-tasks">分布式任务</a> 允许我们在节点之间创建出受监管的任务。我们通过一个简单的 supervisor 应用来实现分布式任务，允许用户通过 <code class="highlighter-rouge">iex</code> 会话来在分布式的节点之间相互通信。</p>
+
+<h3 id="定义一个-supervisor-应用">定义一个 Supervisor 应用</h3>
+
+<p>生成应用：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix new chat --sup
+</code></pre></div></div>
+
+<h3 id="把-task-suppervisor-加入到-supervision-tree">把 Task Suppervisor 加入到 Supervision Tree</h3>
+
+<p>Task Supervisor 动态监管任务。它启动的时候并没有任何子进程，通常只是在自己的 supervisor <strong>监管之下</strong>。后面我们可以让它监管任何数量的子任务。</p>
+
+<p>我们会把 Task Supervisor 添加到我们应用的 supervision tree 里面，并且命名为 <code class="highlighter-rouge">Chat.TaskSupervisor</code>。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat/application.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="no">false</span>
+
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Chat</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>这样，无论我们的应用在哪一个节点启动，<code class="highlighter-rouge">Chat.Supervisor</code> 就会运行并随时准备监管任务。</p>
+
+<h3 id="使用受监管的任务发送消息">使用受监管的任务发送消息</h3>
+
+<p>我们会使用 <a href="https://hexdocs.pm/elixir/master/Task.Supervisor.html#async/5"><code class="highlighter-rouge">Task.Supervisor.async/5</code></a> 函数来启动监管任务。</p>
+
+<p>这个函数需要四个参数：</p>
+
+<ul>
+  <li>我们想用来监管任务的 supervisor。为了让远程节点来监管任务，我们可以传入一个 <code class="highlighter-rouge">{SupervisorName, remote_node_name}</code> 的元组。</li>
+  <li>要执行的函数所在的模块名</li>
+  <li>要执行的函数名</li>
+  <li>任何需要传入函数的参数</li>
+</ul>
+
+<p>我们还可以传入第五个，可选的参数来设置 shutdown 选项。不过这里我们暂时不考虑这个问题。</p>
+
+<p>我们的 Chat 应用非常简单。它发送消息到远程节点，然后远程节点通过 <code class="highlighter-rouge">IO.puts</code> 的方式来给予相应，通过远程节点的标准输出。</p>
+
+<p>首先，我们来定义一个函数，<code class="highlighter-rouge">Chat.receive_message/1</code>。这是我们要在远程节点运行的任务。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">receive_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="n">message</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>然后，我们需要让 <code class="highlighter-rouge">Chat</code> 模块懂得如何使用受监管的任务发送消息到一个远程的节点。我们再定义一个方法 <code class="highlighter-rouge">Chat.send_message/2</code> 来实现这个功能：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span> <span class="k">do</span>
+  <span class="o">...</span>
+
+  <span class="k">def</span> <span class="n">send_message</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">spawn_task</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:receive_message</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="p">[</span><span class="n">message</span><span class="p">])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">spawn_task</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">recipient</span>
+    <span class="o">|&gt;</span> <span class="n">remote_supervisor</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>让我们来运行一下看看。</p>
+
+<p>在一个命令行窗口，通过一个命名的 <code class="highlighter-rouge">iex</code> 会话来启动我们的 chat 应用。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>打开另一个命令行窗口，启动另一个命名的节点和应用：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>现在，通过 <code class="highlighter-rouge">alex</code> 节点，我们可以这样发送消息到 <code class="highlighter-rouge">kate</code> 节点：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>切换到 <code class="highlighter-rouge">kate</code> 窗口，你会看到这条消息：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">kate</code> 节点也可以回应 <code class="highlighter-rouge">alex</code> 节点：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+<span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:alex</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"how are you?"</span><span class="p">)</span>
+<span class="ss">:ok</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>同样，在 <code class="highlighter-rouge">alex</code> 节点的 <code class="highlighter-rouge">iex</code> 会话会出现：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">how</span> <span class="n">are</span> <span class="n">you?</span>
+</code></pre></div></div>
+
+<p>让我们来回顾我们的实现代码，并深入分析每一步到底发生了什么。</p>
+
+<p>首先，函数 <code class="highlighter-rouge">Chat.send_message/2</code> 接收了两个参数：要运行监管任务的远程节点名，和要发送的消息。</p>
+
+<p>这个函数调用了 <code class="highlighter-rouge">spawn_task/4</code> 函数，也就在相应的节点启动运行了一个异步任务，同时受到远程节点的 <code class="highlighter-rouge">Chat.TaskSupervisor</code> 监管。我们知道，名为 <code class="highlighter-rouge">Chat.TaskSupervisor</code> 的 Task Supervisor 运行在那个远程节点。这是因为在我们的 Chat 应用实例 <strong>也</strong> 在那个节点里面运行，并且 <code class="highlighter-rouge">Chat.TaskSupervisor</code> 也作为 supervision tree 的一部分在运行着。</p>
+
+<p>我们让 <code class="highlighter-rouge">Chat.TaskSupervisor</code> 监管的任务是负责执行 <code class="highlighter-rouge">Chat.receive_message</code> 函数。其中的参数是 <code class="highlighter-rouge">send_message/2</code> 接收的任何消息，再经 <code class="highlighter-rouge">spawn_task/4</code> 传递过来。</p>
+
+<p>所以，<code class="highlighter-rouge">Chat.receive_message("hi")</code> 是在远程节点 <code class="highlighter-rouge">kate</code> 调用的。那么，消息 <code class="highlighter-rouge">"hi"</code> 也就显示在那个节点的标准输出上。在这个例子，因为任务是被远程节点监管，所以那个节点也就成为这次 IO 进程的群组领导节点。</p>
+
+<h3 id="回应远程节点发送过来的消息">回应远程节点发送过来的消息</h3>
+
+<p>让我们把这个 Chat 应用变得更智能一些吧。</p>
+
+<p>目前，任何人都可以在一个命名的 <code class="highlighter-rouge">iex</code> 会话运行这个应用，开始聊天。但是，比如说一直中型白色，名为 Moebi 的狗也希望能参与进来。Moebi 希望能加入 Chat 应用，但是可惜的是它不懂得如何打字，因为它是一只狗嘛。所以，我们希望 <code class="highlighter-rouge">Chat</code> 模块能帮 Moebi 回复任何发送到 <code class="highlighter-rouge">moebi@localhost</code> 节点的消息。无论你对 Moebi 说什么，它总是回复 <code class="highlighter-rouge">"chicken?"</code>。因为它的唯一希望就是能吃鸡。</p>
+
+<p>我们来定义另一个版本的 <code class="highlighter-rouge">send_message/2</code> 函数，让它能模式匹配 <code class="highlighter-rouge">recipient</code> 参数。如果接收方是 <code class="highlighter-rouge">:moebi@locahost</code>，我们就会：</p>
+
+<ul>
+  <li>通过 <code class="highlighter-rouge">Node.self()</code> 来获取当前节点的名字</li>
+  <li>把当前节点，也就是消息发送方，的名字，传到新的函数 <code class="highlighter-rouge">receive_message_for_moebi/2</code>，使得我们可以给它 <strong>返回</strong> 消息。</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="o">...</span>
+<span class="k">def</span> <span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">spawn_task</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:receive_message_for_moebi</span><span class="p">,</span> <span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="p">[</span><span class="n">message</span><span class="p">,</span> <span class="no">Node</span><span class="o">.</span><span class="n">self</span><span class="p">()])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>接下来，我们定义函数 <code class="highlighter-rouge">receive_message_for_moebi/2</code>，在使用 <code class="highlighter-rouge">IO.puts</code> 在 <code class="highlighter-rouge">moebi</code> 节点的标准输出打印消息的同时，<em>也</em> 把消息返回给发送方：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="o">...</span>
+<span class="k">def</span> <span class="n">receive_message_for_moebi</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">from</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="n">message</span>
+  <span class="n">send_message</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="s2">"chicken?"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>通过调用 <code class="highlighter-rouge">send_message/2</code> 函数并传入原始消息发送方的节点名称，我们就让 <strong>远程的</strong> 节点在那边创建出一个受监管的任务。</p>
+
+<p>让我们来看看实际效果。在三个不同的命令行窗口，启动三个不同的命名节点：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> moebi@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>让我们请 <code class="highlighter-rouge">alex</code> 发送消息给 <code class="highlighter-rouge">moebi</code>：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span>
+<span class="n">chicken?</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>我们可以看到，<code class="highlighter-rouge">alex</code> 节点收到了回应，<code class="highlighter-rouge">"chicken?"</code>。如果我们查看 <code class="highlighter-rouge">kate</code> 节点，它没有收到任何消息，因为 <code class="highlighter-rouge">alex</code> 和 <code class="highlighter-rouge">moebi</code> 都没有给她发送消息（对不起，<code class="highlighter-rouge">kate</code>）。如果我们查看 <code class="highlighter-rouge">moebi</code> 节点的命令行窗口，我们会看到 <code class="highlighter-rouge">alex</code> 节点发送过来的消息：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">moebi</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+</code></pre></div></div>
+
+<h2 id="测试分布式代码">测试分布式代码</h2>
+
+<p>让我们来给我们的 <code class="highlighter-rouge">send_message</code> 函数编写一个简单的测试用例吧。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># test/chat_test.ex</span>
+<span class="k">defmodule</span> <span class="no">ChatTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span><span class="p">,</span> <span class="ss">async:</span> <span class="no">true</span>
+  <span class="n">doctest</span> <span class="no">Chat</span>
+
+  <span class="n">test</span> <span class="s2">"send_message"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span> <span class="o">==</span> <span class="ss">:ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>如果我们通过 <code class="highlighter-rouge">mix test</code> 运行这个测试，我们会看到以下错误信息：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">**</span> <span class="p">(</span><span class="k">exit</span><span class="p">)</span> <span class="n">exited</span> <span class="ow">in</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">({</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">},</span> <span class="p">{</span><span class="ss">:start_task</span><span class="p">,</span> <span class="p">[</span><span class="c1">#PID&lt;0.158.0&gt;, :monitor, {:sophie@localhost, #PID&lt;0.158.0&gt;}, {Chat, :receive_message_for_moebi, ["hi", :sophie@localhost]}], :temporary, nil}, :infinity)</span>
+         <span class="o">**</span> <span class="p">(</span><span class="no">EXIT</span><span class="p">)</span> <span class="n">no</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">moebi</span><span class="nv">@localhost</span>
+</code></pre></div></div>
+
+<p>这个错误信息太正常不过了 —— 我们怎么可能连接到一个名为 <code class="highlighter-rouge">moebi@localhost</code> 的节点呢？因为根本没有这样一个节点在运行啊。</p>
+
+<p>我们可以通过下面几个步骤来让这个测试得以通过：</p>
+
+<ul>
+  <li>打开另一个命令行窗口，运行命令 <code class="highlighter-rouge">iex --sname moebi@localhost -S mix</code> 来启动一个命名的节点</li>
+  <li>回到第一个命令行窗口，通过一个 <code class="highlighter-rouge">iex</code> 会话来启动一个命名的几点并运行这个测试：<code class="highlighter-rouge">iex --sname sophie@localhost -S mix test</code></li>
+</ul>
+
+<p>显然，这么麻烦，而且这绝对不能算是自动化测试的过程。</p>
+
+<p>我们有两种不同的选择：</p>
+
+<ol>
+  <li>
+    <p>选择性的排除掉一些需要分布式节点的测试，如果相应的节点没有在运行的话。</p>
+  </li>
+  <li>
+    <p>通过配置你的应用，避免在测试环境创建任务到远程节点。</p>
+  </li>
+</ol>
+
+<p>让我们来看看第一种方式怎么处理。</p>
+
+<h3 id="通过标签来选择性的排除测试用例">通过标签来选择性的排除测试用例</h3>
+
+<p>我们需要添加一个 <code class="highlighter-rouge">ExUnit</code> tag 到测试用例之上：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#test/chat_test.ex</span>
+<span class="k">defmodule</span> <span class="no">ChatTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span><span class="p">,</span> <span class="ss">async:</span> <span class="no">true</span>
+  <span class="n">doctest</span> <span class="no">Chat</span>
+
+  <span class="nv">@tag</span> <span class="ss">:distributed</span>
+  <span class="n">test</span> <span class="s2">"send_message"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span> <span class="o">==</span> <span class="ss">:ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>然后，我们就可以在测试的 helper 模块添加一些条件逻辑，使得那些拥有特定标签的测试用例，当不是运行在一个命名的节点的时侯，被排除在外。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">exclude</span> <span class="o">=</span>
+  <span class="k">if</span> <span class="no">Node</span><span class="o">.</span><span class="n">alive?</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="p">[],</span> <span class="k">else</span><span class="p">:</span> <span class="p">[</span><span class="ss">distributed:</span> <span class="no">true</span><span class="p">]</span>
+
+<span class="no">ExUnit</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="ss">exclude:</span> <span class="n">exclude</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>我们可以通过 <a href="https://hexdocs.pm/elixir/Node.html#alive?/0"><code class="highlighter-rouge">Node.alive?</code></a> 来检查一个节点是不是运行中，也就是是否在一个分布式的系统中。如果不是，我们可以让 <code class="highlighter-rouge">ExUnit</code> 来跳过打上了 <code class="highlighter-rouge">distributed: true</code> 标签的测试。反之，则不需要排除那些测试。</p>
+
+<p>现在，如果我们直接运行 <code class="highlighter-rouge">mix test</code>，我们就会看到：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix <span class="nb">test
+</span>Excluding tags: <span class="o">[</span>distributed: <span class="nb">true</span><span class="o">]</span>
+
+Finished <span class="k">in </span>0.02 seconds
+1 <span class="nb">test</span>, 0 failures, 1 excluded
+</code></pre></div></div>
+
+<p>如果我们想运行那些分布式测试，我们仅仅需要按照上面列出来的步骤：运行 <code class="highlighter-rouge">moebi@localhost</code> 节点，<strong>并且</strong> 通过 <code class="highlighter-rouge">iex</code> 来在一个命名的节点中运行测试。</p>
+
+<p>让我们来看看另一种测试方式 —— 配置应用程序使得它在不同的环境有不同的表现行为。</p>
+
+<h3 id="应用的特定环境配置">应用的特定环境配置</h3>
+
+<p>我们那些让 <code class="highlighter-rouge">Task.Supervisor</code> 在远程节点启动一个受监管的任务的代码是这样的：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># app/chat.ex</span>
+<span class="k">def</span> <span class="n">spawn_task</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">recipient</span>
+  <span class="o">|&gt;</span> <span class="n">remote_supervisor</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">()</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Task.Supervisor.async/5</code> 接收的第一个参数是我们希望使用的 supervisor。如果我们传入的参数是 <code class="highlighter-rouge">{SupervisorName, location}</code> 这种格式的元组，它就会在给定的节点运行这个 supervisor。但是，如果我们传入 <code class="highlighter-rouge">Task.Supervisor</code> 的第一个参数仅仅只是 supervisor 的名字，它就会在本地的 supervisor 来监管这个任务。</p>
+
+<p>让我们把 <code class="highlighter-rouge">remote_supervisor/1</code> 函数改造成基于环境的可配置化。在开发环境，它就返回 <code class="highlighter-rouge">{Chat.TaskSupervisor, recipient}</code>，在测试环境，它就返回 <code class="highlighter-rouge">Chat.TaskSupervisor</code>。</p>
+
+<p>我们通过应用的环境变量来实现。</p>
+
+<p>创建文件，<code class="highlighter-rouge">config/dev.exs</code>，然后加入：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config/dev.exs</span>
+<span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+<span class="n">config</span> <span class="ss">:chat</span><span class="p">,</span> <span class="ss">remote_supervisor:</span> <span class="k">fn</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p>创建另一个文件，<code class="highlighter-rouge">config/test.exs</code>，然后加入：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config/test.exs</span>
+<span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+<span class="n">config</span> <span class="ss">:chat</span><span class="p">,</span> <span class="ss">remote_supervisor:</span> <span class="k">fn</span><span class="p">(</span><span class="n">_recipient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p>把 <code class="highlighter-rouge">config/config.exs</code> 内的以下这行前面的注释去掉：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import_config</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="p">()</span><span class="si">}</span><span class="s2">.exs"</span>
+</code></pre></div></div>
+
+<p>最后，我们把 <code class="highlighter-rouge">Chat.remote_supervisor/1</code> 函数修改为查找和使用定义好的新应用变量：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:chat</span><span class="p">,</span> <span class="ss">:remote_supervisor</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="总结">总结</h2>
+
+<p>Elixir 的原生分布式能力，当然还是应当感谢 Erlang VM 的强大能力，是其中一个让 Elixir 如此强大的特性。我们可以想象，通过 Elixir 的能力，运用分布式计算的方式来运行后台并行任务，对高性能应用的支持，和执行一些昂贵的操作，等等。</p>
+
+<p>本教程让我们了解到 Elixir 的基本的分布式的概念，并且介绍了开始打造分布式应用的工具。通过使用监管任务，我们就能在分布式应用的不同节点之间发送消息。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hans/lessons/advanced/otp-distribution.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/advanced/otp-supervisors/" title="OTP Supervisors">← OTP Supervisors</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hans/lessons/advanced/metaprogramming/" title="元编程">元编程 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/otp-distribution/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/otp-distribution/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/otp-distribution/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hans</strong>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/otp-distribution/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 编程语言教程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hans/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">基础</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/basics/">1. 基础</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/enum/">3. Enum 模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pattern-matching/">4. 模式匹配</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/control-structures/">5. 控制语句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/functions/">6. 函数</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/pipe-operator/">7. 管道操作符</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/modules/">8. 模块（Module）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/sigils/">10. 魔符(Sigil)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/documentation/">11. 文档模块</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/testing/">12. 测试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/comprehensions/">13. 推导</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/strings/">14. 字符串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/date-time/">15. 日期和时间</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/mix-tasks/">16. 自定义 Mix 任务</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/basics/iex-helpers/">17. IEx 辅助函数</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">高级</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/erlang/">1. 和 Erlang 互操作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/error-handling/">2. 错误处理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/escripts/">3. 可执行文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/concurrency/">4. 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-concurrency/">5. OTP 并发</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">7. OTP 分布式</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/metaprogramming/">8. 元编程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/behaviours/">11. 行为</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/advanced/protocols/">13. 协议</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/associations/">3. 关联关系</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/ecto/querying/">4. 查询</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">专题</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/eex/">2. 嵌入的 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/ets/">3. Erlang 项式存储 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/mnesia/">4. Mnesia 数据库</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/debugging/">5. 调试</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">程序库</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/guardian/">1. Guardian（基础）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/distillery/">5. Distillery (基础)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hans/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hans/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

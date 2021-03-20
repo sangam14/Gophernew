@@ -1,0 +1,1164 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="The premier destination for learning and mastering Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/en/lessons/advanced/otp-distribution/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="en">
+  <meta property="og:description" content="The premier destination for learning and mastering Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/otp-distribution/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/otp-distribution/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/otp-distribution/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/en/lessons/advanced/otp-distribution/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>OTP Distribution &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/en/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/en/lessons/advanced/otp-distribution/&title=OTP Distribution&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/en/lessons/advanced/otp-distribution/&via=elixirschool&text=ElixirSchool: OTP Distribution&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/en/lessons/advanced/otp-distribution/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/en/lessons/advanced/otp-distribution/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: OTP Distribution" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/en/lessons/advanced/otp-distribution/&title=ElixirSchool: OTP Distribution&description=Check out 'OTP Distribution' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: OTP Distribution&body=Check out 'OTP Distribution' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/en/lessons/advanced/otp-distribution/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+      <h1>OTP Distribution</h1>
+    
+  </header>
+  <div class="content">
+    <h2 id="introduction-to-distribution">Introduction to Distribution</h2>
+<p>We can run our Elixir apps on a set of different nodes distributed across a single host or across multiple hosts.
+Elixir allows us to communicate across these nodes via a few different mechanisms which we will outline in this lesson.</p>
+
+<h2>Table of Contents</h2>
+<div id="toc"></div>
+
+<h2 id="communication-between-nodes">Communication Between Nodes</h2>
+
+<p>Elixir runs on the Erlang VM, which means it has access to Erlang’s powerful <a href="http://erlang.org/doc/reference_manual/distributed.html">distribution functionality.</a></p>
+
+<blockquote>
+  <p>A distributed Erlang system consists of a number of Erlang runtime systems communicating with each other.
+Each such runtime system is called a node.</p>
+</blockquote>
+
+<p>A node is any Erlang runtime system that has been given a name.
+We can start a node by opening up <code class="highlighter-rouge">iex</code> session and naming it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost
+iex<span class="o">(</span>alex@localhost<span class="o">)&gt;</span>
+</code></pre></div></div>
+
+<p>Let’s open up another node in another terminal window:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost
+iex<span class="o">(</span>kate@localhost<span class="o">)&gt;</span>
+</code></pre></div></div>
+
+<p>These two nodes can send messages to one another using <code class="highlighter-rouge">Node.spawn_link/2</code>.</p>
+
+<h3 id="communicating-with-nodespawn_link2">Communicating with <code class="highlighter-rouge">Node.spawn_link/2</code></h3>
+
+<p>This function takes in two arguments:</p>
+<ul>
+  <li>The name of the node to which you want to connect</li>
+  <li>The function to be executed by the remote process running on that node</li>
+</ul>
+
+<p>It establishes the connection to the remote node and executes the given function on that node, returning the PID of the linked process.</p>
+
+<p>Let’s define a module, <code class="highlighter-rouge">Kate</code>, in the <code class="highlighter-rouge">kate</code> node that knows how to introduce Kate, the person:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">defmodule</span> <span class="no">Kate</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">def</span> <span class="n">say_name</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>     <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hi, my name is Kate"</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">end</span>
+<span class="o">...</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="sending-messages">Sending Messages</h4>
+
+<p>Now, we can use <a href="https://hexdocs.pm/elixir/Node.html#spawn_link/2"><code class="highlighter-rouge">Node.spawn_link/2</code></a> to have the <code class="highlighter-rouge">alex</code> node ask the <code class="highlighter-rouge">kate</code> node to call the <code class="highlighter-rouge">say_name/0</code> function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Node</span><span class="o">.</span><span class="n">spawn_link</span><span class="p">(</span><span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">Kate</span><span class="o">.</span><span class="n">say_name</span> <span class="k">end</span><span class="p">)</span>
+<span class="no">Hi</span><span class="p">,</span> <span class="n">my</span> <span class="n">name</span> <span class="n">is</span> <span class="no">Kate</span>
+<span class="c1">#PID&lt;10507.132.0&gt;</span>
+</code></pre></div></div>
+
+<h4 id="a-note-on-io-and-nodes">A Note on I/O and Nodes</h4>
+
+<p>Notice that, although <code class="highlighter-rouge">Kate.say_name/0</code> is getting executed on the remote node, it is the local, or calling, node that receives the <code class="highlighter-rouge">IO.puts</code> output.
+That is because the local node is the <strong>group leader</strong>.
+The Erlang VM manages I/O via processes.
+This allows us to execute I/O tasks, like <code class="highlighter-rouge">IO.puts</code>, across distributed nodes.
+These distributed processes are managed by the I/O process group leader.
+The group leader is always the node that spawns the process.
+So, since our <code class="highlighter-rouge">alex</code> node is the one from which we called <code class="highlighter-rouge">spawn_link/2</code>, that node is the group leader and the output of <code class="highlighter-rouge">IO.puts</code> will be directed to the standard output stream of that node.</p>
+
+<h4 id="responding-to-messages">Responding to Messages</h4>
+
+<p>What if we want the node that receives the message to send some <em>response</em> back to the sender? We can use a simple <code class="highlighter-rouge">receive/1</code> and <a href="https://hexdocs.pm/elixir/Process.html#send/3"><code class="highlighter-rouge">send/3</code></a> setup to accomplish exactly that.</p>
+
+<p>We’ll have our <code class="highlighter-rouge">alex</code> node spawn a link to the <code class="highlighter-rouge">kate</code> node and give the <code class="highlighter-rouge">kate</code> node an anonymous function to execute.
+That anonymous function will listen for the receipt of a particular tuple describing a message and the PID of the <code class="highlighter-rouge">alex</code> node.
+It will respond to that message by <code class="highlighter-rouge">send</code>-ing back a message to the PID of the <code class="highlighter-rouge">alex</code> node:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">pid</span> <span class="o">=</span> <span class="no">Node</span><span class="o">.</span><span class="n">spawn_link</span> <span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">receive</span> <span class="k">do</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>     <span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="n">alex_node_pid</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">send</span> <span class="n">alex_node_pid</span><span class="p">,</span> <span class="ss">:sup?</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>   <span class="k">end</span>
+<span class="o">...</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="k">end</span>
+<span class="c1">#PID&lt;10467.112.0&gt;</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">pid</span>
+<span class="c1">#PID&lt;10467.112.0&gt;</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">send</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="n">self</span><span class="p">()})</span>
+<span class="p">{</span><span class="ss">:hi</span><span class="p">,</span> <span class="c1">#PID&lt;0.106.0&gt;}</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">flush</span><span class="p">()</span>
+<span class="ss">:sup?</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<h4 id="a-note-on-communicating-between-nodes-on-different-networks">A Note On Communicating Between Nodes on Different Networks</h4>
+
+<p>If you want to send messages between nodes on different networks, we need to start the named nodes with a shared cookie:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">--cookie</span> secret_token
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">--cookie</span> secret_token
+</code></pre></div></div>
+
+<p>Only nodes started with the same <code class="highlighter-rouge">cookie</code> will be able to successfully connect to one another.</p>
+
+<h4 id="nodespawn_link2-limitations"><code class="highlighter-rouge">Node.spawn_link/2</code> Limitations</h4>
+
+<p>While <code class="highlighter-rouge">Node.spawn_link/2</code> illustrates the relationships between nodes and the manner in which we can send messages between them, it is <em>not</em> really the right choice for an application that will run across distributed nodes.
+<code class="highlighter-rouge">Node.spawn_link/2</code> spawns processes in isolation, i.e.
+processes that are not supervised.
+If only there was a way to spawn supervised, asynchronous processes <em>across nodes</em>…</p>
+
+<h2 id="distributed-tasks">Distributed Tasks</h2>
+
+<p><a href="https://hexdocs.pm/elixir/master/Task.html#module-distributed-tasks">Distributed tasks</a> allow us to spawn supervised tasks across nodes.
+We’ll build a simple supervisor application that leverages distributed tasks to allow users to chat with one another via an <code class="highlighter-rouge">iex</code> session, across distributed nodes.</p>
+
+<h3 id="defining-the-supervisor-application">Defining the Supervisor Application</h3>
+
+<p>Generate your app:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix new chat --sup
+</code></pre></div></div>
+
+<h3 id="adding-the-task-supervisor-to-the-supervision-tree">Adding the Task Supervisor to the Supervision Tree</h3>
+
+<p>A Task Supervisor dynamically supervises tasks.
+It is started with no children, often <em>under</em> a supervisor of its own, and can be used later on to supervise any number of tasks.</p>
+
+<p>We’ll add a Task Supervisor to our app’s supervision tree and name it <code class="highlighter-rouge">Chat.TaskSupervisor</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat/application.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="no">false</span>
+
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">Chat</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now we know that wherever our application is started on a given node, the <code class="highlighter-rouge">Chat.Supervisor</code> is running and ready to supervise tasks.</p>
+
+<h3 id="sending-messages-with-supervised-tasks">Sending Messages with Supervised Tasks</h3>
+
+<p>We’ll start supervised tasks with the <a href="https://hexdocs.pm/elixir/master/Task.Supervisor.html#async/5"><code class="highlighter-rouge">Task.Supervisor.async/5</code></a> function.</p>
+
+<p>This function must take in four arguments:</p>
+
+<ul>
+  <li>The supervisor we want to use to supervise the task.
+This can be passed in as a tuple of <code class="highlighter-rouge">{SupervisorName, remote_node_name}</code> in order to supervise the task on the remote node.</li>
+  <li>The name of the module on which we want to execute a function</li>
+  <li>The name of the function we want to execute</li>
+  <li>Any arguments that need to be supplied to that function</li>
+</ul>
+
+<p>You can pass in a fifth, optional argument describing shutdown options.
+We won’t worry about that here.</p>
+
+<p>Our Chat application is pretty simple.
+It sends messages to remote nodes and remote nodes respond to those messages by <code class="highlighter-rouge">IO.puts</code>-ing them out to the STDOUT of the remote node.</p>
+
+<p>First, let’s define a function, <code class="highlighter-rouge">Chat.receive_message/1</code>, that we want our task to execute on a remote node.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">receive_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="n">message</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Next up, let’s teach the <code class="highlighter-rouge">Chat</code> module how to send the message to a remote node using a supervised task.
+We’ll define a method <code class="highlighter-rouge">Chat.send_message/2</code> that will enact this process:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defmodule</span> <span class="no">Chat</span> <span class="k">do</span>
+  <span class="o">...</span>
+
+  <span class="k">def</span> <span class="n">send_message</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">spawn_task</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:receive_message</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="p">[</span><span class="n">message</span><span class="p">])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">spawn_task</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">recipient</span>
+    <span class="o">|&gt;</span> <span class="n">remote_supervisor</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Let’s see it in action.</p>
+
+<p>In one terminal window, start up our chat app in a named <code class="highlighter-rouge">iex</code> session</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>Open up another terminal window to start the app on a different named node:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>Now, from the <code class="highlighter-rouge">alex</code> node, we can send a message to the <code class="highlighter-rouge">kate</code> node:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:kate</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Switch to the <code class="highlighter-rouge">kate</code> window and you should see the message:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">kate</code> node can respond back to the <code class="highlighter-rouge">alex</code> node:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+<span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:alex</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"how are you?"</span><span class="p">)</span>
+<span class="ss">:ok</span>
+<span class="n">iex</span><span class="p">(</span><span class="n">kate</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>And it will show up in the <code class="highlighter-rouge">alex</code> node’s <code class="highlighter-rouge">iex</code> session:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">how</span> <span class="n">are</span> <span class="n">you?</span>
+</code></pre></div></div>
+
+<p>Let’s revisit our code and break down what’s happening here.</p>
+
+<p>We have a function <code class="highlighter-rouge">Chat.send_message/2</code> that takes in the name of the remote node on which we want to run our supervised tasks and the message we want to send that node.</p>
+
+<p>That function calls our <code class="highlighter-rouge">spawn_task/4</code> function which starts an async task running on the remote node with the given name, supervised by the <code class="highlighter-rouge">Chat.TaskSupervisor</code> on that remote node.
+We know that the Task Supervisor with the name <code class="highlighter-rouge">Chat.TaskSupervisor</code> is running on that node because that node is <em>also</em> running an instance of our Chat application and the <code class="highlighter-rouge">Chat.TaskSupervisor</code> is started up as part of the Chat app’s supervision tree.</p>
+
+<p>We are telling the <code class="highlighter-rouge">Chat.TaskSupervisor</code> to supervise a task that executes the <code class="highlighter-rouge">Chat.receive_message</code> function with an argument of whatever message was passed down to <code class="highlighter-rouge">spawn_task/4</code> from <code class="highlighter-rouge">send_message/2</code>.</p>
+
+<p>So, <code class="highlighter-rouge">Chat.receive_message("hi")</code> is called on the remote, <code class="highlighter-rouge">kate</code>, node, causing the message <code class="highlighter-rouge">"hi"</code>, to be put out to that node’s STDOUT stream.
+In this case, since the task is being supervised on the remote node, that node is the group manager for this I/O process.</p>
+
+<h3 id="responding-to-messages-from-remote-nodes">Responding to Messages from Remote Nodes</h3>
+
+<p>Let’s make our Chat app a little smarter.
+So far, any number of users can run the application in a named <code class="highlighter-rouge">iex</code> session and start chatting.
+But let’s say there is a medium-sized white dog named Moebi who doesn’t want to be left out.
+Moebi wants to be included in the Chat app but sadly he does not know how to type, because he is a dog.
+So, we’ll teach our <code class="highlighter-rouge">Chat</code> module to respond to any messages sent to a node named <code class="highlighter-rouge">moebi@localhost</code> on Moebi’s behalf.
+No matter what you say to Moebi, he will respond with <code class="highlighter-rouge">"chicken?"</code>, because his one true desire is to eat chicken.</p>
+
+<p>We’ll define another version of our <code class="highlighter-rouge">send_message/2</code> function that pattern matches on the <code class="highlighter-rouge">recipient</code> argument.
+If the recipient is <code class="highlighter-rouge">:moebi@locahost</code>, we will</p>
+
+<ul>
+  <li>Grab the name of the current node using <code class="highlighter-rouge">Node.self()</code></li>
+  <li>Give the name of the current node, i.e.
+the sender, to a new function <code class="highlighter-rouge">receive_message_for_moebi/2</code>, so that we can send a message <em>back</em> to that node.</li>
+</ul>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="o">...</span>
+<span class="k">def</span> <span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">spawn_task</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:receive_message_for_moebi</span><span class="p">,</span> <span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="p">[</span><span class="n">message</span><span class="p">,</span> <span class="no">Node</span><span class="o">.</span><span class="n">self</span><span class="p">()])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Next up, we’ll define a function <code class="highlighter-rouge">receive_message_for_moebi/2</code> that <code class="highlighter-rouge">IO.puts</code> out the message in the <code class="highlighter-rouge">moebi</code> node’s STDOUT stream <em>and</em> sends a message back to the sender:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="o">...</span>
+<span class="k">def</span> <span class="n">receive_message_for_moebi</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">from</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="n">message</span>
+  <span class="n">send_message</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="s2">"chicken?"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>By calling <code class="highlighter-rouge">send_message/2</code> with the name of the node that sent the original message (the “sender node”) we are telling the <em>remote</em> node to spawn an supervised task back on that sender node.</p>
+
+<p>Let’s see it in action.
+In three different terminal windows, open three different named nodes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> alex@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> kate@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex <span class="nt">--sname</span> moebi@localhost <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>Let’s have <code class="highlighter-rouge">alex</code> send a message to <code class="highlighter-rouge">moebi</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">alex</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span>
+<span class="n">chicken?</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>We can see that the <code class="highlighter-rouge">alex</code> node received the response, <code class="highlighter-rouge">"chicken?"</code>.
+If we open the <code class="highlighter-rouge">kate</code> node, we’ll see that no message was received, since neither <code class="highlighter-rouge">alex</code> nor <code class="highlighter-rouge">moebi</code> send her one (sorry <code class="highlighter-rouge">kate</code>).
+And if we open the <code class="highlighter-rouge">moebi</code> node’s terminal window, we’ll see the message that the <code class="highlighter-rouge">alex</code> node sent:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="p">(</span><span class="n">moebi</span><span class="nv">@localhost</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">hi</span>
+</code></pre></div></div>
+
+<h2 id="testing-distributed-code">Testing Distributed Code</h2>
+
+<p>Let’s start by writing a simple test for our <code class="highlighter-rouge">send_message</code> function.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># test/chat_test.ex</span>
+<span class="k">defmodule</span> <span class="no">ChatTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span><span class="p">,</span> <span class="ss">async:</span> <span class="no">true</span>
+  <span class="n">doctest</span> <span class="no">Chat</span>
+
+  <span class="n">test</span> <span class="s2">"send_message"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span> <span class="o">==</span> <span class="ss">:ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>If we run our tests via <code class="highlighter-rouge">mix test</code>, we see it fail with the following error:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">**</span> <span class="p">(</span><span class="k">exit</span><span class="p">)</span> <span class="n">exited</span> <span class="ow">in</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">({</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">},</span> <span class="p">{</span><span class="ss">:start_task</span><span class="p">,</span> <span class="p">[</span><span class="c1">#PID&lt;0.158.0&gt;, :monitor, {:sophie@localhost, #PID&lt;0.158.0&gt;}, {Chat, :receive_message_for_moebi, ["hi", :sophie@localhost]}], :temporary, nil}, :infinity)</span>
+         <span class="o">**</span> <span class="p">(</span><span class="no">EXIT</span><span class="p">)</span> <span class="n">no</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">moebi</span><span class="nv">@localhost</span>
+</code></pre></div></div>
+
+<p>This error makes perfect sense–we can’t connect to a node named <code class="highlighter-rouge">moebi@localhost</code> because there is no such node running.</p>
+
+<p>We can get this test passing by performing a few steps:</p>
+
+<ul>
+  <li>Open another terminal window and run the named node: <code class="highlighter-rouge">iex --sname moebi@localhost -S mix</code></li>
+  <li>Run the tests in the first terminal via a named node that runs the mix tests in an <code class="highlighter-rouge">iex</code> session: <code class="highlighter-rouge">iex --sname sophie@localhost -S mix test</code></li>
+</ul>
+
+<p>This is a lot of work and definitely wouldn’t be considered an automated testing process.</p>
+
+<p>There are a two different approaches we could take here:</p>
+
+<p>1.
+Conditionally exclude tests that need distributed nodes, if the necessary node is not running.</p>
+
+<p>2.
+Configure our application to avoid spawning tasks on remote nodes in the test environment.</p>
+
+<p>Let’s take a look at the first approach.</p>
+
+<h3 id="conditionally-excluding-tests-with-tags">Conditionally Excluding Tests with Tags</h3>
+
+<p>We’ll add an <code class="highlighter-rouge">ExUnit</code> tag to this test:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#test/chat_test.ex</span>
+<span class="k">defmodule</span> <span class="no">ChatTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span><span class="p">,</span> <span class="ss">async:</span> <span class="no">true</span>
+  <span class="n">doctest</span> <span class="no">Chat</span>
+
+  <span class="nv">@tag</span> <span class="ss">:distributed</span>
+  <span class="n">test</span> <span class="s2">"send_message"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="no">Chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="ss">:moebi</span><span class="nv">@localhost</span><span class="p">,</span> <span class="s2">"hi"</span><span class="p">)</span> <span class="o">==</span> <span class="ss">:ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>And we’ll add some conditional logic to our test helper to exclude tests with such tags if the tests are <em>not</em> running on a named node.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">exclude</span> <span class="o">=</span>
+  <span class="k">if</span> <span class="no">Node</span><span class="o">.</span><span class="n">alive?</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="p">[],</span> <span class="k">else</span><span class="p">:</span> <span class="p">[</span><span class="ss">distributed:</span> <span class="no">true</span><span class="p">]</span>
+
+<span class="no">ExUnit</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="ss">exclude:</span> <span class="n">exclude</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We check to see if the node is alive, i.e.
+if the node is part of a distributed system with <a href="https://hexdocs.pm/elixir/Node.html#alive?/0"><code class="highlighter-rouge">Node.alive?</code></a>.
+If not, we can tell <code class="highlighter-rouge">ExUnit</code> to skip any tests with the <code class="highlighter-rouge">distributed: true</code> tag.
+Otherwise, we will tell it not to exclude any tests.</p>
+
+<p>Now, if we run plain old <code class="highlighter-rouge">mix test</code>, we’ll see:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix <span class="nb">test
+</span>Excluding tags: <span class="o">[</span>distributed: <span class="nb">true</span><span class="o">]</span>
+
+Finished <span class="k">in </span>0.02 seconds
+1 <span class="nb">test</span>, 0 failures, 1 excluded
+</code></pre></div></div>
+
+<p>And if we want to run our distributed tests, we simply need to go through the steps outlined in the previous section: run the <code class="highlighter-rouge">moebi@localhost</code> node <em>and</em> run the tests in a named node via <code class="highlighter-rouge">iex</code>.</p>
+
+<p>Let’s take a look at our other testing approach–configuring the application to behave differently in different environments.</p>
+
+<h3 id="environment-specific-application-configuration">Environment-Specific Application Configuration</h3>
+
+<p>The part of our code that tells <code class="highlighter-rouge">Task.Supervisor</code> to start a supervised task on a remote node is here:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># app/chat.ex</span>
+<span class="k">def</span> <span class="n">spawn_task</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">recipient</span>
+  <span class="o">|&gt;</span> <span class="n">remote_supervisor</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">fun</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">()</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Task.Supervisor.async/5</code> takes in a first argument of the supervisor we want to use.
+If we pass in a tuple of <code class="highlighter-rouge">{SupervisorName, location}</code>, it will start up the given supervisor on the given remote node.
+However, if we pass <code class="highlighter-rouge">Task.Supervisor</code> a first argument of a supervisor name along, it will use that supervisor to supervise the task locally.</p>
+
+<p>Let’s make the <code class="highlighter-rouge">remote_supervisor/1</code> function configurable based on environment.
+In the development environment, it will return <code class="highlighter-rouge">{Chat.TaskSupervisor, recipient}</code> and in the test environment it will return <code class="highlighter-rouge">Chat.TaskSupervisor</code>.</p>
+
+<p>We’ll do this via application variables.</p>
+
+<p>Create a file, <code class="highlighter-rouge">config/dev.exs</code>, and add:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config/dev.exs</span>
+<span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+<span class="n">config</span> <span class="ss">:chat</span><span class="p">,</span> <span class="ss">remote_supervisor:</span> <span class="k">fn</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">,</span> <span class="n">recipient</span><span class="p">}</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Create a file, <code class="highlighter-rouge">config/test.exs</code> and add:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config/test.exs</span>
+<span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+<span class="n">config</span> <span class="ss">:chat</span><span class="p">,</span> <span class="ss">remote_supervisor:</span> <span class="k">fn</span><span class="p">(</span><span class="n">_recipient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Chat</span><span class="o">.</span><span class="no">TaskSupervisor</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Remember to uncomment this line in <code class="highlighter-rouge">config/config.exs</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+<span class="n">import_config</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Mix</span><span class="o">.</span><span class="n">env</span><span class="p">()</span><span class="si">}</span><span class="s2">.exs"</span>
+</code></pre></div></div>
+
+<p>Lastly, we’ll update our <code class="highlighter-rouge">Chat.remote_supervisor/1</code> function to look up and use the function stored in our new application variable:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/chat.ex</span>
+<span class="k">defp</span> <span class="n">remote_supervisor</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:chat</span><span class="p">,</span> <span class="ss">:remote_supervisor</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Elixir’s native distribution capabilities, which it has thanks to the power of the Erlang VM, is one of the features that make it such a powerful tool.
+We can imagine leveraging Elixir’s ability to handle distributed computing to run concurrent background jobs, to support high-performance applications, to run expensive operations–you name it.</p>
+
+<p>This lesson gives us a basic introduction to the concept of distribution in Elixir and gives you the tools you need to start building distributed applications.
+By using supervised tasks, you can send messages across the various nodes of a distributed application.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/en/lessons/advanced/otp-distribution.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/advanced/otp-supervisors/" title="OTP Supervisors">← OTP Supervisors</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/en/lessons/advanced/metaprogramming/" title="Metaprogramming">Metaprogramming →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong title="English">en</strong>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/otp-distribution/" title="Spanish / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/otp-distribution/" title="Japanese / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/otp-distribution/" title="Chinese">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/otp-distribution/" title="Traditional Chinese">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/en/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">7. OTP Distribution</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

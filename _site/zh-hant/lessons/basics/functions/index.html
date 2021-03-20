@@ -1,0 +1,1358 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/basics/functions/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bg" href="/bg/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/functions/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ta" href="/ta/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="th" href="/th/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/functions/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/functions/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/basics/functions/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>函數 &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/basics/functions/&title=函數&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/basics/functions/&via=elixirschool&text=ElixirSchool: 函數&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/basics/functions/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/basics/functions/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 函數" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/basics/functions/&title=ElixirSchool: 函數&description=Check out '函數' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 函數&body=Check out '函數' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/basics/functions/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  函數
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    翻譯內文為最新版本。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>在 Elixir 和許多函數式語言中，函數是一等公民。
+本課程將會學習 Elixir 中的函數類型、它們因何與眾不同，以及如何使用它們。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="匿名-anonymous-函數">匿名 (Anonymous) 函數</h2>
+
+<p>正如函數名稱所暗示的，匿名函數沒有名字。
+同時與我們在 <code class="highlighter-rouge">Enum</code> 課程中看到的那樣，匿名函數經常被傳遞給其他函數。
+為了在 Elixir 中定義一個匿名函數，我們需要 <code class="highlighter-rouge">fn</code> 和 <code class="highlighter-rouge">end</code> 來做為關鍵字。
+在這兩個關鍵字之間，我們可以定義任意數量由 <code class="highlighter-rouge">-&gt;</code> 分隔的參數 (parameters) 和函數主體 (bodies)。</p>
+
+<p>現在來看一個基本的例子：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">sum</span> <span class="o">=</span> <span class="k">fn</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">end</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">sum</span><span class="o">.</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+</code></pre></div></div>
+
+<h3 id="-簡寫符號">&amp; 簡寫符號</h3>
+
+<p>在 Elixir 中使用匿名函數是非常普遍的做法，因此有一個使用簡寫符號的書寫法：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">sum</span> <span class="o">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="nv">&amp;2</span><span class="p">)</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">sum</span><span class="o">.</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+</code></pre></div></div>
+
+<p>正如你可能猜到的那樣，在簡寫變體中我們的參數可以用 <code class="highlighter-rouge">&amp;1</code> 、 <code class="highlighter-rouge">&amp;2</code> 和 <code class="highlighter-rouge">&amp;3</code> 等等。</p>
+
+<h2 id="模式比對">模式比對</h2>
+
+<p>模式比對不僅限於 Elixir 中的變數，同時可以應用於函數簽章 (signatures)，我們將在本節中看到。</p>
+
+<p>Elixir 使用模式比對來檢查所有可能的比對選項，並選擇第一個吻合的選項來執行：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">handle_result</span> <span class="o">=</span> <span class="k">fn</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Handling result..."</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"This would be never run as previous will be matched beforehand."</span>
+<span class="o">...&gt;</span>   <span class="p">{</span><span class="ss">:error</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"An error has occurred!"</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">some_result</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">handle_result</span><span class="o">.</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">some_result</span><span class="p">})</span>
+<span class="no">Handling</span> <span class="n">result</span><span class="o">...</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">handle_result</span><span class="o">.</span><span class="p">({</span><span class="ss">:error</span><span class="p">})</span>
+<span class="no">An</span> <span class="n">error</span> <span class="n">has</span> <span class="n">occurred!</span>
+</code></pre></div></div>
+
+<h2 id="命名-named-函數">命名 (Named) 函數</h2>
+
+<p>我們可以用名字來定義函數，以便稍後可以很容易地引用它們。
+在模組中，定義命名函數使用 <code class="highlighter-rouge">def</code> 做為關鍵字。
+我們將在接下來的課程中學習更多關於模組的內容，現在我們將單單專注於命名函數。</p>
+
+<p>在模組中定義的函數可供其他模組使用。
+這是 Elixir 中一個特別有用的構建區塊 (building block)：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hello, Sean"</span>
+</code></pre></div></div>
+
+<p>如果函數主體只有一行，可以用 <code class="highlighter-rouge">do:</code> 來進一步縮短：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>借助我們對模式比對的了解，讓我們探索使用命名函數的遞迴 (recursion)：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Length</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">of</span><span class="p">([]),</span> <span class="k">do</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="k">def</span> <span class="n">of</span><span class="p">([</span><span class="n">_</span> <span class="o">|</span> <span class="n">tail</span><span class="p">]),</span> <span class="k">do</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">of</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Length</span><span class="o">.</span><span class="n">of</span> <span class="p">[]</span>
+<span class="mi">0</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Length</span><span class="o">.</span><span class="n">of</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<h3 id="函數命名和引數數目-arity">函數命名和引數數目 (Arity)</h3>
+
+<p>我們前面提到，函數是通過給定名稱和引數數目 (arity) 的組合來命名的。
+這意味著你可以做這樣的事情：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter2</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, anonymous person!"</span>   <span class="c1"># hello/0</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>        <span class="c1"># hello/1</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name1</span><span class="p">,</span> <span class="n">name2</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, </span><span class="si">#{</span><span class="n">name1</span><span class="si">}</span><span class="s2"> and </span><span class="si">#{</span><span class="n">name2</span><span class="si">}</span><span class="s2">"</span>
+                                                <span class="c1"># hello/2</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
+<span class="s2">"Hello, anonymous person!"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Fred"</span><span class="p">)</span>
+<span class="s2">"Hello, Fred"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Fred"</span><span class="p">,</span> <span class="s2">"Jane"</span><span class="p">)</span>
+<span class="s2">"Hello, Fred and Jane"</span>
+</code></pre></div></div>
+
+<p>我們在上面的註釋中列出了函數名稱。
+第一個實現 (implementation) 不接受引數 (arguments)，所以它被稱為 <code class="highlighter-rouge">hello/0</code>；第二個則接受一個引數，所以它被稱為 <code class="highlighter-rouge">hello/1</code>，依此類推。
+與某些其他語言中的函數重載 (function overloads) 不同，這些被認為是彼此 <em>不同</em> 的函數。
+(前面提過的模式比對只有當函數名字與引數數量都 <em>相同</em> 時才適用）。</p>
+
+<h3 id="函數和模式比對">函數和模式比對</h3>
+
+<p>在背後，函數以模式比對被呼用的參數。</p>
+
+<p>假設需要一個接受映射的函數，但我們只對使用特定鍵感興趣。
+那麼可以像這樣用模式比對該參數的鍵：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter1</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">})</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">person_name</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>現在假設有個描述某人名字為 Fred 的映射：</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">fred</span> <span class="o">=</span> <span class="p">%{</span>
+<span class="o">...&gt;</span> <span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">,</span>
+<span class="o">...&gt;</span> <span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span>
+<span class="o">...&gt;</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span>
+<span class="o">...&gt;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>這是以 <code class="highlighter-rouge">fred</code> 映射呼用 <code class="highlighter-rouge">Greeter1.hello/1</code> 時得到的結果：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># call with entire map</span>
+<span class="o">...&gt;</span> <span class="no">Greeter1</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="n">fred</span><span class="p">)</span>
+<span class="s2">"Hello, Fred"</span>
+</code></pre></div></div>
+
+<p>當使用 <em>不</em> 包含 <code class="highlighter-rouge">:name</code> 鍵的映射來呼用函數時會發生什麼？</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># call without the key we need returns an error</span>
+<span class="o">...&gt;</span> <span class="no">Greeter1</span><span class="o">.</span><span class="n">hello</span><span class="p">(%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">})</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">FunctionClauseError</span><span class="p">)</span> <span class="n">no</span> <span class="n">function</span> <span class="n">clause</span> <span class="n">matching</span> <span class="ow">in</span> <span class="no">Greeter3</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span>
+
+    <span class="no">The</span> <span class="n">following</span> <span class="n">arguments</span> <span class="n">were</span> <span class="n">given</span> <span class="n">to</span> <span class="no">Greeter3</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span><span class="p">:</span>
+
+        <span class="c1"># 1</span>
+        <span class="p">%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+
+    <span class="ss">iex:</span><span class="mi">12</span><span class="p">:</span> <span class="no">Greeter3</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span>
+
+</code></pre></div></div>
+
+<p>出現這種行為的原因是 Elixir 會模式比對被呼用函數的參數與定義函數的引數數目。</p>
+
+<p>現在考慮資料到達 <code class="highlighter-rouge">Greeter1.hello/1</code> 時的樣子：</p>
+
+<pre><code class="language-Elixir"># incoming map
+iex&gt; fred = %{
+...&gt; name: "Fred",
+...&gt; age: "95",
+...&gt; favorite_color: "Taupe"
+...&gt; }
+</code></pre>
+<p><code class="highlighter-rouge">Greeter1.hello/1</code> 期待這樣的參數：</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">}</span>
+</code></pre></div></div>
+<p>在 <code class="highlighter-rouge">Greeter1.hello/1</code> 中，傳入的映射 (<code class="highlighter-rouge">fred</code>) 是根據參數 (<code class="highlighter-rouge">%{name: person_name}</code>) 賦值：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">}</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">,</span> <span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>它發現在傳入的映射中有一個與 <code class="highlighter-rouge">name</code> 對應的鍵。
+現在配對成立！並且由於這次成功的配對，右邊映射中 <code class="highlighter-rouge">:name</code> 鍵的值（即 <code class="highlighter-rouge">fred</code> 映射）將綁定到左邊的變數（<code class="highlighter-rouge">person_name</code>）上。</p>
+
+<p>現在，如果仍希望將 Fred 的名字分配給 <code class="highlighter-rouge">person_name</code>，但「也」想保留對整個 person 映射的認知呢？假設在問候他之後想要 <code class="highlighter-rouge">IO.inspect(fred)</code>。
+此時，因為只有對映射中的 <code class="highlighter-rouge">:name</code> 鍵進行模式比對，因此只會將該鍵的值綁定到變數，所以函數並不會了解 Fred 的其餘資訊。</p>
+
+<p>為了保留完整資訊，需要將整個映射分配給它自己的變數，以便能夠使用它。</p>
+
+<p>現在建立一個新函數：</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter2</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">}</span> <span class="o">=</span> <span class="n">person</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">person_name</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span> <span class="n">person</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>請記住，參數傳入時 Elixir 會進行模式比對。
+因此，在這種情況下，兩邊都將模式比對傳入的參數並綁定到無論它配對到的任何內容。
+首先來看右邊：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">person</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">,</span> <span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>現在，<code class="highlighter-rouge">person</code> 已被賦值並綁定到整個 fred-map。
+接著繼續進行下一個模式比對：</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">}</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">,</span> <span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>這與原來模式比對映射並且只保留 Fred 名字的 <code class="highlighter-rouge">Greeter1</code> 函數相同。
+這麼做所取得的成果為可以使用兩個變數而不是只有一個：</p>
+<ol>
+  <li><code class="highlighter-rouge">person</code> ，指向 <code class="highlighter-rouge">%{name: "Fred", age: "95", favorite_color: "Taupe"}</code></li>
+  <li><code class="highlighter-rouge">person_name</code> ，指向 <code class="highlighter-rouge">"Fred"</code></li>
+</ol>
+
+<p>所以現在當呼用  <code class="highlighter-rouge">Greeter2.hello/1</code> 時，可以使用 Fred 的所有資訊：</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># call with entire person</span>
+<span class="o">...&gt;</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="n">fred</span><span class="p">)</span>
+<span class="s2">"Hello, Fred"</span>
+<span class="p">%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">}</span>
+<span class="c1"># call with only the name key</span>
+<span class="o">...&gt;</span> <span class="no">Greeter4</span><span class="o">.</span><span class="n">hello</span><span class="p">(%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">})</span>
+<span class="s2">"Hello, Fred"</span>
+<span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">}</span>
+<span class="c1"># call without the name key</span>
+<span class="o">...&gt;</span> <span class="no">Greeter4</span><span class="o">.</span><span class="n">hello</span><span class="p">(%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">})</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">FunctionClauseError</span><span class="p">)</span> <span class="n">no</span> <span class="n">function</span> <span class="n">clause</span> <span class="n">matching</span> <span class="ow">in</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span>
+
+    <span class="no">The</span> <span class="n">following</span> <span class="n">arguments</span> <span class="n">were</span> <span class="n">given</span> <span class="n">to</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span><span class="p">:</span>
+
+        <span class="c1"># 1</span>
+        <span class="p">%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">}</span>
+
+    <span class="ss">iex:</span><span class="mi">15</span><span class="p">:</span> <span class="no">Greeter2</span><span class="o">.</span><span class="n">hello</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>可以看到 Elixir 在多個深度上模式比對，因為每個參數獨立地配對傳入資料，在函數內部留下變數來呼用它們。</p>
+
+<p>如果在列表中切換 <code class="highlighter-rouge">%{name: person_name}</code> 和 <code class="highlighter-rouge">person</code> 的順序，將得到相同的結果，因為每個都與 fred 自己配對。</p>
+
+<p>現在交換變數和映射:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter3</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">person</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="n">person_name</span><span class="p">})</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">"Hello, "</span> <span class="o">&lt;&gt;</span> <span class="n">person_name</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span> <span class="n">person</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>並以在 <code class="highlighter-rouge">Greeter2.hello/1</code> 中使用的相同資料呼用它：</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># call with same old Fred</span>
+<span class="o">...&gt;</span> <span class="no">Greeter3</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="n">fred</span><span class="p">)</span>
+<span class="s2">"Hello, Fred"</span>
+<span class="p">%{</span><span class="ss">age:</span> <span class="s2">"95"</span><span class="p">,</span> <span class="ss">favorite_color:</span> <span class="s2">"Taupe"</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Fred"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>請記住，即使 <code class="highlighter-rouge">%{name: person_name} = person}</code> 看起來像 <code class="highlighter-rouge">%{name: person_name}</code> 對 <code class="highlighter-rouge">person</code> 變數進行模式比對，但它們實際上是 <em>各自</em> 模式比對到傳入的參數。</p>
+
+<p><strong>總結：</strong> 函數各別地模式比對傳入每個參數的資料。
+可以使用它將值綁定到函數中的多個獨立變數。</p>
+
+<h3 id="私有-private-函數">私有 (Private) 函數</h3>
+
+<p>當我們不想讓其他模組存取某個特定的函數時，我們可以讓這個函數被保密。
+私有函數只能從自己的模組中呼用。
+在 Elixir 中，我們使用 <code class="highlighter-rouge">defp</code> 來定義：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">phrase</span><span class="p">()</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hello, Sean"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">phrase</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">UndefinedFunctionError</span><span class="p">)</span> <span class="n">function</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">phrase</span><span class="o">/</span><span class="mi">0</span> <span class="n">is</span> <span class="n">undefined</span> <span class="ow">or</span> <span class="n">private</span>
+    <span class="no">Greeter</span><span class="o">.</span><span class="n">phrase</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="監視-guards">監視 (Guards)</h3>
+
+<p>我們在 <a href="../control-structures">Control Structures</a> 課程中簡要地介紹了監視 (guards)，現在我們來看看如何應用到命名函數上。
+一旦 Elixir 配對了一個函數，任何現有的監視語句 (guards) 都將被檢驗。</p>
+
+<p>在下面的例子中，我們有兩個具有相同簽章的函數，我們依靠監視 (guards) 來決定使用何種引數類型 (argument’s type) 的函數：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">names</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">hello</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">phrase</span><span class="p">()</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span> <span class="p">[</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"Steve"</span><span class="p">]</span>
+<span class="s2">"Hello, Sean, Steve"</span>
+</code></pre></div></div>
+
+<h3 id="預設-default-引數值">預設 (Default) 引數值</h3>
+
+<p>如果我們需要定義引數的預設值，使用 <code class="highlighter-rouge">argument \\ value</code> 語法：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">language_code</span> <span class="p">\\</span> <span class="s2">"en"</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">phrase</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"en"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"es"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hola, "</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"en"</span><span class="p">)</span>
+<span class="s2">"Hello, Sean"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hello, Sean"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"es"</span><span class="p">)</span>
+<span class="s2">"Hola, Sean"</span>
+</code></pre></div></div>
+
+<p>當我們把監視的用法和預設的引數值結合起來時，會遇到一個問題。
+現在來看看會是什麼樣的情形：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">language_code</span> <span class="p">\\</span> <span class="s2">"en"</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">names</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">hello</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">language_code</span> <span class="p">\\</span> <span class="s2">"en"</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">phrase</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"en"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"es"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hola, "</span>
+<span class="k">end</span>
+
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">31</span><span class="p">:</span> <span class="n">definitions</span> <span class="n">with</span> <span class="n">multiple</span> <span class="n">clauses</span> <span class="ow">and</span> <span class="n">default</span> <span class="n">values</span> <span class="kn">require</span> <span class="n">a</span> <span class="n">header</span><span class="o">.</span>
+<span class="no">Instead</span> <span class="ss">of:</span>
+
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="ss">:first_clause</span><span class="p">,</span> <span class="n">b</span> <span class="p">\\</span> <span class="ss">:default</span><span class="p">)</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="ss">:second_clause</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+
+<span class="n">one</span> <span class="n">should</span> <span class="ss">write:</span>
+
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">\\</span> <span class="ss">:default</span><span class="p">)</span>
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="ss">:first_clause</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+    <span class="k">def</span> <span class="n">foo</span><span class="p">(</span><span class="ss">:second_clause</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+
+<span class="k">def</span> <span class="n">hello</span><span class="o">/</span><span class="mi">2</span> <span class="n">has</span> <span class="n">multiple</span> <span class="n">clauses</span> <span class="ow">and</span> <span class="n">defines</span> <span class="n">defaults</span> <span class="ow">in</span> <span class="n">one</span> <span class="ow">or</span> <span class="n">more</span> <span class="n">clauses</span>
+    <span class="ss">iex:</span><span class="mi">31</span><span class="p">:</span> <span class="p">(</span><span class="n">module</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Elixir 不喜歡多重比對函數中的預設引數值，因可能會造成混淆。
+我們加上一個帶有預設引數值的函數標頭 (head) 來處理這個問題：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">language_code</span> <span class="p">\\</span> <span class="s2">"en"</span><span class="p">)</span>
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">language_code</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">names</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">hello</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">language_code</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">phrase</span><span class="p">(</span><span class="n">language_code</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"en"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, "</span>
+  <span class="k">defp</span> <span class="n">phrase</span><span class="p">(</span><span class="s2">"es"</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hola, "</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span> <span class="p">[</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"Steve"</span><span class="p">]</span>
+<span class="s2">"Hello, Sean, Steve"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Greeter</span><span class="o">.</span><span class="n">hello</span> <span class="p">[</span><span class="s2">"Sean"</span><span class="p">,</span> <span class="s2">"Steve"</span><span class="p">],</span> <span class="s2">"es"</span>
+<span class="s2">"Hola, Sean, Steve"</span>
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/basics/functions.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/basics/control-structures/" title="控制語句">← 控制語句</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/basics/pipe-operator/" title="管線運算子">管線運算子 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bg/lessons/basics/functions/" >bg</a>
+        
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/functions/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/functions/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/functions/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/functions/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/functions/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/functions/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/functions/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/functions/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/functions/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/functions/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/functions/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/functions/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/functions/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/functions/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/functions/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/ta/lessons/basics/functions/" >ta</a>
+        
+      
+        
+        
+
+        
+          <a href="/th/lessons/basics/functions/" title="ภาษาไทย">th</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/functions/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/functions/" >uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/functions/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/functions/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">6. 函數</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/sigils/">10. 符咒 (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

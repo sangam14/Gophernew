@@ -1,0 +1,952 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="tr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir programlama dili dersleri">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/tr/lessons/basics/modules/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="tr">
+  <meta property="og:description" content="Elixir programlama dili dersleri">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/modules/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="it" href="/it/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="uk" href="/uk/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/modules/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/modules/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/tr/lessons/basics/modules/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Modüller &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/tr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/tr/lessons/basics/modules/&title=Modüller&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/tr/lessons/basics/modules/&via=elixirschool&text=ElixirSchool: Modüller&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tr/lessons/basics/modules/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/tr/lessons/basics/modules/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Modüller" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/tr/lessons/basics/modules/&title=ElixirSchool: Modüller&description=Check out 'Modüller' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Modüller&body=Check out 'Modüller' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/tr/lessons/basics/modules/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Modüller
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      Some contents of this translation may be outdated.<br/>
+    
+
+    Several minor changes were applied to the original lesson since the last update.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Bu zaman kadar ki derslerimiz de fonksiyonları aynı dosya ve alanda tanımladık. In this lesson we’re going to cover how to group functions and define a specialized map in a struct in order to organize our code more efficiently.</p>
+<h2>İçerik</h2>
+<div id="toc"></div>
+
+<h2 id="modüller">Modüller</h2>
+
+<p>Modüller, fonksiyonları bir isim namespace da organize etmemizi sağlar. Bunlara ek olarak <a href="../functions/">fonksiyonlar dersinde</a>.  adlandırılmış ve özel fonksiyonları tanımlamamıza izin verir.</p>
+
+<p>Basit bir örneğe bakalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Hello </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">."</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">greeting</span> <span class="s2">"Sean"</span>
+<span class="s2">"Hello Sean."</span>
+</code></pre></div></div>
+
+<p>Elixir’de kodunuzu modüllerin içine eklemeniz namespacesinizi daha efektif kullanmanızı sağlar.
+Elixir</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">Greetings</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">morning</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Good morning </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">."</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">evening</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="s2">"Good night </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">."</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="no">Greetings</span><span class="o">.</span><span class="n">morning</span> <span class="s2">"Sean"</span>
+<span class="s2">"Good morning Sean."</span>
+</code></pre></div></div>
+
+<h3 id="modül-nitelikleri-attributes">Modül Nitelikleri (Attributes)</h3>
+
+<p>Elixir’de nitelikleri sıklıkla kullanılır. Basit bir örneğe bakalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="nv">@greeting</span> <span class="s2">"Hello"</span>
+
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="sx">~s(#{@greeting} #{name}.)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Elixir’de bazı niteliklerin özel olarak ayrıldığını belirmekte fayda var.  En yaygın 3 tanesi:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">moduledoc</code> — Geçerli modüle ait dokümanlar.</li>
+  <li><code class="highlighter-rouge">doc</code> — Fonksiyon ve makrolar için dokümanlar</li>
+  <li><code class="highlighter-rouge">behaviour</code> — OTP veya kullanıcı tanımlı davranış için kullanma.</li>
+</ul>
+
+<h2 id="yapılarlar-structs">Yapılarlar (Structs)</h2>
+
+<p>Yapılar anahtar kelime ve varsayılan değerlerinden oluşan özel haritalardır. Yapının adını alacağı bir modül içne tanımlanmalıdır.  Modül içinde yapı tek başına tanımlanması yaygın bir kullanımdır.</p>
+
+<p>Yapı tanımlamak için  <code class="highlighter-rouge">defstruct</code>  ile birlikte anahtar kelime listesi ve varsayılan değerleri ile birlikte kullanırız :</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="k">defstruct</span> <span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Yapılar yaratalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[],</span> <span class="o">...&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[],</span> <span class="o">...&gt;</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="ss">:manager</span><span class="p">]}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="ss">:manager</span><span class="p">]</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Yapıyı tıpkı bir harita gibi güncelleyebiliriz:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">steve</span> <span class="o">=</span> <span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Steve"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">sean</span> <span class="o">=</span> <span class="p">%{</span><span class="n">steve</span> <span class="o">|</span> <span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+</code></pre></div></div>
+
+<p>En önemlisi haritalarla yapılara erişebilirsiniz:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">}</span> <span class="o">=</span> <span class="n">sean</span>
+<span class="p">%</span><span class="no">Example</span><span class="o">.</span><span class="no">User</span><span class="o">&lt;</span><span class="ss">name:</span> <span class="s2">"Sean"</span><span class="p">,</span> <span class="ss">roles:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...&gt;</span>
+</code></pre></div></div>
+
+<h2 id="birleştirme-composition">Birleştirme (Composition)</h2>
+
+<p>Artık modülleri ve ve yapıları nasıl oluşturacağımız biliyoruz, Birleştirme yolu ile farklı fonksiyonellikleri nasıl ekleyeceğimizi öğrenelim.  Elixir diğer modüllerle etkileşime girmek için farklı yöntemler sunar.</p>
+
+<h3 id="alias"><code class="highlighter-rouge">alias</code></h3>
+
+<p>Modülere takma adlar tanımlamamıza izin veriri ve bu Elixir’de sıkça kullanılır:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span>
+
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Greetings</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Takma ad olmadan</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Mükerrer takma ad varsa veya tamamen farklı bir ad verilmek isteniyorsa <code class="highlighter-rouge">:as</code> seçeneği kullanıla bilinir:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="no">Greetings</span><span class="p">,</span> <span class="ss">as:</span> <span class="no">Hi</span>
+
+  <span class="k">def</span> <span class="n">print_message</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Hi</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Aynı anda birden fazla modüle takma ad vermekte de mümkündür:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">Sayings</span><span class="o">.</span><span class="p">{</span><span class="no">Greetings</span><span class="p">,</span> <span class="no">Farewells</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="import"><code class="highlighter-rouge">import</code></h3>
+
+<p>If we want to import functions and macros rather than aliasing the module we can use <code class="highlighter-rouge">import/</code>:
+Eğer takma ad kullanmak yerine fonksiyon ve makroları eklemek isterseniz <code class="highlighter-rouge">import/</code> kullana biliriniz:</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">9</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">last</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<h4 id="filtreleme">Filtreleme</h4>
+
+<p>Varsayılana olarak tüm fonksiyon ve makrolar içeri aktarılır anacak  <code class="highlighter-rouge">:only</code> ve <code class="highlighter-rouge">:except</code> kullanarak filtreleye bilirsiniz.</p>
+
+<p>Belirli fonksiyonları ve makroları aktarmak için <code class="highlighter-rouge">:only</code> ve <code class="highlighter-rouge">:except</code> kullanırken name/arity (argüman sayısın) kullanmamız gerekiyor.  Şimdi <code class="highlighter-rouge">last/1</code> fonksiyonunu içe aktararak başlayalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">last:</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">first</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">13</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">first</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+<p>Eğer <code class="highlighter-rouge">last/1</code> dışında her şeyi eklemek istiyorsak:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">except:</span> <span class="p">[</span><span class="ss">last:</span> <span class="mi">1</span><span class="p">]</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">first</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">last</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="o">**</span> <span class="p">(</span><span class="no">CompileError</span><span class="p">)</span> <span class="ss">iex:</span><span class="mi">3</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">function</span> <span class="n">last</span><span class="o">/</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>Name/arity’e ek olarak sadece fonksiyon yada makroları çağırmak için 2 adet <code class="highlighter-rouge">:functions</code> ve <code class="highlighter-rouge">:macros</code> atomları bulunmaktadır:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:functions</span>
+<span class="kn">import</span> <span class="no">List</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:macros</span>
+</code></pre></div></div>
+
+<h3 id="require"><code class="highlighter-rouge">require</code></h3>
+
+<p><code class="highlighter-rouge">require/2</code> çok sık kullanılmasada önemlidir. Bir modül gerekirse onun derlenmesini ve yüklenmesini sağlar. Bir modülün makrolarına erişmeye çalışıtığımızda kolaylık sağlar:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">require</span> <span class="no">SuperMacros</span>
+
+  <span class="no">SuperMacros</span><span class="o">.</span><span class="n">do_stuff</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Henüz yüklenmemiş bir makro çağırmaya kalkarsak, Elixir hata mesajı verir.</p>
+
+<h3 id="use"><code class="highlighter-rouge">use</code></h3>
+
+<p><code class="highlighter-rouge">use</code> makrosu ile başka bir modülün mevcut modül tanımımızı değiştirmesini sağlayabiliriz.
+Kodumuzdaki <code class="highlighter-rouge">use</code> fonksiyonunu çağırdığımızda, sağlanan bu modül tarafından tanımlanan  <code class="highlighter-rouge">__using__/1</code>  callback gerçekleştirilir.
+<code class="highlighter-rouge">__using__/1</code> makrosunun sonucu modülün tanımının bir parçası haline gelir.</p>
+
+<p>Bunun nasıl işlediğini daha iyi anlamak için örneğe göz atalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Hello</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">__using__</span><span class="p">(</span><span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Burada bir <code class="highlighter-rouge">hello/1</code>  fonksiyonu tanımladığımızda <code class="highlighter-rouge">__using__/1</code> bize callback tanımlayan bir <code class="highlighter-rouge">Hello</code> modülü oluşturduk.
+Şimdi kodumuzu denemek için yeni bir kod oluşturalım:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Hello</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Kodumuzu IEx’de denersek, <code class="highlighter-rouge">hello/1</code> öğesinin <code class="highlighter-rouge">Example</code> modülünde mevcut olduğunu göreceğiz:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">hello</span><span class="p">(</span><span class="s2">"Sean"</span><span class="p">)</span>
+<span class="s2">"Hi, Sean"</span>
+</code></pre></div></div>
+<p>Burada ise, <code class="highlighter-rouge">Hello</code> modülü üzerinde  <code class="highlighter-rouge">__using__/1</code> callback yaptığını görebiliriz ve sonuçta oluşan kod modülize edilmiş olur.
+Basit bir örnek gösterdik, <code class="highlighter-rouge">__using __ / 1</code>’in seçenekleri nasıl desteklediğine bakmak için kodumuzu güncelleyelim.
+Bunu greeting seçeneği ekleyerek uygulayacağız:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Hello</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">__using__</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">greeting</span> <span class="o">=</span> <span class="no">Keyword</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="ss">:greeting</span><span class="p">,</span> <span class="s2">"Hi"</span><span class="p">)</span>
+
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s2">", "</span> <span class="o">&lt;&gt;</span> <span class="n">name</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Example</code> modülünü <code class="highlighter-rouge">greeting</code> seçeneğini içerecek şekilde güncelleyelim:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Hello</span><span class="p">,</span> <span class="ss">greeting:</span> <span class="s2">"Hola"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>IEx komut satırın <code class="highlighter-rouge">greeting</code> kullanırsak komut aşağıdaki gibi değişiklik gösterir :</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; Example.hello("Sean")
+"Hola, Sean"
+</code></pre></div></div>
+
+<p>Bu gösterilenler, kullanımın nasıl çalıştığını gösteren en basit örneklerdir, ancak <code class="highlighter-rouge">use</code> Elixir araç kutusundaki en güçlü araçlardan biridir.
+Elixir’i öğrenmeye devam ederken <code class="highlighter-rouge">use</code> modülüne göz kulak olun, öğrenmeye devam ederken mutlaka göreceğiniz örneklerden biride <code class="highlighter-rouge">use ExUnit.Case, async: true</code></p>
+
+<p><strong>Not</strong>: <a href="../../advanced/metaprogramming">Meta programalmada</a> kullanılan makrolar : <code class="highlighter-rouge">quote</code>, <code class="highlighter-rouge">alias</code>, <code class="highlighter-rouge">use</code>, <code class="highlighter-rouge">require</code> .</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/tr/lessons/basics/modules.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/tr/lessons/basics/pipe-operator/" title="Pipe Operatörü">← Pipe Operatörü</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/tr/lessons/basics/mix/" title="Mix">Mix →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/modules/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/modules/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/modules/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/modules/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/modules/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/modules/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/modules/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/it/lessons/basics/modules/" >it</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/modules/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/modules/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/modules/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/modules/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/modules/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/modules/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/modules/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/modules/" >sk</a>
+        
+      
+        
+        
+
+        
+          <strong >tr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/uk/lessons/basics/modules/" >uk</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/modules/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/modules/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/basics/modules/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir programlama dili dersleri</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/tr/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Temeller</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/basics/">1. Temeller</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/collections/">2. Koleksiyonlar</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/pattern-matching/">4. Ornegini Bulma</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/control-structures/">5. Kontrol Yapilari</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/functions/">6. Fonksiyonlar</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/pipe-operator/">7. Pipe Operatörü</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">8. Modüller</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/sigils/">10. İşaretler (Sigils)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/documentation/">11. Belgelendirme</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/testing/">12. Test Yapmak</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/comprehensions/">13. Comprehensions(Kavramlar)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/strings/">14. Stringler (Dizeler)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/mix-tasks/">16. Özel Mix Görevleri</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/basics/iex-helpers/">17. IEx Yardımcıları</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Gelişmiş</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/erlang/">1. Erlang'ın Çalışabilirliği</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/error-handling/">2. Hata işleme</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/escripts/">3. Yürütüle bilirlik</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/tr/lessons/advanced/behaviours/">11. Davranışlar</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/tr/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

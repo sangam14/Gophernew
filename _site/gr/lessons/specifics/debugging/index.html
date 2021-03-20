@@ -1,0 +1,894 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="gr">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/gr/lessons/specifics/debugging/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="gr">
+  <meta property="og:description" content="Μαθήματα προγραμματισμού της γλώσσας Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/specifics/debugging/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/specifics/debugging/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/specifics/debugging/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/gr/lessons/specifics/debugging/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Debugging &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/gr/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/gr/lessons/specifics/debugging/&title=Debugging&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/gr/lessons/specifics/debugging/&via=elixirschool&text=ElixirSchool: Debugging&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/gr/lessons/specifics/debugging/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/gr/lessons/specifics/debugging/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Debugging" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/gr/lessons/specifics/debugging/&title=ElixirSchool: Debugging&description=Check out 'Debugging' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Debugging&body=Check out 'Debugging' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/gr/lessons/specifics/debugging/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Debugging
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      Ίσως υπάρχει περιεχόμενο σε αυτή τη μετάφραση που δεν είναι ενημερωμένο.<br/>
+    
+
+    Υπάρχουν αρκετές μικρές αλλαγές στο αρχικό μάθημα μετά την τελευταία ενημέρωση.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Τα σφάλματα είναι αναπόσπαστο μέρος κάθε project, γιαυτό και χρειαζόμστε απασφαλμάτωση. Σε αυτό το μάθημα θα μάθουμε για την απασφαλμάτωση κώδικα στην Elixir καθώς και για τα εργαλεία στατικής ανάλυσης που μας βοηθάνε να βρούμε πιθανά σφάλματα.</p>
+
+<h2>Πίνακας περιεχομένων</h2>
+<div id="toc"></div>
+
+<h1 id="dialyxir-και-dialyzer">Dialyxir και Dialyzer</h1>
+
+<p>Το <a href="http://erlang.org/doc/man/dialyzer.html">Dialyzer</a>, ένας διαφορικός αναλυτής για προγράμματα Erlang είναι ένα εργαλείο για στατική ανάλυση κώδικα. Με άλλα λόγια <em>διαβάζουν</em> αλλά δεν <em>τρέχουν</em> κώδικα και τον αναλύουν π.χ. ψάχνοντας για κάποια σφάλματα, νεκρό, αχρείαστο ή απροσπέλαστο κώδικα.</p>
+
+<p>Το <a href="https://github.com/jeremyjh/dialyxir">Dialyxir</a> είνα μια εργασία mix που απλοποιεί τη χρήση του Dialyzer στην Elixir.</p>
+
+<p>Οι προδιαγραφές βοηθούν εργαλεία όπως το Dialyzer να καταλάβουν τον κώδικα καλύτερα. Αντίθετα με την τεκμηρίωση που είναι αναγνώσιμη και κατανοητή μόνο από άλλους ανθρώπους (αν υπάρχει και είναι καλογραμμένη), η <code class="highlighter-rouge">spec</code> χρησιμοποιεί πιο επίσημο συντακτικό και μπορεί να γίνει κατανοητή από μια μηχανή.</p>
+
+<p>Ας προσθέσουμε το Dialyzer στο project μας. Ο πιο απλός τρόπος είναι να προσθέσουμε την εξάρτηση στο αρχείο <code class="highlighter-rouge">mix.exs</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[{</span><span class="ss">:dialyxir</span><span class="p">,</span> <span class="s2">"~&gt; 0.4"</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:dev</span><span class="p">]}]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Τότε καλούμε:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+...
+<span class="nv">$ </span>mix deps.compile
+</code></pre></div></div>
+
+<p>Η πρώτη εντολή θα κατεβάσει και εγκαταστήσει το Dialyxir. Μπορεί να σας ζητηθεί να εγκαταστήσετε το Hex μαζί του. Το δεύτερο συντάσσει την εφαρμογή Dialyxir. Αν θέλετε να εγκαταστήσετε το Dialyxir καθολικά, παρακαλώ διαβάστε την <a href="https://github.com/jeremyjh/dialyxir#installation">τεκμηρίωσή του</a>.</p>
+
+<p>Το τελευταίο βήμα είναι να τρέξετε το Dialyzer για να χτίσετε ξανά το PLT(Persistent Lookup Table - Πίνακας Μόνιμης Εύρεσης). Πρέπει να το κάνετε αυτό κάθε φορά που εγκαθιστάτε μια νέα έκδοση Erlang ή Elixir. Ευτυχώς, το Dialyzer δεν θα προσπαθήσει να αναλύσει τη βασική βιβλιοθήκη κάθε φορά που προσπαθείτε να το χρησιμοποιήσετε. Χρειάζονται μερικά λεπτά για να ολοκληρωθεί η λήψη.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer <span class="nt">--plt</span>
+Starting PLT Core Build ... this will take awhile
+dialyzer <span class="nt">--build_plt</span> <span class="nt">--output_plt</span> /.dialyxir_core_18_1.3.2.plt <span class="nt">--apps</span> erts kernel stdlib crypto public_key <span class="nt">-r</span> /Elixir/lib/elixir/../eex/ebin /Elixir/lib/elixir/../elixir/ebin /Elixir/lib/elixir/../ex_unit/ebin /Elixir/lib/elixir/../iex/ebin /Elixir/lib/elixir/../logger/ebin /Elixir/lib/elixir/../mix/ebin
+  Creating PLT /.dialyxir_core_18_1.3.2.plt ...
+...
+ <span class="k">done in </span>5m14.67s
+<span class="k">done</span> <span class="o">(</span>warnings were emitted<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="στατική-ανάλυση-κώδικα">Στατική ανάλυση κώδικα</h2>
+
+<p>Τώρα είμαστε έτοιμοι να χρησιμοποιήσουμε το Dialyxir:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+examples.ex:3: Invalid <span class="nb">type </span>specification <span class="k">for function</span> <span class="s1">'Elixir.Examples'</span>:sum_times/1. The success typing is <span class="o">(</span>_<span class="o">)</span> -&gt; number<span class="o">()</span>
+...
+</code></pre></div></div>
+
+<p>Το μήνυμα από το Dialyzer είναι ξεκάθαρο: ο τύπος επιστροφής της συνάρτησής μας <code class="highlighter-rouge">sum_times/1</code> είναι διαφορετικός από αυτόν που έχει οριστεί. Αυτό συμβαίνει γιατί η <code class="highlighter-rouge">Enum.sum/1</code> επιστρέφει έναν <code class="highlighter-rouge">αριθμό</code> και όχι έναν <code class="highlighter-rouge">ακέραιο</code> αλλά ο τύπος επιστροφής της <code class="highlighter-rouge">sum_times/1</code> είναι <code class="highlighter-rouge">ακέραιος</code>.</p>
+
+<p>Από τη στιγμή που ο <code class="highlighter-rouge">αριθμός</code> δεν είναι το ίδιο πράγμα με τον <code class="highlighter-rouge">ακέραιο</code> δεχόμαστε ένα σφάλμα. Πως θα το διορθώσουμε; Πρέπει να χρησιμοποιήσουμε την συνάρτηση <code class="highlighter-rouge">round/1</code> για να αλλάξουμε τον <code class="highlighter-rouge">αριθμό</code> σε έναν <code class="highlighter-rouge">ακέραιο</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">@spec</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="p">::</span> <span class="n">integer</span>
+<span class="k">def</span> <span class="n">sum_times</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">el</span> <span class="o">*</span> <span class="n">a</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="o">|&gt;</span> <span class="n">round</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Τελικά:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix dialyzer
+...
+  Proceeding with analysis... <span class="k">done in </span>0m0.95s
+<span class="k">done</span> <span class="o">(</span>passed successfully<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Η χρήση των προδιαγραφών μαζί με εργαλεία ανάλυσης στατικού κώδικα μας βοηθάει να γράφουμε κώδικα που είναι αυτό-ελεγμένος και περιέχει λιγότερα σφάλματα.</p>
+
+<h1 id="απασφαλμάτωση">Απασφαλμάτωση</h1>
+
+<p>Μερικές φορές η στατική ανάλυση του κώδικα δεν είναι αρκετή. Μπορεί να είναι αναγκαίο να καταλάβουμε τη ροή εκτέλεσης ώστε να βρούμε σφάλματα. Ο απλούστερος τρόπος είναι να βάλουμε εκφράσεις εξόδου στον κώδικά μας όπως η <code class="highlighter-rouge">IO.puts/2</code> για να παρακολουθήσουμε τιμές και ροή κώδικα, αλλά αυτή η τεχνική είναι απαρχαιωμένη και έχει όρια. Ευτυχώς για εμάς, μπορούμε να χρησιμοποιήσουμε τον εντοπιστή σφαλμάτων της Erlang για να απασφαλματώσουμε τον κώδικά μας στην Elixir.</p>
+
+<p>Ας δούμε μια βασική ενότητα:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">cpu_burns</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="mi">5</span>
+
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Και τώρα τρέξτε το <code class="highlighter-rouge">iex</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">-S</span> mix
+</code></pre></div></div>
+
+<p>Και τώρα τρέξτε τον εντοπιστή σφαλμάτων:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:debugger</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="c1">#PID&lt;0.307.0&gt;}</span>
+</code></pre></div></div>
+
+<p>Η ενότητα <code class="highlighter-rouge">:debugger</code> της Erlang παρέχει πρόσβαση στον εντοπιστή σφαλμάτων. Μπορούμε να χρησιμοποιήσουμε την <code class="highlighter-rouge">start/1</code> για να τον παραμετροποιήσουμε:</p>
+
+<ul>
+  <li>Ένα εξωτερικό αρχείο παραμετροποίησης μπορεί να χρησιμοποιηθεί περνώντας την διαδρομή αρχείου.</li>
+  <li>Αν το όρισμα είναι <code class="highlighter-rouge">:local</code> ή <code class="highlighter-rouge">:global</code> τότε ο εντοπιστής θα:
+    <ul>
+      <li><code class="highlighter-rouge">:global</code> - ερμηνεύσει τον κώδικα σε όλους τους γνωστούς κόμβους. Αυτή είναι η προκαθορισμένη τιμή.</li>
+      <li><code class="highlighter-rouge">:local</code> - ερμηνεύσει τον κώδικα μόνο στον τρέχοντα κόμβο.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Το επόμενο βήμα είναι να συνδέσουμε την ενότητά μας στον εντοπιστή σφαλμάτων:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">ni</span><span class="p">(</span><span class="no">Example</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:module</span><span class="p">,</span> <span class="no">Example</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Η ενότητα <code class="highlighter-rouge">:int</code> είναι ένας ερμηνευτής που μας δίνει τη δυνατότητα να δημιουργούμε σημεία διακοπής και να μπούμε μέσα στην εκτέλεση του κώδικα.</p>
+
+<p>Όταν ξεκινάτε τον εντοπιστή σφαλμάτων θα δείτε ένα νέο παράθυρο σαν αυτό:</p>
+
+<p><img src="/assets/debugger_1-98405f919dea64207148bd2434268c300ce63a4de05b3c242aea8216a001eff9.png" alt="Στιγμιότυπο οθόνης Εντοπιστή Σφαλμάτων 1" /></p>
+
+<p>Αφού συνδέσουμε την ενότητά μας στον εντοπιστή σφαλμάτων θα είναι διαθέσιμη στο μενού στα αριστερά μας:</p>
+
+<p><img src="/assets/debugger_2-bbb5ca6bc547fbdf1a87021e6f0ab830b03edbc5a3ea3627da6ec869a5f6e9e1.png" alt="Στιγμιότυπο οθόνης Εντοπιστή Σφαλμάτων 2" /></p>
+
+<h2 id="δημιουργία-σημείων-διακοπής">Δημιουργία σημείων διακοπής</h2>
+
+<p>Ένα σημείο διακοπής είναι ένα σημείο στον κώδικα όπου η εκτέλεση μπορεί να διακοπεί. Έχουμε δύο τρόπους δημιουργίας σημείων διακοπής:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">:int.break/2</code> in our code</li>
+  <li>The debugger’s UI</li>
+</ul>
+
+<p>Ας προσπαθήσουμε να δημιουργήσουμε ένα σημείο διακοπής στο IEx:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Αυτό ορίζει ένα σημείο διακοπής στη γραμμή 8 της ενότητας <code class="highlighter-rouge">Example</code>. Τώρα όταν καλέσουμε τη συνάρτησή μας:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">cpu_burns</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Η εκτέλεση θα διακοπεί στο IEx και το παράθυρο εντοπισμού σφαλμάτων θα πρέπει να δείχνει κάπως έτσι:</p>
+
+<p><img src="/assets/debugger_3-a102cae7d61b9a645424defbbb3a74af29f37c5739b0635c12d81efc567e85f0.png" alt="Στιγμιότυπο οθόνης Εντοπιστή Σφαλμάτων 3" /></p>
+
+<p>Ένα επιπρόσθετο παράθυρο με τον πηγαίο κώδικά μας θα εμφανιστεί:</p>
+
+<p><img src="/assets/debugger_4-4083df8f049c34f813d3bbbe173d49324498f3be96616d11e94f82d5de8b5ff1.png" alt="Στιγμιότυπο οθόνης Εντοπιστή Σφαλμάτων 4" /></p>
+
+<p>Σε αυτό το παράθυρο μπορούμε να δούμε την τιμή των μεταβλητών, να προχωρήσουμε στην επόμενη γραμμή ή να αξιολογήσουμε τις εκφράσεις. Η <code class="highlighter-rouge">:int.disable_break/2</code> μπορεί να κληθεί ώστε να απενεργοποιήσουμε ένα σημείο διακοπής:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">disable_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Για να ενεργοποιήσουμε ξανά ένα σημείο διακοπής μπορούμε να καλέσουμε την <code class="highlighter-rouge">:int.enable_break/2</code> ή μπορούμε να διαγράψουμε ένα σημείο διακοπής με αυτό τον τρόπο:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span> <span class="o">&gt;</span> <span class="ss">:int</span><span class="o">.</span><span class="n">delete_break</span><span class="p">(</span><span class="no">Example</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="ss">:ok</span>
+</code></pre></div></div>
+
+<p>Οι ίδιες λειτουργίες είναι διαθέσιμες στο παράθυρο του εντοπιστή σφαλμάτων. Στο κεντρικό μενού, <strong>Break</strong>, μπορούμε να επιλέξουμε <strong>Line Break</strong> και να ορίσουμε σημεία διακοπής. Αν επιλέξουμε μια γραμμή που δεν έχει κώδικα τότε το σημείο διακοπής θα αγνοηθεί, αλλά θα εμφανιστεί στο παράθυρο του εντοπιστή σφαλμάτων. Υπάρχουν τρείς τύποι σημείων διακοπής:</p>
+
+<ul>
+  <li>Σημεία διακοπής γραμμής - ο εντοπιστής διακόπτει την εκτέλεση μόλις φτάσουμε στη γραμμή, ορισμός με την <code class="highlighter-rouge">:int.break/2</code></li>
+  <li>Προαιρετικά σημεία διακοπής - παρόμοια με τα σημεία διακοπής γραμμής αλλά ο εντοπιστής σφαλμάτων διακόπτει μόνο όταν πραγματοποιηθεί μια συγκεκριμένη συνθήκη, ορίζονται με την <code class="highlighter-rouge">:int.get_binding/2</code></li>
+  <li>Σηείο διακοπής συνάρτησης - ο εντοπιστής θα διακόψει στην πρώτη γραμμή μιας συνάρτησης, ορισμένης με τη χρήση της <code class="highlighter-rouge">:int.break_in/3</code></li>
+</ul>
+
+<p>Αυτό ήταν όλο! Καλή απασφαλμάτωση!</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/gr/lessons/specifics/debugging.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/specifics/mnesia/" title="Mnesia">← Mnesia</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/gr/lessons/libraries/guardian/" title="Guardian (Βασικά)">Guardian (Βασικά) →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/specifics/debugging/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <strong >gr</strong>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/specifics/debugging/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/specifics/debugging/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/specifics/debugging/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/specifics/debugging/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/specifics/debugging/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/specifics/debugging/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Μαθήματα προγραμματισμού της γλώσσας Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/gr/" class="">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βασικά</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/basics/">1. Βασικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/collections/">2. Συλλογές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pattern-matching/">4. Αντιπαραβολές Προτύπων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/control-structures/">5. Δομές Ελέγχου</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/functions/">6. Συναρτήσεις</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/pipe-operator/">7. Τελεστής Σωλήνα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/modules/">8. Ενότητες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/sigils/">10. Σφραγίδες</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/documentation/">11. Τεκμηρίωση</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/testing/">12. Δοκιμές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/comprehensions/">13. Ανάγνωση Λιστών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/strings/">14. Αλφαριθμητικά</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/date-time/">15. Ημερομηνία και Ώρα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/mix-tasks/">16. Ειδικές Εργασίες Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/basics/iex-helpers/">17. Βοηθοί IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Προχωρημένα</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/erlang/">1. Διαλειτουργικότητα με την Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/error-handling/">2. Διαχείριση Σφαλμάτων</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/escripts/">3. Εκτελέσιμα</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/concurrency/">4. Συγχρονισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-concurrency/">5. Συγχρονισμός OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/otp-supervisors/">6. Επιτηρητές OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/metaprogramming/">8. Μεταπρογραμματισμός</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/umbrella-projects/">9. Projects Ομπρέλας</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/typespec/">10. Προδιαγραφές και τύποι</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/behaviours/">11. Συμπεριφορές</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/advanced/protocols/">13. Πρωτόκολλα</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/changesets/">2. Σετ Αλλαγών</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/ecto/associations/">3. Συσχετισμοί</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active">Ιδιαιτερότητες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/eex/">2. Ένθετη Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">5. Debugging</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener">Βιβλιοθήκες</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/guardian/">1. Guardian (Βασικά)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/gr/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class="">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/gr/report/" class="">Αναφορά Μετάφρασης</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class="">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

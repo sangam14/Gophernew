@@ -1,0 +1,838 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="de">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Übungen zur Programmiersprache Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/de/lessons/advanced/umbrella-projects/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="de">
+  <meta property="og:description" content="Übungen zur Programmiersprache Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/umbrella-projects/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/umbrella-projects/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/umbrella-projects/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/de/lessons/advanced/umbrella-projects/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Umbrella-Projekte &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/de/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/de/lessons/advanced/umbrella-projects/&title=Umbrella-Projekte&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/de/lessons/advanced/umbrella-projects/&via=elixirschool&text=ElixirSchool: Umbrella-Projekte&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/de/lessons/advanced/umbrella-projects/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/de/lessons/advanced/umbrella-projects/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Umbrella-Projekte" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/de/lessons/advanced/umbrella-projects/&title=ElixirSchool: Umbrella-Projekte&description=Check out 'Umbrella-Projekte' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Umbrella-Projekte&body=Check out 'Umbrella-Projekte' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/de/lessons/advanced/umbrella-projects/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-major"></span>
+  Umbrella-Projekte
+</h1>
+<div class="version-info version-info-major">
+  <span>
+    
+      Teile dieser Übersetzung könnten veraltet sein.<br/>
+    
+
+    Einige größere Änderungen wurden der originalen Lektion seit der letzten Aktualisierung hinzugefügt.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Manchmal kann ein Projekt richtig groß werden. Das Mix build tool erlaubt uns unseren Code in mehrere Anwendungen aufzuteilen und unser Elixir Projekt einfacher handhabbar zu machen, wenn es größer wird.</p>
+
+<h2>Inhaltsverzeichnis</h2>
+<div id="toc"></div>
+
+<h2 id="einführung">Einführung</h2>
+
+<p>Um ein Umbrella-Projekt zu erstellen, starten wir ein Projekt wie üblich, übergeben jedoch das <code class="highlighter-rouge">--umbrella</code> flag.
+In diesem Beispiel werden wir die Schale eines Toolkits zum Maschinellen Lernen erstellen. Warum ein Toolkit zum Maschinellen Lernen? Warum nicht? Es besteht aus verschiedenen Lernalgorithmen und nützlichen Hilfsfunktionen.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new machine_learning_toolkit <span class="nt">--umbrella</span>
+
+<span class="k">*</span> creating .gitignore
+<span class="k">*</span> creating README.md
+<span class="k">*</span> creating mix.exs
+<span class="k">*</span> creating apps
+<span class="k">*</span> creating config
+<span class="k">*</span> creating config/config.exs
+
+Your umbrella project was created successfully.
+Inside your project, you will find an apps/ directory
+where you can create and host many apps:
+
+    <span class="nb">cd </span>machine_learning_toolkit
+    <span class="nb">cd </span>apps
+    mix new my_app
+
+Commands like <span class="s2">"mix compile"</span> and <span class="s2">"mix test"</span> when executed
+<span class="k">in </span>the umbrella project root will automatically run
+<span class="k">for </span>each application <span class="k">in </span>the apps/ directory.
+</code></pre></div></div>
+
+<p>Wie du am Shellbefehl sehen kannst, erstellt Mix ein kleines Projekt für uns mit zwei Verzeichnissen:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">apps/</code> - hier werden unsere Unterprojekte wohnen</li>
+  <li><code class="highlighter-rouge">config/</code> - wo die Konfiguration für unser Umbrella-Projekt lebt</li>
+</ul>
+
+<h2 id="kindprojekte">Kindprojekte</h2>
+
+<p>Wechseln wir in das Verzeichnis <code class="highlighter-rouge">machine_learning_toolkit/apps</code> unseres Projekts und erstellen wir drei normale Anwendungen mit Mix:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new utilities
+
+<span class="k">*</span> creating README.md
+<span class="k">*</span> creating .gitignore
+<span class="k">*</span> creating mix.exs
+<span class="k">*</span> creating lib
+<span class="k">*</span> creating lib/utilities.ex
+<span class="k">*</span> creating <span class="nb">test</span>
+<span class="k">*</span> creating <span class="nb">test</span>/test_helper.exs
+<span class="k">*</span> creating <span class="nb">test</span>/utilities_test.exs
+
+Your Mix project was created successfully.
+You can use <span class="s2">"mix"</span> to compile it, <span class="nb">test </span>it, and more:
+
+    <span class="nb">cd </span>utilities
+    mix <span class="nb">test
+
+</span>Run <span class="s2">"mix help"</span> <span class="k">for </span>more commands.
+
+
+<span class="nv">$ </span>mix new datasets
+
+<span class="k">*</span> creating README.md
+<span class="k">*</span> creating .gitignore
+<span class="k">*</span> creating mix.exs
+<span class="k">*</span> creating lib
+<span class="k">*</span> creating lib/datasets.ex
+<span class="k">*</span> creating <span class="nb">test</span>
+<span class="k">*</span> creating <span class="nb">test</span>/test_helper.exs
+<span class="k">*</span> creating <span class="nb">test</span>/datasets_test.exs
+
+Your Mix project was created successfully.
+You can use <span class="s2">"mix"</span> to compile it, <span class="nb">test </span>it, and more:
+
+    <span class="nb">cd </span>datasets
+    mix <span class="nb">test
+
+</span>Run <span class="s2">"mix help"</span> <span class="k">for </span>more commands.
+
+<span class="nv">$ </span>mix new svm
+
+<span class="k">*</span> creating README.md
+<span class="k">*</span> creating .gitignore
+<span class="k">*</span> creating mix.exs
+<span class="k">*</span> creating lib
+<span class="k">*</span> creating lib/svm.ex
+<span class="k">*</span> creating <span class="nb">test</span>
+<span class="k">*</span> creating <span class="nb">test</span>/test_helper.exs
+<span class="k">*</span> creating <span class="nb">test</span>/svm_test.exs
+
+Your Mix project was created successfully.
+You can use <span class="s2">"mix"</span> to compile it, <span class="nb">test </span>it, and more:
+
+    <span class="nb">cd </span>svm
+    mix <span class="nb">test
+
+</span>Run <span class="s2">"mix help"</span> <span class="k">for </span>more commands.
+</code></pre></div></div>
+
+<p>Wir sollten nun einen Verzeichnisbaum wie folgt haben:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>tree
+<span class="nb">.</span>
+├── README.md
+├── apps
+│   ├── datasets
+│   │   ├── README.md
+│   │   ├── config
+│   │   │   └── config.exs
+│   │   ├── lib
+│   │   │   └── datasets.ex
+│   │   ├── mix.exs
+│   │   └── <span class="nb">test</span>
+│   │       ├── datasets_test.exs
+│   │       └── test_helper.exs
+│   ├── svm
+│   │   ├── README.md
+│   │   ├── config
+│   │   │   └── config.exs
+│   │   ├── lib
+│   │   │   └── svm.ex
+│   │   ├── mix.exs
+│   │   └── <span class="nb">test</span>
+│   │       ├── svm_test.exs
+│   │       └── test_helper.exs
+│   └── utilities
+│       ├── README.md
+│       ├── config
+│       │   └── config.exs
+│       ├── lib
+│       │   └── utilities.ex
+│       ├── mix.exs
+│       └── <span class="nb">test</span>
+│           ├── test_helper.exs
+│           └── utilities_test.exs
+├── config
+│   └── config.exs
+└── mix.exs
+</code></pre></div></div>
+
+<p>Falls wir zurück zur Wurzel unseres Umbrella-Projekts wechseln, können wir sehen, dass wir jeden üblichen Befehl wie etwa compile aufrufen können. Da Unterprojekte auch nur normale Anwendungen sind, kannst du in ihr Verzeichnis wechseln und all die bekannten Sachen machen, die dir Mix erlaubt.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix compile
+
+<span class="o">==&gt;</span> svm
+Compiled lib/svm.ex
+Generated svm app
+
+<span class="o">==&gt;</span> datasets
+Compiled lib/datasets.ex
+Generated datasets app
+
+<span class="o">==&gt;</span> utilities
+Compiled lib/utilities.ex
+Generated utilities app
+
+Consolidated List.Chars
+Consolidated Collectable
+Consolidated String.Chars
+Consolidated Enumerable
+Consolidated IEx.Info
+Consolidated Inspect
+</code></pre></div></div>
+
+<h2 id="iex">IEx</h2>
+
+<p>Du denkst eventuell, dass der Umgang mit Anwendungen in einem Umbrella-Projekt ein wenig anders sein könnte. Nun, glaub es oder nicht, du könntest falsch liegen! Wenn wir in unser Hauptverzeichnis wechseln und IEx mit <code class="highlighter-rouge">iex -S mix</code> starten, können wir mit all unseren Projekten wie sonst auch interagieren. Verändern wir für das folgende Beispiel den Inhalt von <code class="highlighter-rouge">apps/datasets/lib/datasets.ex</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Datasets</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">hello</span> <span class="k">do</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Hello, I'm the datasets"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>iex <span class="nt">-S</span> mix
+Erlang/OTP 22.0 <span class="o">[</span>erts-10.5.3] <span class="o">[</span><span class="nb">source</span><span class="o">]</span> <span class="o">[</span>64-bit] <span class="o">[</span>smp:4:4] <span class="o">[</span>async-threads:10] <span class="o">[</span>hipe] <span class="o">[</span>kernel-poll:false] <span class="o">[</span>dtrace]
+
+<span class="o">==&gt;</span> datasets
+Compiled lib/datasets.ex
+Consolidated List.Chars
+Consolidated Collectable
+Consolidated String.Chars
+Consolidated Enumerable
+Consolidated IEx.Info
+Consolidated Inspect
+Interactive Elixir <span class="o">(</span>1.10.1<span class="o">)</span> - press Ctrl+C to <span class="nb">exit</span> <span class="o">(</span><span class="nb">type </span>h<span class="o">()</span> ENTER <span class="k">for </span><span class="nb">help</span><span class="o">)</span>
+
+iex&gt; Datasets.hello
+:world
+</code></pre></div></div>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/de/lessons/advanced/umbrella-projects.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/de/lessons/advanced/metaprogramming/" title="Metaprogrammierung">← Metaprogrammierung</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/de/lessons/advanced/typespec/" title="Spezifikationen und Typen">Spezifikationen und Typen →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong >de</strong>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/umbrella-projects/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/umbrella-projects/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/umbrella-projects/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/umbrella-projects/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/umbrella-projects/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/umbrella-projects/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/umbrella-projects/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/umbrella-projects/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/advanced/umbrella-projects/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/umbrella-projects/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/umbrella-projects/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/umbrella-projects/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Übungen zur Programmiersprache Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/de/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Grundlagen</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/de/lessons/basics/basics/">1. Grundlagen</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/enum/">3. Enums</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/control-structures/">5. Kontrollstrukturen</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/functions/">6. Funktionen</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/modules/">8. Module</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/documentation/">11. Dokumentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/testing/">12. Testen</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/basics/iex-helpers/">17. IEx Hilfsfunktionen</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Erweitert</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/erlang/">1. Erlang-Interoperabilität</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/error-handling/">2. Fehlerbehandlung</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/escripts/">3. Ausführbare Dateien</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/concurrency/">4. Nebenläufigkeit</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/otp-concurrency/">5. OTP Nebenläufigkeit</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/metaprogramming/">8. Metaprogrammierung</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">9. Umbrella-Projekte</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/de/lessons/advanced/typespec/">10. Spezifikationen und Typen</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Einzelheiten</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/de/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/de/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

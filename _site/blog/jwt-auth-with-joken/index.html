@@ -1,0 +1,1018 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/jwt-auth-with-joken/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/jwt-auth-with-joken/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>JWT Auth in Elixir with Joken &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/jwt-auth-with-joken/&title=JWT Auth in Elixir with Joken&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/jwt-auth-with-joken/&via=elixirschool&text=ElixirSchool: JWT Auth in Elixir with Joken&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/jwt-auth-with-joken/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/jwt-auth-with-joken/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: JWT Auth in Elixir with Joken" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/jwt-auth-with-joken/&title=ElixirSchool: JWT Auth in Elixir with Joken&description=Check out 'JWT Auth in Elixir with Joken' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: JWT Auth in Elixir with Joken&body=Check out 'JWT Auth in Elixir with Joken' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/jwt-auth-with-joken/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">JWT Auth in Elixir with Joken</h1>
+    <p><a href="/blog/years/2018/">29 Nov 2018</a> · by 
+
+    <a href="https://thegreatcodeadventure.com" target="_blank" rel="nofollow noopener">Sophie DeBenedetto</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <p><a href="https://jwt.io/introduction/">JSON Web Tokens</a>, or JWTs, allow us to authenticate requests between the client and the server by encrypting authentication information into a secure, compact JSON object that is digitally signed. In this post, we’ll use the <a href="https://github.com/bryanjos/joken">Joken</a> library to implement JWT auth in a Phoenix app. We’ll focus on JWTs that are signed using a ECDSA private/public key pair, although you can also sign JWTs using an HMAC algorithm.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>First things first, we need to include the Joken package in our application’s dependencies:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="c1"># .. other deps</span>
+  <span class="p">{</span><span class="ss">:joken</span><span class="p">,</span> <span class="s2">"~&gt; 2.0-rc0"</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Run <code class="highlighter-rouge">mix deps.get</code> and you’re ready to use Joken!</p>
+
+<h2 id="a-note-on-encryption">A Note on Encryption</h2>
+
+<p><strong>We’ll be decrypting tokens that were generated using an ECDSA private/public key pair.</strong> This means that we’ll need access to the public key in order to enact the decryption. Where you store that public key is up to you. You can store it in a <code class="highlighter-rouge">.pem</code> file, accessible to your application; you can serve it from an endpoint; you can store it in an environment variable–to name a few options.</p>
+
+<p>This post assumes that your code has access to the public portion of the ECDSA private/public key pair in the form of a string that looks something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----BEGIN PUBLIC KEY-----
+blahblahblah
+yaddayaddayadda
+-----END PUBLIC KEY-----
+</code></pre></div></div>
+
+<h2 id="the-decryption-module">The Decryption Module</h2>
+
+<p>We’ll define a module, <code class="highlighter-rouge">JwtAuthToken</code> that is responsible for decrypting a JWT given the token and the public key.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthToken</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">decode</span><span class="p">(</span><span class="n">jwt_string</span><span class="p">,</span> <span class="n">public_key</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># coming soon!</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The public API of our module is simple. It exposes a function <code class="highlighter-rouge">decode/2</code> which takes in the arguments of the JWT string and the ECDSA public key string. It will use the public key to decrypt the JWT.</p>
+
+<h3 id="how-does-joken-decode-and-verify">How Does Joken Decode and Verify?</h3>
+
+<p>In order to decode and verify our JWT string, Joken needs two things:</p>
+
+<ul>
+  <li>A <code class="highlighter-rouge">Joken.Token</code> struct</li>
+  <li>A <code class="highlighter-rouge">Joken.Signer</code> struct</li>
+</ul>
+
+<p>So, we need to use our token <em>string</em> to generate a <code class="highlighter-rouge">Joken.Token</code> and we need to use our ECDSA public key PEM file to generate a <code class="highlighter-rouge">Joken.Signer</code> struct. Then, we’ll call <code class="highlighter-rouge">Joken.verify/2</code> with these two structs as arguments.</p>
+
+<h3 id="generating-the-jokentoken">Generating the <code class="highlighter-rouge">Joken.Token</code></h3>
+
+<p>In order to generate this struct, we’ll call <code class="highlighter-rouge">Joken.token/1</code>. We pass in an argument of the JWT string:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthToken</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">decode</span><span class="p">(</span><span class="n">jwt_string</span><span class="p">,</span> <span class="n">public_key</span><span class="p">)</span> <span class="k">do</span>
+   <span class="n">jwt_string</span>
+   <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">token</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>This will return the <code class="highlighter-rouge">Joken.Token</code> struct in the following format:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%</span><span class="no">Joken</span><span class="o">.</span><span class="no">Token</span><span class="p">{</span>                                                                                                            <span class="ss">claims:</span> <span class="p">%{},</span>                                                                                                           <span class="ss">claims_generation:</span> <span class="p">%{},</span>
+  <span class="ss">error:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">header:</span> <span class="p">%{},</span>
+  <span class="ss">json_module:</span> <span class="no">Poison</span><span class="p">,</span>
+  <span class="ss">signer:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">token:</span> <span class="s2">"blah.blah.blah"</span><span class="p">,</span>
+  <span class="ss">validations:</span> <span class="p">%{}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="validating-token-expiration">Validating Token Expiration</h4>
+
+<p>We’re not quite done with our token struct though. Notice that the <code class="highlighter-rouge">:validations</code> key points to an empty map. The data stored under <code class="highlighter-rouge">:validations</code> key of the token struct will be used by <code class="highlighter-rouge">Joken.verify/2</code> to determine the validity of a decoded token’s claims. Our token’s encoded claims will include an <em>expiration date</em>, under a key of <code class="highlighter-rouge">"exp"</code>. We <em>only</em> want a decoded token to be considered valid if the <code class="highlighter-rouge">"exp"</code> in the claims has is not in the past. So, we’ll leverage <code class="highlighter-rouge">Joken.with_validation</code> to write a validation function that returns true if the token’s claims’ <code class="highlighter-rouge">"exp"</code> is <em>not</em> in the past:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthToken</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">decode</span><span class="p">(</span><span class="n">jwt_string</span><span class="p">,</span> <span class="n">public_key</span><span class="p">)</span> <span class="k">do</span>
+   <span class="n">jwt_string</span>
+   <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">token</span>
+   <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">with_validation</span><span class="p">(</span><span class="s2">"exp"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">current_time</span><span class="p">()))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now our token struct looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%</span><span class="no">Joken</span><span class="o">.</span><span class="no">Token</span><span class="p">{</span>
+  <span class="ss">claims:</span> <span class="p">%{},</span>
+  <span class="ss">claims_generation:</span> <span class="p">%{},</span>
+  <span class="ss">error:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">header:</span> <span class="p">%{},</span>
+  <span class="ss">json_module:</span> <span class="no">Poison</span><span class="p">,</span>
+  <span class="ss">signer:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">token:</span> <span class="s2">"blah.blah.blah"</span><span class="p">,</span>
+  <span class="ss">validations:</span> <span class="p">%{</span><span class="s2">"exp"</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="c1">#Function&lt;6.99386804/1 in :erl_eval.expr/5&gt;, nil}}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Such that when we later call <code class="highlighter-rouge">Joken.verify/2</code>, Joken will execute the function stored under the <code class="highlighter-rouge">"exp"</code> key of the <code class="highlighter-rouge">:validations</code> struct with an argument of the value stored under the <code class="highlighter-rouge">"exp"</code> of the decoded token’s claims.</p>
+
+<p>If this function returns <code class="highlighter-rouge">true</code>, Joken will expose the decoded token’s claims:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%</span><span class="no">Joken</span><span class="o">.</span><span class="no">Token</span><span class="p">{</span>
+  <span class="ss">claims:</span> <span class="p">%{</span>
+    <span class="s2">"aud"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"user"</span><span class="p">],</span>
+    <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"guy@email.com.com"</span><span class="p">,</span>
+    <span class="s2">"exp"</span> <span class="o">=&gt;</span> <span class="mi">1540399830</span><span class="p">,</span>
+    <span class="s2">"iat"</span> <span class="o">=&gt;</span> <span class="mi">1540392630</span><span class="p">,</span>
+    <span class="s2">"nbf"</span> <span class="o">=&gt;</span> <span class="mi">1540392630</span><span class="p">,</span>
+    <span class="s2">"sub"</span> <span class="o">=&gt;</span> <span class="s2">"ea375e5a-f918-4017-a5ee-1fc8b641ef84"</span>
+  <span class="p">},</span>
+  <span class="ss">claims_generation:</span> <span class="p">%{},</span>
+  <span class="ss">error:</span> <span class="no">nil</span><span class="p">,</span>
+  <span class="ss">errors:</span> <span class="p">[],</span>
+  <span class="ss">header:</span> <span class="p">%{},</span>
+  <span class="ss">json_module:</span> <span class="no">Poison</span><span class="p">,</span>
+  <span class="ss">signer:</span> <span class="o">&lt;</span><span class="n">coming</span> <span class="n">soon!</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">token:</span> <span class="s2">"blah.blah.blah"</span><span class="p">,</span>
+  <span class="ss">validations:</span> <span class="p">%{</span>
+    <span class="s2">"exp"</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="c1">#Function&lt;0.91892837/1 in DeployerWeb.JwtAuthToken.decode/2&gt;, nil}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>If it returns <code class="highlighter-rouge">false</code>, Joken will return the token struct <em>without</em> the decoded claims and <em>with</em> an error message:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%</span><span class="no">Joken</span><span class="o">.</span><span class="no">Token</span><span class="p">{</span>
+  <span class="ss">claims:</span> <span class="p">%{},</span>
+  <span class="ss">claims_generation:</span> <span class="p">%{},</span>
+  <span class="ss">error:</span> <span class="s2">"Invalid payload"</span><span class="p">,</span>
+  <span class="ss">errors:</span> <span class="p">[</span><span class="s2">"Invalid payload"</span><span class="p">],</span>
+  <span class="ss">header:</span> <span class="p">%{},</span>
+  <span class="ss">json_module:</span> <span class="no">Poison</span><span class="p">,</span>
+  <span class="ss">signer:</span> <span class="o">&lt;</span><span class="n">coming</span> <span class="n">soon!</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="ss">token:</span> <span class="s2">"blah.blah.blah"</span><span class="p">,</span>
+  <span class="ss">validations:</span> <span class="p">%{</span>
+    <span class="s2">"exp"</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="c1">#Function&lt;0.91892837/1 in DeployerWeb.JwtAuthToken.decode/2&gt;, nil}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now that we have our token struct ready to go, we can generate the <code class="highlighter-rouge">Joken.Signer</code> struct.</p>
+
+<h3 id="generating-the-jokensigner">Generating the <code class="highlighter-rouge">Joken.Signer</code></h3>
+
+<p>In order to generate the signer struct, we need to build our ECDSA public key struct. We can doing this using <code class="highlighter-rouge">JOSE</code>.</p>
+
+<h4 id="generating-the-ecdsa-signing-key-with-jose">Generating the ECDSA Signing Key with <code class="highlighter-rouge">JOSE</code></h4>
+
+<p><a href="https://github.com/potatosalad/erlang-jose"><code class="highlighter-rouge">JOSE</code></a> stands for JSON Object Signing and Encryption. Its a set of standards developed by the JOSE Working Group. The <code class="highlighter-rouge">JOSE</code> package is a dependency of Joken, so we don’t need to install it ourselves via our application dependencies.</p>
+
+<p>Joken needs our public key in the form of a map in order to use it to decrypt our token. We’ll use the <code class="highlighter-rouge">JOSE.JWK</code> (JWK stands for JSON Web Key) module to turn our public key string into a map.</p>
+
+<p>Let’s define a private helper function, <code class="highlighter-rouge">signing_key</code> in our <code class="highlighter-rouge">MyAppWeb.JwtAuthToken</code> module:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthToken</span> <span class="k">do</span>
+  <span class="o">...</span>
+
+  <span class="k">defp</span> <span class="n">signing_key</span><span class="p">(</span><span class="n">public_key</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="n">key_map</span> <span class="p">}</span> <span class="o">=</span> <span class="n">public_key</span>
+      <span class="o">|&gt;</span> <span class="no">JOSE</span><span class="o">.</span><span class="no">JWK</span><span class="o">.</span><span class="n">from_pem</span>
+      <span class="o">|&gt;</span> <span class="no">JOSE</span><span class="o">.</span><span class="no">JWK</span><span class="o">.</span><span class="n">to_map</span>
+    <span class="n">key_map</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The first function call, <code class="highlighter-rouge">JOSE.JWK.from_pem</code> converts our public key PEM binary into a <code class="highlighter-rouge">JOSE.JWK</code>. The second function call, <code class="highlighter-rouge">JOSE.JWK.to_map</code> (you guessed it) converts that <code class="highlighter-rouge">JOSE.JWK</code> into a map. So, we end up with a tuple that looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{%{</span><span class="ss">kty:</span> <span class="ss">:jose_jwk_kty_ec</span><span class="p">},</span>
+ <span class="p">%{</span>
+   <span class="s2">"crv"</span> <span class="o">=&gt;</span> <span class="s2">"P-256"</span><span class="p">,</span>
+   <span class="s2">"kty"</span> <span class="o">=&gt;</span> <span class="s2">"EC"</span><span class="p">,</span>
+   <span class="s2">"x"</span> <span class="o">=&gt;</span> <span class="s2">"xxxx"</span><span class="p">,</span>
+   <span class="s2">"y"</span> <span class="o">=&gt;</span> <span class="s2">"xxxx"</span>
+ <span class="p">}}</span>
+</code></pre></div></div>
+
+<p>Where the second element of the tuple is the ECDSA public key map. Joken will use this map as a key when generating an ECDSA signer.</p>
+
+<h4 id="generating-the-signer">Generating the Signer</h4>
+
+<p><code class="highlighter-rouge">Joken.Signer</code> is the JWK (JSON Web Key) and JWS (JSON Web Signature) configuration of Joken. The signer allows us to generate a token signature or read the token signature during decryption. We want to generate an ECDSA signer with our public key. Then, we can use this signer to decrypt our token.</p>
+
+<p>We’ll define another private helper function, <code class="highlighter-rouge">signer/1</code>, to do this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthToken</span> <span class="k">do</span>
+  <span class="o">...</span>
+  <span class="k">defp</span> <span class="n">signer</span><span class="p">(</span><span class="n">public_key_string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">public_key_string</span>
+    <span class="o">|&gt;</span> <span class="n">signing_key</span>
+    <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">es256</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">signing_key</span><span class="p">(</span><span class="n">public_key_string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="n">key_map</span> <span class="p">}</span> <span class="o">=</span> <span class="n">public_key_string</span>
+      <span class="o">|&gt;</span> <span class="no">JOSE</span><span class="o">.</span><span class="no">JWK</span><span class="o">.</span><span class="n">from_pem</span>
+      <span class="o">|&gt;</span> <span class="no">JOSE</span><span class="o">.</span><span class="no">JWK</span><span class="o">.</span><span class="n">to_map</span>
+    <span class="n">key_map</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here, we use the <code class="highlighter-rouge">Joken.es256</code> function, with the argument of our public key map, to generate an ECDSA token signer. The <code class="highlighter-rouge">es256</code> function wraps a call to <a href="https://hexdocs.pm/joken/Joken.Signer.html#es/2"><code class="highlighter-rouge">Joken.Signer.es/2</code></a> which takes in the algorithm type and the key map and returns the signer.</p>
+
+<p>Now that we have our ECDSA signer, we’re ready to decode our token!</p>
+
+<h3 id="decoding-the-token-with-the-token-and-the-signer">Decoding the Token with the Token and the Signer</h3>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Web</span><span class="o">.</span><span class="no">JwtAuthToken</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">decode</span><span class="p">(</span><span class="n">jwt_string</span><span class="p">,</span> <span class="n">public_key_string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">jwt_string</span>
+    <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">token</span>
+    <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">with_validation</span><span class="p">(</span><span class="s2">"exp"</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">current_time</span><span class="p">()))</span>
+    <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">with_signer</span><span class="p">(</span><span class="n">signer</span><span class="p">(</span><span class="n">public_key_string</span><span class="p">))</span>
+    <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">verify</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">signer</span><span class="p">(</span><span class="n">public_key_string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">public_key_string</span>
+    <span class="o">|&gt;</span> <span class="n">signing_key</span>
+    <span class="o">|&gt;</span> <span class="no">Joken</span><span class="o">.</span><span class="n">es256</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">signing_key</span><span class="p">(</span><span class="n">public_key_string</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="n">key_map</span> <span class="p">}</span> <span class="o">=</span> <span class="n">public_key_string</span>
+      <span class="o">|&gt;</span> <span class="no">JOSE</span><span class="o">.</span><span class="no">JWK</span><span class="o">.</span><span class="n">from_pem</span>
+      <span class="o">|&gt;</span> <span class="no">JOSE</span><span class="o">.</span><span class="no">JWK</span><span class="o">.</span><span class="n">to_map</span>
+    <span class="n">key_map</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now we can easily decrypt JWTs like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">JwtAuthToken</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">jwt_string</span><span class="p">,</span> <span class="n">public_key</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="ss">:success</span><span class="p">,</span>
+     <span class="p">%{</span>
+       <span class="ss">token:</span> <span class="s2">"blah.blah.blah"</span><span class="p">,</span>
+       <span class="ss">claims:</span> <span class="p">%{</span><span class="ss">sub:</span> <span class="s2">"1234"</span><span class="p">,</span> <span class="ss">email:</span> <span class="s2">"guy@email.com"</span><span class="p">}</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let’s use our decoder in a custom plug to prevent anyone without a valid JWT from accessing our app’s endpoints.</p>
+
+<h2 id="the-auth-plug">The Auth Plug</h2>
+
+<p>We’ll build a custom plug, <code class="highlighter-rouge">JwtAuthPlug</code>, that we’ll place in the pipeline of our authenticated routes:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># router.ex</span>
+<span class="o">...</span>
+<span class="n">pipeline</span> <span class="ss">:api</span> <span class="k">do</span>
+  <span class="n">plug</span> <span class="ss">:accepts</span><span class="p">,</span> <span class="p">[</span><span class="s2">"json"</span><span class="p">]</span>
+  <span class="n">plug</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthPlug</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Our plug is pretty simple, it will:</p>
+
+<ol>
+  <li>Grab the JWT from the request’s cookie</li>
+  <li>Call on our <code class="highlighter-rouge">JwtAuthToken.decode/2</code> function to decode it</li>
+</ol>
+
+<p>If it can successfully decode the JWT, it will allow the request through. If not, it will return a <code class="highlighter-rouge">401</code> unauthorized status</p>
+
+<p>Let’s get started!</p>
+
+<h3 id="defining-the-custom-plug">Defining the Custom Plug</h3>
+
+<p>Defining a custom plug is pretty simple. We need to <code class="highlighter-rouge">import Plug.Conn</code> to get access to some helpful connection-interaction functions. Then, we need an <code class="highlighter-rouge">init</code> function and a <code class="highlighter-rouge">call</code> function.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthPlug</span> <span class="k">do</span>
+  <span class="kn">import</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span>
+  <span class="n">alias</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthToken</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">opts</span>
+
+  <span class="k">def</span> <span class="n">call</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># coming soon!</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="getting-the-jwt-from-the-cookie">Getting the JWT from the Cookie</h3>
+
+<p>We’ll define a helper function, <code class="highlighter-rouge">jwt_from_cookie</code>, that will pluck the JWT string from the request cookie:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthPlug</span> <span class="k">do</span>
+  <span class="kn">import</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span>
+  <span class="n">alias</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthToken</span>
+
+  <span class="o">...</span>
+
+  <span class="k">defp</span> <span class="n">jwt_from_cookie</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">conn</span>
+    <span class="o">|&gt;</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="o">.</span><span class="n">get_req_header</span><span class="p">(</span><span class="s2">"cookie"</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">first</span>
+    <span class="o">|&gt;</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="o">.</span><span class="no">Cookies</span><span class="o">.</span><span class="n">decode</span>
+    <span class="o">|&gt;</span> <span class="n">token_from_map</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">token_from_map</span><span class="p">(%{</span><span class="s2">"session_jwt"</span> <span class="o">=&gt;</span> <span class="n">jwt</span><span class="p">},</span> <span class="n">_conn</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">jwt</span>
+
+  <span class="k">defp</span> <span class="n">token_from_map</span><span class="p">(</span><span class="n">_cookie_map</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">conn</span>
+    <span class="o">|&gt;</span> <span class="n">forbidden</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">forbidden</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">conn</span>
+    <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="ss">:unauthorized</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">Controller</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="no">MyAppWeb</span><span class="o">.</span><span class="no">ErrorView</span><span class="p">,</span> <span class="s2">"401.html"</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">halt</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here, we use a convenient <code class="highlighter-rouge">Plug.Conn</code> function to get value of the Cookie request header: <code class="highlighter-rouge">Plug.Conn.get_req_header</code>. Then, we use another function, <code class="highlighter-rouge">Plug.Conn.Cookies.decode</code> to turn that value (a string separated by <code class="highlighter-rouge">,</code>, <code class="highlighter-rouge">, </code> or <code class="highlighter-rouge">;</code>) into a map. Lastly, we pattern-match the JWT out of the map.</p>
+
+<p>Now that we have our JWT, let’s decode it!</p>
+
+<h3 id="decoding-the-jwts">Decoding the JWTs</h3>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthPlug</span> <span class="k">do</span>
+  <span class="kn">import</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span>
+  <span class="n">alias</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">JwtAuthToken</span>
+
+  <span class="k">def</span> <span class="n">call</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="no">JwtAuthToken</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">jwt_from_map</span><span class="p">,</span> <span class="n">public_key</span><span class="p">)</span> <span class="k">do</span>
+      <span class="p">{</span> <span class="ss">:success</span><span class="p">,</span> <span class="p">%{</span><span class="ss">token:</span> <span class="n">token</span><span class="p">,</span> <span class="ss">claims:</span> <span class="n">claims</span><span class="p">}</span> <span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span> <span class="o">|&gt;</span> <span class="n">success</span><span class="p">(</span><span class="n">claims</span><span class="p">)</span>
+      <span class="p">{</span> <span class="ss">:error</span><span class="p">,</span> <span class="n">error</span> <span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span> <span class="o">|&gt;</span> <span class="n">forbidden</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">public_key</span> <span class="k">do</span>
+    <span class="c1"># your public key string that you read from a PEM file or stored in an env var or fetched from an endpoint</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">success</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">token_payload</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">assign</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:claims</span><span class="p">,</span> <span class="n">token_payload</span><span class="o">.</span><span class="n">claims</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">assign</span><span class="p">(</span><span class="ss">:jwt</span><span class="p">,</span> <span class="n">token_payload</span><span class="o">.</span><span class="n">token</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>And that’s it!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Joken makes it easy to decode JWTs in your Phoenix application. By generating your own ECDSA signer using <code class="highlighter-rouge">JOSE</code>, and building a simple custom plug, you can keep your routes secure. Happy coding!</p>
+
+    
+    <div class="tags">
+      <h4 class="title">Article tags</h4>
+      
+        <span class="tag"><a href="/blog/tags/plug/">plug</a></span>
+      
+        <span class="tag"><a href="/blog/tags/authentication/">authentication</a></span>
+      
+      </div>
+    </p>
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2018-11-29-jwt-auth-with-joken.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/elixir-cards-review/" title="Reviewing Elixircards" rel="prev">&laquo; Reviewing Elixircards</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/til-io-inspect-labels/" title="TIL about `IO.inspect/2`'s `:label` opt" rel="next">TIL about `IO.inspect/2`'s `:label` opt &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/SophieDeBenedetto.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/SophieDeBenedetto">Sophie DeBenedetto</a>
+    
+    </h2>
+    <p class="content">Sophie is an engineer and teacher at The Flatiron School. She loves teaching and learning and finding the Elixir School community felt like the perfect fit!</p>
+    <ul class="icons">
+      
+      <li><a href="https://thegreatcodeadventure.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/sm_debenedetto" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/SophieDeBenedetto" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,1094 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="zh-hant">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Elixir 程式語言課程">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/zh-hant/lessons/basics/sigils/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="zh-hant">
+  <meta property="og:description" content="Elixir 程式語言課程">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="bn" href="/bn/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/basics/sigils/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="fr" href="/fr/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ms" href="/ms/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="no" href="/no/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="tr" href="/tr/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/basics/sigils/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/basics/sigils/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/zh-hant/lessons/basics/sigils/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>符咒 (Sigils) &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/zh-hant/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/zh-hant/lessons/basics/sigils/&title=符咒 (Sigils)&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/zh-hant/lessons/basics/sigils/&via=elixirschool&text=ElixirSchool: 符咒 (Sigils)&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/zh-hant/lessons/basics/sigils/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/zh-hant/lessons/basics/sigils/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: 符咒 (Sigils)" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/zh-hant/lessons/basics/sigils/&title=ElixirSchool: 符咒 (Sigils)&description=Check out '符咒 (Sigils)' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: 符咒 (Sigils)&body=Check out '符咒 (Sigils)' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/zh-hant/lessons/basics/sigils/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  符咒 (Sigils)
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    翻譯內文為最新版本。
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>使用和創設符咒 (sigils)。</p>
+
+<h2>目錄</h2>
+<div id="toc"></div>
+
+<h2 id="符咒概述">符咒概述</h2>
+
+<p>Elixir 提供了用於表示和使用文字的替代語法。
+一個符咒 (sigil) 將以波浪符號 <code class="highlighter-rouge">~</code> 開頭。
+Elixir 核心已經提供一些內建的符咒，不過當我們需要時，也可以自行創造所需的符咒。。</p>
+
+<p>可用符咒清單如下：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">~C</code> 生成一個 <strong>不運算</strong> 轉義 (escaping) 或內插 (interpolation) 的符號列表 (character list)</li>
+  <li><code class="highlighter-rouge">~c</code> 生成一個 <strong>運算</strong> 轉義或內插的符號列表</li>
+  <li><code class="highlighter-rouge">~R</code> 生成一個 <strong>不運算</strong> 轉義或內插的正規表達式 (regular expression)</li>
+  <li><code class="highlighter-rouge">~r</code> 生成一個 <strong>運算</strong> 轉義或內插的正規表達式</li>
+  <li><code class="highlighter-rouge">~S</code> 生成一個 <strong>不運算</strong> 轉義或內插的字串 (string)</li>
+  <li><code class="highlighter-rouge">~s</code> 生成一個 <strong>運算</strong> 轉義或內插的字串</li>
+  <li><code class="highlighter-rouge">~W</code> 生成一個 <strong>不運算</strong> 轉義或內插的字串列表 (word list)</li>
+  <li><code class="highlighter-rouge">~w</code> 生成一個 <strong>運算</strong> 轉義或內插的字串列表</li>
+  <li><code class="highlighter-rouge">~N</code> 生成一個 <code class="highlighter-rouge">NaiveDateTime</code> 結構體</li>
+</ul>
+
+<p>分隔符號清單如下：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">&lt;...&gt;</code> 尖括號 (pointy brackets)</li>
+  <li><code class="highlighter-rouge">{...}</code> 大括號 (curly brackets)</li>
+  <li><code class="highlighter-rouge">[...]</code> 中括號 (square brackets)</li>
+  <li><code class="highlighter-rouge">(...)</code> 小括號 (parentheses)</li>
+  <li><code class="highlighter-rouge">|...|</code> 管線符號 (pipes)</li>
+  <li><code class="highlighter-rouge">/.../</code> 斜線 (forward slashes)</li>
+  <li><code class="highlighter-rouge">"..."</code> 雙引號 (double quotes)</li>
+  <li><code class="highlighter-rouge">'...'</code> 單引號 (single quotes)</li>
+</ul>
+
+<h3 id="符號列表-char-list">符號列表 (Char List)</h3>
+
+<p>符咒 <code class="highlighter-rouge">~c</code> 和 <code class="highlighter-rouge">~C</code> 分別生成不同的符號列表 (character lists)。
+例如：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~c/2 + 7 = #{2 + 7}/</span>
+<span class="s1">'2 + 7 = 9'</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~C/2 + 7 = </span><span class="si">#{</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">7</span><span class="si">}</span><span class="sx">/</span>
+<span class="s1">'2 + 7 = \</span><span class="si">#{</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">7</span><span class="si">}</span><span class="s1">'</span>
+</code></pre></div></div>
+
+<p>可以看到小寫字母的 <code class="highlighter-rouge">~c</code> 內插了計算結果，而大寫字母的 <code class="highlighter-rouge">~C</code> 則沒有。
+我們將發現，字母大寫/小寫系列是整個內建符咒的常見樣式。</p>
+
+<h3 id="正規表達式-regular-expressions">正規表達式 (Regular Expressions)</h3>
+
+<p>符咒 <code class="highlighter-rouge">~r</code> 和 <code class="highlighter-rouge">~R</code> 用來表示正規表達式。
+我們能在動態情況創設或在 <code class="highlighter-rouge">Regex</code> 函數中使用。
+例如：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">re</span> <span class="o">=</span> <span class="sr">~r/elixir/</span>
+<span class="sr">~r/elixir/</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"Elixir"</span> <span class="o">=~</span> <span class="n">re</span>
+<span class="no">false</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"elixir"</span> <span class="o">=~</span> <span class="n">re</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<p>我們可以看到，在第一個等式查驗中，<code class="highlighter-rouge">Elixir</code> 與正規表達式沒有相配。
+這是因為它使用大寫字母。
+由於 Elixir 支援相容 Perl 正規表達式（Perl Compatible Regular Expressions, PCRE），所以我們可以在符咒末尾加上 <code class="highlighter-rouge">i</code> 來關閉大小寫字母敏感。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">re</span> <span class="o">=</span> <span class="sr">~r/elixir/i</span>
+<span class="sr">~r/elixir/i</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"Elixir"</span> <span class="o">=~</span> <span class="n">re</span>
+<span class="no">true</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"elixir"</span> <span class="o">=~</span> <span class="n">re</span>
+<span class="no">true</span>
+</code></pre></div></div>
+
+<p>此外，Elixir 提供構建在 Erlang 正規表達式函式庫之上的 <a href="https://hexdocs.pm/elixir/Regex.html">Regex</a> API。
+現在使用正規表達式符咒 (regex sigil) 來實現 <code class="highlighter-rouge">Regex.split/2</code> ：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="s2">"100_000_000"</span>
+<span class="s2">"100_000_000"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Regex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sr">~r/_/</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+<span class="p">[</span><span class="s2">"100"</span><span class="p">,</span> <span class="s2">"000"</span><span class="p">,</span> <span class="s2">"000"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>感謝我們的符咒 <code class="highlighter-rouge">~r/_/</code>。正如我們所看到的，字串 <code class="highlighter-rouge">"100_000_000"</code> 藉由下底線 (underscore) 被分割。
+函數 <code class="highlighter-rouge">Regex.split</code> 回傳了一個列表。</p>
+
+<h3 id="字串-string">字串 (String)</h3>
+
+<p>符咒 <code class="highlighter-rouge">~s</code> 和 <code class="highlighter-rouge">~S</code> 被用來產生字串資料。
+例如：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~s/the cat in the hat on the mat/</span>
+<span class="s2">"the cat in the hat on the mat"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~S/the cat in the hat on the mat/</span>
+<span class="s2">"the cat in the hat on the mat"</span>
+</code></pre></div></div>
+
+<p>兩者有什麼不同？
+答案是內插和轉義序列 (escape sequences) 的用法，其差別與我們所看到的符號列表符咒相似。
+如果我們再舉一個例子：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~s/welcome to elixir #{String.downcase "SCHOOL"}/</span>
+<span class="s2">"welcome to elixir school"</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~S/welcome to elixir </span><span class="si">#{</span><span class="no">String</span><span class="o">.</span><span class="n">downcase</span> <span class="s2">"SCHOOL"</span><span class="si">}</span><span class="sx">/</span>
+<span class="s2">"welcome to elixir \</span><span class="si">#{</span><span class="no">String</span><span class="o">.</span><span class="n">downcase</span> <span class="p">\</span><span class="s2">"SCHOOL</span><span class="se">\"</span><span class="s2">}"</span>
+</code></pre></div></div>
+
+<h3 id="字串列表-word-list">字串列表 (Word List)</h3>
+
+<p>字串列表符咒 (word list sigil) 時不時的會派上用場。
+它可以節省敲擊鍵盤的次數與時間，同時減少程式庫的複雜性。
+來看看這個簡單的例子：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~w/i love elixir school/</span>
+<span class="p">[</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"elixir"</span><span class="p">,</span> <span class="s2">"school"</span><span class="p">]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~W/i love elixir school/</span>
+<span class="p">[</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"elixir"</span><span class="p">,</span> <span class="s2">"school"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>我們可以看到在分隔符號之間鍵入的內容被空格分隔成一個列表。
+實際上，這兩個例子沒有什麼區別。
+而再一次，它們的差異來自內插和轉義序列。
+現在來看下面的例子：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~w/i love #{'e'}lixir school/</span>
+<span class="p">[</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"elixir"</span><span class="p">,</span> <span class="s2">"school"</span><span class="p">]</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~W/i love </span><span class="si">#{</span><span class="s1">'e'</span><span class="si">}</span><span class="sx">lixir school/</span>
+<span class="p">[</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"\</span><span class="si">#{</span><span class="s1">'e'</span><span class="si">}</span><span class="s2">lixir"</span><span class="p">,</span> <span class="s2">"school"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="真日期時間-naivedatetime">真日期時間 (NaiveDateTime)</h3>
+
+<p>一個 <a href="https://hexdocs.pm/elixir/NaiveDateTime.html">NaiveDateTime</a> 可以快速創設一個結構體 (struct) 來表示 <strong>不帶</strong> 時區的 <code class="highlighter-rouge">DateTime</code> 。</p>
+
+<p>在大多數情況下，我們應該避免直接創設一個 <code class="highlighter-rouge">NaiveDateTime</code> 結構體。
+不過，在模式比對下非常有用。
+例如：</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">NaiveDateTime</span><span class="o">.</span><span class="n">from_iso8601</span><span class="p">(</span><span class="s2">"2015-01-23 23:50:07"</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="sx">~N[2015-01-23 23:50:07]</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="自訂符咒-creating-sigils">自訂符咒 (Creating Sigils)</h2>
+
+<p>Elixir 的目標之一是成為一種可擴展 (extendable) 的程式語言。
+因此您應該不會對於可以輕鬆自訂你自己的客製化符咒感到驚訝。
+在這個例子中，我們將自訂一個符咒將字串轉換為大寫字母。
+儘管在 Elixir 核心函式庫中存在這個 (<code class="highlighter-rouge">String.upcase/1</code>) 函數來實現，不過我們依然將圍繞著這個函數來自訂我們的符咒。</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="k">defmodule</span> <span class="no">MySigils</span> <span class="k">do</span>
+<span class="o">...&gt;</span>   <span class="k">def</span> <span class="n">sigil_u</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="p">[]),</span> <span class="k">do</span><span class="p">:</span> <span class="no">String</span><span class="o">.</span><span class="n">upcase</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="o">...&gt;</span> <span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="no">MySigils</span>
+<span class="no">nil</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~u/elixir school/</span>
+<span class="no">ELIXIR</span> <span class="no">SCHOOL</span>
+</code></pre></div></div>
+
+<p>首先我們定義一個名為 <code class="highlighter-rouge">MySigils</code> 的模組，並在該模組中創設一個名為 <code class="highlighter-rouge">sigil_u</code> 的函數。
+由於現存的符咒空間 (sigil space) 中並不存在 <code class="highlighter-rouge">~u</code> 符咒，所以我們使用這個名字。
+這個 <code class="highlighter-rouge">_u</code> 表示我們希望使用 <code class="highlighter-rouge">u</code> 作為波浪符號 (tilde) 之後的符號 (character)。
+在這個函數的定義中，函數本身必須有兩個參數 (arguments)，一個輸入和一個列表。</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/zh-hant/lessons/basics/sigils.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/basics/mix/" title="Mix">← Mix</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/zh-hant/lessons/basics/documentation/" title="文件">文件 →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/bn/lessons/basics/sigils/" >bn</a>
+        
+      
+        
+        
+
+        
+          <a href="/de/lessons/basics/sigils/" >de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/basics/sigils/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/basics/sigils/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/fr/lessons/basics/sigils/" title="Francais">fr</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/basics/sigils/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/basics/sigils/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/basics/sigils/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/basics/sigils/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/ms/lessons/basics/sigils/" >ms</a>
+        
+      
+        
+        
+
+        
+          <a href="/no/lessons/basics/sigils/" >no</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/basics/sigils/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/basics/sigils/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/basics/sigils/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <a href="/sk/lessons/basics/sigils/" >sk</a>
+        
+      
+        
+        
+
+        
+          <a href="/tr/lessons/basics/sigils/" >tr</a>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/basics/sigils/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/basics/sigils/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <strong >zh-hant</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Elixir 程式語言課程</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/zh-hant/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">基礎</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/collections/">2. 集合</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/enum/">3. 列舉 (Enum)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pattern-matching/">4. 模式比對</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/control-structures/">5. 控制語句</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/functions/">6. 函數</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/pipe-operator/">7. 管線運算子</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/modules/">8. 模組</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">10. 符咒 (Sigils)</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/documentation/">11. 文件</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/testing/">12. 測試</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/comprehensions/">13. 解析</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/strings/">14. 字串</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/date-time/">15. 日期與時間</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/mix-tasks/">16. 自訂 Mix 工作</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">進階</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/erlang/">1. Erlang 互用性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/error-handling/">2. 錯誤處理</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/escripts/">3. 可執行檔案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/concurrency/">4. 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-concurrency/">5. OTP 並行性</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/otp-distribution/">7. OTP 分散式</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/metaprogramming/">8. 超編程</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/umbrella-projects/">9. 保護傘專案</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/typespec/">10. 規範和型別</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/behaviours/">11. 行為</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/advanced/protocols/">13. 協定</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/basics/">1. 基礎</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/changesets/">2. 變更集 (Changesets)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/associations/">3. 關聯關係</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/ecto/querying/">4. 查詢</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">特色</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/eex/">2. 嵌入式 Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/ets/">3. Erlang 項式儲存 (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/debugging/">5. 除錯</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">函式庫</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/guardian/">1. Guardian (基礎)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/distillery/">5. Distillery（基礎）</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/zh-hant/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/zh-hant/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

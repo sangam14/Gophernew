@@ -1,0 +1,810 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="sk">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Lekcie o programovacom jazyku Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/sk/lessons/ecto/basics/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="sk">
+  <meta property="og:description" content="Lekcie o programovacom jazyku Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/ecto/basics/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="sk" href="/sk/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/ecto/basics/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/ecto/basics/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/sk/lessons/ecto/basics/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Základy &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/sk/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/sk/lessons/ecto/basics/&title=Základy&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/sk/lessons/ecto/basics/&via=elixirschool&text=ElixirSchool: Základy&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/sk/lessons/ecto/basics/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/sk/lessons/ecto/basics/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Základy" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/sk/lessons/ecto/basics/&title=ElixirSchool: Základy&description=Check out 'Základy' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Základy&body=Check out 'Základy' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/sk/lessons/ecto/basics/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-minor"></span>
+  Základy
+</h1>
+<div class="version-info version-info-minor">
+  <span>
+    
+      Niektoré časti tohto prekladu môžu byť neaktuálne.<br/>
+    
+
+    Viacero drobných zmien bolo pridaných do originálnej lekcie od poslednej aktualizácie.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Ecto je oficiálny Elixir projekt, ktorý poskytuje zaobalenie databázy a integrovaný jazyk na vytváranie dotazov. S Ectom sme schopní vytvárať migrácie, definovať schémy, vkladať/upravovať záznamy a dotazovať ich.</p>
+
+<h2>Obsah</h2>
+<div id="toc"></div>
+
+<h3 id="adaptéry">Adaptéry</h3>
+
+<p>Ecto podporuje rôzne databázy použitím adaptérov. Pár príkladov adaptérov sú:</p>
+
+<ul>
+  <li>PostgreSQL</li>
+  <li>MySQL</li>
+  <li>SQLite</li>
+</ul>
+
+<p>Pre túto lekciu nakonfigurujeme Ecto, aby používal adaptér PostgreSQL.</p>
+
+<h3 id="začíname">Začíname</h3>
+
+<p>V priebehu tejto lekcie pokryjeme tri hlavné časti Ecta:</p>
+
+<ul>
+  <li>Repozitár — poskytuje rozhranie našej databázy, vrátane pripojenia</li>
+  <li>Migrácie — mechanizmus na vytváranie, modifikovanie, mazanie tabuliek a indexov v databáze</li>
+  <li>Schémy — špeciálne štruktúry, ktoré reprezentujú záznamy v tabuľke</li>
+</ul>
+
+<p>Na začiatok si vytvoríme aplikáciu so supervision stromom supervízorov (<em>supervision tree</em>).</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix new friends <span class="nt">--sup</span>
+<span class="nv">$ </span><span class="nb">cd </span>friends
+</code></pre></div></div>
+
+<p>Do súboru <code class="highlighter-rouge">mix.exs</code> pridáme ako závislosti balíčky <code class="highlighter-rouge">ecto</code> a <code class="highlighter-rouge">postgrex</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="p">{</span><span class="ss">:ecto</span><span class="p">,</span> <span class="s2">"~&gt; 2.0"</span><span class="p">},</span>
+      <span class="p">{</span><span class="ss">:postgrex</span><span class="p">,</span> <span class="s2">"~&gt; 0.11"</span><span class="p">}</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Stiahneme závislosti použitím príkazu</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix deps.get
+</code></pre></div></div>
+
+<h4 id="vytvorenie-repozitára">Vytvorenie Repozitára</h4>
+
+<p>Repozitár v Ecte sa pripojí na dátové úložisko ako napríklad našu Postgres databázu.
+Všetka komunikácia s databázou bude vykonávaná pomocou tohto repozitára.</p>
+
+<p>Nastavíme repozitár spustením:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix ecto.gen.repo <span class="nt">-r</span> Friends.Repo
+</code></pre></div></div>
+
+<p>Príkaz vygeneruje potrebnú konfiguráciu v <code class="highlighter-rouge">config/config.exs</code> na pripojenie k databáze vrátane adaptéru, ktorý má použiť.
+Toto je konfiguračný súbor pre našu aplikáciu <code class="highlighter-rouge">Friends</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:friends</span><span class="p">,</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span>
+  <span class="ss">adapter:</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Adapters</span><span class="o">.</span><span class="no">Postgres</span><span class="p">,</span>
+  <span class="ss">database:</span> <span class="s2">"friends_repo"</span><span class="p">,</span>
+  <span class="ss">username:</span> <span class="s2">"postgres"</span><span class="p">,</span>
+  <span class="ss">password:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="ss">hostname:</span> <span class="s2">"localhost"</span>
+</code></pre></div></div>
+
+<p>Tu je nastavené ako sa Ecto pripojí na databázu.
+Všimnite si, že bol ako adaptér zvolený <code class="highlighter-rouge">Ecto.Adapters.Postgres</code>.</p>
+
+<p>Tiež bol vytvorený modul <code class="highlighter-rouge">Friends.Repo</code> v súbore <code class="highlighter-rouge">lib/friends/repo.ex</code></p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> <span class="ss">otp_app:</span> <span class="ss">:friends</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Modul <code class="highlighter-rouge">Friends.Repo</code> budeme používať na dotazovanie databázy. Ako parameter dodáme kľúč, pod ktorým sa dá nájsť konfigurácia našej OTP aplikácie.</p>
+
+<p>Ďalej nastavíme <code class="highlighter-rouge">Friends.Repo</code> ako supervízora v supervision strome našej aplikácie v <code class="highlighter-rouge">lib/friends/application.ex</code>.
+To nám zabezpečí spustenie procesu Ecta, keď sa spustí naša aplikácia.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># List all child processes to be supervised</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span>
+    <span class="p">]</span>
+
+  <span class="o">...</span>
+</code></pre></div></div>
+
+<p>Potom budeme musieť do nášho súboru <code class="highlighter-rouge">config/config.exs</code> pridať nasledujúci riadok:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:friends</span><span class="p">,</span> <span class="ss">ecto_repos:</span> <span class="p">[</span><span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Toto umožní našej aplikácii spustiť <code class="highlighter-rouge">ecto mix</code> príkazy z príkazového riadku.</p>
+
+<p>Práve sme úspešne nakonfigurovali repozitár!
+Môžeme vytvoriť Postgres databázu pomocou nasledujúceho príkazu:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix ecto.create
+</code></pre></div></div>
+
+<p>Ecto použije informácie v súbore <code class="highlighter-rouge">config/config.exs</code> na vytvorenie pripojenia do Postgresu a voľbu mena databázy.</p>
+
+<p>Ak sa zobrazia nejaké chyby, overte, že nakonfigurované informácie sú správne a že inštancia Postgresu beží.</p>
+
+<h3 id="migrácie">Migrácie</h3>
+
+<p>Na vytváranie a modifikovanie tabuliek v postgres databáze nám Ecto poskytuje migrácie.
+Každá migrácia opisuje súbor akcií, ktoré majú byť vykonané na našej databáze, napr. ktoré tabuľky má vytvoriť alebo upraviť.</p>
+
+<p>Keďže naša databáza nemá zatiaľ žiadne tabuľky, vytvoríme migráciu, ktorou nejaké pridáme.
+V Ecte je konvenciou voliť názvy tabuliek v množnom čísle - pre našu aplikáciu budeme potrebovať tabuľku <code class="highlighter-rouge">people</code>.</p>
+
+<p>Najlepší spôsob ako vytvoriť migrácie je mix príkaz <code class="highlighter-rouge">ecto.gen.migration &lt;name&gt;</code>, čiže v našom prípade:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix ecto.gen.migration create_people
+</code></pre></div></div>
+
+<p>Toto nám vygeneruje nový súbor v zložke <code class="highlighter-rouge">priv/repo/migrations</code>, ktorý obsahovať v názve súboru timestamp (časovú značku).
+Po otvorení vygenerovaního súboru (v adresári <code class="highlighter-rouge">priv/repo/migrations</code>) by sme mali vidieť niečo takéto:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreatePeople</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Začnime úpravou funkcie <code class="highlighter-rouge">change/0</code>, aby sme vytvorili novú tabuľku <code class="highlighter-rouge">people</code> so stĺpcami <code class="highlighter-rouge">name</code> a <code class="highlighter-rouge">age</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreatePeople</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:people</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">null:</span> <span class="no">false</span>
+      <span class="n">add</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">default:</span> <span class="mi">0</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ako vidíme vyššie, stĺpcom sme definovali dátový typ, obmedzenie na nenulovú hodnotu (<code class="highlighter-rouge">null: false</code>) a predvolenú hodnotu (<code class="highlighter-rouge">default: 0</code>).</p>
+
+<p>Teraz ale poďme do príkazového riadku a spusťme našu migráciu:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mix ecto.migrate
+</code></pre></div></div>
+
+<h3 id="schémy">Schémy</h3>
+
+<p>Potom ako sme vytvorili našú prvú tabuľku musíme Ectu o nej niečo povedať, čiastočne sa to robí pomocou použitia schém.
+Schéma je modul, ktorý definuje mapovanie atribútov na stĺpce danej tabuľky v databáze.</p>
+
+<p>Ecto síce uprednostňuje mená tabuliek v množnom čísle, ale meno schémy je poväčšine v jednotnom čísle, čiže vytvoríme schému <code class="highlighter-rouge">Person</code> k našej tabuľke.</p>
+
+<p>Vytvoríme našu novú schému v <code class="highlighter-rouge">lib/friends/person.ex</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Friends</span><span class="o">.</span><span class="no">Person</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+
+  <span class="n">schema</span> <span class="s2">"people"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">default:</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Tu môžeme vidieť, že <code class="highlighter-rouge">Friends.Person</code> hovorí Ectu, že táto schéma popisuje tabuľku <code class="highlighter-rouge">people</code> a máme v nej dva stĺpce: reťazec <code class="highlighter-rouge">name</code> a celé číslo<code class="highlighter-rouge">age</code> s predvolenou hodnotou <code class="highlighter-rouge">0</code>.</p>
+
+<p>Spustime si príkazom <code class="highlighter-rouge">iex -S mix</code> konzolu a pozrime sa, ako vyzerá naša schéma. Vyskúšajme si vytvoriť novú osobu:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; %Friends.Person<span class="o">{}</span>
+%Friends.Person<span class="o">{</span>age: 0, name: nil<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Ako sme očakávali, dostaneme <a href="https://elixirschool.com/sk/lessons/basics/modules/#structs">štruktúru</a> <code class="highlighter-rouge">Person</code> s predvolenou hodnotou pre atribút <code class="highlighter-rouge">age</code>.
+Teraz vytvorme “reálnu” osobu:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex&gt; person <span class="o">=</span> %Friends.Person<span class="o">{</span>name: <span class="s2">"Tom"</span>, age: 11<span class="o">}</span>
+%Friends.Person<span class="o">{</span>age: 11, name: <span class="s2">"Tom"</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p>Keďže schémy sú len štruktúry, môžeme pristupovať k našim dátam ako sme zvyknutí:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">name</span>
+<span class="s2">"Tom"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
+<span class="s2">"Tom"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="ss">name:</span> <span class="n">name</span><span class="p">}</span> <span class="o">=</span> <span class="n">person</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">age:</span> <span class="mi">11</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">name</span>
+<span class="s2">"Tom"</span>
+</code></pre></div></div>
+
+<p>Podobne, môžeme upravovať naše schémy, ako by sme robili s akoukoľvek inou <a href="https://elixirschool.com/sk/lessons/basics/collections/#mapy">mapou</a> alebo <a href="https://elixirschool.com/sk/lessons/basics/modules/#structs">štruktúrou</a> v Elixire:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="p">%{</span><span class="n">person</span> <span class="o">|</span> <span class="ss">age:</span> <span class="mi">18</span><span class="p">}</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">age:</span> <span class="mi">18</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="s2">"Jerry"</span><span class="p">)</span>
+<span class="p">%</span><span class="no">Friends</span><span class="o">.</span><span class="no">Person</span><span class="p">{</span><span class="ss">age:</span> <span class="mi">11</span><span class="p">,</span> <span class="ss">name:</span> <span class="s2">"Jerry"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>V ďalšej lekcii o Changesetoch sa pozrieme na to ako validovať zmeny našich dát a ako ich uložiť do databázy.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/sk/lessons/ecto/basics.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/sk/lessons/advanced/concurrency/" title="Konkurentnosť">← Konkurentnosť</a>
+    </div>
+    
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/en/lessons/ecto/basics/" title="English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/ecto/basics/" title="Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/ecto/basics/" >gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/ecto/basics/" title="Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/ecto/basics/" title="日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/ecto/basics/" >ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/ecto/basics/" >pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/ecto/basics/" >pt</a>
+        
+      
+        
+        
+
+        
+          <a href="/ru/lessons/ecto/basics/" title="Русский">ru</a>
+        
+      
+        
+        
+
+        
+          <strong >sk</strong>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/ecto/basics/" >vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/ecto/basics/" >zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/ecto/basics/" >zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>Lekcie o programovacom jazyku Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/sk/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Základy</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/basics/">1. Základy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/collections/">2. Kolekcie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/control-structures/">5. Riadiace štruktúry</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/functions/">6. Funkcie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/pipe-operator/">7. Operátor pipe</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/modules/">8. Moduly</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/sigils/">10. Sigily</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/documentation/">11. Dokumentácia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/testing/">12. Testovanie</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/strings/">14. Reťazce</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/mix-tasks/">16. Vlastné Mix Tasky</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/basics/iex-helpers/">17. Pomocné funkcie IEx</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Pokročilé</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/erlang/">1. Interoperabilita s Erlangom</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/error-handling/">2. Spracovanie Chýb</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/escripts/">3. Spustiteľné súbory</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/sk/lessons/advanced/concurrency/">4. Konkurentnosť</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <span class="active">1. Základy</span>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/sk/report/" class=" up ">Translation Report</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

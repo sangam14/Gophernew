@@ -1,0 +1,812 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="The premier destination for learning and mastering Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/en/lessons/libraries/mox/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="en">
+  <meta property="og:description" content="The premier destination for learning and mastering Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/libraries/mox/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/libraries/mox/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/en/lessons/libraries/mox/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Mox &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/en/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/en/lessons/libraries/mox/&title=Mox&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/en/lessons/libraries/mox/&via=elixirschool&text=ElixirSchool: Mox&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/en/lessons/libraries/mox/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/en/lessons/libraries/mox/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Mox" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/en/lessons/libraries/mox/&title=ElixirSchool: Mox&description=Check out 'Mox' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Mox&body=Check out 'Mox' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/en/lessons/libraries/mox/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+      <h1>Mox</h1>
+    
+  </header>
+  <div class="content">
+    <p>Mox is a library for designing concurrent mocks in Elixir.</p>
+
+<h2>Table of Contents</h2>
+<div id="toc"></div>
+
+<h2 id="writing-testable-code">Writing Testable Code</h2>
+
+<p>Tests and the mocks that facilitate them are usually not the attention-grabbing highlights of any language, so it is perhaps not surprising there is less written about them. However you can <em>absolutely</em> use mocks in Elixir! The exact methodology may be different from what you are familiar with in other languages, but the ultimate goal is the same: mocks can simulate the output of internal functions and thereby allow you to assert against all possible execution paths in your code.</p>
+
+<p>Before we get into more complex use cases, let’s talk about some techniques that can help us make our code more testable. One simple tactic is to pass a module to a function rather than hard-coding the module inside the function.</p>
+
+<p>For example, if we had hard-coded an HTTP client inside a function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">get_username</span><span class="p">(</span><span class="n">username</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">HTTPoison</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://elixirschool.com/users/</span><span class="si">#{</span><span class="n">username</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>We could instead pass the HTTP client module as an argument like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">get_username</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">http_client</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">http_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://elixirschool.com/users/</span><span class="si">#{</span><span class="n">username</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Or we could use the <a href="https://hexdocs.pm/elixir/Kernel.html#apply/3">apply/3</a> function to accomplish the same:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">get_username</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">http_client</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">apply</span><span class="p">(</span><span class="n">http_client</span><span class="p">,</span> <span class="ss">:get</span><span class="p">,</span> <span class="p">[</span><span class="s2">"https://elixirschool.com/users/</span><span class="si">#{</span><span class="n">username</span><span class="si">}</span><span class="s2">"</span><span class="p">])</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Passing the module as an argument helps separate concerns and if we don’t get too tripped up on the object-oriented verbiage in the definition, we might recognize this inversion of control as a kind of <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>.  To test the <code class="highlighter-rouge">get_username/2</code> method, you would only need to pass in a module whose <code class="highlighter-rouge">get</code> function returned the value needed for your assertions.</p>
+
+<p>This construct is very simple, so it is only useful when the function is highly accessible (and not, for example, buried somewhere deep within a private function).</p>
+
+<p>A more flexible tactic relies on the application configuration. Perhaps you didn’t even realize it, but an Elixir application maintains state in its configuration. Rather than hard-coding a module or passing it as an argument, you can read it from the application config.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">get_username</span><span class="p">(</span><span class="n">username</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">http_client</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://elixirschool.com/users/</span><span class="si">#{</span><span class="n">username</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">http_client</span> <span class="k">do</span>
+  <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">:http_client</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then, in your config file:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="ss">:my_app</span><span class="p">,</span> <span class="ss">:http_client</span><span class="p">,</span> <span class="no">HTTPoison</span>
+</code></pre></div></div>
+
+<p>This construct and its reliance on the application config forms the basis of everything that follows.</p>
+
+<p>If you are prone to overthinking, yes, you could omit the <code class="highlighter-rouge">http_client/0</code> function and call <code class="highlighter-rouge">Application.get_env/2</code> directly, and yes, you could also provide a default third argument to <code class="highlighter-rouge">Application.get_env/3</code> and achieve the same result.</p>
+
+<p>Leveraging the application config allows us to have specific implementations of the module for each environment; you might reference a sandbox module for the <code class="highlighter-rouge">dev</code> environment while the <code class="highlighter-rouge">test</code> environment might use an in-memory module.</p>
+
+<p>However, having only one fixed module per environment may not be flexible enough: depending on how your function is used, you may need to return different responses in order to test all possible execution paths. What most people don’t know is that you can <em>change</em> the application configuration at run-time! Let’s take a look at <a href="https://hexdocs.pm/elixir/Application.html#put_env/4">Application.put_env/4</a>.</p>
+
+<p>Imagine that your application needed to act differently depending on whether or not the HTTP request was successful. We could create multiple modules, each with a <code class="highlighter-rouge">get/1</code> function. One module could return an <code class="highlighter-rouge">:ok</code> tuple, the other could return an <code class="highlighter-rouge">:error</code> tuple.  Then we could use <code class="highlighter-rouge">Application.put_env/4</code> to set the configuration prior to calling our <code class="highlighter-rouge">get_username/1</code> function.  Our test module might look something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Don't do this!</span>
+<span class="k">defmodule</span> <span class="no">MyAppTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">setup</span> <span class="k">do</span>
+    <span class="n">http_client</span> <span class="o">=</span> <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">:http_client</span><span class="p">)</span>
+    <span class="n">on_exit</span><span class="p">(</span>
+      <span class="k">fn</span> <span class="o">-&gt;</span>
+        <span class="no">Application</span><span class="o">.</span><span class="n">put_env</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">:http_client</span><span class="p">,</span> <span class="n">http_client</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">":ok on 200"</span> <span class="k">do</span>
+    <span class="no">Application</span><span class="o">.</span><span class="n">put_env</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">:http_client</span><span class="p">,</span> <span class="no">HTTP200Mock</span><span class="p">)</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">=</span> <span class="no">MyModule</span><span class="o">.</span><span class="n">get_username</span><span class="p">(</span><span class="s2">"twinkie"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">":error on 404"</span> <span class="k">do</span>
+    <span class="no">Application</span><span class="o">.</span><span class="n">put_env</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">:http_client</span><span class="p">,</span> <span class="no">HTTP404Mock</span><span class="p">)</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">=</span> <span class="no">MyModule</span><span class="o">.</span><span class="n">get_username</span><span class="p">(</span><span class="s2">"does-not-exist"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>It is assumed that you have created the required modules somewhere (<code class="highlighter-rouge">HTTP200Mock</code> and <code class="highlighter-rouge">HTTP404Mock</code>). We added an <a href="https://hexdocs.pm/ex_unit/master/ExUnit.Callbacks.html#on_exit/2"><code class="highlighter-rouge">on_exit</code></a> callback to the <a href="https://hexdocs.pm/ex_unit/master/ExUnit.Callbacks.html#setup/1"><code class="highlighter-rouge">setup</code></a> fixture to ensure that the <code class="highlighter-rouge">:http_client</code> gets returned to its previous state after each test.</p>
+
+<p>However, a pattern like the above is usually <em>NOT</em> something you should follow! The reasons for this may not be immediately obvious.</p>
+
+<p>First of all, there is nothing guaranteeing that the modules we define for our <code class="highlighter-rouge">:http_client</code> can do what they need to do: there is no enforcement of a contract here that requires the modules have a <code class="highlighter-rouge">get/1</code> function.</p>
+
+<p>Second, tests like the above cannot be safely run asynchronously. Because the application’s state is shared by the <em>entire</em> application, it is entirely possible that when you override the <code class="highlighter-rouge">:http_client</code> in one test, some other test (running simultaneously) expects a different result. You may have encountered problems like this when test runs <em>usually</em> pass, but sometimes inexplicably fail. Beware!</p>
+
+<p>Thirdly, this approach can get messy because you can end up with a bunch of mock modules stuffed into your application somewhere. Yuck.</p>
+
+<p>We demonstrate the structure above because it outlines the approach in a fairly straight-forward manner that helps us understand a bit more about how the <em>real</em> solution works.</p>
+
+<h2 id="mox--the-solution-to-all-the-problems">Mox : The Solution to all the Problems</h2>
+
+<p>The go-to package for working with mocks in Elixir is <a href="https://hexdocs.pm/mox/Mox.html">Mox</a>, authored by José Valim himself, and it solves all the problems outlined above.</p>
+
+<p>Remember: as a pre-requisite, our code must look to the application config to get its configured module:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">get_username</span><span class="p">(</span><span class="n">username</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">http_client</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://elixirschool.com/users/</span><span class="si">#{</span><span class="n">username</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">http_client</span> <span class="k">do</span>
+  <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">:http_client</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then you may include <code class="highlighter-rouge">mox</code> in your dependencies:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># mix.exs</span>
+<span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="c1"># ...</span>
+    <span class="p">{</span><span class="ss">:mox</span><span class="p">,</span> <span class="s2">"~&gt; 0.5.2"</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:test</span><span class="p">],</span> <span class="ss">runtime:</span> <span class="no">false</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Install it with <code class="highlighter-rouge">mix deps.get</code>.</p>
+
+<p>Next, modify your <code class="highlighter-rouge">test_helper.exs</code> so it does 3 things:</p>
+
+<ol>
+  <li>it must start the Mox app</li>
+  <li>it must define one or more mocks</li>
+  <li>it must set the application config with the mock</li>
+</ol>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># test_helper.exs</span>
+<span class="no">ExUnit</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="ss">exclude:</span> <span class="p">[</span><span class="ss">:skip</span><span class="p">])</span>
+
+<span class="c1"># 1. Start the mox app</span>
+<span class="no">Mox</span><span class="o">.</span><span class="no">Server</span><span class="o">.</span><span class="n">start_link</span><span class="p">([])</span>
+
+<span class="c1"># 2. define dynamic mocks</span>
+<span class="no">Mox</span><span class="o">.</span><span class="n">defmock</span><span class="p">(</span><span class="no">HTTPoison</span><span class="o">.</span><span class="no">BaseMock</span><span class="p">,</span> <span class="ss">for:</span> <span class="no">HTTPoison</span><span class="o">.</span><span class="no">Base</span><span class="p">)</span>
+<span class="c1"># ... etc...</span>
+
+<span class="c1"># 3. Override the config settings (similar to adding these to `config/test.exs`)</span>
+<span class="no">Application</span><span class="o">.</span><span class="n">put_env</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">:http_client</span><span class="p">,</span> <span class="no">HTTPoison</span><span class="o">.</span><span class="no">BaseMock</span><span class="p">)</span>
+<span class="c1"># ... etc...</span>
+</code></pre></div></div>
+
+<p>A couple important things to note about <code class="highlighter-rouge">Mox.defmock</code>: the left-side name is arbitrary. Module names in Elixir are just atoms – you don’t have to create a module anywhere, all you are doing is “reserving” a name for the mock module. Behind the scenes, Mox will create a module with this name on the fly inside the BEAM.</p>
+
+<p>The second tricky thing is that the module referenced by <code class="highlighter-rouge">for:</code> <em>must</em> be a behaviour: it <em>must</em> define callbacks. Mox uses introspection on this module and you can only define mock functions when a <code class="highlighter-rouge">@callback</code> has been defined.  This is how Mox enforces a contract.  Sometimes it can be difficult to find the behaviour module: <code class="highlighter-rouge">HTTPoison</code> for example, relies on <code class="highlighter-rouge">HTTPoison.Base</code>, but you might not know that unless you look through its source code. If you are trying to create a mock for a 3rd-party package, you may discover that no behaviour exists! In those cases you may need to define your own behaviour and callbacks to satisfy the need for a contract.</p>
+
+<p>This brings up an important point: you may want to use a layer of abstraction (a.k.a. <a href="https://en.wikipedia.org/wiki/Indirection">indirection</a>) so your application doesn’t depend on a third party package <em>directly</em>, but instead you would use your own module which in turn uses the package. It is important for a well-crafted application to define the proper “boundaries”, but the mechanics of mocks do not change, so don’t let that trip you up.</p>
+
+<p>Finally, in your test modules, you can put your mocks to use by importing <code class="highlighter-rouge">Mox</code> and calling its <code class="highlighter-rouge">:verify_on_exit!</code> function. Then you are free to define return values on your mock modules using one or more calls to the <code class="highlighter-rouge">expect</code> function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+  <span class="c1"># 1. Import Mox</span>
+  <span class="kn">import</span> <span class="no">Mox</span>
+  <span class="c1"># 2. setup fixtures</span>
+  <span class="n">setup</span> <span class="ss">:verify_on_exit!</span>
+
+  <span class="n">test</span> <span class="s2">":ok on 200"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">HTTPoison</span><span class="o">.</span><span class="no">BaseMock</span><span class="p">,</span> <span class="ss">:get</span><span class="p">,</span> <span class="k">fn</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"What a guy!"</span><span class="p">}</span> <span class="k">end</span><span class="p">)</span>
+
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">=</span> <span class="no">MyModule</span><span class="o">.</span><span class="n">get_username</span><span class="p">(</span><span class="s2">"twinkie"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">":error on 404"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">HTTPoison</span><span class="o">.</span><span class="no">BaseMock</span><span class="p">,</span> <span class="ss">:get</span><span class="p">,</span> <span class="k">fn</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"Sorry!"</span><span class="p">}</span> <span class="k">end</span><span class="p">)</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">=</span> <span class="no">MyModule</span><span class="o">.</span><span class="n">get_username</span><span class="p">(</span><span class="s2">"does-not-exist"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>For each test, we reference the <em>same</em> mock module (<code class="highlighter-rouge">HTTPoison.BaseMock</code> in this example), and we use the <code class="highlighter-rouge">expect</code> function to define the return values for each function called.</p>
+
+<p>Using <code class="highlighter-rouge">Mox</code> is safe for asynchronous execution, and it requires that each mock follows a contract. Since these mocks are “virtual”, there is no need to define actual modules that would clutter up your application.</p>
+
+<p>Welcome to mocks in Elixir!</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/en/lessons/libraries/mox.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <strong title="English">en</strong>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Menu</h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/en/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/blog/configuration-demystified/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="">
+  <meta property="og:locale" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+
+  <link rel="canonical" href="http://localhost:4000/blog/configuration-demystified/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Configuration Demystified &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/" class="logo"><strong>Elixir School</strong> Blog</a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/blog/configuration-demystified/&title=Configuration Demystified&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/blog/configuration-demystified/&via=elixirschool&text=ElixirSchool: Configuration Demystified&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/blog/configuration-demystified/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/blog/configuration-demystified/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Configuration Demystified" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/blog/configuration-demystified/&title=ElixirSchool: Configuration Demystified&description=Check out 'Configuration Demystified' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Configuration Demystified&body=Check out 'Configuration Demystified' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/blog/configuration-demystified/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					
+
+<section id="section-page">
+  <header class="main">
+    <h1 class="post-title">Configuration Demystified</h1>
+    <p><a href="/blog/years/2018/">17 Jul 2018</a> · by 
+
+    <a href="https://seancallan.com" target="_blank" rel="nofollow noopener">Sean Callan</a> in <a href="/blog/categories/general/">General</a></p>
+  </header>
+  <div class="content">
+    <p>There’s been a lot of discussion about configuration in the community lately.
+We thought this would be an opportune time to discuss configuration and how best to handle it within an Elixir application.
+It is surprising to see how a small change to our applications configuration can eliminate much of the headaches others are experiencing.</p>
+
+<h3 id="configuration-types">Configuration types</h3>
+
+<p>Before we go any further, let’s look at the two configuration types and the roles they play.</p>
+
+<p><strong>Runtime Configuration</strong></p>
+
+<p>If you’ve ever used a system environment variable to configure some part of your application, then you’re familiar with runtime configuration.
+As the name suggests, this is the configuration for an application at the time it is run.
+These are the values we can expect to change as we deploy our build artifacts to different systems.</p>
+
+<p><strong>Build-time Configuration</strong></p>
+
+<p>Our build-time configuration, sometimes known as Application configuration, is something different and the difference, while subtle, can be a pitfall in certain situations.
+The difference shines when we consider that our code, and its configuration, is compiled into a build artifact we can distribute.</p>
+
+<p>We can say with certainty that no matter where our application is run there are certain things we want to remain constant; we intend to use the same <code class="highlighter-rouge">Logger</code> configuration regardless of where we deploy.
+If we’re relying on dependency injection for testing, then we know for certain we don’t want to use those dependencies in the final deliverable.
+They configure the function of our code.</p>
+
+<h3 id="how-its-been-done">How it’s been done</h3>
+
+<p>The frustration for many people has to do with the usage of <code class="highlighter-rouge">Application.get_env/2</code> and <code class="highlighter-rouge">System.get_env/1</code>.
+We’ll jump right in by looking at a configuration that’s common to many Elixir projects:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Config</span>
+
+<span class="n">config</span> <span class="ss">:example_app</span><span class="p">,</span> <span class="no">Data</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span>
+  <span class="ss">adapter:</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Adapters</span><span class="o">.</span><span class="no">MySQL</span><span class="p">,</span>
+  <span class="ss">username:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_USERNAME"</span><span class="p">),</span>
+  <span class="ss">password:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_PASSWORD"</span><span class="p">),</span>
+  <span class="ss">hostname:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_HOSTNAME"</span><span class="p">),</span>
+  <span class="ss">database:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_DATABASE"</span><span class="p">),</span>
+  <span class="ss">pool_size:</span> <span class="mi">10</span>
+</code></pre></div></div>
+
+<p>Simple and harmless enough, right?
+Wrong!</p>
+
+<p>Our application’s configuration, defined in <code class="highlighter-rouge">config.exs</code> and friends, is compiled when we generate build artifacts, like those produced by Distillery.
+That means those <code class="highlighter-rouge">System.get_env/1</code> functions need to be resolved at compile time.
+See the problem?
+Our application’s compiled code is coupled to the configuration of the system where it was compiled.</p>
+
+<p>What if we want to generate the build artifact locally and run it elsewhere?
+What if there’s an emergency and the value of <code class="highlighter-rouge">EXAMPLE_APP_HOSTNAME</code> has been updated?
+With this configuration our application needs to be recompiled for changes to take effect.</p>
+
+<p>Let’s illustrate the concept using colors to differentiate changes:</p>
+
+<p><img src="https://user-images.githubusercontent.com/73386/41503026-d8a66ef4-7185-11e8-95fa-37598f6a56ff.png" alt="elixir-config-recompile" /></p>
+
+<p>Here we see that our runtime values are different, which required us to recompile our code.
+This results in a new build artifact and updated configuration for Runtime B.
+We’ve managed to couple the runtime configuration and code together.
+To see changes in our environment reflected in our code recompilation is unavoidable.
+For those using releases this combination of configuration types often times requires additional libraries to fill the gaps.</p>
+
+<p>At its root, the problem is the conflation of two separate concepts: build-time and runtime configuration.</p>
+
+<h3 id="a-new-approach">A new approach</h3>
+
+<p>Now let’s look at another approach to configuration that enables changes to the runtime, without requiring our code to be recompiled:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ExampleApp</span><span class="o">.</span><span class="no">Repo</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Repo</span><span class="p">,</span> <span class="ss">otp_app:</span> <span class="ss">:data</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">build_opts</span><span class="p">(</span><span class="n">opts</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">build_opts</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">system_opts</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="ss">database:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_DATABASE"</span><span class="p">),</span>
+      <span class="ss">hostname:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_HOSTNAME"</span><span class="p">),</span>
+      <span class="ss">password:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_PASSWORD"</span><span class="p">),</span>
+      <span class="ss">username:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_USERNAME"</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="no">Keyword</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="n">system_opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here <code class="highlighter-rouge">Repo.init/2</code>, called on start, is used to update our configuration with values from the current system environment without the need to recompile anything.</p>
+
+<p>Now we could generate our build artifacts locally and run them elsewhere.
+How would the aforementioned scenario with <code class="highlighter-rouge">EXAMPLE_APP_HOSTNAME</code> changes play out?
+An application restart would pull the latest value, no compilation necessary.</p>
+
+<p>Let’s update our illustration from before to reflect this new approach:</p>
+
+<p><img src="https://user-images.githubusercontent.com/73386/41503027-d8b8ecc8-7185-11e8-8284-73d417fea6dc.png" alt="elixir-config" /></p>
+
+<p>Our runtime environments have changed but our application’s configuration and build artifacts have not, nor should they need to.</p>
+
+<p>We’ve managed to decouple our code from our runtime configuration with the added bonus of a configuration that is explicit and lives alongside the code.</p>
+
+<h3 id="bringing-it-together">Bringing it together</h3>
+
+<p>In our last example we see the benefit to separating our configuration into two distinct parts.
+An easy way to avoid the confusion and pitfalls of configuration is to remember this simple rule: <code class="highlighter-rouge">System.get_env/1</code> should never be used to populate our application’s configuration, the values defined in <code class="highlighter-rouge">config.exs</code>.</p>
+
+<p>Worried about what that means for local development and testing?
+There’s no need to fret!
+We can marry these two configuration types to keep things simple and easy for local development.</p>
+
+<p>Let’s update our <code class="highlighter-rouge">Repo.init/2</code> function to reject any values that resolve to <code class="highlighter-rouge">nil</code> at run time, failing back to the application configuration that’s been provided via <code class="highlighter-rouge">opts</code> (the values set in <code class="highlighter-rouge">config.exs</code>, <code class="highlighter-rouge">dev.exs</code>, and <code class="highlighter-rouge">test.exs</code>).</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">ExampleApp</span><span class="o">.</span><span class="no">Repo</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">build_opts</span><span class="p">(</span><span class="n">opts</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">build_opts</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">system_opts</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="ss">database:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_DATABASE"</span><span class="p">),</span>
+      <span class="ss">hostname:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_HOSTNAME"</span><span class="p">),</span>
+      <span class="ss">password:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_PASSWORD"</span><span class="p">),</span>
+      <span class="ss">username:</span> <span class="no">System</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">"EXAMPLE_APP_USERNAME"</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">system_opts</span>
+    <span class="o">|&gt;</span> <span class="n">remove_empty_opts</span><span class="p">()</span>
+    <span class="o">|&gt;</span> <span class="n">merge_opts</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">merge_opts</span><span class="p">(</span><span class="n">system_opts</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Keyword</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="n">system_opts</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">remove_empty_opts</span><span class="p">(</span><span class="n">system_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Enum</span><span class="o">.</span><span class="n">reject</span><span class="p">(</span><span class="n">system_opts</span><span class="p">,</span> <span class="k">fn</span> <span class="p">{</span><span class="n">_k</span><span class="p">,</span> <span class="n">value</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">is_nil</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>When our application starts it will attempt to retrieve those system variables, removing the <code class="highlighter-rouge">nil</code> values, and finally merging the options defined by our application configuration with the runtime configuration, giving precedence to the runtime options.</p>
+
+<p>Now we can use the <code class="highlighter-rouge">dev.exs</code> and <code class="highlighter-rouge">test.exs</code> files we’re so accustomed to while also ensuring our final build artifact will be correctly set up, thus making configuration of deployments a breeze.</p>
+
+<p>What do you think of this approach?
+We’d love to hear your thoughts!</p>
+
+<p>In our next configuration post we’ll look at how to design our libraries in a way to remove the need for <code class="highlighter-rouge">Application.get_env/2</code> while at the same time allowing multiple, independently configured, instances to live within the same application.</p>
+
+    
+    <div class="tags">
+      <h4 class="title">Article tags</h4>
+      
+        <span class="tag"><a href="/blog/tags/configuration/">configuration</a></span>
+      
+        <span class="tag"><a href="/blog/tags/software design/">software design</a></span>
+      
+      </div>
+    </p>
+    
+
+    <blockquote class="edit-lesson">
+      Caught a mistake or want to contribute to the article?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/_posts/2018-07-17-configuration-demystified.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+<section class="section-prevnext">
+  <div class="row">
+    <div class="6u 12u$(small)">
+      
+        <h4 class="title is-7 has-text-grey-light">Previous article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/elixir-in-action-review/" title="Reviewing Elixir in Action, Second Edition" rel="prev">&laquo; Reviewing Elixir in Action, Second Edition</a>
+      
+    </div>
+    <div class="6u 12u$(small)">
+      
+        <h4>Next article</h4>
+        <a class="button special fit" href="http://localhost:4000/blog/ecto-query-composition/" title="Ecto query composition" rel="next">Ecto query composition &raquo;</a>
+      
+    </div>
+  </div>
+</section>
+
+<section>
+
+    
+  
+    <div class="row profile">
+  <div class="1u 2u(medium) 12u$(small)"><img src="https://github.com/doomspork.png" alt="" style="max-width: 60px;"></div>
+  <div class="11u 10u(medium) 12u$(small)">
+    <h2>
+    
+      <a href="https://github.com/doomspork">Sean Callan</a>
+    
+    </h2>
+    <p class="content">Sean has been passionately involved with Elixir since the very beginning. After experiencing the joys of working with Elixir he created Elixir School and has become a core contributor to numerous libraries. During the day, Sean helps companies transition teams and codebases to Elixir.</p>
+    <ul class="icons">
+      
+      <li><a href="https://seancallan.com" class="icon fa-globe"><span class="label">Homepage</span></a></li>
+      
+      
+      <li><a href="https://twitter.com/doomspork" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+      
+      <li><a href="https://github.com/doomspork" class="icon fa-github"><span class="label">Github</span></a></li>
+    </ul>
+  </div>
+</div>
+
+  
+</section>
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2></h2>
+    <p>The premier destination for learning and mastering Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/" class=" up ">Home</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Basics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/basics/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/collections/">2. Collections</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pattern-matching/">4. Pattern Matching</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/control-structures/">5. Control Structures</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/functions/">6. Functions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/pipe-operator/">7. Pipe Operator</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/modules/">8. Modules</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/sigils/">10. Sigils</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/documentation/">11. Documentation</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/testing/">12. Testing</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/comprehensions/">13. Comprehensions</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/strings/">14. Strings</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/date-time/">15. Date and Time</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/mix-tasks/">16. Custom Mix Tasks</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/basics/iex-helpers/">17. IEx Helpers</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Advanced</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/erlang/">1. Erlang Interoperability</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/error-handling/">2. Error Handling</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/escripts/">3. Executables</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/concurrency/">4. Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-concurrency/">5. OTP Concurrency</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-supervisors/">6. OTP Supervisors</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/otp-distribution/">7. OTP Distribution</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/metaprogramming/">8. Metaprogramming</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/umbrella-projects/">9. Umbrella Projects</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/typespec/">10. Specifications and types</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/behaviours/">11. Behaviours</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/advanced/protocols/">13. Protocols</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/changesets/">2. Changesets</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/associations/">3. Associations</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/ecto/querying/">4. Querying</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Specifics</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/debugging/">5. Debugging</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/specifics/nerves/">6. Nerves</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Libraries</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/guardian/">1. Guardian (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/distillery/">5. Distillery (Basics)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/en/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up active">Blog</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Contributors</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>

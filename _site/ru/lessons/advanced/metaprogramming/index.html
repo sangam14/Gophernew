@@ -1,0 +1,1101 @@
+<!DOCTYPE HTML>
+
+
+
+<html lang="ru">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="description" content="Уроки программирования на языке Elixir">
+  <meta name="author" content="Sean Callan">
+
+  <meta property="og:url" content="http://localhost:4000/ru/lessons/advanced/metaprogramming/">
+  <meta property="og:site_name" content="ElixirSchool">
+  <meta property="og:title" content="Elixir School">
+  <meta property="og:locale" content="ru">
+  <meta property="og:description" content="Уроки программирования на языке Elixir">
+  <meta property="og:image" content="http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg">
+  
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="de" href="/de/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="en" href="/en/lessons/advanced/metaprogramming/" />
+      <link rel="alternate" hreflang="x-default" href="/en/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="es" href="/es/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="el" href="/gr/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="id" href="/id/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ja" href="/ja/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ko" href="/ko/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pl" href="/pl/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="pt" href="/pt/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="ru" href="/ru/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="vi" href="/vi/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hans" href="/zh-hans/lessons/advanced/metaprogramming/" />
+    
+  
+    
+    
+    
+    
+      <link rel="alternate" hreflang="zh-hant" href="/zh-hant/lessons/advanced/metaprogramming/" />
+    
+  
+
+  <link rel="canonical" href="http://localhost:4000/ru/lessons/advanced/metaprogramming/">
+  <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/assets/favicons/apple-touch-icon-06ad80501b5734bba0428ca0fc14fcbe45811a144914f7be78cdab3c3ea25458.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:4000/assets/favicons/favicon-32x32-6e7b9eca57d29d185a5184e844c1372ce9da0a71f373f89b80ff11f120b01678.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:4000/assets/favicons/favicon-16x16-789b56195138252cac40cf7f2425b6fcb4e71c3084abc8525781188781b958d3.png">
+  <link rel="manifest" href="http://localhost:4000/manifest.json">
+  <link rel="shortcut icon" href="http://localhost:4000/assets/favicons/favicon-8e1fdc2a44d6344b9871b3ecf53a803903891f82a602a3f59c65eda40f2b77b0.ico">
+  <link rel="alternate" type="application/rss+xml" title="Elixir School" href="https://elixirschool.com/feed.xml" />
+  <meta name="msapplication-config" content="http://localhost:4000/assets/favicons/browserconfig-e66282a6754e6899f9a53c6ebfe120749630242b741deb65f364abc297ccbc96.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  
+  <title>Метапрограммирование &middot; Elixir School</title>
+  <!-- CSS -->
+  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/assets/main-07a5a32c1a26652d2bb0e43b4c7ade37f20599a76cae3c1e871d3af53cff80b2.css">
+  <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/assets/ie9-0c07c3ea146a3dd5dce4effda97b3718824cab9c30149877c0e445edecfdee60.css"><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie8-f0c85ce6ad95a6d33929cb969a44f41a5e96ecb22de55f55d0f3c83cfc0012fc.css"><![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+  analytics.load("C0p07Sw9j7mZnycKDCgPOAyqJR5hhyoQ");
+  analytics.page()
+  }}();
+  </script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("http://localhost:4000/serviceworker.js", {
+          scope: "http://localhost:4000"
+        })
+        .then(reg => console.log("Service worker has been registered for scope: ", reg.scope))
+        .catch(error => console.log("Service worker registration has failed: ", error));
+      }
+    }  
+  </script>
+</head>
+
+	<body class="is-loading">
+    <script type="text/javascript">
+    var $theme = localStorage.getItem('theme');
+    if ($theme === 'dark') document.body.classList.add("dark");
+    </script>
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+					  <a href="/ru/" class="logo"><strong>Elixir School</strong></a>
+					  <ul class="icons">
+  
+  <li><iframe src="https://ghbtns.com/github-btn.html?user=elixirschool&repo=elixirschool&type=star&count=true" height="20" title="GitHub Stars" width="93" style="vertical-align: sub;"></iframe></li>
+  <li><a target="_blank" rel="noopener" title="RSS" href="https://elixirschool.com/feed.xml" class="icon fa-rss-square"><span class="label">RSS</span></a></li>
+  <li><a target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ru/lessons/advanced/metaprogramming/&title=Метапрограммирование&summary=description&source=http://localhost:4000" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/intent/tweet?url=http://localhost:4000/ru/lessons/advanced/metaprogramming/&via=elixirschool&text=ElixirSchool: Метапрограммирование&hashtags=learnelixir%2Celixirlang&" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/ru/lessons/advanced/metaprogramming/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Pinterest" href="https://www.pinterest.com/pin/create/link/?url=http://localhost:4000/ru/lessons/advanced/metaprogramming/&media=http://localhost:4000/assets/og_image-fad975b316dea5dc361d199bdfaa076006da49a0a3296f799aa7217b4c8b0cbe.jpg&description=ElixirSchool: Метапрограммирование" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+  <li><a target="_blank" rel="noopener" title="VK" href="https://vk.com/share.php?url=http://localhost:4000/ru/lessons/advanced/metaprogramming/&title=ElixirSchool: Метапрограммирование&description=Check out 'Метапрограммирование' on ElixirSchool" class="icon fa-vk"><span class="label">VK</span></a></li>
+  <li><a target="_blank" rel="noopener" title="Email" href="mailto:?to=&subject=ElixirSchool: Метапрограммирование&body=Check out 'Метапрограммирование' on ElixirSchool%0D%0A%0D%0Ahttp://localhost:4000/ru/lessons/advanced/metaprogramming/" class="icon fa-envelope"><span class="label">Email</span></a></li>
+  <li><a title="Print" href="javascript:window.print()" class="icon fa-print"><span class="label">Print</span></a></li>
+</ul>
+
+					</header>
+					<section id="section-page" class="ltr">
+  <header class="main">
+    
+    <h1 class="page-title">
+  <span class="version-difference-indicator version-difference-none"></span>
+  Метапрограммирование
+</h1>
+<div class="version-info version-info-none">
+  <span>
+    
+
+    Это перевод актуальной версии оригинального урока.
+  </span>
+</div>
+
+    
+  </header>
+  <div class="content">
+    <p>Метапрограммирование — процесс написания кода с помощью другого кода.
+В Elixir это дает нам возможность расширять возможности языка для большего соответствия нуждам приложения.
+Мы начнем этот урок с рассмотрения внутреннего представления Elixir кода, а потом узнаем, как его модифицировать. И, в итоге, мы применим эти знания для создания собственных расширений языка.</p>
+
+<p>Предупреждение: метапрограммирование это сложно и оно должно использоваться только, когда абсолютно необходимо.
+Злоупотребление этим инструментом приведет к нечитабельности и сложностям в отладке кода.</p>
+
+<h2>Содержание</h2>
+<div id="toc"></div>
+
+<h2 id="quote">Quote</h2>
+
+<p>Первый шаг к пониманию метапрограммирования — понимание, что представляют собой выражения.
+В Elixir внутреннее представление абстрактного синтаксического дерева (AST) состоит из кортежей.
+Эти кортежи состоят из трех частей: название функции, метаданные и аргументы функции.</p>
+
+<p>Для того чтобы увидеть эти внутренние структуры, в Elixir есть функция <code class="highlighter-rouge">quote/2</code>.
+ С ее помощью мы можем увидеть внутреннее представление Elixir кода:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="mi">42</span>
+<span class="mi">42</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello"</span>
+<span class="s2">"Hello"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="ss">:world</span>
+<span class="ss">:world</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="p">{</span><span class="ss">:+</span><span class="p">,</span> <span class="p">[</span><span class="ss">context:</span> <span class="no">Elixir</span><span class="p">,</span> <span class="kn">import</span><span class="p">:</span> <span class="no">Kernel</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="k">if</span> <span class="n">value</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"True"</span><span class="p">,</span> <span class="k">else</span><span class="p">:</span> <span class="s2">"False"</span>
+<span class="p">{</span><span class="ss">:if</span><span class="p">,</span> <span class="p">[</span><span class="ss">context:</span> <span class="no">Elixir</span><span class="p">,</span> <span class="kn">import</span><span class="p">:</span> <span class="no">Kernel</span><span class="p">],</span>
+ <span class="p">[{</span><span class="ss">:value</span><span class="p">,</span> <span class="p">[],</span> <span class="no">Elixir</span><span class="p">},</span> <span class="p">[</span><span class="k">do</span><span class="p">:</span> <span class="s2">"True"</span><span class="p">,</span> <span class="k">else</span><span class="p">:</span> <span class="s2">"False"</span><span class="p">]]}</span>
+</code></pre></div></div>
+
+<p>Заметили, что первые три не возвращают кортеж? Есть всего пять выражений, которые возвращают сами себя при использовании <code class="highlighter-rouge">quote/2</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="ss">:atom</span>
+<span class="ss">:atom</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="s2">"string"</span>
+<span class="s2">"string"</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="mi">1</span> <span class="c1"># Все числа</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># Списки</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="p">{</span><span class="s2">"hello"</span><span class="p">,</span> <span class="ss">:world</span><span class="p">}</span> <span class="c1"># кортеж из 2 элементов</span>
+<span class="p">{</span><span class="s2">"hello"</span><span class="p">,</span> <span class="ss">:world</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="unquote">Unquote</h2>
+
+<p>Теперь мы можем получить внутреннюю структуру кода, но как ее изменить? Для вставки нового кода или значений мы используем <code class="highlighter-rouge">unquote/1</code>.
+Когда мы раскрываем выражение, оно будет выполнено и результат вставлен в AST.
+Для демонстрации этого давайте посмотрим на пару примеров:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">denominator</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="mi">2</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">divide</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">denominator</span><span class="p">)</span>
+<span class="p">{</span><span class="ss">:divide</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="p">{</span><span class="ss">:denominator</span><span class="p">,</span> <span class="p">[],</span> <span class="no">Elixir</span><span class="p">}]}</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">divide</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">denominator</span><span class="p">))</span>
+<span class="p">{</span><span class="ss">:divide</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}</span>
+</code></pre></div></div>
+
+<p>В первом примере переменная <code class="highlighter-rouge">denominator</code> экранирована, потому результирующий AST включает кортеж для доступа к переменной.
+Во втором примере в результирующем коде будет только её значение.</p>
+
+<h2 id="макросы">Макросы</h2>
+
+<p>Как только мы разобрались, как работают <code class="highlighter-rouge">quote/2</code> и <code class="highlighter-rouge">unquote/1</code>, мы готовы к погружению в макросы.
+Важно помнить, что макросы, как и всё в метапрограммировании, должны использоваться очень осторожно.</p>
+
+<p>В простейших терминах макросы — это специальные функции, созданные для возврата экранированных выражений, которые затем будут вставлены в код приложения.
+Представьте себе, что макрос заменяется значением, которое он вернет, а не будет вызван как функция.
+С макросами у нас есть все необходимое для расширения языка и динамического добавления кода в наше приложение.</p>
+
+<p>Мы начнем с определения макроса с использованием <code class="highlighter-rouge">defmacro/2</code>, который в свою очередь (как и многое в Elixir), тоже является макросом.
+В качестве примера давайте имплементируем <code class="highlighter-rouge">unless</code> как макрос.
+Стоит помнить, что макрос должен вернуть экранированное значение:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">OurMacro</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="k">unless</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">block</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="n">!unquote</span><span class="p">(</span><span class="n">expr</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Давайте подключим этот модуль и попробуем использовать этот макрос:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">require</span> <span class="no">OurMacro</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">OurMacro</span><span class="o">.</span><span class="k">unless</span> <span class="no">true</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi"</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">OurMacro</span><span class="o">.</span><span class="k">unless</span> <span class="no">false</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi"</span>
+<span class="s2">"Hi"</span>
+</code></pre></div></div>
+
+<p>Так как макрос заменяет код в самом приложении, мы можем контролировать, что и когда компилируется.
+Отличным примером является модуль <code class="highlighter-rouge">Logger</code>.
+Когда логирование отключено, код не подключается, и результирующее приложение не содержит никаких отсылок к коду логирования.
+Этим Elixir отличается от других языков, в которых будут накладные расходы на вызовы пустых функций.</p>
+
+<p>Для демонстрации этого давайте сделаем простой логгер, который может быть включен или выключен.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Logger</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="no">Application</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="ss">:logger</span><span class="p">,</span> <span class="ss">:enabled</span><span class="p">)</span> <span class="k">do</span>
+      <span class="kn">quote</span> <span class="k">do</span>
+        <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Логируемое сообщение: </span><span class="si">#{</span><span class="kn">unquote</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="kn">require</span> <span class="no">Logger</span>
+
+  <span class="k">def</span> <span class="n">test</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"Это запись в журнале"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Когда логирование включено, наша функция <code class="highlighter-rouge">test</code> сгенерирует приблизительно такой код:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">test</span> <span class="k">do</span>
+  <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Logged message: </span><span class="si">#{</span><span class="s2">"Это запись в журнале"</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>А когда логирование будет отключено - вот такой:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">test</span> <span class="k">do</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="отладка">Отладка</h3>
+
+<p>Отлично, теперь мы знаем, как использовать <code class="highlighter-rouge">quote/2</code>, <code class="highlighter-rouge">unquote/1</code> и писать макросы.
+Но что, если у вас есть огромный кусок AST, и вы хотите в нём разобраться? В таком случае вы можете использовать <code class="highlighter-rouge">Macro.to_string/2</code>.
+Рассмотрим следующий пример:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="kn">quote</span><span class="p">(</span><span class="k">do</span><span class="p">:</span> <span class="n">foo</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="s2">"foo.bar(1, 2, 3)"</span>
+</code></pre></div></div>
+
+<p>А когда вы хотите посмотреть на код, сгенерированный макросами, можете сочетать их с <code class="highlighter-rouge">Macro.expand/2</code> и <code class="highlighter-rouge">Macro.expand_once/2</code>. Эти функции расширяют макросы в соответствующий им код.
+Первая функция может расширять макрос несколько раз, а вторая — только один.
+К примеру, давайте изменим пример с <code class="highlighter-rouge">unless</code> из предыдущей секции:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">OurMacro</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="k">unless</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">block</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="n">!unquote</span><span class="p">(</span><span class="n">expr</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="kn">unquote</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="kn">require</span> <span class="no">OurMacro</span>
+
+<span class="n">quoted</span> <span class="o">=</span>
+  <span class="kn">quote</span> <span class="k">do</span>
+    <span class="no">OurMacro</span><span class="o">.</span><span class="k">unless</span><span class="p">(</span><span class="no">true</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hi"</span><span class="p">)</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">quoted</span> <span class="o">|&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">expand_once</span><span class="p">(</span><span class="n">__ENV__</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">to_string</span> <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span>
+<span class="k">if</span><span class="p">(</span><span class="n">!true</span><span class="p">)</span> <span class="k">do</span>
+  <span class="s2">"Hi"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Если запустить тот же код с <code class="highlighter-rouge">Macro.expand/2</code>, результат интригует:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="n">quoted</span> <span class="o">|&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">__ENV__</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="no">Macro</span><span class="o">.</span><span class="n">to_string</span> <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span>
+<span class="k">case</span><span class="p">(</span><span class="n">!true</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">x</span> <span class="ow">when</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="no">false</span><span class="p">,</span> <span class="no">nil</span><span class="p">]</span> <span class="o">-&gt;</span>
+    <span class="no">nil</span>
+  <span class="n">_</span> <span class="o">-&gt;</span>
+    <span class="s2">"Hi"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Помните, ранее мы упоминали <code class="highlighter-rouge">if</code>? В Elixir это макрос, а мы расширили его в соответствующее выражение <code class="highlighter-rouge">case</code>.</p>
+
+<h3 id="закрытые-макросы">Закрытые макросы</h3>
+
+<p>Хоть это и нечастый случай, Elixir поддерживает закрытые макросы.
+Закрытый макрос определяется вызовом <code class="highlighter-rouge">defmacrop</code> и сможет быть вызван только из того модуля, в котором он был определен.
+Закрытые макросы должны быть определены раньше, чем будут вызваны кодом.</p>
+
+<h3 id="гигиена-при-использовании-макросов">Гигиена при использовании макросов</h3>
+
+<p>Взаимодействие макросов с контекстом вызова называется гигиеной макросов.
+По умолчанию макрос в Elixir гигиеничен и не будет конфликтовать с контекстом:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">hygienic</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">require</span> <span class="no">Example</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="mi">42</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">hygienic</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span>
+<span class="mi">42</span>
+</code></pre></div></div>
+
+<p>Но что, если мы хотим изменять значение <code class="highlighter-rouge">val</code>? Для того чтобы обозначить переменную негигиеничной, мы можем использовать <code class="highlighter-rouge">var!/2</code>.
+Давайте изменим пример с использованием этого трюка:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">hygienic</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="k">defmacro</span> <span class="n">unhygienic</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span><span class="p">:</span> <span class="n">var!</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>И посмотрим, как он теперь взаимодействует с контекстом:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="kn">require</span> <span class="no">Example</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="mi">42</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">hygienic</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span>
+<span class="mi">42</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">unhygienic</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">val</span>
+<span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>Включая <code class="highlighter-rouge">var!/2 </code>в макрос, мы изменили значение <code class="highlighter-rouge">val</code>, не передавая его внутрь макроса.
+Использование таких макросов должно быть минимальным.
+Используя <code class="highlighter-rouge">var!/2</code>, мы увеличиваем вероятность конфликта имен.</p>
+
+<h3 id="контекст">Контекст</h3>
+
+<p>Мы уже рассмотрели полезность <code class="highlighter-rouge">unquote/1</code>, но есть еще один нюанс при включении значений в наш код: контекст.
+С контекстом переменных мы можем включить один код несколько раз внутри макроса и убедиться, что он выполнится только один раз, препятствуя повторным выполнениям.
+Для использования этой возможности мы должны передать названия таких переменных в опцию <code class="highlighter-rouge">bind_quoted</code> функции <code class="highlighter-rouge">quote/2</code> в виде ключевого списка.</p>
+
+<p>Для того чтобы увидеть пользу от <code class="highlighter-rouge">bind_quote</code> и показать проблему двойной распаковки, давайте рассмотрим этот пример:
+Начнём с создания макроса, который просто выводит выражение дважды:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">double_puts</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="k">do</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="kn">unquote</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="kn">unquote</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Попробуем наш новый макрос, передав ему функцию текущего системного времени.
+Мы ожидаем, что она выведет значение дважды:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">double_puts</span><span class="p">(</span><span class="ss">:os</span><span class="o">.</span><span class="n">system_time</span><span class="p">)</span>
+<span class="mi">1450475941851668000</span>
+<span class="mi">1450475941851733000</span>
+</code></pre></div></div>
+
+<p>Время отличается! Что произошло? Использование <code class="highlighter-rouge">unquote/1</code> на одном и том же выражении несколько раз приводит к выполнению этого кода несколько раз, что может обернуться неприятными последствиями.
+Давайте обновим наш код с использованием <code class="highlighter-rouge">bind_quoted</code> и посмотрим, что получится:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+  <span class="k">defmacro</span> <span class="n">double_puts</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">quote</span> <span class="ss">bind_quoted:</span> <span class="p">[</span><span class="ss">expr:</span> <span class="n">expr</span><span class="p">]</span> <span class="k">do</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+      <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">iex</span><span class="o">&gt;</span> <span class="kn">require</span> <span class="no">Example</span>
+<span class="no">nil</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="no">Example</span><span class="o">.</span><span class="n">double_puts</span><span class="p">(</span><span class="ss">:os</span><span class="o">.</span><span class="n">system_time</span><span class="p">)</span>
+<span class="mi">1450476083466500000</span>
+<span class="mi">1450476083466500000</span>
+</code></pre></div></div>
+
+<p>С <code class="highlighter-rouge">bind_quoted</code> мы получаем ожидаемый результат: одно и то же время выведено дважды.</p>
+
+<p>Теперь, когда мы познакомились с <code class="highlighter-rouge">quote/2</code>, <code class="highlighter-rouge">unquote/1</code>, и <code class="highlighter-rouge">defmacro/2</code>, у нас есть все необходимые инструменты для расширения языка Elixir под наши нужды.</p>
+
+    
+    <blockquote class="edit-lesson">    
+      Caught a mistake or want to contribute to the lesson?
+      <a href="https://github.com/elixirschool/elixirschool/edit/master/ru/lessons/advanced/metaprogramming.md" target="_blank" rel="noopener">
+        Edit this page on GitHub!
+      </a>
+    </blockquote>
+  </div>
+</section>
+
+
+
+<section>
+
+<div class="row">
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/advanced/otp-supervisors/" title="OTP Супервизоры">← OTP Супервизоры</a>
+    </div>
+    
+    
+    
+    <div class="6u 12u$(small)">
+        <a class="button special fit" href="/ru/lessons/advanced/umbrella-projects/" title="Зонтичные проекты">Зонтичные проекты →</a>
+    </div>
+    
+</div>
+</section>
+
+
+
+
+				</div>
+			</div>
+			<!-- Sidebar -->
+  <div id="sidebar">
+    <p class="toggle-theme-wrapper"><a rel="noopener" href="#toggle-theme" class="toggle-theme icon fas fa-circle-o" alt="Toggle Theme" title="Toggle Theme"></a></p>
+
+    <div class="inner">
+      
+<!-- Locales Section -->
+<section id="search" class="alt">
+  <div id="locales">
+
+      
+        
+        
+
+        
+          <a href="/de/lessons/advanced/metaprogramming/" title="Немецкий">de</a>
+        
+      
+        
+        
+
+        
+          <a href="/en/lessons/advanced/metaprogramming/" title="Английский / English">en</a>
+        
+      
+        
+        
+
+        
+          <a href="/es/lessons/advanced/metaprogramming/" title="Испанский / Español">es</a>
+        
+      
+        
+        
+
+        
+          <a href="/gr/lessons/advanced/metaprogramming/" title="Греческий">gr</a>
+        
+      
+        
+        
+
+        
+          <a href="/id/lessons/advanced/metaprogramming/" title="Индонезийский / Bahasa Indonesia">id</a>
+        
+      
+        
+        
+
+        
+          <a href="/ja/lessons/advanced/metaprogramming/" title="Японский / 日本語">ja</a>
+        
+      
+        
+        
+
+        
+          <a href="/ko/lessons/advanced/metaprogramming/" title="Корейский">ko</a>
+        
+      
+        
+        
+
+        
+          <a href="/pl/lessons/advanced/metaprogramming/" title="Польский">pl</a>
+        
+      
+        
+        
+
+        
+          <a href="/pt/lessons/advanced/metaprogramming/" title="Португальский">pt</a>
+        
+      
+        
+        
+
+        
+          <strong title="Русский">ru</strong>
+        
+      
+        
+        
+
+        
+          <a href="/vi/lessons/advanced/metaprogramming/" title="Вьетнамский">vi</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hans/lessons/advanced/metaprogramming/" title="Китайский">zh-hans</a>
+        
+      
+        
+        
+
+        
+          <a href="/zh-hant/lessons/advanced/metaprogramming/" title="Китайский традиционный">zh-hant</a>
+        
+      
+
+  </div>
+</section>
+
+
+      
+<!-- Menu -->
+<nav id="menu">
+  <span class="stack-info otp-version">Elixir 1.10.1 - Erlang/OTP 22.0 [erts-10.5.3]</span>
+  <header class="major">
+    <h2>Меню</h2>
+    <p>Уроки программирования на языке Elixir</p>
+  </header>
+  <ul>
+    <li>
+      <a href="/ru/" class=" up ">Домашняя страница</a>
+    </li>
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Основы</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/basics/">1. Основы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/collections/">2. Коллекции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/enum/">3. Enum</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pattern-matching/">4. Сопоставление с образцом</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/control-structures/">5. Управляющие конструкции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/functions/">6. Функции</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/pipe-operator/">7. Оператор конвейера</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/modules/">8. Модули</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix/">9. Mix</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/sigils/">10. Строковые метки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/documentation/">11. Документирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/testing/">12. Тестирование</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/comprehensions/">13. Списковые включения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/strings/">14. Строки</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/date-time/">15. Дата и время</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/mix-tasks/">16. Пользовательские Mix-задачи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/basics/iex-helpers/">17. IEx функции</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener active up">Продвинутый</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/erlang/">1. Взаимодействие с Erlang</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/error-handling/">2. Обработка ошибок</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/escripts/">3. Исполняемые файлы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/concurrency/">4. Параллелизм</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-concurrency/">5. Параллелизм в OTP</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/otp-supervisors/">6. OTP Супервизоры</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <span class="active">8. Метапрограммирование</span>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/umbrella-projects/">9. Зонтичные проекты</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/typespec/">10. Спецификации и типы</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/behaviours/">11. Поведения</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/gen-stage/">12. GenStage</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/advanced/protocols/">13. Протоколы</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Ecto</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/basics/">1. Basics</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/changesets/">2. Наборы изменений</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/associations/">3. Связи</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/ecto/querying/">4. Язык запросов</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Специфика</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/plug/">1. Plug</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/eex/">2. Embedded Elixir (EEx)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/ets/">3. Erlang Term Storage (ETS)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/mnesia/">4. Mnesia</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/specifics/debugging/">5. Отладка</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    
+    
+    
+    
+    
+      
+        
+        <li>
+          <span class="opener up">Библиотеки</span>
+          <ul>
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/guardian/">1. Guardian (Основы)</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/poolboy/">2. Poolboy</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/benchee/">3. Benchee</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/bypass/">4. Bypass</a>
+              
+            </li>
+        
+      
+        
+            <li>
+              
+              <a href="/ru/lessons/libraries/stream-data/">6. StreamData</a>
+              
+            </li>
+        
+          </ul>
+        </li>
+        
+      
+    
+  
+    <li>
+      <a href="/blog/" class=" up ">Блог</a>
+    </li>
+    
+    <li>
+      <a href="/ru/report/" class=" up ">Состояние перевода</a>
+    </li>
+    
+    <li>
+      <a href="/contributors/" class=" up ">Участники</a>
+    </li>
+  </ul>
+</nav>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <p class="copyright">&copy; 2021 <a target="_blank" rel="noopener" href="https://github.com/doomspork">Sean Callan</a> All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+		</div>
+		<!-- Scripts -->
+
+    <script async="" src="/assets/main-f8c201d2721dcb6d1d4f6acb0ebd2b2c192757ed29271f519513e4417e347611.js" type="text/javascript"></script>
+		<!--[if lte IE 8]><script async="" src="/assets/ie/respond.min-8306093ccce666c01dab405fac0d16596a1d1cf38aa0ba919d4831261662cdbb.js" type="text/javascript"></script><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	</body>
+</html>
